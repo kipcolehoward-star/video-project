@@ -290,3 +290,14 @@ preview → QC → final render. Each stage writes files into `projects/<id>/`.
 | `example-project` | 16:9 + 9:16 | 24.8 s | format/caption/audio test bed |
 | `how-gps-knows-where-you-are` | 16:9 | 88.2 s | first real video, rendered 2026-10-06; no music (none licensed); research.md cites every claim |
 | `facts-about-911` | 16:9 | 8:06 | user's script verbatim; Edge voice Brian (non-monetised); 8 licensed photos; synthesised phone ring; captions off (SRT exported) |
+
+## Backup (git)
+
+Private repo: https://github.com/kipcolehoward-star/video-project (branch `main`).
+- Commit + push after meaningful work (a finished video, a framework change).
+- Never commit `.env` (gitignored). Before pushing, scan staged files for the
+  `.env` key values and common key patterns.
+- Not in git (by design): `node_modules/`, `tools/` (npm install / npm run
+  setup:tools), previews, mixes (npm run audio), Epidemic music WAVs
+  (re-download by ID from assets.json), and final MP4s — back those up
+  separately (e.g. OneDrive). Subtitles and credits files are committed.
