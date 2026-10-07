@@ -54,7 +54,7 @@ export interface AtlasData {
   }[];
   shake?: At[];
   /** Map palette; defaults from the project theme (geo -> geo, paper -> paper, else atlas). */
-  palette?: 'atlas' | 'geo' | 'paper';
+  palette?: 'atlas' | 'geo' | 'paper' | 'dusk' | 'ocean';
   /** Second highlight colour (yellow in geo/paper). */
   alt?: {name: string; at?: At}[];
   /**
@@ -123,10 +123,25 @@ const PALETTES = {
   paper: {
     bg: '#f4efea', ocean: '#d6e1e4', land: '#f4efea', warm: '#e3d5c1', gold: '#ff3b30', alt: '#ffcc00',
     border: 'rgba(60,50,40,0.35)', grid: 'rgba(60,50,40,0.08)', river: '#6f9fbf', admin1: 'rgba(60,50,40,0.25)',
-    disputed: '#8e8e93', ink: '#1c1a17', halo: '#f4efea', limb: 'rgba(60,50,40,0.35)',
+    disputed: '#8e8e93', ink: '#1c1a17', halo: '#f4efea', limb: 'rgba(60,50,40,0.35)', borderW: 1.1,
+  },
+  // Dark like atlas, but lifted: readable land/sea contrast and clear borders.
+  dusk: {
+    bg: '#0c1824', ocean: '#16344f', land: '#3b4740', warm: '#7d7366', gold: '#e8b04a', alt: '#8fc1e3',
+    border: 'rgba(255,255,255,0.5)', grid: 'rgba(255,255,255,0.08)', river: '#5b9bd0', admin1: 'rgba(255,255,255,0.25)',
+    disputed: '#9a9aa0', ink: '#ffffff', halo: '#0c1824', limb: 'rgba(170,200,230,0.35)', borderW: 1.3,
+  },
+  // Classic explainer map: blue sea, light land, dark borders; overlay text stays white.
+  ocean: {
+    bg: '#1d4466', ocean: '#2f6c9c', land: '#e9e3d2', warm: '#d8bf8f', gold: '#f2a516', alt: '#d9473b',
+    border: 'rgba(40,35,30,0.6)', grid: 'rgba(255,255,255,0.12)', river: '#2f6c9c', admin1: 'rgba(40,35,30,0.3)',
+    disputed: '#a39d92', ink: '#16222e', halo: '#f4efe2', limb: 'rgba(255,255,255,0.3)', borderW: 1.3, textInk: '#ffffff',
+    // routes get a dark underlay; water names are white on a blue halo
+    routeHalo: 'rgba(12,28,42,0.55)', waterInk: 'rgba(255,255,255,0.9)', waterHalo: 'rgba(22,58,90,0.85)',
   },
 } as const;
 type PaletteName = keyof typeof PALETTES;
+type Palette = (typeof PALETTES)[PaletteName] & {borderW?: number; textInk?: string; routeHalo?: string; waterInk?: string; waterHalo?: string};
 
 function regionsFor(ctx: LayoutContext): Record<string, Region> {
   return {map: {role: 'media', x: 0, y: 0, w: ctx.W, h: ctx.H}, text: {role: 'overlay', ...ctx.safe}};
@@ -141,7 +156,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
   const cueAt = useCue(scene);
   const d = scene.data;
   const {W, H, unit} = ctx;
-  const PALETTE = PALETTES[(d.palette ?? (theme.id in PALETTES ? theme.id : 'atlas')) as PaletteName];
+  const PALETTE: Palette = PALETTES[(d.palette ?? (theme.id in PALETTES ? theme.id : 'atlas')) as PaletteName];
   const at = (v: At | undefined, fallback = 0) => (v === undefined ? fallback : typeof v === 'number' ? Math.round(v * fps) : cueAt(v, fallback));
 
   // ---- camera (keyframes -> lon/lat/zoom), log-space zoom
@@ -235,10 +250,10 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
   };
 
   const textStyle = (style: string | undefined, tone: string | undefined): React.CSSProperties => {
-    const color = tone === 'gold' ? PALETTE.gold : PALETTE.ink;
+    const color = tone === 'gold' ? PALETTE.gold : (PALETTE.textInk ?? PALETTE.ink);
     if (style === 'sub') return {fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.25), fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', color};
     const size = style === 'stamp' ? ctx.type.display * 0.95 : ctx.type.display * 1.35;
-    return {fontFamily: '"Bebas Neue", "Anton", sans-serif', fontSize: Math.round(size), lineHeight: 0.95, letterSpacing: '0.01em', textTransform: 'uppercase', color, textShadow: PALETTE.ink === '#ffffff' ? `0 ${4 * unit}px ${24 * unit}px rgba(0,0,0,0.65)` : 'none'};
+    return {fontFamily: '"Bebas Neue", "Anton", sans-serif', fontSize: Math.round(size), lineHeight: 0.95, letterSpacing: '0.01em', textTransform: 'uppercase', color, textShadow: color === '#ffffff' ? `0 ${4 * unit}px ${24 * unit}px rgba(0,0,0,0.65)` : 'none'};
   };
 
   return (
@@ -260,7 +275,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
               // Over satellite imagery, plain land is transparent; highlights stay (slightly see-through).
               const plain = fill === PALETTE.land;
               const fo = plain ? op * (1 - sat) : op * (1 - 0.35 * sat);
-              return dd ? <path key={i} d={dd} fill={fill} fillOpacity={fo} stroke={sat > 0.5 ? 'rgba(255,255,255,0.35)' : PALETTE.border} strokeWidth={0.8 * unit} /> : null;
+              return dd ? <path key={i} d={dd} fill={fill} fillOpacity={fo} stroke={sat > 0.5 ? 'rgba(255,255,255,0.35)' : PALETTE.border} strokeWidth={(PALETTE.borderW ?? 0.8) * unit} /> : null;
             })}
             {/* Lakes (cut out of the land), province borders, rivers, disputed areas. */}
             {lakes ? (
@@ -357,7 +372,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
               const len = Math.round((r.duration ?? 2.5) * fps);
               const t = interpolate(frame, [f0, f0 + len], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: EASE_IN_OUT});
               if (frame < f0) return null;
-              const color = r.color === 'white' ? PALETTE.ink : r.color === 'red' ? '#ff3b30' : PALETTE.gold;
+              const color = r.color === 'white' ? (PALETTE.textInk ?? PALETTE.ink) : r.color === 'red' ? '#ff3b30' : PALETTE.gold;
               const drawn = routeUpTo(sampled, t);
               const dd = path({type: 'LineString', coordinates: drawn});
               const tip = projection(drawn[drawn.length - 1]);
@@ -386,7 +401,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
                     <>
                       {/* soft dark underlay keeps the line readable over any land colour */}
                       {/* halo in the palette's background tone: dark on dark maps, light on paper */}
-                      <path d={dd} fill="none" stroke={PALETTE.halo} strokeOpacity={0.7} strokeWidth={9 * unit} strokeLinecap="round" strokeLinejoin="round" />
+                      <path d={dd} fill="none" stroke={PALETTE.routeHalo ?? PALETTE.halo} strokeOpacity={PALETTE.routeHalo ? 1 : 0.7} strokeWidth={9 * unit} strokeLinecap="round" strokeLinejoin="round" />
                       <path d={dd} fill="none" stroke={color} strokeWidth={4.5 * unit} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={r.style === 'dashed' ? `${12 * unit} ${9 * unit}` : undefined} />
                     </>
                   ) : null}
@@ -439,7 +454,8 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
               const pt = f ? projection(geoCentroid(f)) : l.lon !== undefined && l.lat !== undefined ? projection([l.lon, l.lat]) : null;
               if (!pt) return null;
               const p = progress(frame, at(l.at, 0), 12);
-              const color = l.tone === 'gold' ? PALETTE.gold : l.tone === 'muted' ? (PALETTE.ink === '#ffffff' ? 'rgba(255,255,255,0.55)' : 'rgba(28,26,23,0.55)') : PALETTE.ink;
+              const color = l.tone === 'gold' ? PALETTE.gold : l.tone === 'muted' ? (PALETTE.waterInk ?? (PALETTE.ink === '#ffffff' ? 'rgba(255,255,255,0.55)' : 'rgba(28,26,23,0.55)')) : PALETTE.ink;
+              const halo = l.tone === 'muted' && PALETTE.waterHalo ? PALETTE.waterHalo : PALETTE.halo;
               return (
                 <g key={i} opacity={p}>
                   {l.lon !== undefined && l.dot !== false ? <circle cx={pt[0]} cy={pt[1]} r={7 * unit} fill={PALETTE.gold} stroke={PALETTE.halo} strokeWidth={3 * unit} /> : null}
@@ -449,7 +465,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
                     textAnchor={l.lon !== undefined && l.dot !== false ? 'start' : 'middle'}
                     dominantBaseline="middle"
                     fill={color}
-                    style={{fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.15), fontWeight: 700, letterSpacing: '0.14em', paintOrder: 'stroke', stroke: PALETTE.halo, strokeWidth: 5 * unit}}
+                    style={{fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.15), fontWeight: 700, letterSpacing: '0.14em', paintOrder: 'stroke', stroke: halo, strokeWidth: 5 * unit}}
                   >
                     {l.text.toUpperCase()}
                   </text>
@@ -496,7 +512,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
             }}
           >
             {/* Over photos and archival maps, text gets a dark panel for legibility. */}
-            {d.background ? (
+            {d.background || (PALETTE.textInk && t.style === 'sub') ? (
               <span style={{background: 'rgba(8, 11, 15, 0.78)', padding: t.style === 'sub' ? `${8 * unit}px ${16 * unit}px` : `${4 * unit}px ${22 * unit}px ${0}px`, boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone', lineHeight: t.style === 'sub' ? 2.1 : 1.15}}>{content}</span>
             ) : (
               content

@@ -80,8 +80,8 @@ Register in `src/scenes/registry.ts`; reference by `type` in storyboard.json.
 Current: `title`, `split`, `statistic` (auto-fits the number, thousands
 separators, optional bar/column chart), `steps` (numbered process),
 `comparison` (values with count-up, `lead` operator, highlight), `diagram`
-(animated diagram in the media slot; library in `src/graphics/diagrams/`,
-currently `trilateration`), `map` (world/usa from public-domain data; shapes
+(animated diagram in the media slot; library in `src/graphics/diagrams/`:
+`trilateration`, `call-routing`, `channel-depth` — strait cross-section, 25 m depth vs 20.5 m Malaccamax draught), `map` (world/usa from public-domain data; shapes
 highlight and pins drop on cues; tiny places are pins, not shapes), `photo`
 (full-bleed photo, focal-point push-in, lower-left title on a cue), `list`
 (display / numbered recap / pairs, fitted to space, optional photo backdrop),
@@ -184,7 +184,10 @@ Atlas options (all timing via cue word or seconds):
   draw themselves with an arrowhead. Use `via` waypoints to keep sea lanes at sea
   (e.g. Malacca, Bab-el-Mandeb, Suez, offshore Iberia) and check the still.
 - `palette`: atlas (dark/amber) | geo (slate, red #FF3B30 focus, yellow #FFCC00 `alt`,
-  grey #8E8E93 disputed) | paper (parchment, dark ink). Defaults from project theme
+  grey #8E8E93 disputed) | paper (parchment, dark ink) | dusk (navy sea, lifted grey-green
+  land, clear white borders — dramatic beats) | ocean (blue sea, cream land, dark borders,
+  white overlay text on dark panels — explainer beats). The user found atlas/geo too dark with
+  faint borders (2026-10-07): default to mixing ocean (explainers) + dusk (drama) + paper (history). Defaults from project theme
   (`geo`/`paper` themes exist). `alt: [{name, at}]` = second highlight colour.
 - `basemap: "satellite"` — NASA Blue Marble (public domain, data/geo/raster) on the
   globe, cross-fading to the vector map between zoom 1.3 and 3.2. Heaviest effect
@@ -331,6 +334,8 @@ preview → QC → final render. Each stage writes files into `projects/<id>/`.
 | `example-project` | 16:9 + 9:16 | 24.8 s | format/caption/audio test bed |
 | `how-gps-knows-where-you-are` | 16:9 | 88.2 s | first real video, rendered 2026-10-06; no music (none licensed); research.md cites every claim |
 | `facts-about-911` | 16:9 | 8:06 | user's script verbatim; Edge voice Brian (non-monetised); 8 licensed photos; synthesised phone ring; captions off (SRT exported) |
+| `the-country-inside-south-africa` | 9:16 | 49.9 s | Lesotho Short; Epidemic music + SFX |
+| `the-strait-of-malacca` | 16:9 | ~6:00 | first geography long-form; atlas/geo/paper palettes, satellite hook + close, Epidemic music bed (2 tracks crossfaded) + SFX; captions off |
 
 ## Backup (git)
 

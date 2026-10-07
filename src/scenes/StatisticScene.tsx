@@ -19,10 +19,11 @@ export interface StatisticData {
 }
 
 /** Column chart in wide frames, horizontal bars in narrow ones. */
-const Chart: React.FC<{rect: Rect; direction: 'columns' | 'bars'; bars: NonNullable<StatisticData['bars']>}> = ({
+const Chart: React.FC<{rect: Rect; direction: 'columns' | 'bars'; bars: NonNullable<StatisticData['bars']>; decimals?: number}> = ({
   rect,
   direction,
   bars,
+  decimals,
 }) => {
   const frame = useCurrentFrame();
   const {type, unit, gutter} = useLayout();
@@ -43,7 +44,7 @@ const Chart: React.FC<{rect: Rect; direction: 'columns' | 'bars'; bars: NonNulla
             const p = progress(frame, 14 + i * 5, 26);
             return (
               <div key={b.label} style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <div style={{...valueStyle, opacity: p, height: valueH, display: 'flex', alignItems: 'center'}}>{Math.round(b.value * p).toLocaleString('en-US')}</div>
+                <div style={{...valueStyle, opacity: p, height: valueH, display: 'flex', alignItems: 'center'}}>{formatValue(b.value * p, decimals)}</div>
                 <div style={{width: '100%', height: (plotH * b.value * p) / max, background: color(b)}} />
               </div>
             );
@@ -67,7 +68,7 @@ const Chart: React.FC<{rect: Rect; direction: 'columns' | 'bars'; bars: NonNulla
           <div key={b.label} style={{height: rowH, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 8 * unit}}>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
               <span style={labelStyle}>{b.label}</span>
-              <span style={{...valueStyle, opacity: p}}>{Math.round(b.value * p).toLocaleString('en-US')}</span>
+              <span style={{...valueStyle, opacity: p}}>{formatValue(b.value * p, decimals)}</span>
             </div>
             <div style={{height: Math.round(18 * unit), width: `${(100 * b.value * p) / max}%`, background: color(b)}} />
           </div>
@@ -121,7 +122,7 @@ const Statistic: React.FC<SceneProps<StatisticData>> = ({scene}) => {
         </div>
         <Body style={riseIn(frame, 12, rise)}>{d.label}</Body>
       </Region>
-      {d.bars?.length ? <Chart rect={regions.chart} direction={chartDirection} bars={d.bars} /> : null}
+      {d.bars?.length ? <Chart rect={regions.chart} direction={chartDirection} bars={d.bars} decimals={d.decimals} /> : null}
       {guides ? <SafeZoneGuides regions={regions} /> : null}
     </AbsoluteFill>
   );

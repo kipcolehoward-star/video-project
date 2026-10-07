@@ -5,6 +5,7 @@ import {Region} from '../components/Region';
 import {SafeZoneGuides} from '../components/SafeZoneGuides';
 import {Body, Headline, Kicker} from '../components/Typography';
 import {CallRouting} from '../graphics/diagrams/CallRouting';
+import {ChannelDepth} from '../graphics/diagrams/ChannelDepth';
 import {Trilateration} from '../graphics/diagrams/Trilateration';
 import type {DiagramProps} from '../graphics/diagrams/types';
 import {estimateTextHeight, splitLayout, stackLayout, type LayoutContext, type Rect} from '../layouts/engine';
@@ -15,6 +16,7 @@ import type {SceneDefinition, SceneProps} from './types';
 export const DIAGRAMS: Record<string, React.FC<DiagramProps>> = {
   trilateration: Trilateration,
   'call-routing': CallRouting,
+  'channel-depth': ChannelDepth,
 };
 
 /**
