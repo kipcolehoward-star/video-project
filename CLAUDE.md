@@ -29,6 +29,12 @@ explicitly approves them.
 - **Close the user's Chrome/other heavy apps before rendering.** With Chrome open (≈2 GB),
   free RAM drops below 500 MB: renders fall from ~7 fps to ~1 fps and Chrome startup
   times out. Check free RAM first (PowerShell Win32_OperatingSystem.FreePhysicalMemory).
+- **Long renders: render in chunks.** A single 6-min render froze (idle Chrome/FFmpeg) and
+  background renders get killed by Claude Code under memory pressure while the session is idle.
+  Reliable method: `npm run render -- --from <id> --to <id>` in ~1-min chunks run in the
+  FOREGROUND (each < 10 min), then join with FFmpeg: trim the first 12 frames (0.4 s fade
+  overlap) of every chunk that starts on a fading scene, concat video only, and map the
+  master `audio/mix.wav` as the audio (AAC 320k), `-crf 16`, bt709 tags; then `npm run qc`.
 - Consequences: render concurrency 2; review edits with `render:preview --scenes …`
   (partial, 50% scale) and only render the full video at the end; an 8-minute
   photo/map-heavy video takes ~50 min at full quality; full 1080p renders run ~1–3 fps. Avoid GPU-only/PyTorch tools.
@@ -335,7 +341,7 @@ preview → QC → final render. Each stage writes files into `projects/<id>/`.
 | `how-gps-knows-where-you-are` | 16:9 | 88.2 s | first real video, rendered 2026-10-06; no music (none licensed); research.md cites every claim |
 | `facts-about-911` | 16:9 | 8:06 | user's script verbatim; Edge voice Brian (non-monetised); 8 licensed photos; synthesised phone ring; captions off (SRT exported) |
 | `the-country-inside-south-africa` | 9:16 | 49.9 s | Lesotho Short; Epidemic music + SFX |
-| `the-strait-of-malacca` | 16:9 | ~6:00 | first geography long-form; atlas/geo/paper palettes, satellite hook + close, Epidemic music bed (2 tracks crossfaded) + SFX; captions off |
+| `the-strait-of-malacca` | 16:9 | 6:00 | first geography long-form, final rendered 2026-10-07; dusk/ocean/paper palettes, satellite hook + close, Epidemic music bed (2 tracks crossfaded) + SFX; captions off (SRT exported); Edge voice (non-monetised) |
 
 ## Backup (git)
 
