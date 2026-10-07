@@ -15,7 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {formatSlug} from '../src/config/formats';
 import {buildTimeline} from '../src/config/project';
-import {checkAssets, checkFonts, checkLayout, checkNarration, checkStoryboard, hasErrors, printFindings} from './lib/checks';
+import {checkAssets, checkFonts, checkGeo, checkLayout, checkNarration, checkStoryboard, hasErrors, printFindings} from './lib/checks';
 import {buildMix} from './lib/mix';
 import {buildProps, currentMix, loadProject, parseArgs, pickProject, rel, resolveProjectFormat} from './lib/project';
 import {qcFile} from './lib/qc';
@@ -42,6 +42,7 @@ if (narrated && p.narration && !currentMix(p, formats[0].fps)) {
 const pre = [
   ...checkFonts(),
   ...checkAssets(p),
+  ...checkGeo(p),
   ...formats.flatMap((fmt) => [...checkStoryboard(p, fmt), ...checkLayout(p, fmt, captions), ...checkNarration(p, fmt, captions)]),
 ];
 const problems = pre.filter((x) => x.level !== 'ok');
@@ -72,7 +73,7 @@ if (wanted) {
   console.log(`Partial render: ${scenes[lo].scene.id} → ${scenes[hi].scene.id} (frames ${frameRange[0]}–${frameRange[1]}, ${((frameRange[1] - frameRange[0] + 1) / formats[0].fps).toFixed(1)}s)`);
 }
 
-const serveUrl = await bundleProject(p.dir, buildProps(p, formats[0]));
+const serveUrl = await bundleProject(p.dir, buildProps(p, formats[0]), p);
 let failed = false;
 
 for (const fmt of formats) {

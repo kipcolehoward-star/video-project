@@ -3,7 +3,7 @@
  * Pre-render checks. With no format flags, checks 16:9, 9:16 and 1:1 so a
  * story is always known to adapt across formats.
  */
-import {checkAssets, checkFonts, checkLayout, checkNarration, checkStoryboard, hasErrors, printFindings, type Finding} from './lib/checks';
+import {checkAssets, checkFonts, checkGeo, checkLayout, checkNarration, checkStoryboard, hasErrors, printFindings, type Finding} from './lib/checks';
 import {loadProject, parseArgs, pickProject, resolveProjectFormat} from './lib/project';
 
 const args = parseArgs();
@@ -14,7 +14,7 @@ const formatList = args.str('formats')?.split(',') ?? (args.str('format') ? [arg
 
 let all: Finding[] = [];
 const primary = resolveProjectFormat(p.config, formatList[0]);
-const common = [...checkFonts(), ...checkAssets(p), ...checkStoryboard(p, primary)];
+const common = [...checkFonts(), ...checkAssets(p), ...checkGeo(p), ...checkStoryboard(p, primary)];
 printFindings(`Project "${id}"`, common);
 all = all.concat(common);
 

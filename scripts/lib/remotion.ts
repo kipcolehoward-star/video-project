@@ -8,6 +8,8 @@ import {bundle} from '@remotion/bundler';
 import {openBrowser, renderMedia, renderStill, selectComposition} from '@remotion/renderer';
 import type {MainProps} from '../../src/config/project';
 import {ROOT} from './project';
+import {ensureGeoData} from './geodata';
+import type {LoadedProject} from './project';
 
 /** Defaults sized for a 2-core / 4 GB machine. */
 export const RENDER_DEFAULTS = {
@@ -55,8 +57,9 @@ function ensureStudioProps(props: MainProps) {
   fs.writeFileSync(file, JSON.stringify(props, null, 2));
 }
 
-export async function bundleProject(projectDir: string, props: MainProps): Promise<string> {
+export async function bundleProject(projectDir: string, props: MainProps, project?: LoadedProject): Promise<string> {
   ensureStudioProps(props);
+  if (project) ensureGeoData(project);
   process.stdout.write('Bundling… ');
   const t = Date.now();
   const serveUrl = await bundle({

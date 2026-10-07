@@ -1,0 +1,214 @@
+{
+  "scenes": [
+    {
+      "id": "s1-southern-africa",
+      "type": "atlas",
+      "duration": 4,
+      "data": {
+        "focusY": 0.52,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 26,
+            "lat": -28.5,
+            "zoom": 5
+          },
+          {
+            "at": 3.0,
+            "lon": 27.6,
+            "lat": -29.4,
+            "zoom": 9
+          }
+        ],
+        "warm": [
+          {
+            "name": "South Africa",
+            "at": 0
+          }
+        ],
+        "layers": [
+          "rivers",
+          "lakes",
+          "admin1"
+        ],
+        "admin1Countries": [
+          "South Africa"
+        ],
+        "layersAt": 0.4,
+        "flagMasks": [
+          {
+            "name": "Lesotho",
+            "iso": "ls",
+            "at": 1.0
+          }
+        ],
+        "flagBadges": [
+          {
+            "iso": "za",
+            "lon": 24.5,
+            "lat": -31.2,
+            "at": 1.8,
+            "label": "South Africa"
+          }
+        ],
+        "texts": [
+          {
+            "text": "Provinces \u00b7 rivers \u00b7 flags",
+            "at": 0.2,
+            "style": "sub",
+            "y": 0.12
+          }
+        ]
+      }
+    },
+    {
+      "id": "s2-kashmir",
+      "type": "atlas",
+      "duration": 4,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.4
+      },
+      "data": {
+        "focusY": 0.55,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 77,
+            "lat": 33.5,
+            "zoom": 6
+          },
+          {
+            "at": 3.2,
+            "lon": 77.5,
+            "lat": 34,
+            "zoom": 7.5
+          }
+        ],
+        "layers": [
+          "disputed",
+          "rivers"
+        ],
+        "layersAt": 0.2,
+        "flagMasks": [
+          {
+            "name": "India",
+            "iso": "in",
+            "at": 0.5,
+            "opacity": 0.75
+          },
+          {
+            "name": "China",
+            "iso": "cn",
+            "at": 1.0,
+            "opacity": 0.75
+          },
+          {
+            "name": "Pakistan",
+            "iso": "pk",
+            "at": 1.5,
+            "opacity": 0.75
+          }
+        ],
+        "outline": [
+          {
+            "name": "Aksai Chin",
+            "at": 2.0,
+            "color": "gold"
+          }
+        ],
+        "labels": [
+          {
+            "text": "Aksai Chin",
+            "name": "Aksai Chin",
+            "at": 2.3,
+            "tone": "gold"
+          },
+          {
+            "text": "Jammu and Kashmir",
+            "name": "Jammu and Kashmir",
+            "at": 2.6,
+            "tone": "white"
+          }
+        ],
+        "texts": [
+          {
+            "text": "Disputed areas",
+            "at": 0.2,
+            "style": "sub",
+            "y": 0.12
+          }
+        ]
+      }
+    },
+    {
+      "id": "s3-europe",
+      "type": "atlas",
+      "duration": 4,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.4
+      },
+      "data": {
+        "focusY": 0.55,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 7,
+            "lat": 47,
+            "zoom": 3.0
+          },
+          {
+            "at": 3.5,
+            "lon": 8,
+            "lat": 47.5,
+            "zoom": 3.4
+          }
+        ],
+        "layers": [
+          "rivers",
+          "lakes"
+        ],
+        "layersAt": 0.2,
+        "flagBadges": [
+          {
+            "iso": "fr",
+            "lon": 2.35,
+            "lat": 48.86,
+            "at": 0.6,
+            "label": "Paris"
+          },
+          {
+            "iso": "de",
+            "lon": 13.4,
+            "lat": 52.52,
+            "at": 1.0,
+            "label": "Berlin"
+          },
+          {
+            "iso": "it",
+            "lon": 12.5,
+            "lat": 41.9,
+            "at": 1.4,
+            "label": "Rome"
+          },
+          {
+            "iso": "es",
+            "lon": -3.7,
+            "lat": 40.42,
+            "at": 1.8,
+            "label": "Madrid"
+          }
+        ],
+        "texts": [
+          {
+            "text": "Capital badges",
+            "at": 0.2,
+            "style": "sub",
+            "y": 0.12
+          }
+        ]
+      }
+    }
+  ]
+}

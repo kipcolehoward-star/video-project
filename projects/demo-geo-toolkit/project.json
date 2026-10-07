@@ -1,0 +1,20 @@
+{
+  "id": "demo-geo-toolkit",
+  "title": "Demo Geo Toolkit",
+  "video": {
+    "format": "16:9",
+    "fps": 30,
+    "duration": null
+  },
+  "safeZoneProfile": "auto",
+  "theme": "atlas",
+  "captionStyle": "none",
+  "audio": {
+    "voice": "en_US-joe-medium",
+    "music": null,
+    "musicDb": -16,
+    "duckDb": -12,
+    "targetLufs": -16,
+    "truePeak": -1.5
+  }
+}

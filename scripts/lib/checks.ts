@@ -12,6 +12,7 @@ import {captionLayout, contains, createLayoutContext, estimateTextHeight, inters
 import {SCENES} from '../../src/scenes/registry';
 import {buildProps, currentMix, fileHash, ROOT, type LoadedProject} from './project';
 import {narrationTextHash} from './speech';
+import {geoProblems} from './geodata';
 
 /** The layout context the renderer will use for this project + format. */
 export function layoutContextFor(p: LoadedProject, format: VideoFormat, captionStyle?: string): LayoutContext {
@@ -86,6 +87,11 @@ const FONT_FILES = [
   'node_modules/@fontsource/source-serif-4/files/source-serif-4-latin-600-normal.woff2',
   'node_modules/@fontsource/bebas-neue/files/bebas-neue-latin-400-normal.woff2',
 ];
+
+export function checkGeo(p: LoadedProject): Finding[] {
+  const probs = geoProblems(p);
+  return probs.map((m) => f('error', 'geo-data', m));
+}
 
 export function checkFonts(): Finding[] {
   const missing = FONT_FILES.filter((x) => !fs.existsSync(path.join(ROOT, x)));

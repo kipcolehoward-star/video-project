@@ -21,7 +21,7 @@ const formats = (args.str('formats') ?? '16:9,9:16,1:1').split(',').map((s) => r
 const outDir = path.join(p.dir, 'previews', 'stills');
 fs.mkdirSync(outDir, {recursive: true});
 
-const serveUrl = await bundleProject(p.dir, buildProps(p, formats[0]));
+const serveUrl = await bundleProject(p.dir, buildProps(p, formats[0]), p);
 const perScene: Record<string, string[]> = {};
 
 for (const fmt of formats) {

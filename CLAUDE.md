@@ -159,6 +159,31 @@ active; the user must whitelist their YouTube channel in Epidemic to avoid
 Content ID claims. Do NOT use the developer-portal API free tier (no commercial
 licence). Prefer Epidemic over synthesised placeholders for music and SFX.
 
+## Geography toolkit (atlas scene)
+
+Data: `npm run geo:setup` builds Natural Earth 1:10m layers (public domain) into
+`data/geo/` (committed): admin1 (states/provinces), rivers, lakes, disputed
+(region names in `name`, claimant in `claimant`), countries-10m. Render/stills/dev
+copy only what a project uses into `<project>/geo/` (gitignored), plus flag SVGs.
+Avoid GADM (non-commercial licence); OSM data needs "© OpenStreetMap contributors".
+
+Atlas options (all timing via cue word or seconds):
+- `detail`: auto (110m whole-Earth, 50m mid, 10m when any camera zoom ≥ 7) | 50m | 10m
+- `layers`: ["rivers","lakes","admin1","disputed"], `layersAt`, `admin1Countries: ["South Africa"]`
+- `flagMasks: [{name, iso, at, opacity}]` — flag clipped inside the country, fitted
+  to the part on screen (whole flag visible even when zoomed into a big country)
+- `flagBadges: [{iso, lon, lat | name, at, label, size}]` — round badge with pop-in.
+  Use explicit lon/lat for countries with overseas territories (France's centroid
+  is in the Atlantic because of French Guiana).
+- `outline`/`labels`/`pulse` names resolve to a country, then a disputed area,
+  then a state/province.
+- Flags: flag-icons (MIT), ISO 3166-1 alpha-2 lowercase ("ls", "za", "in").
+  `validate` errors on unknown codes or missing layers.
+Engine notes: only features in view are drawn (culling); polygons with reversed
+winding (would flood the globe) are corrected per part on load (`fixWinding`) —
+Natural Earth 10m Maldives and two simplified lakes needed this.
+Test project: `projects/demo-geo-toolkit`.
+
 ## Images (licensed sourcing)
 
 `npm run image -- search "<query>" --project <id> --source nasa|commons|pexels`
@@ -205,6 +230,7 @@ UI); square → `social-square`. Override in project.json `safeZoneProfile`.
 | `npm run voiceover -- --dry-run` | show scenes/characters that would be generated (and billed) |
 | `npm run image -- search/pick ...` | licensed image search with thumbnail sheet; pick writes assets.json |
 | `npm run credits` | attribution text for the video description |
+| `npm run geo:setup [-- --force]` | build Natural Earth map layers into data/geo/ |
 | `npm run audio:add -- ...` | download a licensed audio file (Epidemic signed URL) into the project + assets.json |
 | `npm run typecheck` | tsc |
 | `npm run voiceover -- [--scene <id>] [--force]` | Piper → `audio/narration/<scene>.wav` + manifest (unchanged scenes skipped) |
@@ -295,8 +321,10 @@ preview → QC → final render. Each stage writes files into `projects/<id>/`.
 
 Private repo: https://github.com/kipcolehoward-star/video-project (branch `main`).
 - Commit + push after meaningful work (a finished video, a framework change).
-- Never commit `.env` (gitignored). Before pushing, scan staged files for the
-  `.env` key values and common key patterns.
+- Never commit `.env` (gitignored). A pre-commit hook (`scripts/check-secrets.mjs`,
+  install with `npm run hooks:install` after a fresh clone) blocks commits containing
+  `.env` values, secret-looking env vars (e.g. EPIDEMIC_SOUND_API_KEY) or known key
+  formats. Never print a suspected secret when investigating — report the file only.
 - Not in git (by design): `node_modules/`, `tools/` (npm install / npm run
   setup:tools), previews, mixes (npm run audio), Epidemic music WAVs
   (re-download by ID from assets.json), and final MP4s — back those up

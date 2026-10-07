@@ -5,6 +5,8 @@ import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from 'remoti
 import {feature} from 'topojson-client';
 import type {GeometryCollection, Topology} from 'topojson-specification';
 import worldTopo from 'world-atlas/countries-50m.json';
+import world110Topo from 'world-atlas/countries-110m.json';
+import {fixWinding, flagUrl, inView, usePreloadImages, useGeoLayer, visibleAngle, type FC} from '../graphics/geo/data';
 import {EASE_IN_OUT, EASE_OUT, progress} from '../animations/motion';
 import {Backdrop} from '../components/Backdrop';
 import {SafeZoneGuides} from '../components/SafeZoneGuides';
@@ -49,14 +51,45 @@ export interface AtlasData {
     tone?: 'white' | 'gold';
   }[];
   shake?: At[];
+  /** Coastline detail. auto: 110m when whole-Earth, 50m mid, 10m for close zooms. */
+  detail?: 'auto' | '50m' | '10m';
+  /** Extra Natural Earth layers (run npm run geo:setup once). */
+  layers?: ('rivers' | 'lakes' | 'admin1' | 'disputed')[];
+  /** When the extra layers fade in. */
+  layersAt?: At;
+  /** Limit state/province borders to these countries (Natural Earth `admin` names). */
+  admin1Countries?: string[];
+  /** Flag clipped inside a country's borders. iso = ISO 3166-1 alpha-2 (flag-icons). */
+  flagMasks?: {name: string; iso: string; at?: At; opacity?: number}[];
+  /** Round flag badge at a point or a country's centre. */
+  flagBadges?: {iso: string; name?: string; lon?: number; lat?: number; at?: At; label?: string; size?: number}[];
 }
 
 type Props = {name: string};
-const WORLD = feature(worldTopo as unknown as Topology, (worldTopo as unknown as Topology).objects.countries as GeometryCollection<Props>) as FeatureCollection<Geometry, Props>;
-const byName = new Map(WORLD.features.map((f) => [f.properties.name, f]));
+const WORLD = fixWinding(feature(worldTopo as unknown as Topology, (worldTopo as unknown as Topology).objects.countries as GeometryCollection<Props>) as FeatureCollection<Geometry, Props>);
+const WORLD110 = fixWinding(feature(world110Topo as unknown as Topology, (world110Topo as unknown as Topology).objects.countries as GeometryCollection<Props>) as FeatureCollection<Geometry, Props>);
+const nameMaps = new WeakMap<object, Map<string, Feature<Geometry, Props>>>();
+const nameMap = (fc: FeatureCollection<Geometry, Props>) => {
+  let m = nameMaps.get(fc);
+  if (!m) {
+    m = new Map(fc.features.map((f) => [f.properties.name, f]));
+    nameMaps.set(fc, m);
+  }
+  return m;
+};
 const GRATICULE = geoGraticule10();
 
-const PALETTE = {ocean: '#0b1826', land: '#1d2421', warm: '#6b645b', gold: '#e0a63a', border: 'rgba(255,255,255,0.18)', grid: 'rgba(255,255,255,0.07)'};
+const PALETTE = {
+  ocean: '#0b1826',
+  land: '#1d2421',
+  warm: '#6b645b',
+  gold: '#e0a63a',
+  border: 'rgba(255,255,255,0.18)',
+  grid: 'rgba(255,255,255,0.07)',
+  river: '#3f7aa6',
+  admin1: 'rgba(255,255,255,0.16)',
+  disputed: '#8e8e93',
+};
 
 function regionsFor(ctx: LayoutContext): Record<string, Region> {
   return {map: {role: 'media', x: 0, y: 0, w: ctx.W, h: ctx.H}, text: {role: 'overlay', ...ctx.safe}};
@@ -110,6 +143,35 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
     .clipAngle(90);
   const path = geoPath(projection);
 
+  // ---- data: detail level by zoom, extra layers and flags load on demand
+  const maxZoom = Math.max(...(d.camera ?? [{zoom: 1}]).map((k) => k.zoom));
+  const want10 = d.detail === '10m' || (d.detail !== '50m' && maxZoom >= 7);
+  const layers = new Set(d.layers ?? []);
+  const countries10 = useGeoLayer(!d.background && want10 ? 'countries-10m' : null) as unknown as FeatureCollection<Geometry, Props> | null;
+  const rivers = useGeoLayer(!d.background && layers.has('rivers') ? 'rivers' : null);
+  const lakes = useGeoLayer(!d.background && layers.has('lakes') ? 'lakes' : null);
+  const admin1 = useGeoLayer(!d.background && layers.has('admin1') ? 'admin1' : null);
+  const disputed = useGeoLayer(!d.background && layers.has('disputed') ? 'disputed' : null);
+  usePreloadImages([...(d.flagMasks ?? []).map((m) => flagUrl(m.iso, '4x3')), ...(d.flagBadges ?? []).map((b) => flagUrl(b.iso, '1x1'))]);
+
+  const base = zoom < 1.6 ? WORLD110 : zoom >= 7 && countries10 ? countries10 : WORLD;
+  const countryByName = nameMap(base);
+  // Names resolve to a country first, then a disputed area, then a state/province.
+  const byName = {
+    get: (name: string) =>
+      countryByName.get(name) ??
+      (disputed ? nameMap(disputed as unknown as FeatureCollection<Geometry, Props>).get(name) : undefined) ??
+      (admin1 ? nameMap(admin1 as unknown as FeatureCollection<Geometry, Props>).get(name) : undefined),
+  };
+  // Only draw what can be on screen (big speed-up when zoomed in).
+  const farPx = Math.max(Math.hypot(W / 2, cy), Math.hypot(W / 2, H - cy));
+  const vis = visibleAngle((W / 2) * zoom, farPx);
+  const center: [number, number] = [lon, lat];
+  const visible = <T extends Feature<Geometry, Record<string, unknown>>>(fs: T[]) => fs.filter((f) => inView(f as never, center, vis));
+  // Smaller rivers and lakes appear as you zoom in.
+  const rankLimit = zoom < 3 ? 3 : zoom < 8 ? 6 : 12;
+  const layersP = progress(frame, at(d.layersAt, 0), 18);
+
   const reveal = (items: {name: string; at?: At}[] | undefined) => new Map((items ?? []).map((g) => [g.name, at(g.at, 0)]));
   const gold = reveal(d.gold);
   const warm = reveal(d.warm);
@@ -144,10 +206,81 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
           <svg width={W} height={H} style={{opacity: globeIn}}>
             <path d={path({type: 'Sphere'}) ?? undefined} fill={PALETTE.ocean} stroke="rgba(160,190,220,0.25)" strokeWidth={2 * unit} />
             {d.grid !== false ? <path d={path(GRATICULE) ?? undefined} fill="none" stroke={PALETTE.grid} strokeWidth={1 * unit} /> : null}
-            {WORLD.features.map((f: Feature<Geometry, Props>, i) => {
+            {visible(base.features).map((f: Feature<Geometry, Props>, i) => {
               const {fill, op} = fillFor(f.properties.name);
               const dd = path(f);
               return dd ? <path key={i} d={dd} fill={fill} fillOpacity={op} stroke={PALETTE.border} strokeWidth={0.8 * unit} /> : null;
+            })}
+            {/* Lakes (cut out of the land), province borders, rivers, disputed areas. */}
+            {lakes ? (
+              <g opacity={layersP}>
+                {visible((lakes as FC).features)
+                  .filter((f) => Number(f.properties.scalerank ?? 0) <= rankLimit)
+                  .map((f, i) => {
+                    const dd = path(f);
+                    return dd ? <path key={i} d={dd} fill={PALETTE.ocean} stroke="none" /> : null;
+                  })}
+              </g>
+            ) : null}
+            {admin1 ? (
+              <g opacity={layersP}>
+                {visible((admin1 as FC).features)
+                  .filter((f) => !d.admin1Countries || d.admin1Countries.includes(String(f.properties.admin)))
+                  .map((f, i) => {
+                    const dd = path(f);
+                    return dd ? <path key={i} d={dd} fill="none" stroke={PALETTE.admin1} strokeWidth={0.9 * unit} strokeLinejoin="round" /> : null;
+                  })}
+              </g>
+            ) : null}
+            {rivers ? (
+              <g opacity={layersP} fill="none" stroke={PALETTE.river} strokeLinecap="round" strokeLinejoin="round">
+                {visible((rivers as FC).features)
+                  .filter((f) => Number(f.properties.scalerank ?? 0) <= rankLimit)
+                  .map((f, i) => {
+                    const dd = path(f);
+                    const w = Math.max(0.6, 2.2 - 0.2 * Number(f.properties.scalerank ?? 0)) * unit;
+                    return dd ? <path key={i} d={dd} strokeWidth={w} /> : null;
+                  })}
+              </g>
+            ) : null}
+            {disputed ? (
+              <g opacity={layersP}>
+                {visible((disputed as FC).features).map((f, i) => {
+                  const dd = path(f);
+                  return dd ? <path key={i} d={dd} fill="rgba(142,142,147,0.16)" stroke={PALETTE.disputed} strokeWidth={2 * unit} strokeDasharray={`${8 * unit} ${6 * unit}`} /> : null;
+                })}
+              </g>
+            ) : null}
+            {/* Flags clipped inside country borders. */}
+            {(d.flagMasks ?? []).map((m, i) => {
+              const f = byName.get(m.name);
+              const dd = f ? path(f) : null;
+              if (!f || !dd) return null;
+              const [[bx0, by0], [bx1, by1]] = path.bounds(f);
+              // Fit the flag to the part of the country that is on screen, so a big
+              // country seen up close still shows its whole flag.
+              const x0 = Math.max(bx0, 0);
+              const y0 = Math.max(by0, 0);
+              const x1 = Math.min(bx1, W);
+              const y1 = Math.min(by1, H);
+              // Cover the country's box at the flag's own 4:3 ratio (Chrome ignores
+              // preserveAspectRatio="slice" for SVG images, which would leave gaps).
+              const k = Math.max((x1 - x0) / 4, (y1 - y0) / 3);
+              const fw = 4 * k;
+              const fh = 3 * k;
+              const fx = (x0 + x1) / 2 - fw / 2;
+              const fy = (y0 + y1) / 2 - fh / 2;
+              const p = progress(frame, at(m.at, 0), 16);
+              const id = `flagmask-${scene.id}-${i}`;
+              return (
+                <g key={id} opacity={p * (m.opacity ?? 0.85)}>
+                  <clipPath id={id}>
+                    <path d={dd} />
+                  </clipPath>
+                  <image href={flagUrl(m.iso, '4x3')} x={fx} y={fy} width={Math.max(1, fw)} height={Math.max(1, fh)} preserveAspectRatio="none" clipPath={`url(#${id})`} />
+                  <path d={dd} fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth={2 * unit} />
+                </g>
+              );
             })}
             {/* Borders that draw themselves. */}
             {(d.outline ?? []).map((o) => {
@@ -165,6 +298,31 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
               const p = progress(frame, at(pl.at, 0), 32, EASE_OUT);
               if (p <= 0 || p >= 1) return null;
               return <circle key={pl.name} cx={c[0]} cy={c[1]} r={(20 + 260 * p) * unit} fill="none" stroke={PALETTE.gold} strokeWidth={(6 - 5 * p) * unit} opacity={1 - p} />;
+            })}
+            {/* Round flag badges with a pop-in. */}
+            {(d.flagBadges ?? []).map((b, i) => {
+              const f = b.name ? byName.get(b.name) : null;
+              const pt = b.lon !== undefined && b.lat !== undefined ? projection([b.lon, b.lat]) : f ? projection(geoCentroid(f)) : null;
+              if (!pt) return null;
+              const p = progress(frame, at(b.at, 0), 14, EASE_OUT);
+              if (p <= 0) return null;
+              const r = (b.size ?? 34) * unit * (0.6 + 0.4 * p);
+              const id = `badge-${scene.id}-${i}`;
+              return (
+                <g key={id} opacity={p}>
+                  <circle cx={pt[0]} cy={pt[1] + 4 * unit} r={r + 3 * unit} fill="rgba(0,0,0,0.45)" />
+                  <clipPath id={id}>
+                    <circle cx={pt[0]} cy={pt[1]} r={r} />
+                  </clipPath>
+                  <image href={flagUrl(b.iso, '1x1')} x={pt[0] - r} y={pt[1] - r} width={2 * r} height={2 * r} preserveAspectRatio="xMidYMid slice" clipPath={`url(#${id})`} />
+                  <circle cx={pt[0]} cy={pt[1]} r={r} fill="none" stroke="#ffffff" strokeWidth={3 * unit} />
+                  {b.label ? (
+                    <text x={pt[0]} y={pt[1] + r + 22 * unit} textAnchor="middle" fill="#ffffff" style={{fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.05), fontWeight: 700, letterSpacing: '0.14em', paintOrder: 'stroke', stroke: '#080b0f', strokeWidth: 5 * unit}}>
+                      {b.label.toUpperCase()}
+                    </text>
+                  ) : null}
+                </g>
+              );
             })}
             {(d.labels ?? []).map((l, i) => {
               const f = l.name ? byName.get(l.name) : null;
@@ -261,5 +419,8 @@ export const AtlasScene: SceneDefinition<AtlasData> = {
       ...(d.labels ?? []).map((g) => g.at),
       ...(d.texts ?? []).flatMap((t) => [t.at, t.until]),
       ...(d.shake ?? []),
+      d.layersAt,
+      ...(d.flagMasks ?? []).map((m) => m.at),
+      ...(d.flagBadges ?? []).map((b) => b.at),
     ].filter((v): v is string => typeof v === 'string'),
 };

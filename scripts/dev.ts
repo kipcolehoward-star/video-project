@@ -6,12 +6,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {runBin} from './lib/exec';
+import {ensureGeoData} from './lib/geodata';
 import {buildProps, loadProject, parseArgs, pickProject, ROOT, resolveProjectFormat} from './lib/project';
 
 const args = parseArgs();
 const p = loadProject(pickProject(args.str('project')));
 const fmt = resolveProjectFormat(p.config, args.str('format'));
 const props = buildProps(p, fmt, {showGuides: args.bool('guides')});
+ensureGeoData(p);
 
 const out = path.join(ROOT, 'src', 'generated', 'studio-props.json');
 fs.mkdirSync(path.dirname(out), {recursive: true});

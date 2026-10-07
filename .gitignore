@@ -25,3 +25,6 @@ projects/*/output/*
 
 # Licensed music is large; re-download by the Epidemic ID in assets.json
 projects/*/audio/music/es-*.wav
+
+# Per-project copies of map layers and flags (rebuilt from data/geo + flag-icons at render)
+projects/*/geo/
