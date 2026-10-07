@@ -24,6 +24,22 @@ const SceneSlot: React.FC<{timed: TimedScene}> = ({timed}) => {
   );
 };
 
+/**
+ * Procedural surface texture (no image asset): static fractal noise blended
+ * at low opacity. Grain takes the flat digital edge off; paper adds fibre.
+ */
+const Texture: React.FC<{kind: 'grain' | 'paper'}> = ({kind}) => (
+  <AbsoluteFill style={{pointerEvents: 'none', mixBlendMode: kind === 'paper' ? 'multiply' : 'overlay', opacity: kind === 'paper' ? 0.12 : 0.07}}>
+    <svg width="100%" height="100%">
+      <filter id={`tex-${kind}`}>
+        <feTurbulence type="fractalNoise" baseFrequency={kind === 'paper' ? '0.035 0.9' : '0.9'} numOctaves={kind === 'paper' ? 3 : 2} seed={7} stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter={`url(#tex-${kind})`} />
+    </svg>
+  </AbsoluteFill>
+);
+
 const Timeline: React.FC<{props: MainProps}> = ({props}) => {
   const theme = useTheme();
   const {scenes} = buildTimeline(props.storyboard, props.format.fps);
@@ -35,6 +51,7 @@ const Timeline: React.FC<{props: MainProps}> = ({props}) => {
           <SceneSlot timed={t} />
         </Sequence>
       ))}
+      {props.project.texture && props.project.texture !== 'none' ? <Texture kind={props.project.texture} /> : null}
       {/* Captions sit above every scene and ignore scene fades. */}
       <Captions words={words} style={props.captionStyle} />
       {/* One pre-mixed track (narration + ducked music + SFX), built by `npm run audio`. */}

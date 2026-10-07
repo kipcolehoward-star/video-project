@@ -14,6 +14,8 @@ import {ROOT, type LoadedProject} from './project';
 const DATA = path.join(ROOT, 'data', 'geo');
 const FLAGS = path.join(ROOT, 'node_modules', 'flag-icons', 'flags');
 
+const layerSrc = (l: string) => (l === 'raster:bluemarble' ? path.join(DATA, 'raster', 'bluemarble-5400.jpg') : path.join(DATA, `${l}.json`));
+
 export function geoNeeds(p: LoadedProject) {
   const layers = new Set<string>();
   const flags = new Set<string>(); // "4x3/ls", "1x1/ls"
@@ -24,8 +26,10 @@ export function geoNeeds(p: LoadedProject) {
     for (const l of d.layers ?? []) layers.add(l);
     const maxZoom = Math.max(...(d.camera ?? [{zoom: 1}]).map((k) => k.zoom));
     if (d.detail === '10m' || (d.detail !== '50m' && maxZoom >= 7)) layers.add('countries-10m');
+    if (d.basemap === 'satellite') layers.add('raster:bluemarble');
     for (const m of d.flagMasks ?? []) flags.add(`4x3/${m.iso.toLowerCase()}`);
     for (const b of d.flagBadges ?? []) flags.add(`1x1/${b.iso.toLowerCase()}`);
+    for (const r of d.routes ?? []) for (const iso of [r.fromFlag, r.toFlag]) if (iso) flags.add(`1x1/${iso.toLowerCase()}`);
   }
   return {layers, flags};
 }
@@ -34,7 +38,7 @@ export function geoNeeds(p: LoadedProject) {
 export function geoProblems(p: LoadedProject): string[] {
   const {layers, flags} = geoNeeds(p);
   const out: string[] = [];
-  for (const l of layers) if (!fs.existsSync(path.join(DATA, `${l}.json`))) out.push(`map layer "${l}" missing — run npm run geo:setup`);
+  for (const l of layers) if (!fs.existsSync(layerSrc(l))) out.push(`map layer "${l}" missing — run npm run geo:setup`);
   for (const f of flags) if (!fs.existsSync(path.join(FLAGS, `${f}.svg`))) out.push(`flag "${f.split('/')[1]}" not found in flag-icons (use ISO 3166-1 alpha-2, e.g. "ls", "za")`);
   return out;
 }
@@ -46,8 +50,8 @@ export function ensureGeoData(p: LoadedProject) {
   if (problems.length) throw new Error(`Geo data:\n  ${problems.join('\n  ')}`);
   const out = path.join(p.dir, 'geo');
   for (const l of layers) {
-    const src = path.join(DATA, `${l}.json`);
-    const dst = path.join(out, `${l}.json`);
+    const src = layerSrc(l);
+    const dst = l === 'raster:bluemarble' ? path.join(out, 'bluemarble.jpg') : path.join(out, `${l}.json`);
     fs.mkdirSync(path.dirname(dst), {recursive: true});
     if (!fs.existsSync(dst) || fs.statSync(dst).mtimeMs < fs.statSync(src).mtimeMs) fs.copyFileSync(src, dst);
   }

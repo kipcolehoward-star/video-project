@@ -16,5 +16,6 @@
     "duckDb": -12,
     "targetLufs": -16,
     "truePeak": -1.5
-  }
+  },
+  "texture": "grain"
 }

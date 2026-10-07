@@ -6,6 +6,8 @@ import {feature} from 'topojson-client';
 import type {GeometryCollection, Topology} from 'topojson-specification';
 import worldTopo from 'world-atlas/countries-50m.json';
 import world110Topo from 'world-atlas/countries-110m.json';
+import {SatelliteGlobe} from '../graphics/geo/Satellite';
+import {routePoint, routeUpTo, sampleRoute, type LonLat} from '../graphics/geo/routes';
 import {fixWinding, flagUrl, inView, usePreloadImages, useGeoLayer, visibleAngle, type FC} from '../graphics/geo/data';
 import {EASE_IN_OUT, EASE_OUT, progress} from '../animations/motion';
 import {Backdrop} from '../components/Backdrop';
@@ -51,6 +53,15 @@ export interface AtlasData {
     tone?: 'white' | 'gold';
   }[];
   shake?: At[];
+  /** Map palette; defaults from the project theme (geo -> geo, paper -> paper, else atlas). */
+  palette?: 'atlas' | 'geo' | 'paper';
+  /** Second highlight colour (yellow in geo/paper). */
+  alt?: {name: string; at?: At}[];
+  /**
+   * "satellite": NASA Blue Marble imagery at globe scale, cross-fading into the
+   * vector map between zoom 1.3 and 3.2 (the imagery is soft beyond that).
+   */
+  basemap?: 'vector' | 'satellite';
   /** Coastline detail. auto: 110m when whole-Earth, 50m mid, 10m for close zooms. */
   detail?: 'auto' | '50m' | '10m';
   /** Extra Natural Earth layers (run npm run geo:setup once). */
@@ -63,6 +74,24 @@ export interface AtlasData {
   flagMasks?: {name: string; iso: string; at?: At; opacity?: number}[];
   /** Round flag badge at a point or a country's centre. */
   flagBadges?: {iso: string; name?: string; lon?: number; lat?: number; at?: At; label?: string; size?: number}[];
+  /**
+   * Animated routes along great circles. `via` waypoints keep sea lanes off
+   * land. The line draws from `at` over `duration` seconds.
+   */
+  routes?: {
+    from: LonLat;
+    to: LonLat;
+    via?: LonLat[];
+    at?: At;
+    duration?: number;
+    style?: 'solid' | 'dashed';
+    color?: 'gold' | 'white' | 'red';
+    arrow?: boolean;
+    /** Flag badges at the ends (ISO alpha-2). */
+    fromFlag?: string;
+    toFlag?: string;
+    label?: string;
+  }[];
 }
 
 type Props = {name: string};
@@ -79,17 +108,25 @@ const nameMap = (fc: FeatureCollection<Geometry, Props>) => {
 };
 const GRATICULE = geoGraticule10();
 
-const PALETTE = {
-  ocean: '#0b1826',
-  land: '#1d2421',
-  warm: '#6b645b',
-  gold: '#e0a63a',
-  border: 'rgba(255,255,255,0.18)',
-  grid: 'rgba(255,255,255,0.07)',
-  river: '#3f7aa6',
-  admin1: 'rgba(255,255,255,0.16)',
-  disputed: '#8e8e93',
-};
+/** Map palettes. `ink`/`halo` are label text and its outline; `alt` is the second highlight. */
+const PALETTES = {
+  atlas: {
+    bg: '#080b0f', ocean: '#0b1826', land: '#1d2421', warm: '#6b645b', gold: '#e0a63a', alt: '#8fb3c9',
+    border: 'rgba(255,255,255,0.18)', grid: 'rgba(255,255,255,0.07)', river: '#3f7aa6', admin1: 'rgba(255,255,255,0.16)',
+    disputed: '#8e8e93', ink: '#ffffff', halo: '#080b0f', limb: 'rgba(160,190,220,0.25)',
+  },
+  geo: {
+    bg: '#1a1d24', ocean: '#13161c', land: '#2a2f38', warm: '#4a515e', gold: '#ff3b30', alt: '#ffcc00',
+    border: 'rgba(255,255,255,0.22)', grid: 'rgba(255,255,255,0.05)', river: '#4b8fd1', admin1: 'rgba(255,255,255,0.14)',
+    disputed: '#8e8e93', ink: '#ffffff', halo: '#13161c', limb: 'rgba(255,255,255,0.18)',
+  },
+  paper: {
+    bg: '#f4efea', ocean: '#d6e1e4', land: '#f4efea', warm: '#e3d5c1', gold: '#ff3b30', alt: '#ffcc00',
+    border: 'rgba(60,50,40,0.35)', grid: 'rgba(60,50,40,0.08)', river: '#6f9fbf', admin1: 'rgba(60,50,40,0.25)',
+    disputed: '#8e8e93', ink: '#1c1a17', halo: '#f4efea', limb: 'rgba(60,50,40,0.35)',
+  },
+} as const;
+type PaletteName = keyof typeof PALETTES;
 
 function regionsFor(ctx: LayoutContext): Record<string, Region> {
   return {map: {role: 'media', x: 0, y: 0, w: ctx.W, h: ctx.H}, text: {role: 'overlay', ...ctx.safe}};
@@ -104,6 +141,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
   const cueAt = useCue(scene);
   const d = scene.data;
   const {W, H, unit} = ctx;
+  const PALETTE = PALETTES[(d.palette ?? (theme.id in PALETTES ? theme.id : 'atlas')) as PaletteName];
   const at = (v: At | undefined, fallback = 0) => (v === undefined ? fallback : typeof v === 'number' ? Math.round(v * fps) : cueAt(v, fallback));
 
   // ---- camera (keyframes -> lon/lat/zoom), log-space zoom
@@ -152,7 +190,11 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
   const lakes = useGeoLayer(!d.background && layers.has('lakes') ? 'lakes' : null);
   const admin1 = useGeoLayer(!d.background && layers.has('admin1') ? 'admin1' : null);
   const disputed = useGeoLayer(!d.background && layers.has('disputed') ? 'disputed' : null);
-  usePreloadImages([...(d.flagMasks ?? []).map((m) => flagUrl(m.iso, '4x3')), ...(d.flagBadges ?? []).map((b) => flagUrl(b.iso, '1x1'))]);
+  usePreloadImages([
+    ...(d.flagMasks ?? []).map((m) => flagUrl(m.iso, '4x3')),
+    ...(d.flagBadges ?? []).map((b) => flagUrl(b.iso, '1x1')),
+    ...(d.routes ?? []).flatMap((r) => [r.fromFlag, r.toFlag].filter((x): x is string => Boolean(x)).map((iso) => flagUrl(iso, '1x1'))),
+  ]);
 
   const base = zoom < 1.6 ? WORLD110 : zoom >= 7 && countries10 ? countries10 : WORLD;
   const countryByName = nameMap(base);
@@ -174,14 +216,18 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
 
   const reveal = (items: {name: string; at?: At}[] | undefined) => new Map((items ?? []).map((g) => [g.name, at(g.at, 0)]));
   const gold = reveal(d.gold);
+  const alt = reveal(d.alt);
   const warm = reveal(d.warm);
   const fadeAt = d.fade ? at(d.fade.at, 0) : null;
   const fadeSet = new Set(d.fade?.names ?? []);
   const globeIn = progress(frame, 0, 14);
+  const sat = d.basemap === 'satellite' && !d.background ? interpolate(zoom, [1.3, 3.2], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) : 0;
 
   const fillFor = (name: string) => {
     const g = gold.get(name);
     if (g !== undefined && frame >= g) return {fill: PALETTE.gold, op: 0.3 + 0.7 * progress(frame, g, 12)};
+    const a2 = alt.get(name);
+    if (a2 !== undefined && frame >= a2) return {fill: PALETTE.alt, op: 0.3 + 0.7 * progress(frame, a2, 12)};
     const w = warm.get(name);
     if (w !== undefined && frame >= w) return {fill: PALETTE.warm, op: 0.4 + 0.6 * progress(frame, w, 12)};
     const faded = fadeAt !== null && fadeSet.has(name) ? 1 - 0.75 * progress(frame, fadeAt, 18) : 1;
@@ -189,27 +235,32 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
   };
 
   const textStyle = (style: string | undefined, tone: string | undefined): React.CSSProperties => {
-    const color = tone === 'gold' ? PALETTE.gold : '#f5f2ec';
+    const color = tone === 'gold' ? PALETTE.gold : PALETTE.ink;
     if (style === 'sub') return {fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.25), fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', color};
     const size = style === 'stamp' ? ctx.type.display * 0.95 : ctx.type.display * 1.35;
-    return {fontFamily: '"Bebas Neue", "Anton", sans-serif', fontSize: Math.round(size), lineHeight: 0.95, letterSpacing: '0.01em', textTransform: 'uppercase', color, textShadow: `0 ${4 * unit}px ${24 * unit}px rgba(0,0,0,0.65)`};
+    return {fontFamily: '"Bebas Neue", "Anton", sans-serif', fontSize: Math.round(size), lineHeight: 0.95, letterSpacing: '0.01em', textTransform: 'uppercase', color, textShadow: PALETTE.ink === '#ffffff' ? `0 ${4 * unit}px ${24 * unit}px rgba(0,0,0,0.65)` : 'none'};
   };
 
   return (
-    <AbsoluteFill style={{background: '#080b0f'}}>
+    <AbsoluteFill style={{background: PALETTE.bg}}>
       <AbsoluteFill style={{transform: `translate(${shakeOffset}px, ${shakeOffset * 0.4}px)`}}>
         {d.background ? (
           <div style={{position: 'absolute', inset: 0, filter: d.tint === 'parchment' ? 'sepia(0.7) saturate(1.25) contrast(1.05) brightness(0.95)' : undefined}}>
             <Backdrop asset={d.background} durationInFrames={durationInFrames} dim={d.tint === 'parchment' ? 0.28 : 0.35} />
           </div>
         ) : (
-          <svg width={W} height={H} style={{opacity: globeIn}}>
-            <path d={path({type: 'Sphere'}) ?? undefined} fill={PALETTE.ocean} stroke="rgba(160,190,220,0.25)" strokeWidth={2 * unit} />
-            {d.grid !== false ? <path d={path(GRATICULE) ?? undefined} fill="none" stroke={PALETTE.grid} strokeWidth={1 * unit} /> : null}
+          <>
+          {sat > 0 ? <SatelliteGlobe W={W} H={H} cx={W / 2} cy={cy} R={(W / 2) * zoom} lon={lon} lat={lat} opacity={sat * globeIn} /> : null}
+          <svg width={W} height={H} style={{opacity: globeIn, position: 'absolute', left: 0, top: 0}}>
+            <path d={path({type: 'Sphere'}) ?? undefined} fill={PALETTE.ocean} fillOpacity={1 - sat} stroke={PALETTE.limb} strokeWidth={2 * unit} />
+            {d.grid !== false ? <path d={path(GRATICULE) ?? undefined} fill="none" stroke={PALETTE.grid} strokeWidth={1 * unit} opacity={1 - sat} /> : null}
             {visible(base.features).map((f: Feature<Geometry, Props>, i) => {
               const {fill, op} = fillFor(f.properties.name);
               const dd = path(f);
-              return dd ? <path key={i} d={dd} fill={fill} fillOpacity={op} stroke={PALETTE.border} strokeWidth={0.8 * unit} /> : null;
+              // Over satellite imagery, plain land is transparent; highlights stay (slightly see-through).
+              const plain = fill === PALETTE.land;
+              const fo = plain ? op * (1 - sat) : op * (1 - 0.35 * sat);
+              return dd ? <path key={i} d={dd} fill={fill} fillOpacity={fo} stroke={sat > 0.5 ? 'rgba(255,255,255,0.35)' : PALETTE.border} strokeWidth={0.8 * unit} /> : null;
             })}
             {/* Lakes (cut out of the land), province borders, rivers, disputed areas. */}
             {lakes ? (
@@ -288,7 +339,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
               const dd = f ? path(f) : null;
               if (!dd) return null;
               const p = progress(frame, at(o.at, 0), 28, EASE_OUT);
-              return <path key={o.name} d={dd} fill="none" stroke={o.color === 'gold' ? PALETTE.gold : '#ffffff'} strokeWidth={3 * unit} pathLength={1} strokeDasharray={1} strokeDashoffset={1 - p} strokeLinejoin="round" />;
+              return <path key={o.name} d={dd} fill="none" stroke={o.color === 'gold' ? PALETTE.gold : PALETTE.ink} strokeWidth={3 * unit} pathLength={1} strokeDasharray={1} strokeDashoffset={1 - p} strokeLinejoin="round" />;
             })}
             {/* Gold pulse rings. */}
             {(d.pulse ?? []).map((pl) => {
@@ -298,6 +349,65 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
               const p = progress(frame, at(pl.at, 0), 32, EASE_OUT);
               if (p <= 0 || p >= 1) return null;
               return <circle key={pl.name} cx={c[0]} cy={c[1]} r={(20 + 260 * p) * unit} fill="none" stroke={PALETTE.gold} strokeWidth={(6 - 5 * p) * unit} opacity={1 - p} />;
+            })}
+            {/* Routes: great-circle lines that draw themselves, arrowhead at the tip. */}
+            {(d.routes ?? []).map((r, i) => {
+              const sampled = sampleRoute([r.from, ...(r.via ?? []), r.to]);
+              const f0 = at(r.at, 0);
+              const len = Math.round((r.duration ?? 2.5) * fps);
+              const t = interpolate(frame, [f0, f0 + len], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: EASE_IN_OUT});
+              if (frame < f0) return null;
+              const color = r.color === 'white' ? PALETTE.ink : r.color === 'red' ? '#ff3b30' : PALETTE.gold;
+              const drawn = routeUpTo(sampled, t);
+              const dd = path({type: 'LineString', coordinates: drawn});
+              const tip = projection(drawn[drawn.length - 1]);
+              const prev = drawn.length > 1 ? projection(drawn[Math.max(0, drawn.length - 3)]) : null;
+              const ang = tip && prev ? Math.atan2(tip[1] - prev[1], tip[0] - prev[0]) : 0;
+              const ah = 16 * unit;
+              const mid = r.label ? projection(routePoint(sampled, 0.5)) : null;
+              const badge = (iso: string, pt: [number, number] | null, show: number, key: string) => {
+                if (!pt || show <= 0) return null;
+                const rr = 26 * unit * (0.6 + 0.4 * show);
+                const id = `route-${scene.id}-${i}-${key}`;
+                return (
+                  <g key={key} opacity={show}>
+                    <circle cx={pt[0]} cy={pt[1] + 3 * unit} r={rr + 3 * unit} fill="rgba(0,0,0,0.45)" />
+                    <clipPath id={id}>
+                      <circle cx={pt[0]} cy={pt[1]} r={rr} />
+                    </clipPath>
+                    <image href={flagUrl(iso, '1x1')} x={pt[0] - rr} y={pt[1] - rr} width={2 * rr} height={2 * rr} preserveAspectRatio="none" clipPath={`url(#${id})`} />
+                    <circle cx={pt[0]} cy={pt[1]} r={rr} fill="none" stroke="#ffffff" strokeWidth={3 * unit} />
+                  </g>
+                );
+              };
+              return (
+                <g key={`route-${i}`}>
+                  {dd ? (
+                    <>
+                      {/* soft dark underlay keeps the line readable over any land colour */}
+                      {/* halo in the palette's background tone: dark on dark maps, light on paper */}
+                      <path d={dd} fill="none" stroke={PALETTE.halo} strokeOpacity={0.7} strokeWidth={9 * unit} strokeLinecap="round" strokeLinejoin="round" />
+                      <path d={dd} fill="none" stroke={color} strokeWidth={4.5 * unit} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={r.style === 'dashed' ? `${12 * unit} ${9 * unit}` : undefined} />
+                    </>
+                  ) : null}
+                  {r.arrow !== false && tip && t < 1 ? (
+                    <polygon
+                      points={`${tip[0] + Math.cos(ang) * ah},${tip[1] + Math.sin(ang) * ah} ${tip[0] + Math.cos(ang + 2.5) * ah},${tip[1] + Math.sin(ang + 2.5) * ah} ${tip[0] + Math.cos(ang - 2.5) * ah},${tip[1] + Math.sin(ang - 2.5) * ah}`}
+                      fill={color}
+                      stroke={PALETTE.halo}
+                      strokeWidth={1.5 * unit}
+                    />
+                  ) : null}
+                  {r.arrow !== false && tip && t >= 1 ? <circle cx={tip[0]} cy={tip[1]} r={7 * unit} fill={color} stroke={PALETTE.halo} strokeWidth={2 * unit} /> : null}
+                  {r.fromFlag ? badge(r.fromFlag, projection(r.from), progress(frame, f0, 12, EASE_OUT), 'from') : null}
+                  {r.toFlag ? badge(r.toFlag, projection(r.to), progress(frame, f0 + len - 4, 12, EASE_OUT), 'to') : null}
+                  {mid && r.label ? (
+                    <text x={mid[0]} y={mid[1] - 18 * unit} textAnchor="middle" fill={PALETTE.ink} opacity={progress(frame, f0 + len * 0.5, 12)} style={{fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.05), fontWeight: 700, letterSpacing: '0.14em', paintOrder: 'stroke', stroke: PALETTE.halo, strokeWidth: 5 * unit}}>
+                      {r.label.toUpperCase()}
+                    </text>
+                  ) : null}
+                </g>
+              );
             })}
             {/* Round flag badges with a pop-in. */}
             {(d.flagBadges ?? []).map((b, i) => {
@@ -317,7 +427,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
                   <image href={flagUrl(b.iso, '1x1')} x={pt[0] - r} y={pt[1] - r} width={2 * r} height={2 * r} preserveAspectRatio="xMidYMid slice" clipPath={`url(#${id})`} />
                   <circle cx={pt[0]} cy={pt[1]} r={r} fill="none" stroke="#ffffff" strokeWidth={3 * unit} />
                   {b.label ? (
-                    <text x={pt[0]} y={pt[1] + r + 22 * unit} textAnchor="middle" fill="#ffffff" style={{fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.05), fontWeight: 700, letterSpacing: '0.14em', paintOrder: 'stroke', stroke: '#080b0f', strokeWidth: 5 * unit}}>
+                    <text x={pt[0]} y={pt[1] + r + 22 * unit} textAnchor="middle" fill={PALETTE.ink} style={{fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.05), fontWeight: 700, letterSpacing: '0.14em', paintOrder: 'stroke', stroke: PALETTE.halo, strokeWidth: 5 * unit}}>
                       {b.label.toUpperCase()}
                     </text>
                   ) : null}
@@ -329,17 +439,17 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
               const pt = f ? projection(geoCentroid(f)) : l.lon !== undefined && l.lat !== undefined ? projection([l.lon, l.lat]) : null;
               if (!pt) return null;
               const p = progress(frame, at(l.at, 0), 12);
-              const color = l.tone === 'gold' ? PALETTE.gold : l.tone === 'muted' ? 'rgba(255,255,255,0.55)' : '#ffffff';
+              const color = l.tone === 'gold' ? PALETTE.gold : l.tone === 'muted' ? (PALETTE.ink === '#ffffff' ? 'rgba(255,255,255,0.55)' : 'rgba(28,26,23,0.55)') : PALETTE.ink;
               return (
                 <g key={i} opacity={p}>
-                  {l.lon !== undefined && l.dot !== false ? <circle cx={pt[0]} cy={pt[1]} r={7 * unit} fill={PALETTE.gold} stroke="#080b0f" strokeWidth={3 * unit} /> : null}
+                  {l.lon !== undefined && l.dot !== false ? <circle cx={pt[0]} cy={pt[1]} r={7 * unit} fill={PALETTE.gold} stroke={PALETTE.halo} strokeWidth={3 * unit} /> : null}
                   <text
                     x={pt[0] + (l.lon !== undefined && l.dot !== false ? 18 * unit : 0)}
                     y={pt[1] + (l.dy ?? 0) * ctx.type.label * 1.6}
                     textAnchor={l.lon !== undefined && l.dot !== false ? 'start' : 'middle'}
                     dominantBaseline="middle"
                     fill={color}
-                    style={{fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.15), fontWeight: 700, letterSpacing: '0.14em', paintOrder: 'stroke', stroke: '#080b0f', strokeWidth: 5 * unit}}
+                    style={{fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.15), fontWeight: 700, letterSpacing: '0.14em', paintOrder: 'stroke', stroke: PALETTE.halo, strokeWidth: 5 * unit}}
                   >
                     {l.text.toUpperCase()}
                   </text>
@@ -347,6 +457,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
               );
             })}
           </svg>
+          </>
         )}
       </AbsoluteFill>
 
@@ -412,6 +523,7 @@ export const AtlasScene: SceneDefinition<AtlasData> = {
     [
       ...(d.camera ?? []).map((k) => k.at),
       ...(d.gold ?? []).map((g) => g.at),
+      ...(d.alt ?? []).map((g) => g.at),
       ...(d.warm ?? []).map((g) => g.at),
       d.fade?.at,
       ...(d.outline ?? []).map((g) => g.at),
@@ -422,5 +534,6 @@ export const AtlasScene: SceneDefinition<AtlasData> = {
       d.layersAt,
       ...(d.flagMasks ?? []).map((m) => m.at),
       ...(d.flagBadges ?? []).map((b) => b.at),
+      ...(d.routes ?? []).map((r) => r.at),
     ].filter((v): v is string => typeof v === 'string'),
 };

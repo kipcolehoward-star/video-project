@@ -60,4 +60,30 @@ THEMES.atlas = {
   fonts: {display: '"Bebas Neue", "Anton", sans-serif', body: '"Inter Variable", "Segoe UI", sans-serif'},
 };
 
+THEMES.geo = {
+  id: 'geo',
+  background: '#1a1d24',
+  surface: '#232730',
+  text: '#ffffff',
+  textMuted: '#a7adb8',
+  accent: '#ff3b30',
+  rule: 'rgba(255, 255, 255, 0.16)',
+  chartMuted: '#3a404c',
+  mapLand: '#2a2f38',
+  fonts: {display: '"Bebas Neue", "Anton", sans-serif', body: '"Inter Variable", "Segoe UI", sans-serif'},
+};
+
+THEMES.paper = {
+  id: 'paper',
+  background: '#f4efea',
+  surface: '#e9e1d6',
+  text: '#1c1a17',
+  textMuted: '#6b6257',
+  accent: '#ff3b30',
+  rule: 'rgba(28, 26, 23, 0.18)',
+  chartMuted: '#cfc4b4',
+  mapLand: '#f4efea',
+  fonts: {display: '"Bebas Neue", "Anton", sans-serif', body: '"Inter Variable", "Segoe UI", sans-serif'},
+};
+
 export const getTheme = (id?: string): Theme => THEMES[id ?? 'documentary'] ?? THEMES.documentary;

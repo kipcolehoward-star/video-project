@@ -179,10 +179,25 @@ Atlas options (all timing via cue word or seconds):
   then a state/province.
 - Flags: flag-icons (MIT), ISO 3166-1 alpha-2 lowercase ("ls", "za", "in").
   `validate` errors on unknown codes or missing layers.
+- `routes: [{from:[lon,lat], to, via:[[lon,lat]...], at, duration, style: solid|dashed,
+  color: gold|white|red, arrow, fromFlag, toFlag, label}]` — great-circle lines that
+  draw themselves with an arrowhead. Use `via` waypoints to keep sea lanes at sea
+  (e.g. Malacca, Bab-el-Mandeb, Suez, offshore Iberia) and check the still.
+- `palette`: atlas (dark/amber) | geo (slate, red #FF3B30 focus, yellow #FFCC00 `alt`,
+  grey #8E8E93 disputed) | paper (parchment, dark ink). Defaults from project theme
+  (`geo`/`paper` themes exist). `alt: [{name, at}]` = second highlight colour.
+- `basemap: "satellite"` — NASA Blue Marble (public domain, data/geo/raster) on the
+  globe, cross-fading to the vector map between zoom 1.3 and 3.2. Heaviest effect
+  (~2 fps at preview size): use for short globe-scale hooks, not long scenes.
+- project.json `texture`: none | grain | paper — procedural grain overlay (5–12%).
 Engine notes: only features in view are drawn (culling); polygons with reversed
 winding (would flood the globe) are corrected per part on load (`fixWinding`) —
 Natural Earth 10m Maldives and two simplified lakes needed this.
-Test project: `projects/demo-geo-toolkit`.
+Test project: `projects/demo-geo-toolkit` (6 scenes: provinces/rivers/flags, Kashmir
+disputed + masks, capital badges, shipping route, satellite dive, paper palette).
+Script input: the user may write cue-sheet scripts (VOICEOVER / VISUAL_TYPE /
+MAP_TARGET / OVERLAY / SFX_TRIGGER); convert them to storyboard JSON by hand, mapping
+timestamps to narration cue words.
 
 ## Images (licensed sourcing)
 

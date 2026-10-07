@@ -12,6 +12,8 @@ export interface ProjectConfig {
   /** "auto": documentary captions in landscape, kinetic in portrait/square. */
   captionStyle?: CaptionStyle | 'auto';
   audio?: AudioConfig;
+  /** Subtle surface texture over the whole video: film grain or paper grain. */
+  texture?: 'none' | 'grain' | 'paper';
 }
 
 export type CaptionStyle = 'documentary' | 'kinetic' | 'educational' | 'none';
