@@ -1,0 +1,27 @@
+# Dependencies and local tools (reinstall: npm install / npm run setup:tools)
+node_modules/
+tools/
+.remotion/
+src/generated/
+
+# Secrets — never commit
+.env
+
+# Regenerable / large render artefacts
+*.log
+projects/*/previews/*
+!projects/*/previews/.gitkeep
+projects/*/audio/.mixwork/
+projects/*/audio/mix.wav
+projects/*/audio/mix.json
+
+# Final videos are large: back them up outside git (e.g. OneDrive).
+# Subtitles and credits are small and worth versioning.
+projects/*/output/*
+!projects/*/output/.gitkeep
+!projects/*/output/*.srt
+!projects/*/output/*.vtt
+!projects/*/output/*-credits.txt
+
+# Licensed music is large; re-download by the Epidemic ID in assets.json
+projects/*/audio/music/es-*.wav

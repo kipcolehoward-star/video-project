@@ -1,0 +1,115 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "At",
+      "start": 0.0875,
+      "end": 0.175
+    },
+    {
+      "word": "the",
+      "start": 0.1875,
+      "end": 0.2625
+    },
+    {
+      "word": "same",
+      "start": 0.275,
+      "end": 0.5625
+    },
+    {
+      "word": "time",
+      "start": 0.575,
+      "end": 0.975
+    },
+    {
+      "word": "police",
+      "start": 1.4625,
+      "end": 1.8875
+    },
+    {
+      "word": "and",
+      "start": 1.9,
+      "end": 2.05
+    },
+    {
+      "word": "fire",
+      "start": 2.0625,
+      "end": 2.4375
+    },
+    {
+      "word": "officials",
+      "start": 2.45,
+      "end": 2.9375
+    },
+    {
+      "word": "were",
+      "start": 2.95,
+      "end": 3.075
+    },
+    {
+      "word": "pushing",
+      "start": 3.0875,
+      "end": 3.475
+    },
+    {
+      "word": "for",
+      "start": 3.4875,
+      "end": 3.625
+    },
+    {
+      "word": "simpler",
+      "start": 3.6375,
+      "end": 4.0625
+    },
+    {
+      "word": "ways",
+      "start": 4.075,
+      "end": 4.425
+    },
+    {
+      "word": "for",
+      "start": 4.5,
+      "end": 4.6125
+    },
+    {
+      "word": "the",
+      "start": 4.625,
+      "end": 4.7125
+    },
+    {
+      "word": "public",
+      "start": 4.725,
+      "end": 5.1625
+    },
+    {
+      "word": "to",
+      "start": 5.175,
+      "end": 5.2875
+    },
+    {
+      "word": "report",
+      "start": 5.3,
+      "end": 5.7
+    },
+    {
+      "word": "emergencies",
+      "start": 5.7125,
+      "end": 6.4750000000000005
+    },
+    {
+      "word": "In",
+      "start": 6.8375,
+      "end": 7.0125
+    },
+    {
+      "word": "other",
+      "start": 7.025,
+      "end": 7.275
+    },
+    {
+      "word": "words\u00e2\u20ac",
+      "start": 7.2875,
+      "end": 8.174999999999999
+    }
+  ]
+}

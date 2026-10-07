@@ -1,0 +1,80 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "\u00e2\u20ac",
+      "start": 0.05,
+      "end": 0.5
+    },
+    {
+      "word": "those",
+      "start": 0.5125,
+      "end": 0.75
+    },
+    {
+      "word": "three",
+      "start": 0.7625,
+      "end": 1.0125
+    },
+    {
+      "word": "digits",
+      "start": 1.025,
+      "end": 1.5
+    },
+    {
+      "word": "can",
+      "start": 1.5125,
+      "end": 1.7
+    },
+    {
+      "word": "be",
+      "start": 1.7125,
+      "end": 1.8499999999999999
+    },
+    {
+      "word": "the",
+      "start": 1.8625,
+      "end": 1.975
+    },
+    {
+      "word": "difference",
+      "start": 1.9875,
+      "end": 2.475
+    },
+    {
+      "word": "between",
+      "start": 2.4875,
+      "end": 2.9
+    },
+    {
+      "word": "waiting",
+      "start": 2.9125,
+      "end": 3.275
+    },
+    {
+      "word": "for",
+      "start": 3.2875,
+      "end": 3.4250000000000003
+    },
+    {
+      "word": "help\u00e2\u20ac",
+      "start": 3.4375,
+      "end": 4.0875
+    },
+    {
+      "word": "and",
+      "start": 4.1,
+      "end": 4.2375
+    },
+    {
+      "word": "getting",
+      "start": 4.25,
+      "end": 4.5375
+    },
+    {
+      "word": "it",
+      "start": 4.55,
+      "end": 4.825
+    }
+  ]
+}

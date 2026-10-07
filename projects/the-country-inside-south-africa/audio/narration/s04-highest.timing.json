@@ -1,0 +1,50 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "It's",
+      "start": 0.05,
+      "end": 0.197708
+    },
+    {
+      "word": "also",
+      "start": 0.209083,
+      "end": 0.595458
+    },
+    {
+      "word": "one",
+      "start": 0.606833,
+      "end": 0.7659159999999999
+    },
+    {
+      "word": "of",
+      "start": 0.777291,
+      "end": 0.8454569999999999
+    },
+    {
+      "word": "the",
+      "start": 0.856833,
+      "end": 0.9363739999999999
+    },
+    {
+      "word": "highest",
+      "start": 0.947708,
+      "end": 1.368166
+    },
+    {
+      "word": "countries",
+      "start": 1.379541,
+      "end": 1.8227069999999999
+    },
+    {
+      "word": "on",
+      "start": 1.834083,
+      "end": 1.993166
+    },
+    {
+      "word": "Earth",
+      "start": 2.004541,
+      "end": 2.459082
+    }
+  ]
+}

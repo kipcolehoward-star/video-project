@@ -1,0 +1,406 @@
+{
+  "engine": "whisper.cpp b5454 ggml-base.en (timing) + script text (display)",
+  "scenes": {
+    "s1-title": {
+      "audioHash": "326a0e9e941e3361",
+      "words": [
+        {
+          "text": "One",
+          "start": 0.08,
+          "end": 0.25,
+          "matched": true
+        },
+        {
+          "text": "story,",
+          "start": 0.25,
+          "end": 0.66,
+          "matched": true
+        },
+        {
+          "text": "told",
+          "start": 1.02,
+          "end": 1.05,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 1.05,
+          "end": 1.31,
+          "matched": true
+        },
+        {
+          "text": "every",
+          "emphasis": true,
+          "start": 1.31,
+          "end": 1.75,
+          "matched": true
+        },
+        {
+          "text": "screen.",
+          "emphasis": true,
+          "start": 1.75,
+          "end": 2.56,
+          "matched": true
+        },
+        {
+          "text": "This",
+          "start": 2.64,
+          "end": 2.79,
+          "matched": true
+        },
+        {
+          "text": "test",
+          "start": 2.82,
+          "end": 3.04,
+          "matched": true
+        },
+        {
+          "text": "checks",
+          "start": 3.04,
+          "end": 3.23,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 3.58,
+          "end": 3.66,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 3.66,
+          "end": 3.72,
+          "matched": true
+        },
+        {
+          "text": "single",
+          "start": 3.72,
+          "end": 4.08,
+          "matched": true
+        },
+        {
+          "text": "storyboard",
+          "start": 4.45,
+          "end": 4.7,
+          "matched": false
+        },
+        {
+          "text": "adapts",
+          "start": 4.7,
+          "end": 5.12,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 5.16,
+          "end": 5.25,
+          "matched": true
+        },
+        {
+          "text": "each",
+          "start": 5.25,
+          "end": 5.5,
+          "matched": true
+        },
+        {
+          "text": "format.",
+          "start": 5.52,
+          "end": 6,
+          "matched": true
+        }
+      ],
+      "recognized": "One story told for every screen. This test checks that a single story board adapts to each format."
+    },
+    "s2-split": {
+      "audioHash": "a4dfc64388d4a72f",
+      "words": [
+        {
+          "text": "When",
+          "start": 0.04,
+          "end": 0.22,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 0.32,
+          "end": 0.45,
+          "matched": true
+        },
+        {
+          "text": "frame",
+          "start": 0.45,
+          "end": 0.77,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 0.77,
+          "end": 0.9,
+          "matched": true
+        },
+        {
+          "text": "wide,",
+          "start": 0.9,
+          "end": 1.32,
+          "matched": true
+        },
+        {
+          "text": "image",
+          "start": 1.37,
+          "end": 1.78,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 1.78,
+          "end": 1.98,
+          "matched": true
+        },
+        {
+          "text": "text",
+          "start": 2.06,
+          "end": 2.4,
+          "matched": true
+        },
+        {
+          "text": "sit",
+          "start": 2.41,
+          "end": 2.77,
+          "matched": false
+        },
+        {
+          "text": "side",
+          "start": 2.77,
+          "end": 3.11,
+          "matched": true
+        },
+        {
+          "text": "by",
+          "start": 3.11,
+          "end": 3.23,
+          "matched": true
+        },
+        {
+          "text": "side.",
+          "start": 3.72,
+          "end": 3.76,
+          "matched": true
+        },
+        {
+          "text": "When",
+          "start": 3.76,
+          "end": 3.94,
+          "matched": true
+        },
+        {
+          "text": "it",
+          "start": 4.04,
+          "end": 4.17,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 4.17,
+          "end": 4.31,
+          "matched": true
+        },
+        {
+          "text": "tall,",
+          "start": 4.42,
+          "end": 4.73,
+          "matched": true
+        },
+        {
+          "text": "they",
+          "start": 5.09,
+          "end": 5.19,
+          "matched": true
+        },
+        {
+          "text": "stack,",
+          "emphasis": true,
+          "start": 5.19,
+          "end": 5.68,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 5.72,
+          "end": 5.84,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 5.84,
+          "end": 5.96,
+          "matched": true
+        },
+        {
+          "text": "text",
+          "start": 5.99,
+          "end": 6.22,
+          "matched": true
+        },
+        {
+          "text": "stays",
+          "start": 6.22,
+          "end": 6.5,
+          "matched": true
+        },
+        {
+          "text": "clear",
+          "start": 6.5,
+          "end": 6.69,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 6.89,
+          "end": 7.01,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 7.05,
+          "end": 7.05,
+          "matched": true
+        },
+        {
+          "text": "platform's",
+          "start": 7.05,
+          "end": 7.6,
+          "matched": true
+        },
+        {
+          "text": "buttons.",
+          "start": 7.6,
+          "end": 8.2,
+          "matched": true
+        }
+      ],
+      "recognized": "When the frame is wide, image and text sits side by side. When it is tall, they stack, and the text stays clear of the platform's buttons."
+    },
+    "s3-stat": {
+      "audioHash": "fb0aab79030bac90",
+      "words": [
+        {
+          "text": "A",
+          "start": 0.06,
+          "end": 0.08,
+          "matched": true
+        },
+        {
+          "text": "widescreen",
+          "start": 0.08,
+          "end": 0.93,
+          "matched": true
+        },
+        {
+          "text": "frame",
+          "start": 0.93,
+          "end": 1.36,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 1.36,
+          "end": 1.53,
+          "matched": true
+        },
+        {
+          "text": "nineteen",
+          "emphasis": true,
+          "start": 1.53,
+          "end": 2.1185714285714288,
+          "matched": false
+        },
+        {
+          "text": "twenty",
+          "emphasis": true,
+          "start": 2.1185714285714288,
+          "end": 2.56,
+          "matched": false
+        },
+        {
+          "text": "pixels",
+          "start": 2.56,
+          "end": 3,
+          "matched": true
+        },
+        {
+          "text": "across.",
+          "start": 3.06,
+          "end": 3.7,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 3.77,
+          "end": 3.87,
+          "matched": true
+        },
+        {
+          "text": "chart",
+          "start": 3.87,
+          "end": 4.1,
+          "matched": true
+        },
+        {
+          "text": "turns",
+          "start": 4.17,
+          "end": 4.45,
+          "matched": true
+        },
+        {
+          "text": "sideways",
+          "start": 4.45,
+          "end": 4.92,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 4.92,
+          "end": 5.03,
+          "matched": true
+        },
+        {
+          "text": "suit",
+          "start": 5.03,
+          "end": 5.24,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 5.32,
+          "end": 5.43,
+          "matched": true
+        },
+        {
+          "text": "format",
+          "start": 5.72,
+          "end": 5.87,
+          "matched": false
+        },
+        {
+          "text": "it",
+          "start": 5.87,
+          "end": 5.98,
+          "matched": true
+        },
+        {
+          "text": "appears",
+          "start": 5.98,
+          "end": 6.32,
+          "matched": true
+        },
+        {
+          "text": "in.",
+          "start": 6.33,
+          "end": 6.6,
+          "matched": true
+        }
+      ],
+      "recognized": "A widescreen frame is 1920 pixels across. The chart turns sideways to suit the form and it appears in."
+    }
+  }
+}

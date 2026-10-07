@@ -1,0 +1,150 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "So",
+      "start": 0.05,
+      "end": 0.2375
+    },
+    {
+      "word": "what",
+      "start": 0.25,
+      "end": 0.475
+    },
+    {
+      "word": "actually",
+      "start": 0.4875,
+      "end": 0.875
+    },
+    {
+      "word": "prompted",
+      "start": 0.8875,
+      "end": 1.4249999999999998
+    },
+    {
+      "word": "the",
+      "start": 1.4375,
+      "end": 1.525
+    },
+    {
+      "word": "creation",
+      "start": 1.5375,
+      "end": 2.0375
+    },
+    {
+      "word": "of",
+      "start": 2.05,
+      "end": 2.1624999999999996
+    },
+    {
+      "word": "911",
+      "start": 2.175,
+      "end": 3.125
+    },
+    {
+      "word": "There",
+      "start": 3.5125,
+      "end": 3.6500000000000004
+    },
+    {
+      "word": "wasn't",
+      "start": 3.6625,
+      "end": 4.075
+    },
+    {
+      "word": "one",
+      "start": 4.0875,
+      "end": 4.375
+    },
+    {
+      "word": "single",
+      "start": 4.3875,
+      "end": 4.8375
+    },
+    {
+      "word": "event",
+      "start": 4.85,
+      "end": 5.375
+    },
+    {
+      "word": "It",
+      "start": 5.7375,
+      "end": 5.8875
+    },
+    {
+      "word": "was",
+      "start": 5.9,
+      "end": 6.050000000000001
+    },
+    {
+      "word": "the",
+      "start": 6.0625,
+      "end": 6.1625
+    },
+    {
+      "word": "growing",
+      "start": 6.175,
+      "end": 6.6
+    },
+    {
+      "word": "realization",
+      "start": 6.6125,
+      "end": 7.375
+    },
+    {
+      "word": "that",
+      "start": 7.3875,
+      "end": 7.6125
+    },
+    {
+      "word": "emergency",
+      "start": 7.6375,
+      "end": 8.2375
+    },
+    {
+      "word": "communication",
+      "start": 8.25,
+      "end": 8.925
+    },
+    {
+      "word": "needed",
+      "start": 8.9375,
+      "end": 9.3
+    },
+    {
+      "word": "to",
+      "start": 9.3125,
+      "end": 9.4125
+    },
+    {
+      "word": "become",
+      "start": 9.425,
+      "end": 9.762500000000001
+    },
+    {
+      "word": "faster",
+      "start": 9.775,
+      "end": 10.425
+    },
+    {
+      "word": "simpler",
+      "start": 10.7625,
+      "end": 11.4125
+    },
+    {
+      "word": "and",
+      "start": 11.4375,
+      "end": 11.625
+    },
+    {
+      "word": "more",
+      "start": 11.6375,
+      "end": 11.899999999999999
+    },
+    {
+      "word": "reliable",
+      "start": 11.9125,
+      "end": 12.5875
+    }
+  ]
+}

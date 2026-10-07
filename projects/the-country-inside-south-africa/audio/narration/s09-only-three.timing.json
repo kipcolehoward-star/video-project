@@ -1,0 +1,75 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "It's",
+      "start": 0.05,
+      "end": 0.220458
+    },
+    {
+      "word": "one",
+      "start": 0.231833,
+      "end": 0.424999
+    },
+    {
+      "word": "of",
+      "start": 0.436375,
+      "end": 0.55
+    },
+    {
+      "word": "only",
+      "start": 0.572708,
+      "end": 0.879541
+    },
+    {
+      "word": "three",
+      "start": 0.890916,
+      "end": 1.152291
+    },
+    {
+      "word": "countries",
+      "start": 1.163625,
+      "end": 1.6863329999999999
+    },
+    {
+      "word": "in",
+      "start": 1.697708,
+      "end": 1.822708
+    },
+    {
+      "word": "the",
+      "start": 1.834083,
+      "end": 1.913624
+    },
+    {
+      "word": "world",
+      "start": 1.925,
+      "end": 2.322708
+    },
+    {
+      "word": "completely",
+      "start": 2.334083,
+      "end": 2.822708
+    },
+    {
+      "word": "surrounded",
+      "start": 2.834083,
+      "end": 3.379541
+    },
+    {
+      "word": "by",
+      "start": 3.390916,
+      "end": 3.5499989999999997
+    },
+    {
+      "word": "another",
+      "start": 3.561375,
+      "end": 3.856833
+    },
+    {
+      "word": "country",
+      "start": 3.868166,
+      "end": 4.334082
+    }
+  ]
+}

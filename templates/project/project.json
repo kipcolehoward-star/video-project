@@ -1,0 +1,20 @@
+{
+  "id": "{{ID}}",
+  "title": "{{TITLE}}",
+  "video": {
+    "format": "{{FORMAT}}",
+    "fps": 30,
+    "duration": null
+  },
+  "safeZoneProfile": "auto",
+  "theme": "{{THEME}}",
+  "captionStyle": "auto",
+  "audio": {
+    "voice": "en_US-joe-medium",
+    "music": null,
+    "musicDb": -16,
+    "duckDb": -12,
+    "targetLufs": -16,
+    "truePeak": -1.5
+  }
+}

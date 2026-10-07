@@ -1,0 +1,245 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "The",
+      "start": 0.075,
+      "end": 0.125
+    },
+    {
+      "word": "United",
+      "start": 0.1375,
+      "end": 0.4875
+    },
+    {
+      "word": "States",
+      "start": 0.5,
+      "end": 0.925
+    },
+    {
+      "word": "was",
+      "start": 0.9375,
+      "end": 1.0875
+    },
+    {
+      "word": "experiencing",
+      "start": 1.1,
+      "end": 1.8375000000000001
+    },
+    {
+      "word": "growing",
+      "start": 1.85,
+      "end": 2.25
+    },
+    {
+      "word": "numbers",
+      "start": 2.2625,
+      "end": 2.625
+    },
+    {
+      "word": "of",
+      "start": 2.6375,
+      "end": 2.7125000000000004
+    },
+    {
+      "word": "emergencies",
+      "start": 2.725,
+      "end": 3.5
+    },
+    {
+      "word": "including",
+      "start": 4.05,
+      "end": 4.5249999999999995
+    },
+    {
+      "word": "serious",
+      "start": 4.5375,
+      "end": 5.012499999999999
+    },
+    {
+      "word": "injuries",
+      "start": 5.025,
+      "end": 5.5625
+    },
+    {
+      "word": "from",
+      "start": 5.575,
+      "end": 5.8125
+    },
+    {
+      "word": "automobile",
+      "start": 5.8375,
+      "end": 6.4375
+    },
+    {
+      "word": "crashes",
+      "start": 6.45,
+      "end": 7.075
+    },
+    {
+      "word": "A",
+      "start": 7.475,
+      "end": 7.5375
+    },
+    {
+      "word": "landmark",
+      "start": 7.55,
+      "end": 8.05
+    },
+    {
+      "word": "1966",
+      "start": 8.0625,
+      "end": 9.25
+    },
+    {
+      "word": "report",
+      "start": 9.2625,
+      "end": 9.6875
+    },
+    {
+      "word": "from",
+      "start": 9.7,
+      "end": 9.85
+    },
+    {
+      "word": "the",
+      "start": 9.8625,
+      "end": 9.925
+    },
+    {
+      "word": "National",
+      "start": 9.9375,
+      "end": 10.425
+    },
+    {
+      "word": "Academy",
+      "start": 10.4375,
+      "end": 10.9375
+    },
+    {
+      "word": "of",
+      "start": 10.95,
+      "end": 11.0125
+    },
+    {
+      "word": "Sciences",
+      "start": 11.025,
+      "end": 11.6
+    },
+    {
+      "word": "highlighted",
+      "start": 11.6125,
+      "end": 12.2125
+    },
+    {
+      "word": "accidental",
+      "start": 12.225,
+      "end": 12.775
+    },
+    {
+      "word": "death",
+      "start": 12.7875,
+      "end": 13.1375
+    },
+    {
+      "word": "and",
+      "start": 13.2,
+      "end": 13.35
+    },
+    {
+      "word": "injury",
+      "start": 13.3625,
+      "end": 13.8375
+    },
+    {
+      "word": "as",
+      "start": 13.85,
+      "end": 13.975
+    },
+    {
+      "word": "a",
+      "start": 13.9875,
+      "end": 14.025
+    },
+    {
+      "word": "major",
+      "start": 14.0375,
+      "end": 14.4625
+    },
+    {
+      "word": "public-health",
+      "start": 14.475,
+      "end": 15.025
+    },
+    {
+      "word": "problem",
+      "start": 15.0375,
+      "end": 15.4625
+    },
+    {
+      "word": "and",
+      "start": 15.6,
+      "end": 15.7
+    },
+    {
+      "word": "called",
+      "start": 15.7125,
+      "end": 16.025
+    },
+    {
+      "word": "for",
+      "start": 16.0375,
+      "end": 16.1875
+    },
+    {
+      "word": "exploring",
+      "start": 16.2,
+      "end": 16.8
+    },
+    {
+      "word": "a",
+      "start": 16.8125,
+      "end": 16.85
+    },
+    {
+      "word": "single",
+      "start": 16.8625,
+      "end": 17.337500000000002
+    },
+    {
+      "word": "nationwide",
+      "start": 17.35,
+      "end": 18.0
+    },
+    {
+      "word": "telephone",
+      "start": 18.0125,
+      "end": 18.474999999999998
+    },
+    {
+      "word": "number",
+      "start": 18.4875,
+      "end": 18.7875
+    },
+    {
+      "word": "to",
+      "start": 18.8,
+      "end": 18.9125
+    },
+    {
+      "word": "summon",
+      "start": 18.925,
+      "end": 19.3875
+    },
+    {
+      "word": "an",
+      "start": 19.4,
+      "end": 19.487499999999997
+    },
+    {
+      "word": "ambulance",
+      "start": 19.5,
+      "end": 20.0875
+    }
+  ]
+}

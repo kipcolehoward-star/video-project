@@ -1,0 +1,170 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "It",
+      "start": 0.0875,
+      "end": 0.1875
+    },
+    {
+      "word": "also",
+      "start": 0.2,
+      "end": 0.6000000000000001
+    },
+    {
+      "word": "fit",
+      "start": 0.6125,
+      "end": 0.9750000000000001
+    },
+    {
+      "word": "the",
+      "start": 0.9875,
+      "end": 1.0875000000000001
+    },
+    {
+      "word": "technology",
+      "start": 1.1,
+      "end": 1.8375000000000001
+    },
+    {
+      "word": "of",
+      "start": 1.85,
+      "end": 1.9625000000000001
+    },
+    {
+      "word": "the",
+      "start": 1.975,
+      "end": 2.0500000000000003
+    },
+    {
+      "word": "time",
+      "start": 2.0625,
+      "end": 2.5625
+    },
+    {
+      "word": "Remember",
+      "start": 2.9625,
+      "end": 3.5625
+    },
+    {
+      "word": "these",
+      "start": 3.5875,
+      "end": 3.85
+    },
+    {
+      "word": "were",
+      "start": 3.8625,
+      "end": 4.0125
+    },
+    {
+      "word": "the",
+      "start": 4.025,
+      "end": 4.15
+    },
+    {
+      "word": "days",
+      "start": 4.1625,
+      "end": 4.5
+    },
+    {
+      "word": "of",
+      "start": 4.5125,
+      "end": 4.6625000000000005
+    },
+    {
+      "word": "rotary",
+      "start": 4.675,
+      "end": 5.05
+    },
+    {
+      "word": "phones",
+      "start": 5.0625,
+      "end": 5.575
+    },
+    {
+      "word": "The",
+      "start": 5.9625,
+      "end": 6.025
+    },
+    {
+      "word": "number",
+      "start": 6.0375,
+      "end": 6.3374999999999995
+    },
+    {
+      "word": "needed",
+      "start": 6.35,
+      "end": 6.6875
+    },
+    {
+      "word": "to",
+      "start": 6.7,
+      "end": 6.8
+    },
+    {
+      "word": "be",
+      "start": 6.8125,
+      "end": 6.9625
+    },
+    {
+      "word": "simple",
+      "start": 6.975,
+      "end": 7.387499999999999
+    },
+    {
+      "word": "enough",
+      "start": 7.4,
+      "end": 7.6875
+    },
+    {
+      "word": "to",
+      "start": 7.7,
+      "end": 7.8375
+    },
+    {
+      "word": "remember",
+      "start": 7.85,
+      "end": 8.4
+    },
+    {
+      "word": "and",
+      "start": 8.4125,
+      "end": 8.5625
+    },
+    {
+      "word": "quick",
+      "start": 8.575,
+      "end": 8.825
+    },
+    {
+      "word": "enough",
+      "start": 8.8375,
+      "end": 9.0875
+    },
+    {
+      "word": "to",
+      "start": 9.1,
+      "end": 9.2
+    },
+    {
+      "word": "dial",
+      "start": 9.2125,
+      "end": 9.65
+    },
+    {
+      "word": "during",
+      "start": 9.6625,
+      "end": 9.9625
+    },
+    {
+      "word": "an",
+      "start": 9.975,
+      "end": 10.049999999999999
+    },
+    {
+      "word": "emergency",
+      "start": 10.0625,
+      "end": 10.775
+    }
+  ]
+}

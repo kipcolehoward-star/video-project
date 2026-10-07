@@ -1,0 +1,47 @@
+{
+  "voice": "en_US-joe-medium",
+  "license": "CC0",
+  "attribution": null,
+  "scenes": {
+    "s1-hook": {
+      "file": "audio/narration/s1-hook.wav",
+      "duration": 7.136417,
+      "textHash": "4b1259e3ddd75c0c"
+    },
+    "s2-constellation": {
+      "file": "audio/narration/s2-constellation.wav",
+      "duration": 11.443719,
+      "textHash": "8729af19f9b93e94"
+    },
+    "s3-delay": {
+      "file": "audio/narration/s3-delay.wav",
+      "duration": 12.858277,
+      "textHash": "73877ffcb942ebe5"
+    },
+    "s4-trilateration": {
+      "file": "audio/narration/s4-trilateration.wav",
+      "duration": 11.61415,
+      "textHash": "f166b30ecdb86813"
+    },
+    "s5-sensitivity": {
+      "file": "audio/narration/s5-sensitivity.wav",
+      "duration": 7.600816,
+      "textHash": "ff3bea122b012924"
+    },
+    "s6-relativity": {
+      "file": "audio/narration/s6-relativity.wav",
+      "duration": 14.655964,
+      "textHash": "0edfce496d22dac2"
+    },
+    "s7-uncorrected": {
+      "file": "audio/narration/s7-uncorrected.wav",
+      "duration": 8.947574,
+      "textHash": "ae34c8b3e4531667"
+    },
+    "s8-outro": {
+      "file": "audio/narration/s8-outro.wav",
+      "duration": 5.66195,
+      "textHash": "a4b9b2884d9bfe14"
+    }
+  }
+}

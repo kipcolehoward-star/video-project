@@ -1,0 +1,20 @@
+{
+  "id": "example-project",
+  "title": "Format System Test",
+  "video": {
+    "format": "16:9",
+    "fps": 30,
+    "duration": null
+  },
+  "safeZoneProfile": "auto",
+  "theme": "documentary",
+  "captionStyle": "auto",
+  "audio": {
+    "voice": "en_US-joe-medium",
+    "music": "test-music",
+    "musicDb": -16,
+    "duckDb": -12,
+    "targetLufs": -16,
+    "truePeak": -1.5
+  }
+}

@@ -1,0 +1,825 @@
+{
+  "scenes": [
+    {
+      "id": "s01-hook",
+      "type": "title",
+      "duration": 3,
+      "narrationOffset": 4.6,
+      "sfx": [
+        {
+          "asset": "sfx-phone-ring",
+          "at": 0.3,
+          "gainDb": 6
+        },
+        {
+          "asset": "sfx-phone-ring",
+          "at": 2.7,
+          "gainDb": 6
+        }
+      ],
+      "narration": "When someone is in danger in the United States, there's one number almost everyone knows.",
+      "data": {
+        "title": "9-1-1",
+        "cue": "number",
+        "background": "phone-dark",
+        "size": "hero"
+      }
+    },
+    {
+      "id": "s02-questions",
+      "type": "list",
+      "duration": 3,
+      "narration": "But why is it 911? Who created it? What did Americans do before 911 existed? And perhaps most interestingly\u2026",
+      "data": {
+        "style": "display",
+        "items": [
+          {
+            "text": "Why 911?",
+            "cue": "why"
+          },
+          {
+            "text": "Who created it?",
+            "cue": "who"
+          },
+          {
+            "text": "What came before?",
+            "cue": "what"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s03-911-vs-911",
+      "type": "comparison",
+      "duration": 3,
+      "narration": "Was the emergency number actually named because of the terrorist attacks of September 11?",
+      "data": {
+        "items": [
+          {
+            "display": "911",
+            "label": "Emergency number",
+            "cue": "emergency"
+          },
+          {
+            "display": "9/11",
+            "label": "September 11, 2001",
+            "cue": "september"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s04-answer",
+      "type": "title",
+      "duration": 3,
+      "narration": "The answer is no. In fact, 911 existed for more than three decades before 9/11.",
+      "data": {
+        "kicker": "The answer",
+        "title": "No.",
+        "cue": "no",
+        "subtitle": "911 existed for more than three decades before 9/11.",
+        "subtitleCue": "decades",
+        "size": "hero"
+      }
+    },
+    {
+      "id": "s05-origin",
+      "type": "title",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "The story of 911 begins in the 1960s.",
+      "data": {
+        "kicker": "Part 1",
+        "title": "The origin of 911",
+        "subtitle": "The 1960s",
+        "subtitleCue": "1960s",
+        "background": "operators"
+      }
+    },
+    {
+      "id": "s06-local-numbers",
+      "type": "list",
+      "duration": 3,
+      "narration": "Back then, there was no single emergency number covering the United States. If you needed the police, fire department, or an ambulance, you generally had to know and dial the local telephone number for the appropriate service. And that created a serious problem.",
+      "data": {
+        "style": "pairs",
+        "kicker": "No single number",
+        "heading": "Every service had its own",
+        "items": [
+          {
+            "text": "Police",
+            "sub": "Local number",
+            "cue": "police"
+          },
+          {
+            "text": "Fire",
+            "sub": "Local number",
+            "cue": "fire"
+          },
+          {
+            "text": "Ambulance",
+            "sub": "Local number",
+            "cue": "ambulance"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s07-every-second",
+      "type": "split",
+      "duration": 3,
+      "narration": "Imagine witnessing a serious accident. Someone is injured. There's a fire. And you have to stop and figure out which number to call. Every second matters.",
+      "data": {
+        "media": "asset:phonebook-1968",
+        "kicker": "Every second matters",
+        "heading": "Which number do you call?",
+        "lowerThird": {
+          "name": "Telephone directory, 1968",
+          "role": "Allentown, Pennsylvania"
+        }
+      }
+    },
+    {
+      "id": "s08-britain-999",
+      "type": "title",
+      "duration": 3,
+      "narration": "The idea of a single emergency number wasn't completely new. In fact, Britain had already introduced {999|nine-nine-nine} as an emergency number in 1937.",
+      "data": {
+        "kicker": "Britain, 1937",
+        "title": "999",
+        "cue": "999",
+        "subtitle": "The world's first emergency telephone number.",
+        "subtitleCue": "1937",
+        "size": "hero"
+      }
+    },
+    {
+      "id": "s09-momentum",
+      "type": "steps",
+      "duration": 3,
+      "narration": "In the United States, the idea gained momentum during the 1950s and 1960s. In 1967, the President's Commission on Law Enforcement and Administration of Justice recommended creating a single number for reporting emergencies. The Federal Communications Commission then worked with AT&T to find a number that could be implemented across the country.",
+      "data": {
+        "kicker": "United States",
+        "heading": "From idea to policy",
+        "steps": [
+          {
+            "title": "1950s\u201360s",
+            "text": "The idea gains momentum",
+            "cue": "momentum"
+          },
+          {
+            "title": "1967",
+            "text": "Presidential commission recommends a single number",
+            "cue": "1967"
+          },
+          {
+            "title": "FCC and AT&T",
+            "text": "Find a number that works nationwide",
+            "cue": "federal"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s10-why-911",
+      "type": "list",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "So why did they choose 911? AT&T selected the number because it was short, easy to remember, and\u2014critically\u2014had not already been assigned as an area code, office code, or service code in the telephone system.",
+      "data": {
+        "style": "display",
+        "kicker": "Part 2",
+        "heading": "Why 911?",
+        "items": [
+          {
+            "text": "Short",
+            "cue": "short"
+          },
+          {
+            "text": "Memorable",
+            "cue": "easy"
+          },
+          {
+            "text": "Unique",
+            "cue": "assigned"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s11-rotary",
+      "type": "photo",
+      "duration": 3,
+      "narration": "It also fit the technology of the time. Remember, these were the days of rotary phones. The number needed to be simple enough to remember and quick enough to dial during an emergency.",
+      "data": {
+        "media": "rotary-dial",
+        "heading": "Quick to dial",
+        "cue": "quick"
+      }
+    },
+    {
+      "id": "s12-operator",
+      "type": "photo",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "Before 911, one common option was to dial 0 and reach a telephone operator. The operator could then help connect the caller to the appropriate emergency service.",
+      "data": {
+        "media": "operators",
+        "kicker": "Part 3",
+        "heading": "Before 911: dial 0",
+        "cue": "dial"
+      }
+    },
+    {
+      "id": "s13-not-dedicated",
+      "type": "steps",
+      "duration": 3,
+      "narration": "But this wasn't a dedicated emergency system. It depended on the operator, local telephone infrastructure, and knowing where the appropriate emergency service was.",
+      "data": {
+        "kicker": "The limits",
+        "heading": "Not a dedicated system",
+        "steps": [
+          {
+            "title": "The operator",
+            "cue": "operator"
+          },
+          {
+            "title": "Local infrastructure",
+            "cue": "local"
+          },
+          {
+            "title": "Knowing where help is",
+            "cue": "knowing"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s14-fire-chiefs",
+      "type": "photo",
+      "duration": 3,
+      "narration": "As emergency calls increased and society became more dependent on telephones, the limitations became increasingly obvious. Fire officials had already been pushing for a simpler emergency number. In 1957, the National Association of Fire Chiefs reportedly recommended a single number for reporting fires.",
+      "data": {
+        "media": "fire-alarm-box",
+        "kicker": "1957",
+        "heading": "Fire chiefs call for one number",
+        "cue": "1957"
+      }
+    },
+    {
+      "id": "s15-goal",
+      "type": "list",
+      "duration": 3,
+      "narrationTail": 4,
+      "narration": "The goal was simple:",
+      "data": {
+        "style": "display",
+        "items": [
+          {
+            "text": "One number."
+          },
+          {
+            "text": "One call."
+          },
+          {
+            "text": "Get help fast."
+          }
+        ]
+      }
+    },
+    {
+      "id": "s16-haleyville",
+      "type": "map",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "Then came February 16th, 1968. In Haleyville, Alabama, something happened that would eventually change emergency communications across America.",
+      "data": {
+        "view": "usa",
+        "kicker": "Part 4 \u00b7 The first 911 call",
+        "heading": "February 16, 1968",
+        "body": "Haleyville, Alabama",
+        "highlight": [
+          {
+            "name": "Alabama",
+            "cue": "alabama"
+          }
+        ],
+        "markers": [
+          {
+            "label": "Haleyville",
+            "lon": -87.6214,
+            "lat": 34.2265,
+            "cue": "haleyville",
+            "labelSide": "right"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s17-first-call",
+      "type": "comparison",
+      "duration": 3,
+      "narrationOffset": 2.4,
+      "sfx": [
+        {
+          "asset": "sfx-phone-ring",
+          "at": 0.2,
+          "gainDb": 4
+        }
+      ],
+      "narration": "Alabama Speaker of the House Rankin Fite picked up a telephone and dialed 911. The call was answered by U.S. Representative Tom Bevill at the local police station. It was the first official 911 call in the United States.",
+      "data": {
+        "kicker": "Haleyville, Alabama",
+        "heading": "The first official 911 call",
+        "items": [
+          {
+            "display": "Rankin Fite",
+            "label": "Speaker, Alabama House",
+            "note": "Placed the call",
+            "cue": "rankin"
+          },
+          {
+            "display": "Tom Bevill",
+            "label": "U.S. Representative",
+            "note": "Answered at the police station",
+            "lead": "\u2192",
+            "cue": "tom"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s18-rollout",
+      "type": "list",
+      "duration": 3,
+      "narration": "But here's something important: 911 didn't instantly become available everywhere in America. The system took years to expand. Different communities and telephone companies had to build the infrastructure necessary to route emergency calls. Eventually, 911 became the standard Americans know today.",
+      "data": {
+        "style": "display",
+        "kicker": "Not overnight",
+        "items": [
+          {
+            "text": "Not instant.",
+            "cue": "instantly"
+          },
+          {
+            "text": "Built community by community.",
+            "cue": "communities"
+          },
+          {
+            "text": "Today, the standard.",
+            "cue": "eventually"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s19-what-prompted",
+      "type": "list",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "So what actually prompted the creation of 911? There wasn't one single event. It was the growing realization that emergency communication needed to become faster, simpler, and more reliable.",
+      "data": {
+        "style": "display",
+        "kicker": "Part 5",
+        "heading": "What prompted it?",
+        "items": [
+          {
+            "text": "Faster.",
+            "cue": "faster"
+          },
+          {
+            "text": "Simpler.",
+            "cue": "simpler"
+          },
+          {
+            "text": "More reliable.",
+            "cue": "reliable"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s20-nas-report",
+      "type": "photo",
+      "duration": 3,
+      "narration": "The United States was experiencing growing numbers of emergencies, including serious injuries from automobile crashes. A landmark 1966 report from the National Academy of Sciences highlighted accidental death and injury as a major public-health problem and called for exploring a single nationwide telephone number to summon an ambulance.",
+      "data": {
+        "media": "ambulance-1963",
+        "kicker": "1966 \u00b7 National Academy of Sciences",
+        "heading": "Accidental death: a public-health problem",
+        "cue": "1966"
+      }
+    },
+    {
+      "id": "s21-communication",
+      "type": "title",
+      "duration": 3,
+      "narrationTail": 2.8,
+      "narration": "At the same time, police and fire officials were pushing for simpler ways for the public to report emergencies. In other words\u2026",
+      "data": {
+        "title": "911 was created to solve a communication problem.",
+        "cue": "words",
+        "background": "fire-alarm-box"
+      }
+    },
+    {
+      "id": "s22-atlantic",
+      "type": "comparison",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "Now let's cross the Atlantic. The United States uses 911. The United Kingdom uses {999|nine-nine-nine}. So are they basically the same thing? In purpose, yes. Both are emergency numbers designed to connect people with emergency services. But they are different numbers belonging to different national telephone systems.",
+      "data": {
+        "kicker": "Part 6",
+        "heading": "Same purpose, different systems",
+        "items": [
+          {
+            "display": "911",
+            "label": "United States",
+            "cue": "911"
+          },
+          {
+            "display": "999",
+            "label": "United Kingdom",
+            "cue": "999"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s23-uk-112",
+      "type": "comparison",
+      "duration": 3,
+      "narration": "And here's another interesting fact: The UK also supports {112|one-one-two}, the pan-European emergency number. So if you're in Britain, you don't normally dial 911. You dial {999|nine-nine-nine} or {112|one-one-two} for emergencies.",
+      "data": {
+        "kicker": "United Kingdom",
+        "heading": "UK emergency numbers",
+        "items": [
+          {
+            "display": "999",
+            "label": "National emergency number",
+            "cue": "uk"
+          },
+          {
+            "display": "112",
+            "label": "Pan-European emergency number",
+            "cue": "112"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s24-london",
+      "type": "title",
+      "duration": 3,
+      "narration": "So if an American tourist in London instinctively dials 911\u2026 That's not the number they should rely on.",
+      "data": {
+        "kicker": "In London",
+        "title": "Don't rely on 911.",
+        "cue": "london"
+      }
+    },
+    {
+      "id": "s25-confusion",
+      "type": "title",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "Now for one of the biggest misconceptions surrounding 911. Some people assume the emergency number was created because of the September 11 terrorist attacks. But look at the dates.",
+      "data": {
+        "kicker": "Part 7 \u00b7 The 9/11 confusion",
+        "title": "Created because of 9/11?",
+        "cue": "assume"
+      }
+    },
+    {
+      "id": "s26-dates",
+      "type": "comparison",
+      "duration": 3,
+      "narration": "The first 911 call happened in 1968. The September 11 attacks happened in 2001. That's a difference of 33 years.",
+      "data": {
+        "heading": "Look at the dates",
+        "items": [
+          {
+            "display": "1968",
+            "label": "First 911 call",
+            "cue": "1968"
+          },
+          {
+            "display": "2001",
+            "label": "September 11 attacks",
+            "cue": "2001"
+          },
+          {
+            "display": "33",
+            "unit": "years",
+            "label": "Apart",
+            "lead": "=",
+            "highlight": true,
+            "cue": "33"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s27-coincidence",
+      "type": "comparison",
+      "duration": 3,
+      "narration": "So there is no causal connection between the terrorist attacks and the creation of the 911 emergency number. The similarity is simply a coincidence.",
+      "data": {
+        "heading": "Simply a coincidence",
+        "items": [
+          {
+            "display": "9-1-1",
+            "label": "Emergency telephone number"
+          },
+          {
+            "display": "9/11",
+            "label": "September 11, 2001"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s28-where-911",
+      "type": "map",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "So, is 911 only used in the United States? No. A number of countries and territories use 911 as an emergency number, either as their primary emergency number or alongside other numbers. Examples include Canada, Mexico, the Philippines, American Samoa, Antigua and Barbuda, and several Caribbean countries.",
+      "data": {
+        "view": "world",
+        "layout": "full",
+        "kicker": "Part 8",
+        "heading": "Where 911 works",
+        "highlight": [
+          {
+            "name": "United States of America",
+            "cue": "states",
+            "label": "USA"
+          },
+          {
+            "name": "Canada",
+            "cue": "canada",
+            "label": "Canada"
+          },
+          {
+            "name": "Mexico",
+            "cue": "mexico",
+            "label": "Mexico"
+          },
+          {
+            "name": "Philippines",
+            "cue": "philippines",
+            "label": "Philippines"
+          }
+        ],
+        "markers": [
+          {
+            "label": "American Samoa",
+            "lon": -170.7,
+            "lat": -14.28,
+            "cue": "samoa",
+            "labelSide": "right"
+          },
+          {
+            "label": "Antigua and Barbuda",
+            "lon": -61.85,
+            "lat": 17.12,
+            "cue": "antigua",
+            "labelSide": "right"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s29-warning",
+      "type": "title",
+      "duration": 3,
+      "narration": "But there's an important warning: Don't assume that 911 works everywhere just because it works in the United States. Emergency numbers vary dramatically around the world.",
+      "data": {
+        "kicker": "A warning",
+        "title": "911 doesn't work everywhere.",
+        "cue": "assume"
+      }
+    },
+    {
+      "id": "s30-world-numbers",
+      "type": "grid",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narrationTail": 6,
+      "narration": "And some countries support multiple emergency numbers. For example, the United Kingdom uses {999|nine-nine-nine} and {112|one-one-two}. Here are some important emergency numbers you may encounter around the world.",
+      "data": {
+        "kicker": "Part 9 \u00b7 Around the world",
+        "heading": "Emergency numbers",
+        "items": [
+          {
+            "label": "Europe",
+            "value": "112",
+            "note": "General emergency number"
+          },
+          {
+            "label": "United Kingdom",
+            "value": "999 / 112",
+            "cue": "kingdom"
+          },
+          {
+            "label": "Australia",
+            "value": "000"
+          },
+          {
+            "label": "New Zealand",
+            "value": "111"
+          },
+          {
+            "label": "Japan",
+            "value": "110 \u00b7 119",
+            "note": "Police \u00b7 Fire and ambulance"
+          },
+          {
+            "label": "China",
+            "value": "110 \u00b7 119 \u00b7 120",
+            "note": "Police \u00b7 Fire \u00b7 Ambulance"
+          },
+          {
+            "label": "South Africa",
+            "value": "112",
+            "note": "From mobiles; other numbers also exist"
+          },
+          {
+            "label": "Kenya",
+            "value": "999 / 112"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s31-travel",
+      "type": "title",
+      "duration": 3,
+      "narration": "And this is why travelers should check the local emergency number before visiting another country. The number that saves a life in one country might do absolutely nothing in another.",
+      "data": {
+        "kicker": "Before you travel",
+        "title": "Check the local number.",
+        "cue": "check"
+      }
+    },
+    {
+      "id": "s32-one-number",
+      "type": "steps",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "One of the biggest advantages of systems like 911 is that you don't necessarily have to know which emergency service you need. You explain what is happening. The call-taker can determine what kind of response is required and dispatch the appropriate emergency services.",
+      "data": {
+        "kicker": "Part 10",
+        "heading": "One number, every service",
+        "steps": [
+          {
+            "title": "Caller",
+            "text": "Explains what is happening",
+            "cue": "explain"
+          },
+          {
+            "title": "Call-taker",
+            "text": "Decides the response",
+            "cue": "call-taker"
+          },
+          {
+            "title": "Police \u00b7 Fire \u00b7 EMS",
+            "text": "Dispatched",
+            "cue": "dispatch"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s33-real-power",
+      "type": "photo",
+      "duration": 3,
+      "narration": "That's the real power of a universal emergency number. It's not just about remembering three digits. It's about removing a decision from someone who may already be panicking.",
+      "data": {
+        "media": "dispatcher",
+        "heading": "Removing a decision",
+        "cue": "removing"
+      }
+    },
+    {
+      "id": "s34-recap",
+      "type": "list",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narrationTail": 18,
+      "narration": "So let's recap.",
+      "data": {
+        "style": "numbered",
+        "kicker": "Part 11",
+        "heading": "The big takeaway",
+        "items": [
+          {
+            "text": "911 was introduced in the United States in 1968."
+          },
+          {
+            "text": "Before 911, people generally had to contact local emergency services directly or use a telephone operator."
+          },
+          {
+            "text": "911 was created because emergency communication needed to be faster, simpler and more universal."
+          },
+          {
+            "text": "The UK does not use 911 as its primary emergency number. It uses 999 and 112."
+          },
+          {
+            "text": "911 existed 33 years before the September 11 attacks."
+          },
+          {
+            "text": "The similarity between 911 and 9/11 is a coincidence."
+          },
+          {
+            "text": "Other countries use 911, but emergency numbers vary around the world."
+          }
+        ]
+      }
+    },
+    {
+      "id": "s35-three-digits",
+      "type": "list",
+      "duration": 3,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.5
+      },
+      "narration": "Three digits. Easy to remember. Easy to dial. And in the right situation\u2026",
+      "data": {
+        "style": "display",
+        "background": "keypad",
+        "items": [
+          {
+            "text": "Three digits.",
+            "cue": "three"
+          },
+          {
+            "text": "Easy to remember.",
+            "cue": "remember"
+          },
+          {
+            "text": "Easy to dial.",
+            "cue": "dial"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s36-end",
+      "type": "title",
+      "duration": 3,
+      "narrationOffset": 2.4,
+      "narrationTail": 4,
+      "sfx": [
+        {
+          "asset": "sfx-phone-ring",
+          "at": 0.2,
+          "gainDb": 4
+        }
+      ],
+      "narration": "\u2026those three digits can be the difference between waiting for help\u2026 and getting it.",
+      "data": {
+        "title": "9-1-1",
+        "cue": "getting",
+        "subtitle": "Know the number before you need it.",
+        "fadeOut": 1.5,
+        "background": "keypad",
+        "size": "hero"
+      }
+    }
+  ]
+}

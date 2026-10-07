@@ -1,0 +1,30 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "So",
+      "start": 0.047708,
+      "end": 0.195416
+    },
+    {
+      "word": "how",
+      "start": 0.206833,
+      "end": 0.38866599999999996
+    },
+    {
+      "word": "did",
+      "start": 0.4,
+      "end": 0.5477080000000001
+    },
+    {
+      "word": "this",
+      "start": 0.559083,
+      "end": 0.695458
+    },
+    {
+      "word": "happen",
+      "start": 0.706833,
+      "end": 1.206833
+    }
+  ]
+}

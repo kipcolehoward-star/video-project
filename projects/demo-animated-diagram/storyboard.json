@@ -1,0 +1,57 @@
+{
+  "scenes": [
+    {
+      "id": "s1-call-routing",
+      "type": "diagram",
+      "duration": 10,
+      "sfx": [
+        {
+          "asset": "sfx-click",
+          "at": 0.45,
+          "gainDb": -4
+        },
+        {
+          "asset": "sfx-sweep",
+          "at": 1.6,
+          "gainDb": -8
+        },
+        {
+          "asset": "sfx-click",
+          "at": 2.4,
+          "gainDb": -4
+        },
+        {
+          "asset": "sfx-sweep",
+          "at": 3.4,
+          "gainDb": -8
+        },
+        {
+          "asset": "sfx-bass-hit",
+          "at": 4.3,
+          "gainDb": -6
+        },
+        {
+          "asset": "sfx-click",
+          "at": 6.6,
+          "gainDb": -3
+        },
+        {
+          "asset": "sfx-click",
+          "at": 7.0,
+          "gainDb": -4
+        },
+        {
+          "asset": "sfx-click",
+          "at": 7.4,
+          "gainDb": -5
+        }
+      ],
+      "data": {
+        "diagram": "call-routing",
+        "layout": "full",
+        "kicker": "Animated diagram \u00b7 demo",
+        "heading": "How a 911 call reaches help"
+      }
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "And",
+      "start": 0.0875,
+      "end": 0.1875
+    },
+    {
+      "word": "here's",
+      "start": 0.2,
+      "end": 0.45
+    },
+    {
+      "word": "another",
+      "start": 0.4625,
+      "end": 0.8375
+    },
+    {
+      "word": "interesting",
+      "start": 0.85,
+      "end": 1.3624999999999998
+    },
+    {
+      "word": "fact",
+      "start": 1.375,
+      "end": 1.875
+    },
+    {
+      "word": "The",
+      "start": 2.5,
+      "end": 2.5625
+    },
+    {
+      "word": "UK",
+      "start": 2.575,
+      "end": 3.0500000000000003
+    },
+    {
+      "word": "also",
+      "start": 3.0625,
+      "end": 3.375
+    },
+    {
+      "word": "supports",
+      "start": 3.3875,
+      "end": 3.9000000000000004
+    },
+    {
+      "word": "one-one-two",
+      "start": 3.9125,
+      "end": 4.75
+    },
+    {
+      "word": "the",
+      "start": 5.0625,
+      "end": 5.1625
+    },
+    {
+      "word": "pan-European",
+      "start": 5.175,
+      "end": 5.7875
+    },
+    {
+      "word": "emergency",
+      "start": 5.8,
+      "end": 6.3
+    },
+    {
+      "word": "number",
+      "start": 6.3125,
+      "end": 6.725
+    },
+    {
+      "word": "So",
+      "start": 7.1,
+      "end": 7.2875
+    },
+    {
+      "word": "if",
+      "start": 7.3,
+      "end": 7.4125
+    },
+    {
+      "word": "you're",
+      "start": 7.425,
+      "end": 7.55
+    },
+    {
+      "word": "in",
+      "start": 7.5625,
+      "end": 7.675
+    },
+    {
+      "word": "Britain",
+      "start": 7.6875,
+      "end": 8.0875
+    },
+    {
+      "word": "you",
+      "start": 8.1125,
+      "end": 8.2375
+    },
+    {
+      "word": "don't",
+      "start": 8.25,
+      "end": 8.475
+    },
+    {
+      "word": "normally",
+      "start": 8.4875,
+      "end": 8.8625
+    },
+    {
+      "word": "dial 911",
+      "start": 8.875,
+      "end": 10.1625
+    },
+    {
+      "word": "You",
+      "start": 10.5625,
+      "end": 10.6625
+    },
+    {
+      "word": "dial",
+      "start": 10.675,
+      "end": 11.05
+    },
+    {
+      "word": "nine-nine-nine",
+      "start": 11.0625,
+      "end": 12.0
+    },
+    {
+      "word": "or",
+      "start": 12.0125,
+      "end": 12.225
+    },
+    {
+      "word": "one-one-two",
+      "start": 12.2375,
+      "end": 13.025
+    },
+    {
+      "word": "for",
+      "start": 13.0375,
+      "end": 13.2
+    },
+    {
+      "word": "emergencies",
+      "start": 13.2125,
+      "end": 13.950000000000001
+    }
+  ]
+}

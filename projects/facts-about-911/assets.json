@@ -1,0 +1,176 @@
+{
+  "operators": {
+    "type": "photo",
+    "path": "assets/images/operators.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Telephone_Switch_Board_Switchover_Oak_Ridge_(8773404536).jpg",
+    "license": "Public domain",
+    "author": "doe-oakridge",
+    "provider": "commons",
+    "attributionRequired": false,
+    "credit": "Telephone Switch Board Switchover Oak Ridge (8773404536) — doe-oakridge (Public domain), via Wikimedia Commons",
+    "retrieved": "2026-10-06",
+    "original": {
+      "width": 5610,
+      "height": 4451
+    },
+    "focalPoint": {
+      "x": 0.4,
+      "y": 0.45
+    }
+  },
+  "rotary-dial": {
+    "type": "photo",
+    "path": "assets/images/rotary-dial.jpg",
+    "source": "https://www.pexels.com/photo/close-up-of-mans-hand-dialing-on-rotary-phone-10397356/",
+    "license": "Pexels License (free commercial use; attribution not required)",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "author": "Ron Lach",
+    "provider": "pexels",
+    "attributionRequired": false,
+    "credit": "Close-up of a hand dialing a red rotary phone on a wooden table. — Ron Lach (Pexels License (free commercial use; attribution not required)), via Pexels",
+    "retrieved": "2026-10-06",
+    "original": {
+      "width": 6240,
+      "height": 4160
+    },
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.45
+    }
+  },
+  "phone-dark": {
+    "type": "photo",
+    "path": "assets/images/phone-dark.jpg",
+    "source": "https://www.pexels.com/photo/a-black-rotary-phone-8715128/",
+    "license": "Pexels License (free commercial use; attribution not required)",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "author": "Luis La",
+    "provider": "pexels",
+    "attributionRequired": false,
+    "credit": "Vintage black rotary phone in a dark setting highlighting its classic design and retro appeal. — Luis La (Pexels License (free commercial use; attribution not required)), via Pexels",
+    "retrieved": "2026-10-06",
+    "original": {
+      "width": 5668,
+      "height": 3779
+    },
+    "focalPoint": {
+      "x": 0.55,
+      "y": 0.5
+    }
+  },
+  "phonebook-1968": {
+    "type": "photo",
+    "path": "assets/images/phonebook-1968.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:1968_-_Allentown_Telephone_Book_-_Allentown_PA.jpg",
+    "license": "Public domain",
+    "author": "Unknown author",
+    "provider": "commons",
+    "attributionRequired": false,
+    "credit": "1968 - Allentown Telephone Book - Allentown PA — Unknown author (Public domain), via Wikimedia Commons",
+    "retrieved": "2026-10-06",
+    "original": {
+      "width": 1019,
+      "height": 1208
+    },
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.4
+    }
+  },
+  "fire-alarm-box": {
+    "type": "photo",
+    "path": "assets/images/fire-alarm-box.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Standing_Fire_Alarm.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "author": "MarkBuckawicki",
+    "provider": "commons",
+    "attributionRequired": false,
+    "credit": "Standing Fire Alarm — MarkBuckawicki (CC0), via Wikimedia Commons",
+    "retrieved": "2026-10-06",
+    "original": {
+      "width": 4032,
+      "height": 3024
+    },
+    "focalPoint": {
+      "x": 0.4,
+      "y": 0.5
+    }
+  },
+  "ambulance-1963": {
+    "type": "photo",
+    "path": "assets/images/ambulance-1963.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Rainbow_Ambulance,_circa_1963_-_Flickr_-_Seattle_Municipal_Archives.jpg",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "author": "Seattle Municipal Archives from Seattle, WA",
+    "provider": "commons",
+    "attributionRequired": true,
+    "credit": "Rainbow Ambulance, circa 1963 - Flickr - Seattle Municipal Archives — Seattle Municipal Archives from Seattle, WA (CC BY 2.0), via Wikimedia Commons",
+    "retrieved": "2026-10-06",
+    "original": {
+      "width": 3650,
+      "height": 2400
+    },
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.55
+    }
+  },
+  "dispatcher": {
+    "type": "photo",
+    "path": "assets/images/dispatcher.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:USMC-110620-M-MX359-019.jpg",
+    "license": "Public domain",
+    "author": "unknown",
+    "provider": "commons",
+    "attributionRequired": false,
+    "credit": "USMC-110620-M-MX359-019 — unknown (Public domain), via Wikimedia Commons",
+    "retrieved": "2026-10-06",
+    "original": {
+      "width": 5616,
+      "height": 3744
+    },
+    "focalPoint": {
+      "x": 0.45,
+      "y": 0.4
+    }
+  },
+  "keypad": {
+    "type": "photo",
+    "path": "assets/images/keypad.jpg",
+    "source": "https://www.pexels.com/photo/close-up-of-a-numerical-keypad-in-soft-focus-39481188/",
+    "license": "Pexels License (free commercial use; attribution not required)",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "author": "Kamil Čičila",
+    "provider": "pexels",
+    "attributionRequired": false,
+    "credit": "A detailed close-up of a black keypad displaying numbers in white against a dark background. — Kamil Čičila (Pexels License (free commercial use; attribution not required)), via Pexels",
+    "retrieved": "2026-10-06",
+    "original": {
+      "width": 5764,
+      "height": 4337
+    },
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  "sfx-phone-ring": {
+    "type": "sfx",
+    "path": "audio/sfx/phone-ring.wav",
+    "source": "Synthesised locally with FFmpeg aevalsrc (two-bell telephone ring, 20 Hz clapper, 2 s burst)",
+    "license": "Generated in this repository; no third-party rights"
+  },
+  "sfx-phone-ring-es": {
+    "type": "sfx",
+    "path": "audio/sfx/sfx-phone-ring-es.wav",
+    "source": "epidemic-sound:917c6c36-23dc-43f0-ac3d-e818a648c62d",
+    "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+    "provider": "epidemic-sound",
+    "attributionRequired": false,
+    "credit": "Communications, Telephone, Old, Bell Ring 02 — Epidemic Sound",
+    "retrieved": "2026-10-07",
+    "notes": "Communications, Telephone, Old, Bell Ring 02"
+  }
+}

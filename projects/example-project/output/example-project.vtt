@@ -1,0 +1,24 @@
+WEBVTT
+
+00:00:00.580 --> 00:00:03.140
+One story, told for every screen.
+
+00:00:03.140 --> 00:00:06.650
+This test checks that a single
+storyboard adapts to each format.
+
+00:00:07.890 --> 00:00:11.610
+When the frame is wide,
+image and text sit side by side.
+
+00:00:11.610 --> 00:00:16.200
+When it is tall, they stack, and the text
+stays clear of the platform's buttons.
+
+00:00:17.210 --> 00:00:20.920
+A widescreen frame is
+nineteen twenty pixels across.
+
+00:00:20.920 --> 00:00:24.550
+The chart turns sideways to
+suit the format it appears in.

@@ -1,0 +1,70 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "Three",
+      "start": 0.0875,
+      "end": 0.375
+    },
+    {
+      "word": "digits",
+      "start": 0.3875,
+      "end": 0.9875
+    },
+    {
+      "word": "Easy",
+      "start": 1.3875,
+      "end": 1.6749999999999998
+    },
+    {
+      "word": "to",
+      "start": 1.6875,
+      "end": 1.85
+    },
+    {
+      "word": "remember",
+      "start": 1.8625,
+      "end": 2.525
+    },
+    {
+      "word": "Easy",
+      "start": 2.925,
+      "end": 3.1999999999999997
+    },
+    {
+      "word": "to",
+      "start": 3.2125,
+      "end": 3.3375
+    },
+    {
+      "word": "dial",
+      "start": 3.35,
+      "end": 3.8875
+    },
+    {
+      "word": "And",
+      "start": 4.2875,
+      "end": 4.5249999999999995
+    },
+    {
+      "word": "in",
+      "start": 4.55,
+      "end": 4.75
+    },
+    {
+      "word": "the",
+      "start": 4.7625,
+      "end": 4.8375
+    },
+    {
+      "word": "right",
+      "start": 4.85,
+      "end": 5.2124999999999995
+    },
+    {
+      "word": "situation\u00e2\u20ac",
+      "start": 5.225,
+      "end": 6.3999999999999995
+    }
+  ]
+}

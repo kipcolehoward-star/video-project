@@ -1,0 +1,116 @@
+1
+00:00:00,560 --> 00:00:04,780
+Your phone can find you to within
+about five metres, out under open sky.
+
+2
+00:00:04,780 --> 00:00:07,510
+It does it by listening
+to clocks in space.
+
+3
+00:00:08,600 --> 00:00:11,540
+More than thirty GPS
+satellites circle the Earth,
+
+4
+00:00:11,540 --> 00:00:14,000
+about twenty thousand kilometres up.
+
+5
+00:00:14,000 --> 00:00:18,630
+Each carries atomic clocks, and broadcasts
+the exact time and its own position,
+
+6
+00:00:18,630 --> 00:00:19,630
+over and over.
+
+7
+00:00:20,930 --> 00:00:23,600
+Your phone notes when each signal arrives.
+
+8
+00:00:23,600 --> 00:00:28,320
+The signal travels at the speed of light,
+so the delay reveals the distance.
+
+9
+00:00:28,320 --> 00:00:29,810
+From a satellite overhead,
+
+10
+00:00:29,810 --> 00:00:33,480
+about seven hundredths of a second
+means twenty thousand kilometres.
+
+11
+00:00:34,700 --> 00:00:38,400
+One distance puts you somewhere on a
+giant sphere around that satellite.
+
+12
+00:00:38,400 --> 00:00:40,680
+A second distance narrows it down.
+
+13
+00:00:40,680 --> 00:00:42,780
+A third leaves a single point.
+
+14
+00:00:42,780 --> 00:00:45,930
+And a fourth satellite corrects
+the cheap clock inside your phone.
+
+15
+00:00:47,230 --> 00:00:49,360
+That's why timing is everything.
+
+16
+00:00:49,360 --> 00:00:52,330
+A clock that is off by just one
+millionth of a second puts you
+
+17
+00:00:52,330 --> 00:00:54,500
+about three hundred
+metres from where you are.
+
+18
+00:00:55,700 --> 00:00:59,380
+And the satellite clocks do
+drift, because of Einstein.
+
+19
+00:00:59,380 --> 00:01:03,020
+Their speed slows them by
+about seven microseconds a day.
+
+20
+00:01:03,020 --> 00:01:06,620
+The weaker gravity up there
+speeds them up by forty five.
+
+21
+00:01:06,620 --> 00:01:10,220
+Overall, they gain thirty eight
+microseconds every day.
+
+22
+00:01:11,310 --> 00:01:15,690
+Left alone, that would add roughly
+ten kilometres of error every day.
+
+23
+00:01:15,690 --> 00:01:19,940
+So before launch, engineers set the
+satellite clocks to tick slightly slow.
+
+24
+00:01:21,120 --> 00:01:23,930
+GPS is really a timing system.
+
+25
+00:01:23,930 --> 00:01:27,090
+Get the time right,
+and your position follows.

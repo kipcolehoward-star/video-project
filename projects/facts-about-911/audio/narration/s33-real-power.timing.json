@@ -1,0 +1,145 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "That's",
+      "start": 0.075,
+      "end": 0.35000000000000003
+    },
+    {
+      "word": "the",
+      "start": 0.3625,
+      "end": 0.4625
+    },
+    {
+      "word": "real",
+      "start": 0.475,
+      "end": 0.7875
+    },
+    {
+      "word": "power",
+      "start": 0.8,
+      "end": 1.3875000000000002
+    },
+    {
+      "word": "of",
+      "start": 1.4,
+      "end": 1.525
+    },
+    {
+      "word": "a",
+      "start": 1.5375,
+      "end": 1.5875000000000001
+    },
+    {
+      "word": "universal",
+      "start": 1.6,
+      "end": 2.25
+    },
+    {
+      "word": "emergency",
+      "start": 2.2625,
+      "end": 2.8125
+    },
+    {
+      "word": "number",
+      "start": 2.825,
+      "end": 3.2750000000000004
+    },
+    {
+      "word": "It's",
+      "start": 3.6375,
+      "end": 3.7875
+    },
+    {
+      "word": "not",
+      "start": 3.8,
+      "end": 4.0125
+    },
+    {
+      "word": "just",
+      "start": 4.025,
+      "end": 4.25
+    },
+    {
+      "word": "about",
+      "start": 4.2625,
+      "end": 4.6000000000000005
+    },
+    {
+      "word": "remembering",
+      "start": 4.6125,
+      "end": 5.1499999999999995
+    },
+    {
+      "word": "three",
+      "start": 5.1625,
+      "end": 5.475
+    },
+    {
+      "word": "digits",
+      "start": 5.4875,
+      "end": 6.1125
+    },
+    {
+      "word": "It's",
+      "start": 6.475,
+      "end": 6.637499999999999
+    },
+    {
+      "word": "about",
+      "start": 6.65,
+      "end": 7.0125
+    },
+    {
+      "word": "removing",
+      "start": 7.025,
+      "end": 7.550000000000001
+    },
+    {
+      "word": "a",
+      "start": 7.5625,
+      "end": 7.6375
+    },
+    {
+      "word": "decision",
+      "start": 7.65,
+      "end": 8.262500000000001
+    },
+    {
+      "word": "from",
+      "start": 8.275,
+      "end": 8.5
+    },
+    {
+      "word": "someone",
+      "start": 8.5125,
+      "end": 8.9375
+    },
+    {
+      "word": "who",
+      "start": 8.95,
+      "end": 9.1375
+    },
+    {
+      "word": "may",
+      "start": 9.15,
+      "end": 9.425
+    },
+    {
+      "word": "already",
+      "start": 9.4375,
+      "end": 9.8
+    },
+    {
+      "word": "be",
+      "start": 9.8125,
+      "end": 9.9375
+    },
+    {
+      "word": "panicking",
+      "start": 9.95,
+      "end": 10.575
+    }
+  ]
+}

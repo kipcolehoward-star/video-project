@@ -1,0 +1,20 @@
+{
+  "sfx-sweep": {
+    "type": "sfx",
+    "path": "audio/sfx/sweep.wav",
+    "source": "Synthesised locally with FFmpeg (rising sine sweep)",
+    "license": "Generated in this repository; no third-party rights"
+  },
+  "sfx-bass-hit": {
+    "type": "sfx",
+    "path": "audio/sfx/bass-hit.wav",
+    "source": "Synthesised locally with FFmpeg (pitch-dropping sine bass hit)",
+    "license": "Generated in this repository; no third-party rights"
+  },
+  "sfx-click": {
+    "type": "sfx",
+    "path": "audio/sfx/click.wav",
+    "source": "Synthesised locally with FFmpeg (3.2 kHz tick)",
+    "license": "Generated in this repository; no third-party rights"
+  }
+}

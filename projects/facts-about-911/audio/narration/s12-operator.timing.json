@@ -1,0 +1,140 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "Before",
+      "start": 0.075,
+      "end": 0.41250000000000003
+    },
+    {
+      "word": "911",
+      "start": 0.425,
+      "end": 1.35
+    },
+    {
+      "word": "one",
+      "start": 1.6625,
+      "end": 1.9625000000000001
+    },
+    {
+      "word": "common",
+      "start": 1.975,
+      "end": 2.3000000000000003
+    },
+    {
+      "word": "option",
+      "start": 2.3125,
+      "end": 2.75
+    },
+    {
+      "word": "was",
+      "start": 2.7625,
+      "end": 2.95
+    },
+    {
+      "word": "to",
+      "start": 2.9625,
+      "end": 3.0625
+    },
+    {
+      "word": "dial",
+      "start": 3.075,
+      "end": 3.4000000000000004
+    },
+    {
+      "word": "0",
+      "start": 3.4125,
+      "end": 3.925
+    },
+    {
+      "word": "and",
+      "start": 3.9375,
+      "end": 4.1125
+    },
+    {
+      "word": "reach",
+      "start": 4.125,
+      "end": 4.3375
+    },
+    {
+      "word": "a",
+      "start": 4.35,
+      "end": 4.4125
+    },
+    {
+      "word": "telephone",
+      "start": 4.425,
+      "end": 4.9125
+    },
+    {
+      "word": "operator",
+      "start": 4.925,
+      "end": 5.5375
+    },
+    {
+      "word": "The",
+      "start": 5.925,
+      "end": 5.9875
+    },
+    {
+      "word": "operator",
+      "start": 6.0,
+      "end": 6.525
+    },
+    {
+      "word": "could",
+      "start": 6.5375,
+      "end": 6.725
+    },
+    {
+      "word": "then",
+      "start": 6.7375,
+      "end": 6.9875
+    },
+    {
+      "word": "help",
+      "start": 7.0,
+      "end": 7.3625
+    },
+    {
+      "word": "connect",
+      "start": 7.375,
+      "end": 7.7375
+    },
+    {
+      "word": "the",
+      "start": 7.75,
+      "end": 7.8125
+    },
+    {
+      "word": "caller",
+      "start": 7.825,
+      "end": 8.2875
+    },
+    {
+      "word": "to",
+      "start": 8.3,
+      "end": 8.4375
+    },
+    {
+      "word": "the",
+      "start": 8.45,
+      "end": 8.5375
+    },
+    {
+      "word": "appropriate",
+      "start": 8.55,
+      "end": 9.0875
+    },
+    {
+      "word": "emergency",
+      "start": 9.1,
+      "end": 9.612499999999999
+    },
+    {
+      "word": "service",
+      "start": 9.625,
+      "end": 10.2
+    }
+  ]
+}

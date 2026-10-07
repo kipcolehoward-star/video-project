@@ -1,0 +1,701 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural (character alignment)",
+  "scenes": {
+    "s01-hook": {
+      "audioHash": "0df4ba4e818e8c70",
+      "words": [
+        {
+          "text": "A",
+          "start": 0.056833,
+          "end": 0.125,
+          "matched": true
+        },
+        {
+          "text": "country…",
+          "start": 0.125,
+          "end": 0.886375,
+          "matched": true
+        },
+        {
+          "text": "inside",
+          "start": 0.897708,
+          "end": 1.397708,
+          "matched": true
+        },
+        {
+          "text": "another",
+          "start": 1.409083,
+          "end": 1.727249,
+          "matched": true
+        },
+        {
+          "text": "country?",
+          "start": 1.738625,
+          "end": 2.215916,
+          "matched": true
+        }
+      ],
+      "recognized": "A countryâ€ inside another country"
+    },
+    "s02-reveal": {
+      "audioHash": "895bd3de6fed2b2c",
+      "words": [
+        {
+          "text": "Hidden",
+          "start": 0.090916,
+          "end": 0.454541,
+          "matched": true
+        },
+        {
+          "text": "completely",
+          "start": 0.465916,
+          "end": 0.999999,
+          "matched": true
+        },
+        {
+          "text": "inside",
+          "start": 1.011375,
+          "end": 1.4090829999999999,
+          "matched": true
+        },
+        {
+          "text": "South",
+          "start": 1.420458,
+          "end": 1.7045409999999999,
+          "matched": true
+        },
+        {
+          "text": "Africa",
+          "start": 1.715916,
+          "end": 2.193207,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 2.204541,
+          "end": 2.4090819999999997,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 2.420458,
+          "end": 2.522749,
+          "matched": true
+        },
+        {
+          "text": "kingdom",
+          "start": 2.534083,
+          "end": 2.931791,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 2.943166,
+          "end": 3.0795410000000003,
+          "matched": true
+        },
+        {
+          "text": "Lesotho.",
+          "start": 3.090916,
+          "end": 3.6590819999999997,
+          "matched": true
+        }
+      ],
+      "recognized": "Hidden completely inside South Africa is the kingdom of Lesotho"
+    },
+    "s03-no-border": {
+      "audioHash": "1093f95e796cba69",
+      "words": [
+        {
+          "text": "And",
+          "start": 0.079541,
+          "end": 0.204541,
+          "matched": true
+        },
+        {
+          "text": "unlike",
+          "start": 0.215916,
+          "end": 0.545457,
+          "matched": true
+        },
+        {
+          "text": "most",
+          "start": 0.556833,
+          "end": 0.806833,
+          "matched": true
+        },
+        {
+          "text": "countries,",
+          "start": 0.818166,
+          "end": 1.318166,
+          "matched": true
+        },
+        {
+          "text": "Lesotho",
+          "start": 1.806833,
+          "end": 2.204541,
+          "matched": true
+        },
+        {
+          "text": "has",
+          "start": 2.215916,
+          "end": 2.420457,
+          "matched": true
+        },
+        {
+          "text": "no",
+          "start": 2.431833,
+          "end": 2.6591240000000003,
+          "matched": true
+        },
+        {
+          "text": "coastline",
+          "start": 2.670458,
+          "end": 3.1931659999999997,
+          "matched": true
+        },
+        {
+          "text": "—",
+          "start": 3.204541,
+          "end": 3.624999,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 4.090916,
+          "end": 4.227291,
+          "matched": true
+        },
+        {
+          "text": "no",
+          "start": 4.238625,
+          "end": 4.397708,
+          "matched": true
+        },
+        {
+          "text": "border",
+          "start": 4.409083,
+          "end": 4.761374,
+          "matched": true
+        },
+        {
+          "text": "with",
+          "start": 4.772708,
+          "end": 4.943166,
+          "matched": true
+        },
+        {
+          "text": "any",
+          "start": 5.011375,
+          "end": 5.204541,
+          "matched": true
+        },
+        {
+          "text": "other",
+          "start": 5.215916,
+          "end": 5.397749,
+          "matched": true
+        },
+        {
+          "text": "country.",
+          "start": 5.409083,
+          "end": 5.852249,
+          "matched": true
+        }
+      ],
+      "recognized": "And unlike most countries Lesotho has no coastline â€ and no border with any other country"
+    },
+    "s04-highest": {
+      "audioHash": "47562e3353491ff4",
+      "words": [
+        {
+          "text": "It's",
+          "start": 0.05,
+          "end": 0.197708,
+          "matched": true
+        },
+        {
+          "text": "also",
+          "start": 0.209083,
+          "end": 0.595458,
+          "matched": true
+        },
+        {
+          "text": "one",
+          "start": 0.606833,
+          "end": 0.7659159999999999,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 0.777291,
+          "end": 0.856833,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 0.856833,
+          "end": 0.947708,
+          "matched": true
+        },
+        {
+          "text": "highest",
+          "start": 0.947708,
+          "end": 1.368166,
+          "matched": true
+        },
+        {
+          "text": "countries",
+          "start": 1.379541,
+          "end": 1.8227069999999999,
+          "matched": true
+        },
+        {
+          "text": "on",
+          "start": 1.834083,
+          "end": 1.993166,
+          "matched": true
+        },
+        {
+          "text": "Earth.",
+          "start": 2.004541,
+          "end": 2.459082,
+          "matched": true
+        }
+      ],
+      "recognized": "It's also one of the highest countries on Earth"
+    },
+    "s05-how": {
+      "audioHash": "e19a3dec224f40aa",
+      "words": [
+        {
+          "text": "So",
+          "start": 0.047708,
+          "end": 0.195416,
+          "matched": true
+        },
+        {
+          "text": "how",
+          "start": 0.206833,
+          "end": 0.38866599999999996,
+          "matched": true
+        },
+        {
+          "text": "did",
+          "start": 0.4,
+          "end": 0.5477080000000001,
+          "matched": true
+        },
+        {
+          "text": "this",
+          "start": 0.559083,
+          "end": 0.695458,
+          "matched": true
+        },
+        {
+          "text": "happen?",
+          "start": 0.706833,
+          "end": 1.206833,
+          "matched": true
+        }
+      ],
+      "recognized": "So how did this happen"
+    },
+    "s06-history": {
+      "audioHash": "b942d9778e892445",
+      "words": [
+        {
+          "text": "Lesotho",
+          "start": 0.079541,
+          "end": 0.511374,
+          "matched": true
+        },
+        {
+          "text": "survived",
+          "start": 0.522708,
+          "end": 1.045416,
+          "matched": true
+        },
+        {
+          "text": "as",
+          "start": 1.056833,
+          "end": 1.2045409999999999,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.215916,
+          "end": 1.306833,
+          "matched": true
+        },
+        {
+          "text": "Basotho",
+          "start": 1.306833,
+          "end": 1.7841239999999998,
+          "matched": true
+        },
+        {
+          "text": "kingdom",
+          "start": 1.795458,
+          "end": 2.159083,
+          "matched": true
+        },
+        {
+          "text": "—",
+          "start": 2.170458,
+          "end": 2.624999,
+          "matched": true
+        },
+        {
+          "text": "under",
+          "start": 2.943166,
+          "end": 3.181791,
+          "matched": true
+        },
+        {
+          "text": "British",
+          "start": 3.193166,
+          "end": 3.488624,
+          "matched": true
+        },
+        {
+          "text": "protection",
+          "start": 3.5,
+          "end": 3.965916,
+          "matched": true
+        },
+        {
+          "text": "—",
+          "start": 3.977291,
+          "end": 4.374999,
+          "matched": true
+        },
+        {
+          "text": "while",
+          "start": 4.977291,
+          "end": 5.170457,
+          "matched": true
+        },
+        {
+          "text": "European",
+          "start": 5.181833,
+          "end": 5.681833,
+          "matched": true
+        },
+        {
+          "text": "colonial",
+          "start": 5.693166,
+          "end": 6.113624,
+          "matched": true
+        },
+        {
+          "text": "powers",
+          "start": 6.125,
+          "end": 6.579541,
+          "matched": true
+        },
+        {
+          "text": "divided",
+          "start": 6.590916,
+          "end": 6.999999,
+          "matched": true
+        },
+        {
+          "text": "much",
+          "start": 7.011375,
+          "end": 7.295458,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 7.306833,
+          "end": 7.386375,
+          "matched": true
+        },
+        {
+          "text": "southern",
+          "start": 7.386375,
+          "end": 7.681833,
+          "matched": true
+        },
+        {
+          "text": "Africa.",
+          "start": 7.693166,
+          "end": 8.113624,
+          "matched": true
+        }
+      ],
+      "recognized": "Lesotho survived as the Basotho kingdom â€ under British protection â€ while European colonial powers divided much of southern Africa"
+    },
+    "s07-enclosed": {
+      "audioHash": "ae4698347043e12c",
+      "words": [
+        {
+          "text": "When",
+          "start": 0.090916,
+          "end": 0.249999,
+          "matched": true
+        },
+        {
+          "text": "South",
+          "start": 0.261375,
+          "end": 0.590916,
+          "matched": true
+        },
+        {
+          "text": "Africa's",
+          "start": 0.602291,
+          "end": 1.011374,
+          "matched": true
+        },
+        {
+          "text": "borders",
+          "start": 1.022708,
+          "end": 1.488624,
+          "matched": true
+        },
+        {
+          "text": "eventually",
+          "start": 1.511375,
+          "end": 1.977291,
+          "matched": true
+        },
+        {
+          "text": "formed",
+          "start": 1.988625,
+          "end": 2.318166,
+          "matched": true
+        },
+        {
+          "text": "around",
+          "start": 2.329541,
+          "end": 2.670457,
+          "matched": true
+        },
+        {
+          "text": "it,",
+          "start": 2.681833,
+          "end": 2.8749990000000003,
+          "matched": true
+        },
+        {
+          "text": "Lesotho",
+          "start": 3.386375,
+          "end": 3.8977500000000003,
+          "matched": true
+        },
+        {
+          "text": "remained",
+          "start": 3.909083,
+          "end": 4.306791,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 4.318166,
+          "end": 4.386375,
+          "matched": true
+        },
+        {
+          "text": "separate",
+          "start": 4.386375,
+          "end": 4.761375,
+          "matched": true
+        },
+        {
+          "text": "country.",
+          "start": 4.772708,
+          "end": 5.238624,
+          "matched": true
+        }
+      ],
+      "recognized": "When South Africa's borders eventually formed around it Lesotho remained a separate country"
+    },
+    "s08-people": {
+      "audioHash": "9dd05b170706c1a4",
+      "words": [
+        {
+          "text": "Today,",
+          "start": 0.068166,
+          "end": 0.488624,
+          "matched": true
+        },
+        {
+          "text": "more",
+          "start": 0.511375,
+          "end": 0.7840830000000001,
+          "matched": true
+        },
+        {
+          "text": "than",
+          "start": 0.795458,
+          "end": 0.931833,
+          "matched": true
+        },
+        {
+          "text": "two",
+          "start": 0.943166,
+          "end": 1.136332,
+          "matched": true
+        },
+        {
+          "text": "million",
+          "start": 1.147708,
+          "end": 1.477249,
+          "matched": true
+        },
+        {
+          "text": "people",
+          "start": 1.488625,
+          "end": 1.8181660000000002,
+          "matched": true
+        },
+        {
+          "text": "live",
+          "start": 1.829541,
+          "end": 2.147707,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 2.170458,
+          "end": 2.295458,
+          "matched": true
+        },
+        {
+          "text": "this",
+          "start": 2.306833,
+          "end": 2.477291,
+          "matched": true
+        },
+        {
+          "text": "mountain",
+          "start": 2.488625,
+          "end": 2.806791,
+          "matched": true
+        },
+        {
+          "text": "kingdom.",
+          "start": 2.818166,
+          "end": 3.2954570000000003,
+          "matched": true
+        }
+      ],
+      "recognized": "Today more than two million people live in this mountain kingdom"
+    },
+    "s09-only-three": {
+      "audioHash": "458e4982bcd7b97d",
+      "words": [
+        {
+          "text": "It's",
+          "start": 0.05,
+          "end": 0.220458,
+          "matched": true
+        },
+        {
+          "text": "one",
+          "start": 0.231833,
+          "end": 0.424999,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 0.436375,
+          "end": 0.55,
+          "matched": true
+        },
+        {
+          "text": "only",
+          "start": 0.572708,
+          "end": 0.879541,
+          "matched": true
+        },
+        {
+          "text": "three",
+          "start": 0.890916,
+          "end": 1.152291,
+          "matched": true
+        },
+        {
+          "text": "countries",
+          "start": 1.163625,
+          "end": 1.6863329999999999,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 1.697708,
+          "end": 1.822708,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.834083,
+          "end": 1.925,
+          "matched": true
+        },
+        {
+          "text": "world",
+          "start": 1.925,
+          "end": 2.322708,
+          "matched": true
+        },
+        {
+          "text": "completely",
+          "start": 2.334083,
+          "end": 2.822708,
+          "matched": true
+        },
+        {
+          "text": "surrounded",
+          "start": 2.834083,
+          "end": 3.379541,
+          "matched": true
+        },
+        {
+          "text": "by",
+          "start": 3.390916,
+          "end": 3.5499989999999997,
+          "matched": true
+        },
+        {
+          "text": "another",
+          "start": 3.561375,
+          "end": 3.856833,
+          "matched": true
+        },
+        {
+          "text": "country.",
+          "start": 3.868166,
+          "end": 4.334082,
+          "matched": true
+        }
+      ],
+      "recognized": "It's one of only three countries in the world completely surrounded by another country"
+    },
+    "s10-end": {
+      "audioHash": "4ec216b99972b426",
+      "words": [
+        {
+          "text": "Geography",
+          "start": 0.045458,
+          "end": 0.647749,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 0.659083,
+          "end": 0.806791,
+          "matched": true
+        },
+        {
+          "text": "wild.",
+          "start": 0.818166,
+          "end": 1.363624,
+          "matched": true
+        }
+      ],
+      "recognized": "Geography is wild"
+    }
+  }
+}

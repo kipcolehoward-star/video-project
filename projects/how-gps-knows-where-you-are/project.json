@@ -1,0 +1,20 @@
+{
+  "id": "how-gps-knows-where-you-are",
+  "title": "How GPS Knows Where You Are",
+  "video": {
+    "format": "16:9",
+    "fps": 30,
+    "duration": null
+  },
+  "safeZoneProfile": "auto",
+  "theme": "documentary",
+  "captionStyle": "auto",
+  "audio": {
+    "voice": "en_US-joe-medium",
+    "music": null,
+    "musicDb": -16,
+    "duckDb": -12,
+    "targetLufs": -16,
+    "truePeak": -1.5
+  }
+}

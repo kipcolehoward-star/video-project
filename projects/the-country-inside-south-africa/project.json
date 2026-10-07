@@ -1,0 +1,29 @@
+{
+  "id": "the-country-inside-south-africa",
+  "title": "The Country Inside South Africa",
+  "video": {
+    "format": "9:16",
+    "fps": 30,
+    "duration": null
+  },
+  "safeZoneProfile": {
+    "top": 0.15,
+    "right": 0.1,
+    "bottom": 0.2,
+    "left": 0.06
+  },
+  "theme": "atlas",
+  "captionStyle": "none",
+  "audio": {
+    "provider": "edge",
+    "voice": "en-US-BrianMultilingualNeural",
+    "rate": "+10%",
+    "music": "es-music-spiral",
+    "musicDb": -12,
+    "duckDb": -9,
+    "targetLufs": -14,
+    "truePeak": -1.5,
+    "musicCutAt": "s10-end",
+    "musicStart": 5
+  }
+}

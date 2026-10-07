@@ -1,0 +1,80 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "The",
+      "start": 0.075,
+      "end": 0.15
+    },
+    {
+      "word": "first",
+      "start": 0.1625,
+      "end": 0.475
+    },
+    {
+      "word": "911 call",
+      "start": 0.4875,
+      "end": 1.6875
+    },
+    {
+      "word": "happened",
+      "start": 1.7,
+      "end": 2.175
+    },
+    {
+      "word": "in 1968",
+      "start": 2.1875,
+      "end": 3.525
+    },
+    {
+      "word": "The",
+      "start": 3.9125,
+      "end": 3.975
+    },
+    {
+      "word": "September 11",
+      "start": 3.9875,
+      "end": 5.0
+    },
+    {
+      "word": "attacks",
+      "start": 5.0125,
+      "end": 5.4875
+    },
+    {
+      "word": "happened",
+      "start": 5.5,
+      "end": 5.9875
+    },
+    {
+      "word": "in 2001",
+      "start": 6.0,
+      "end": 7.1
+    },
+    {
+      "word": "That's",
+      "start": 7.4875,
+      "end": 7.7
+    },
+    {
+      "word": "a",
+      "start": 7.7125,
+      "end": 7.800000000000001
+    },
+    {
+      "word": "difference",
+      "start": 7.8125,
+      "end": 8.2875
+    },
+    {
+      "word": "of",
+      "start": 8.3,
+      "end": 8.4625
+    },
+    {
+      "word": "33 years",
+      "start": 8.475,
+      "end": 9.6
+    }
+  ]
+}

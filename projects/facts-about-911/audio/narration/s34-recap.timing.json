@@ -1,0 +1,20 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "So",
+      "start": 0.05,
+      "end": 0.2
+    },
+    {
+      "word": "let's",
+      "start": 0.2125,
+      "end": 0.5
+    },
+    {
+      "word": "recap",
+      "start": 0.5125,
+      "end": 1.0875
+    }
+  ]
+}

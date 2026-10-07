@@ -1,0 +1,135 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "But",
+      "start": 0.0875,
+      "end": 0.175
+    },
+    {
+      "word": "there's",
+      "start": 0.1875,
+      "end": 0.3625
+    },
+    {
+      "word": "an",
+      "start": 0.375,
+      "end": 0.4375
+    },
+    {
+      "word": "important",
+      "start": 0.45,
+      "end": 0.8875
+    },
+    {
+      "word": "warning",
+      "start": 0.9,
+      "end": 1.3875
+    },
+    {
+      "word": "Don't",
+      "start": 1.975,
+      "end": 2.2
+    },
+    {
+      "word": "assume",
+      "start": 2.2125,
+      "end": 2.65
+    },
+    {
+      "word": "that",
+      "start": 2.6625,
+      "end": 2.8375
+    },
+    {
+      "word": "911",
+      "start": 2.85,
+      "end": 3.7125000000000004
+    },
+    {
+      "word": "works",
+      "start": 3.725,
+      "end": 4.0875
+    },
+    {
+      "word": "everywhere",
+      "start": 4.1125,
+      "end": 4.6625
+    },
+    {
+      "word": "just",
+      "start": 4.675,
+      "end": 4.9125
+    },
+    {
+      "word": "because",
+      "start": 4.925,
+      "end": 5.2124999999999995
+    },
+    {
+      "word": "it",
+      "start": 5.225,
+      "end": 5.3374999999999995
+    },
+    {
+      "word": "works",
+      "start": 5.35,
+      "end": 5.6875
+    },
+    {
+      "word": "in",
+      "start": 5.7,
+      "end": 5.7875000000000005
+    },
+    {
+      "word": "the",
+      "start": 5.8,
+      "end": 5.85
+    },
+    {
+      "word": "United",
+      "start": 5.8625,
+      "end": 6.1625
+    },
+    {
+      "word": "States",
+      "start": 6.175,
+      "end": 6.6625
+    },
+    {
+      "word": "Emergency",
+      "start": 7.0625,
+      "end": 7.6375
+    },
+    {
+      "word": "numbers",
+      "start": 7.65,
+      "end": 8.137500000000001
+    },
+    {
+      "word": "vary",
+      "start": 8.15,
+      "end": 8.5625
+    },
+    {
+      "word": "dramatically",
+      "start": 8.575,
+      "end": 9.375
+    },
+    {
+      "word": "around",
+      "start": 9.3875,
+      "end": 9.774999999999999
+    },
+    {
+      "word": "the",
+      "start": 9.7875,
+      "end": 9.862499999999999
+    },
+    {
+      "word": "world",
+      "start": 9.875,
+      "end": 10.3875
+    }
+  ]
+}

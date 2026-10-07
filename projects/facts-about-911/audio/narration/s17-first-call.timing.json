@@ -1,0 +1,190 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "Alabama",
+      "start": 0.0875,
+      "end": 0.5625
+    },
+    {
+      "word": "Speaker",
+      "start": 0.575,
+      "end": 1.0375
+    },
+    {
+      "word": "of",
+      "start": 1.05,
+      "end": 1.125
+    },
+    {
+      "word": "the",
+      "start": 1.1375,
+      "end": 1.2125
+    },
+    {
+      "word": "House",
+      "start": 1.225,
+      "end": 1.5750000000000002
+    },
+    {
+      "word": "Rankin",
+      "start": 1.5875,
+      "end": 1.9249999999999998
+    },
+    {
+      "word": "Fite",
+      "start": 1.9375,
+      "end": 2.35
+    },
+    {
+      "word": "picked",
+      "start": 2.3625,
+      "end": 2.625
+    },
+    {
+      "word": "up",
+      "start": 2.6375,
+      "end": 2.75
+    },
+    {
+      "word": "a",
+      "start": 2.7625,
+      "end": 2.8125
+    },
+    {
+      "word": "telephone",
+      "start": 2.825,
+      "end": 3.4625000000000004
+    },
+    {
+      "word": "and",
+      "start": 3.4875,
+      "end": 3.6374999999999997
+    },
+    {
+      "word": "dialed 911",
+      "start": 3.65,
+      "end": 4.9375
+    },
+    {
+      "word": "The",
+      "start": 5.3375,
+      "end": 5.4
+    },
+    {
+      "word": "call",
+      "start": 5.4125,
+      "end": 5.699999999999999
+    },
+    {
+      "word": "was",
+      "start": 5.7125,
+      "end": 5.862500000000001
+    },
+    {
+      "word": "answered",
+      "start": 5.875,
+      "end": 6.3
+    },
+    {
+      "word": "by",
+      "start": 6.3125,
+      "end": 6.475
+    },
+    {
+      "word": "U.S.",
+      "start": 6.4875,
+      "end": 6.975
+    },
+    {
+      "word": "Representative",
+      "start": 6.9875,
+      "end": 7.625
+    },
+    {
+      "word": "Tom",
+      "start": 7.6375,
+      "end": 7.9375
+    },
+    {
+      "word": "Bevill",
+      "start": 7.95,
+      "end": 8.4125
+    },
+    {
+      "word": "at",
+      "start": 8.4375,
+      "end": 8.525
+    },
+    {
+      "word": "the",
+      "start": 8.5375,
+      "end": 8.6375
+    },
+    {
+      "word": "local",
+      "start": 8.65,
+      "end": 8.9625
+    },
+    {
+      "word": "police",
+      "start": 8.975,
+      "end": 9.299999999999999
+    },
+    {
+      "word": "station",
+      "start": 9.3125,
+      "end": 9.7875
+    },
+    {
+      "word": "It",
+      "start": 10.15,
+      "end": 10.3
+    },
+    {
+      "word": "was",
+      "start": 10.3125,
+      "end": 10.475
+    },
+    {
+      "word": "the",
+      "start": 10.4875,
+      "end": 10.600000000000001
+    },
+    {
+      "word": "first",
+      "start": 10.6125,
+      "end": 10.975000000000001
+    },
+    {
+      "word": "official",
+      "start": 10.9875,
+      "end": 11.375
+    },
+    {
+      "word": "911 call",
+      "start": 11.3875,
+      "end": 12.725
+    },
+    {
+      "word": "in",
+      "start": 12.75,
+      "end": 12.8875
+    },
+    {
+      "word": "the",
+      "start": 12.9,
+      "end": 12.950000000000001
+    },
+    {
+      "word": "United",
+      "start": 12.9625,
+      "end": 13.3
+    },
+    {
+      "word": "States",
+      "start": 13.3125,
+      "end": 13.8375
+    }
+  ]
+}

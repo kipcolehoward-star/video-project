@@ -1,0 +1,240 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "Now",
+      "start": 0.075,
+      "end": 0.325
+    },
+    {
+      "word": "let's",
+      "start": 0.3375,
+      "end": 0.5875
+    },
+    {
+      "word": "cross",
+      "start": 0.6,
+      "end": 1.0
+    },
+    {
+      "word": "the",
+      "start": 1.0125,
+      "end": 1.0999999999999999
+    },
+    {
+      "word": "Atlantic",
+      "start": 1.1125,
+      "end": 1.8375
+    },
+    {
+      "word": "The",
+      "start": 2.225,
+      "end": 2.275
+    },
+    {
+      "word": "United",
+      "start": 2.2875,
+      "end": 2.6125000000000003
+    },
+    {
+      "word": "States",
+      "start": 2.625,
+      "end": 3.075
+    },
+    {
+      "word": "uses",
+      "start": 3.0875,
+      "end": 3.5
+    },
+    {
+      "word": "911",
+      "start": 3.5125,
+      "end": 4.575
+    },
+    {
+      "word": "The",
+      "start": 4.9625,
+      "end": 5.0125
+    },
+    {
+      "word": "United",
+      "start": 5.025,
+      "end": 5.4125000000000005
+    },
+    {
+      "word": "Kingdom",
+      "start": 5.425,
+      "end": 5.8999999999999995
+    },
+    {
+      "word": "uses",
+      "start": 5.9125,
+      "end": 6.3625
+    },
+    {
+      "word": "nine-nine-nine",
+      "start": 6.375,
+      "end": 7.425
+    },
+    {
+      "word": "So",
+      "start": 7.7875,
+      "end": 8.025
+    },
+    {
+      "word": "are",
+      "start": 8.0375,
+      "end": 8.225
+    },
+    {
+      "word": "they",
+      "start": 8.2375,
+      "end": 8.412500000000001
+    },
+    {
+      "word": "basically",
+      "start": 8.425,
+      "end": 8.9875
+    },
+    {
+      "word": "the",
+      "start": 9.0,
+      "end": 9.0875
+    },
+    {
+      "word": "same",
+      "start": 9.1,
+      "end": 9.45
+    },
+    {
+      "word": "thing",
+      "start": 9.4625,
+      "end": 9.85
+    },
+    {
+      "word": "In",
+      "start": 10.2125,
+      "end": 10.3625
+    },
+    {
+      "word": "purpose",
+      "start": 10.375,
+      "end": 10.9
+    },
+    {
+      "word": "yes",
+      "start": 10.925,
+      "end": 11.3625
+    },
+    {
+      "word": "Both",
+      "start": 11.7625,
+      "end": 12.049999999999999
+    },
+    {
+      "word": "are",
+      "start": 12.0625,
+      "end": 12.1875
+    },
+    {
+      "word": "emergency",
+      "start": 12.2,
+      "end": 12.774999999999999
+    },
+    {
+      "word": "numbers",
+      "start": 12.7875,
+      "end": 13.225
+    },
+    {
+      "word": "designed",
+      "start": 13.2375,
+      "end": 13.725000000000001
+    },
+    {
+      "word": "to",
+      "start": 13.7375,
+      "end": 13.850000000000001
+    },
+    {
+      "word": "connect",
+      "start": 13.8625,
+      "end": 14.25
+    },
+    {
+      "word": "people",
+      "start": 14.2625,
+      "end": 14.6375
+    },
+    {
+      "word": "with",
+      "start": 14.65,
+      "end": 14.825000000000001
+    },
+    {
+      "word": "emergency",
+      "start": 14.8375,
+      "end": 15.387500000000001
+    },
+    {
+      "word": "services",
+      "start": 15.4,
+      "end": 16.0375
+    },
+    {
+      "word": "But",
+      "start": 16.425,
+      "end": 16.575
+    },
+    {
+      "word": "they",
+      "start": 16.5875,
+      "end": 16.724999999999998
+    },
+    {
+      "word": "are",
+      "start": 16.7375,
+      "end": 16.8625
+    },
+    {
+      "word": "different",
+      "start": 16.875,
+      "end": 17.225
+    },
+    {
+      "word": "numbers",
+      "start": 17.2375,
+      "end": 17.7375
+    },
+    {
+      "word": "belonging",
+      "start": 17.75,
+      "end": 18.2625
+    },
+    {
+      "word": "to",
+      "start": 18.275,
+      "end": 18.424999999999997
+    },
+    {
+      "word": "different",
+      "start": 18.4375,
+      "end": 18.8625
+    },
+    {
+      "word": "national",
+      "start": 18.875,
+      "end": 19.3125
+    },
+    {
+      "word": "telephone",
+      "start": 19.325,
+      "end": 19.8125
+    },
+    {
+      "word": "systems",
+      "start": 19.825,
+      "end": 20.45
+    }
+  ]
+}

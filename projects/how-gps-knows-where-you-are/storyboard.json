@@ -1,0 +1,115 @@
+{
+  "scenes": [
+    {
+      "id": "s1-hook",
+      "type": "title",
+      "duration": 3,
+      "narration": "Your phone can find you to within about *five metres*, out under open sky. It does it by listening to *clocks in space*.",
+      "data": {
+        "kicker": "Explainer",
+        "title": "How GPS knows where you are",
+        "subtitle": "It starts with clocks in space."
+      }
+    },
+    {
+      "id": "s2-constellation",
+      "type": "statistic",
+      "duration": 3,
+      "transitionIn": {"type": "fade", "duration": 0.4},
+      "narration": "More than thirty GPS satellites circle the Earth, about twenty thousand kilometres up. Each carries *atomic clocks*, and broadcasts the exact time and its own position, over and over.",
+      "data": {
+        "kicker": "Medium Earth orbit",
+        "value": 20200,
+        "suffix": " km",
+        "label": "Altitude of the GPS satellites, compared with the ISS and geostationary orbit.",
+        "bars": [
+          {"label": "ISS", "value": 400},
+          {"label": "GPS", "value": 20200, "highlight": true},
+          {"label": "Geostationary", "value": 35786}
+        ]
+      }
+    },
+    {
+      "id": "s3-delay",
+      "type": "steps",
+      "duration": 3,
+      "narration": "Your phone notes when each signal arrives. The signal travels at the *speed of light*, so the delay reveals the distance. From a satellite overhead, about seven hundredths of a second means twenty thousand kilometres.",
+      "data": {
+        "kicker": "From time to distance",
+        "heading": "The delay is the distance",
+        "steps": [
+          {"title": "Signal arrives", "text": "Your phone notes the arrival time", "cue": "notes"},
+          {"title": "Light speed", "text": "About 300,000 km every second", "cue": "travels"},
+          {"title": "Delay becomes distance", "text": "Delay × speed of light", "cue": "delay"},
+          {"title": "0.07 s ≈ 20,000 km", "text": "For a satellite overhead", "cue": "seven"}
+        ]
+      }
+    },
+    {
+      "id": "s4-trilateration",
+      "type": "diagram",
+      "duration": 3,
+      "narration": "One distance puts you somewhere on a giant sphere around that satellite. A second distance narrows it down. A third leaves a *single point*. And a fourth satellite corrects the cheap clock inside your phone.",
+      "data": {
+        "diagram": "trilateration",
+        "cues": {"ring1": "one", "ring2": "second", "ring3": "third", "fix": "single", "clock": "fourth"},
+        "kicker": "Trilateration",
+        "heading": "Three distances, one point",
+        "body": "Drawn flat for clarity: in space each distance is a sphere. A fourth satellite solves for the receiver's clock error."
+      }
+    },
+    {
+      "id": "s5-sensitivity",
+      "type": "statistic",
+      "duration": 3,
+      "transitionIn": {"type": "fade", "duration": 0.4},
+      "narration": "That's why timing is everything. A clock that is off by just one millionth of a second puts you about *three hundred metres* from where you are.",
+      "data": {
+        "kicker": "One microsecond off",
+        "value": 300,
+        "suffix": " m",
+        "label": "Position error from a clock that is wrong by one millionth of a second."
+      }
+    },
+    {
+      "id": "s6-relativity",
+      "type": "comparison",
+      "duration": 3,
+      "narration": "And the satellite clocks do drift, because of *Einstein*. Their speed slows them by about seven microseconds a day. The weaker gravity up there speeds them up by forty five. Overall, they gain *thirty eight microseconds* every day.",
+      "data": {
+        "kicker": "Einstein's correction",
+        "heading": "Satellite clocks drift every day",
+        "items": [
+          {"label": "Speed", "note": "Special relativity: moving clocks run slow", "value": -7, "unit": "µs", "cue": "slows"},
+          {"label": "Weaker gravity", "note": "General relativity: higher clocks run fast", "value": 45, "signed": true, "unit": "µs", "cue": "gravity"},
+          {"label": "Net, per day", "note": "Satellite clocks run ahead", "value": 38, "signed": true, "unit": "µs", "lead": "=", "highlight": true, "cue": "overall"}
+        ]
+      }
+    },
+    {
+      "id": "s7-uncorrected",
+      "type": "statistic",
+      "duration": 3,
+      "narration": "Left alone, that would add roughly *ten kilometres* of error every day. So before launch, engineers set the satellite clocks to tick slightly slow.",
+      "data": {
+        "kicker": "Uncorrected, per day",
+        "prefix": "~",
+        "value": 10,
+        "suffix": " km",
+        "label": "Error that would build up every day without relativity corrections."
+      }
+    },
+    {
+      "id": "s8-outro",
+      "type": "title",
+      "duration": 3,
+      "transitionIn": {"type": "fade", "duration": 0.6},
+      "narrationTail": 1.4,
+      "narration": "GPS is really a *timing system*. Get the time right, and your position follows.",
+      "data": {
+        "kicker": "In short",
+        "title": "Clocks in space. Distance by delay."
+      }
+    }
+  ]
+}

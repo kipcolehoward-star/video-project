@@ -1,0 +1,85 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "And",
+      "start": 0.079541,
+      "end": 0.204541
+    },
+    {
+      "word": "unlike",
+      "start": 0.215916,
+      "end": 0.545457
+    },
+    {
+      "word": "most",
+      "start": 0.556833,
+      "end": 0.806833
+    },
+    {
+      "word": "countries",
+      "start": 0.818166,
+      "end": 1.318166
+    },
+    {
+      "word": "Lesotho",
+      "start": 1.806833,
+      "end": 2.204541
+    },
+    {
+      "word": "has",
+      "start": 2.215916,
+      "end": 2.420457
+    },
+    {
+      "word": "no",
+      "start": 2.431833,
+      "end": 2.6591240000000003
+    },
+    {
+      "word": "coastline",
+      "start": 2.670458,
+      "end": 3.1931659999999997
+    },
+    {
+      "word": "\u00e2\u20ac",
+      "start": 3.204541,
+      "end": 3.624999
+    },
+    {
+      "word": "and",
+      "start": 4.090916,
+      "end": 4.227291
+    },
+    {
+      "word": "no",
+      "start": 4.238625,
+      "end": 4.397708
+    },
+    {
+      "word": "border",
+      "start": 4.409083,
+      "end": 4.761374
+    },
+    {
+      "word": "with",
+      "start": 4.772708,
+      "end": 4.943166
+    },
+    {
+      "word": "any",
+      "start": 5.011375,
+      "end": 5.204541
+    },
+    {
+      "word": "other",
+      "start": 5.215916,
+      "end": 5.397749
+    },
+    {
+      "word": "country",
+      "start": 5.409083,
+      "end": 5.852249
+    }
+  ]
+}

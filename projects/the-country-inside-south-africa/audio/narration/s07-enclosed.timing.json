@@ -1,0 +1,70 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "When",
+      "start": 0.090916,
+      "end": 0.249999
+    },
+    {
+      "word": "South",
+      "start": 0.261375,
+      "end": 0.590916
+    },
+    {
+      "word": "Africa's",
+      "start": 0.602291,
+      "end": 1.011374
+    },
+    {
+      "word": "borders",
+      "start": 1.022708,
+      "end": 1.488624
+    },
+    {
+      "word": "eventually",
+      "start": 1.511375,
+      "end": 1.977291
+    },
+    {
+      "word": "formed",
+      "start": 1.988625,
+      "end": 2.318166
+    },
+    {
+      "word": "around",
+      "start": 2.329541,
+      "end": 2.670457
+    },
+    {
+      "word": "it",
+      "start": 2.681833,
+      "end": 2.8749990000000003
+    },
+    {
+      "word": "Lesotho",
+      "start": 3.386375,
+      "end": 3.8977500000000003
+    },
+    {
+      "word": "remained",
+      "start": 3.909083,
+      "end": 4.306791
+    },
+    {
+      "word": "a",
+      "start": 4.318166,
+      "end": 4.374999
+    },
+    {
+      "word": "separate",
+      "start": 4.386375,
+      "end": 4.761375
+    },
+    {
+      "word": "country",
+      "start": 4.772708,
+      "end": 5.238624
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "When",
+      "start": 0.0875,
+      "end": 0.225
+    },
+    {
+      "word": "someone",
+      "start": 0.2375,
+      "end": 0.6
+    },
+    {
+      "word": "is",
+      "start": 0.6125,
+      "end": 0.775
+    },
+    {
+      "word": "in",
+      "start": 0.7875,
+      "end": 0.9375
+    },
+    {
+      "word": "danger",
+      "start": 0.95,
+      "end": 1.475
+    },
+    {
+      "word": "in",
+      "start": 1.4875,
+      "end": 1.6125
+    },
+    {
+      "word": "the",
+      "start": 1.625,
+      "end": 1.675
+    },
+    {
+      "word": "United",
+      "start": 1.6875,
+      "end": 2.025
+    },
+    {
+      "word": "States",
+      "start": 2.0375,
+      "end": 2.6125
+    },
+    {
+      "word": "there's",
+      "start": 2.9,
+      "end": 3.15
+    },
+    {
+      "word": "one",
+      "start": 3.1625,
+      "end": 3.3875
+    },
+    {
+      "word": "number",
+      "start": 3.4,
+      "end": 3.775
+    },
+    {
+      "word": "almost",
+      "start": 3.7875,
+      "end": 4.175
+    },
+    {
+      "word": "everyone",
+      "start": 4.1875,
+      "end": 4.5875
+    },
+    {
+      "word": "knows",
+      "start": 4.6,
+      "end": 5.0874999999999995
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "Today",
+      "start": 0.068166,
+      "end": 0.488624
+    },
+    {
+      "word": "more",
+      "start": 0.511375,
+      "end": 0.7840830000000001
+    },
+    {
+      "word": "than",
+      "start": 0.795458,
+      "end": 0.931833
+    },
+    {
+      "word": "two",
+      "start": 0.943166,
+      "end": 1.136332
+    },
+    {
+      "word": "million",
+      "start": 1.147708,
+      "end": 1.477249
+    },
+    {
+      "word": "people",
+      "start": 1.488625,
+      "end": 1.8181660000000002
+    },
+    {
+      "word": "live",
+      "start": 1.829541,
+      "end": 2.147707
+    },
+    {
+      "word": "in",
+      "start": 2.170458,
+      "end": 2.295458
+    },
+    {
+      "word": "this",
+      "start": 2.306833,
+      "end": 2.477291
+    },
+    {
+      "word": "mountain",
+      "start": 2.488625,
+      "end": 2.806791
+    },
+    {
+      "word": "kingdom",
+      "start": 2.818166,
+      "end": 3.2954570000000003
+    }
+  ]
+}

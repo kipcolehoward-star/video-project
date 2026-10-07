@@ -1,0 +1,190 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "So",
+      "start": 0.05,
+      "end": 0.22499999999999998
+    },
+    {
+      "word": "why",
+      "start": 0.2375,
+      "end": 0.425
+    },
+    {
+      "word": "did",
+      "start": 0.4375,
+      "end": 0.5625
+    },
+    {
+      "word": "they",
+      "start": 0.575,
+      "end": 0.7
+    },
+    {
+      "word": "choose",
+      "start": 0.7125,
+      "end": 1.05
+    },
+    {
+      "word": "911",
+      "start": 1.0625,
+      "end": 1.9875
+    },
+    {
+      "word": "AT&T",
+      "start": 2.3875,
+      "end": 3.0875000000000004
+    },
+    {
+      "word": "selected",
+      "start": 3.1,
+      "end": 3.5625
+    },
+    {
+      "word": "the",
+      "start": 3.575,
+      "end": 3.6375
+    },
+    {
+      "word": "number",
+      "start": 3.65,
+      "end": 3.975
+    },
+    {
+      "word": "because",
+      "start": 3.9875,
+      "end": 4.25
+    },
+    {
+      "word": "it",
+      "start": 4.2625,
+      "end": 4.325
+    },
+    {
+      "word": "was",
+      "start": 4.3375,
+      "end": 4.45
+    },
+    {
+      "word": "short",
+      "start": 4.4625,
+      "end": 4.8875
+    },
+    {
+      "word": "easy",
+      "start": 5.4625,
+      "end": 5.7125
+    },
+    {
+      "word": "to",
+      "start": 5.725,
+      "end": 5.8374999999999995
+    },
+    {
+      "word": "remember",
+      "start": 5.85,
+      "end": 6.3374999999999995
+    },
+    {
+      "word": "and\u00e2\u20ac",
+      "start": 6.95,
+      "end": 7.4125000000000005
+    },
+    {
+      "word": "critically\u00e2\u20ac",
+      "start": 7.425,
+      "end": 8.425
+    },
+    {
+      "word": "had",
+      "start": 8.825,
+      "end": 8.987499999999999
+    },
+    {
+      "word": "not",
+      "start": 9.0,
+      "end": 9.3125
+    },
+    {
+      "word": "already",
+      "start": 9.325,
+      "end": 9.587499999999999
+    },
+    {
+      "word": "been",
+      "start": 9.6,
+      "end": 9.737499999999999
+    },
+    {
+      "word": "assigned",
+      "start": 9.75,
+      "end": 10.275
+    },
+    {
+      "word": "as",
+      "start": 10.2875,
+      "end": 10.424999999999999
+    },
+    {
+      "word": "an",
+      "start": 10.4375,
+      "end": 10.6
+    },
+    {
+      "word": "area",
+      "start": 10.6125,
+      "end": 10.9
+    },
+    {
+      "word": "code",
+      "start": 10.9125,
+      "end": 11.275
+    },
+    {
+      "word": "office",
+      "start": 11.825,
+      "end": 12.1625
+    },
+    {
+      "word": "code",
+      "start": 12.175,
+      "end": 12.512500000000001
+    },
+    {
+      "word": "or",
+      "start": 13.0625,
+      "end": 13.225
+    },
+    {
+      "word": "service",
+      "start": 13.2375,
+      "end": 13.637500000000001
+    },
+    {
+      "word": "code",
+      "start": 13.65,
+      "end": 13.9625
+    },
+    {
+      "word": "in",
+      "start": 13.975,
+      "end": 14.0875
+    },
+    {
+      "word": "the",
+      "start": 14.1,
+      "end": 14.1875
+    },
+    {
+      "word": "telephone",
+      "start": 14.2,
+      "end": 14.6375
+    },
+    {
+      "word": "system",
+      "start": 14.65,
+      "end": 15.0625
+    }
+  ]
+}

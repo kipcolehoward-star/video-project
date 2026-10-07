@@ -1,0 +1,45 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "The",
+      "start": 0.075,
+      "end": 0.1375
+    },
+    {
+      "word": "story",
+      "start": 0.15,
+      "end": 0.6375
+    },
+    {
+      "word": "of",
+      "start": 0.65,
+      "end": 0.7875000000000001
+    },
+    {
+      "word": "911",
+      "start": 0.8,
+      "end": 1.725
+    },
+    {
+      "word": "begins",
+      "start": 1.7375,
+      "end": 2.275
+    },
+    {
+      "word": "in",
+      "start": 2.2875,
+      "end": 2.45
+    },
+    {
+      "word": "the",
+      "start": 2.4625,
+      "end": 2.5375
+    },
+    {
+      "word": "1960s",
+      "start": 2.55,
+      "end": 3.625
+    }
+  ]
+}

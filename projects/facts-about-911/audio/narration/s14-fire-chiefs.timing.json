@@ -1,0 +1,215 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "As",
+      "start": 0.0875,
+      "end": 0.2375
+    },
+    {
+      "word": "emergency",
+      "start": 0.25,
+      "end": 0.8
+    },
+    {
+      "word": "calls",
+      "start": 0.8125,
+      "end": 1.125
+    },
+    {
+      "word": "increased",
+      "start": 1.1375,
+      "end": 1.7875
+    },
+    {
+      "word": "and",
+      "start": 1.8,
+      "end": 1.9125
+    },
+    {
+      "word": "society",
+      "start": 1.925,
+      "end": 2.4875
+    },
+    {
+      "word": "became",
+      "start": 2.5,
+      "end": 2.85
+    },
+    {
+      "word": "more",
+      "start": 2.8625,
+      "end": 3.0999999999999996
+    },
+    {
+      "word": "dependent",
+      "start": 3.1125,
+      "end": 3.5749999999999997
+    },
+    {
+      "word": "on",
+      "start": 3.5875,
+      "end": 3.725
+    },
+    {
+      "word": "telephones",
+      "start": 3.7375,
+      "end": 4.4624999999999995
+    },
+    {
+      "word": "the",
+      "start": 4.8,
+      "end": 4.925
+    },
+    {
+      "word": "limitations",
+      "start": 4.9375,
+      "end": 5.6375
+    },
+    {
+      "word": "became",
+      "start": 5.65,
+      "end": 6.025
+    },
+    {
+      "word": "increasingly",
+      "start": 6.0375,
+      "end": 6.762499999999999
+    },
+    {
+      "word": "obvious",
+      "start": 6.775,
+      "end": 7.375
+    },
+    {
+      "word": "Fire",
+      "start": 7.775,
+      "end": 8.1625
+    },
+    {
+      "word": "officials",
+      "start": 8.175,
+      "end": 8.75
+    },
+    {
+      "word": "had",
+      "start": 8.7625,
+      "end": 8.975
+    },
+    {
+      "word": "already",
+      "start": 8.9875,
+      "end": 9.375
+    },
+    {
+      "word": "been",
+      "start": 9.3875,
+      "end": 9.5625
+    },
+    {
+      "word": "pushing",
+      "start": 9.575,
+      "end": 10.087499999999999
+    },
+    {
+      "word": "for",
+      "start": 10.1,
+      "end": 10.3375
+    },
+    {
+      "word": "a",
+      "start": 10.35,
+      "end": 10.4
+    },
+    {
+      "word": "simpler",
+      "start": 10.4125,
+      "end": 10.875
+    },
+    {
+      "word": "emergency",
+      "start": 10.8875,
+      "end": 11.462499999999999
+    },
+    {
+      "word": "number",
+      "start": 11.475,
+      "end": 11.924999999999999
+    },
+    {
+      "word": "In 1957",
+      "start": 12.325,
+      "end": 13.524999999999999
+    },
+    {
+      "word": "the",
+      "start": 13.8125,
+      "end": 13.925
+    },
+    {
+      "word": "National",
+      "start": 13.9375,
+      "end": 14.375
+    },
+    {
+      "word": "Association",
+      "start": 14.3875,
+      "end": 15.087499999999999
+    },
+    {
+      "word": "of",
+      "start": 15.1,
+      "end": 15.1875
+    },
+    {
+      "word": "Fire",
+      "start": 15.2,
+      "end": 15.5125
+    },
+    {
+      "word": "Chiefs",
+      "start": 15.525,
+      "end": 15.9875
+    },
+    {
+      "word": "reportedly",
+      "start": 16.0,
+      "end": 16.5875
+    },
+    {
+      "word": "recommended",
+      "start": 16.6,
+      "end": 17.225
+    },
+    {
+      "word": "a",
+      "start": 17.25,
+      "end": 17.325
+    },
+    {
+      "word": "single",
+      "start": 17.3375,
+      "end": 17.7
+    },
+    {
+      "word": "number",
+      "start": 17.7125,
+      "end": 18.075
+    },
+    {
+      "word": "for",
+      "start": 18.0875,
+      "end": 18.3125
+    },
+    {
+      "word": "reporting",
+      "start": 18.325,
+      "end": 18.75
+    },
+    {
+      "word": "fires",
+      "start": 18.7625,
+      "end": 19.349999999999998
+    }
+  ]
+}

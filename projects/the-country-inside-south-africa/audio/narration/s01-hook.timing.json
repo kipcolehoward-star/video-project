@@ -1,0 +1,30 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "A",
+      "start": 0.056833,
+      "end": 0.113666
+    },
+    {
+      "word": "country\u00e2\u20ac",
+      "start": 0.125,
+      "end": 0.886375
+    },
+    {
+      "word": "inside",
+      "start": 0.897708,
+      "end": 1.397708
+    },
+    {
+      "word": "another",
+      "start": 1.409083,
+      "end": 1.727249
+    },
+    {
+      "word": "country",
+      "start": 1.738625,
+      "end": 2.215916
+    }
+  ]
+}

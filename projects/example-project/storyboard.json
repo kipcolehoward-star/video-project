@@ -1,0 +1,73 @@
+{
+  "scenes": [
+    {
+      "id": "s1-title",
+      "type": "title",
+      "duration": 3.5,
+      "data": {
+        "kicker": "Format test",
+        "title": "One story, every screen",
+        "subtitle": "The same storyboard, laid out for each frame rather than stretched to fit it."
+      },
+      "narration": "One story, told for *every screen*. This test checks that a single storyboard adapts to each format."
+    },
+    {
+      "id": "s2-split",
+      "type": "split",
+      "duration": 5,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.4
+      },
+      "data": {
+        "media": "asset:test-texture",
+        "kicker": "Layout logic",
+        "heading": "Side by side when wide. Stacked when tall.",
+        "body": "Media bleeds to the edge. Text stays inside the safe zone for each platform.",
+        "lowerThird": {
+          "name": "Placeholder Name",
+          "role": "Lower third test"
+        }
+      },
+      "narration": "When the frame is wide, image and text sit side by side. When it is tall, they *stack*, and the text stays clear of the platform's buttons.",
+      "sfx": [
+        {
+          "asset": "sfx-swell",
+          "at": -0.5,
+          "gainDb": -14
+        }
+      ]
+    },
+    {
+      "id": "s3-stat",
+      "type": "statistic",
+      "duration": 4.5,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.4
+      },
+      "data": {
+        "kicker": "Pixels across",
+        "value": 1920,
+        "suffix": "px",
+        "label": "Frame width in 16:9. The chart flips direction to suit the frame.",
+        "bars": [
+          {
+            "label": "16:9",
+            "value": 1920,
+            "highlight": true
+          },
+          {
+            "label": "1:1",
+            "value": 1080
+          },
+          {
+            "label": "9:16",
+            "value": 1080
+          }
+        ]
+      },
+      "narration": "A widescreen frame is *nineteen twenty* pixels across. The chart turns sideways to suit the format it appears in."
+    }
+  ]
+}

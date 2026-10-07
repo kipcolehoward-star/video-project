@@ -1,0 +1,75 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "The",
+      "start": 0.05,
+      "end": 0.1125
+    },
+    {
+      "word": "answer",
+      "start": 0.125,
+      "end": 0.625
+    },
+    {
+      "word": "is",
+      "start": 0.6375,
+      "end": 0.825
+    },
+    {
+      "word": "no",
+      "start": 0.8375,
+      "end": 1.2125
+    },
+    {
+      "word": "In",
+      "start": 1.575,
+      "end": 1.7125
+    },
+    {
+      "word": "fact",
+      "start": 1.725,
+      "end": 2.2
+    },
+    {
+      "word": "911",
+      "start": 2.4,
+      "end": 3.2375
+    },
+    {
+      "word": "existed",
+      "start": 3.25,
+      "end": 3.8375
+    },
+    {
+      "word": "for",
+      "start": 3.85,
+      "end": 4.0375
+    },
+    {
+      "word": "more",
+      "start": 4.05,
+      "end": 4.2875
+    },
+    {
+      "word": "than",
+      "start": 4.3,
+      "end": 4.4624999999999995
+    },
+    {
+      "word": "three",
+      "start": 4.475,
+      "end": 4.7375
+    },
+    {
+      "word": "decades",
+      "start": 4.75,
+      "end": 5.3
+    },
+    {
+      "word": "before 9/11",
+      "start": 5.3125,
+      "end": 6.6625
+    }
+  ]
+}

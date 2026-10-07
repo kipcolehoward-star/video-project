@@ -1,0 +1,120 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "So",
+      "start": 0.05,
+      "end": 0.21250000000000002
+    },
+    {
+      "word": "there",
+      "start": 0.225,
+      "end": 0.375
+    },
+    {
+      "word": "is",
+      "start": 0.3875,
+      "end": 0.5
+    },
+    {
+      "word": "no",
+      "start": 0.5125,
+      "end": 0.7124999999999999
+    },
+    {
+      "word": "causal",
+      "start": 0.725,
+      "end": 1.0875
+    },
+    {
+      "word": "connection",
+      "start": 1.1,
+      "end": 1.6500000000000001
+    },
+    {
+      "word": "between",
+      "start": 1.6625,
+      "end": 2.025
+    },
+    {
+      "word": "the",
+      "start": 2.0375,
+      "end": 2.125
+    },
+    {
+      "word": "terrorist",
+      "start": 2.1375,
+      "end": 2.6
+    },
+    {
+      "word": "attacks",
+      "start": 2.6125,
+      "end": 3.15
+    },
+    {
+      "word": "and",
+      "start": 3.175,
+      "end": 3.3249999999999997
+    },
+    {
+      "word": "the",
+      "start": 3.3375,
+      "end": 3.4125
+    },
+    {
+      "word": "creation",
+      "start": 3.425,
+      "end": 3.9749999999999996
+    },
+    {
+      "word": "of",
+      "start": 3.9875,
+      "end": 4.1125
+    },
+    {
+      "word": "the",
+      "start": 4.125,
+      "end": 4.2
+    },
+    {
+      "word": "911 emergency",
+      "start": 4.2125,
+      "end": 5.5875
+    },
+    {
+      "word": "number",
+      "start": 5.6,
+      "end": 6.0375
+    },
+    {
+      "word": "The",
+      "start": 6.425,
+      "end": 6.4875
+    },
+    {
+      "word": "similarity",
+      "start": 6.5,
+      "end": 7.3125
+    },
+    {
+      "word": "is",
+      "start": 7.325,
+      "end": 7.4875
+    },
+    {
+      "word": "simply",
+      "start": 7.5,
+      "end": 7.975
+    },
+    {
+      "word": "a",
+      "start": 7.9875,
+      "end": 8.075
+    },
+    {
+      "word": "coincidence",
+      "start": 8.0875,
+      "end": 8.9625
+    }
+  ]
+}

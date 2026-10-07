@@ -1,0 +1,22 @@
+{
+  "voice": "en_US-joe-medium",
+  "license": "CC0",
+  "attribution": null,
+  "scenes": {
+    "s1-title": {
+      "file": "audio/narration/s1-title.wav",
+      "duration": 6.439819,
+      "textHash": "a36e1bbde63a04a2"
+    },
+    "s2-split": {
+      "file": "audio/narration/s2-split.wav",
+      "duration": 8.401905,
+      "textHash": "22c7b3d1630391ef"
+    },
+    "s3-stat": {
+      "file": "audio/narration/s3-stat.wav",
+      "duration": 6.997098,
+      "textHash": "73a3e3af8281b1c6"
+    }
+  }
+}

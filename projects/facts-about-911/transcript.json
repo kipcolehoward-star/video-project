@@ -1,0 +1,6089 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural (character alignment)",
+  "scenes": {
+    "s01-hook": {
+      "audioHash": "f49affa2aca89045",
+      "words": [
+        {
+          "text": "When",
+          "start": 0.0875,
+          "end": 0.225,
+          "matched": true
+        },
+        {
+          "text": "someone",
+          "start": 0.2375,
+          "end": 0.6,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 0.6125,
+          "end": 0.775,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 0.7875,
+          "end": 0.9375,
+          "matched": true
+        },
+        {
+          "text": "danger",
+          "start": 0.95,
+          "end": 1.475,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 1.4875,
+          "end": 1.6125,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.625,
+          "end": 1.6875,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 1.6875,
+          "end": 2.025,
+          "matched": true
+        },
+        {
+          "text": "States,",
+          "start": 2.0375,
+          "end": 2.6125,
+          "matched": true
+        },
+        {
+          "text": "there's",
+          "start": 2.9,
+          "end": 3.15,
+          "matched": true
+        },
+        {
+          "text": "one",
+          "start": 3.1625,
+          "end": 3.3875,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 3.4,
+          "end": 3.775,
+          "matched": true
+        },
+        {
+          "text": "almost",
+          "start": 3.7875,
+          "end": 4.175,
+          "matched": true
+        },
+        {
+          "text": "everyone",
+          "start": 4.1875,
+          "end": 4.5875,
+          "matched": true
+        },
+        {
+          "text": "knows.",
+          "start": 4.6,
+          "end": 5.0874999999999995,
+          "matched": true
+        }
+      ],
+      "recognized": "When someone is in danger in the United States there's one number almost everyone knows"
+    },
+    "s02-questions": {
+      "audioHash": "d6d2e36dc5a3503c",
+      "words": [
+        {
+          "text": "But",
+          "start": 0.075,
+          "end": 0.21250000000000002,
+          "matched": true
+        },
+        {
+          "text": "why",
+          "start": 0.225,
+          "end": 0.45,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 0.4625,
+          "end": 0.5875,
+          "matched": true
+        },
+        {
+          "text": "it",
+          "start": 0.6,
+          "end": 0.7125,
+          "matched": true
+        },
+        {
+          "text": "911?",
+          "start": 0.725,
+          "end": 1.6749999999999998,
+          "matched": true
+        },
+        {
+          "text": "Who",
+          "start": 2.075,
+          "end": 2.2625,
+          "matched": true
+        },
+        {
+          "text": "created",
+          "start": 2.275,
+          "end": 2.8,
+          "matched": true
+        },
+        {
+          "text": "it?",
+          "start": 2.8125,
+          "end": 3.075,
+          "matched": true
+        },
+        {
+          "text": "What",
+          "start": 3.475,
+          "end": 3.65,
+          "matched": true
+        },
+        {
+          "text": "did",
+          "start": 3.6625,
+          "end": 3.8000000000000003,
+          "matched": true
+        },
+        {
+          "text": "Americans",
+          "start": 3.8125,
+          "end": 4.4125,
+          "matched": true
+        },
+        {
+          "text": "do",
+          "start": 4.425,
+          "end": 4.7124999999999995,
+          "matched": true
+        },
+        {
+          "text": "before",
+          "start": 4.725,
+          "end": 5.1125,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 5.125,
+          "end": 5.9625,
+          "matched": true
+        },
+        {
+          "text": "existed?",
+          "start": 5.975,
+          "end": 6.6499999999999995,
+          "matched": true
+        },
+        {
+          "text": "And",
+          "start": 7.05,
+          "end": 7.2375,
+          "matched": true
+        },
+        {
+          "text": "perhaps",
+          "start": 7.25,
+          "end": 7.7375,
+          "matched": true
+        },
+        {
+          "text": "most",
+          "start": 7.75,
+          "end": 8.125,
+          "matched": true
+        },
+        {
+          "text": "interestingly…",
+          "start": 8.15,
+          "end": 9.450000000000001,
+          "matched": true
+        }
+      ],
+      "recognized": "But why is it 911 Who created it What did Americans do before 911 existed And perhaps most interestinglyâ€"
+    },
+    "s03-911-vs-911": {
+      "audioHash": "87811e4190200e5b",
+      "words": [
+        {
+          "text": "Was",
+          "start": 0.1125,
+          "end": 0.3375,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 0.35,
+          "end": 0.4375,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 0.4375,
+          "end": 1.0125,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 1.025,
+          "end": 1.45,
+          "matched": true
+        },
+        {
+          "text": "actually",
+          "start": 1.4625,
+          "end": 1.8125,
+          "matched": true
+        },
+        {
+          "text": "named",
+          "start": 1.825,
+          "end": 2.3375,
+          "matched": true
+        },
+        {
+          "text": "because",
+          "start": 2.35,
+          "end": 2.6875,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 2.7,
+          "end": 2.8125,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 2.825,
+          "end": 2.9250000000000003,
+          "matched": true
+        },
+        {
+          "text": "terrorist",
+          "start": 2.9375,
+          "end": 3.4375,
+          "matched": true
+        },
+        {
+          "text": "attacks",
+          "start": 3.45,
+          "end": 3.9125,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 3.925,
+          "end": 4.05,
+          "matched": true
+        },
+        {
+          "text": "September",
+          "start": 4.0625,
+          "end": 4.952272727272728,
+          "matched": true
+        },
+        {
+          "text": "11?",
+          "start": 4.952272727272728,
+          "end": 5.150000000000001,
+          "matched": true
+        }
+      ],
+      "recognized": "Was the emergency number actually named because of the terrorist attacks of September 11"
+    },
+    "s04-answer": {
+      "audioHash": "f89dd7ba22f9054c",
+      "words": [
+        {
+          "text": "The",
+          "start": 0.05,
+          "end": 0.125,
+          "matched": true
+        },
+        {
+          "text": "answer",
+          "start": 0.125,
+          "end": 0.625,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 0.6375,
+          "end": 0.825,
+          "matched": true
+        },
+        {
+          "text": "no.",
+          "start": 0.8375,
+          "end": 1.2125,
+          "matched": true
+        },
+        {
+          "text": "In",
+          "start": 1.575,
+          "end": 1.7125,
+          "matched": true
+        },
+        {
+          "text": "fact,",
+          "start": 1.725,
+          "end": 2.2,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 2.4,
+          "end": 3.2375,
+          "matched": true
+        },
+        {
+          "text": "existed",
+          "start": 3.25,
+          "end": 3.8375,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 3.85,
+          "end": 4.0375,
+          "matched": true
+        },
+        {
+          "text": "more",
+          "start": 4.05,
+          "end": 4.2875,
+          "matched": true
+        },
+        {
+          "text": "than",
+          "start": 4.3,
+          "end": 4.4624999999999995,
+          "matched": true
+        },
+        {
+          "text": "three",
+          "start": 4.475,
+          "end": 4.7375,
+          "matched": true
+        },
+        {
+          "text": "decades",
+          "start": 4.75,
+          "end": 5.3,
+          "matched": true
+        },
+        {
+          "text": "before",
+          "start": 5.3125,
+          "end": 6.1225,
+          "matched": true
+        },
+        {
+          "text": "9/11.",
+          "start": 6.1225,
+          "end": 6.6625,
+          "matched": true
+        }
+      ],
+      "recognized": "The answer is no In fact 911 existed for more than three decades before 9/11"
+    },
+    "s05-origin": {
+      "audioHash": "ebc892123bafbbe7",
+      "words": [
+        {
+          "text": "The",
+          "start": 0.075,
+          "end": 0.15,
+          "matched": true
+        },
+        {
+          "text": "story",
+          "start": 0.15,
+          "end": 0.6375,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 0.65,
+          "end": 0.7875000000000001,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 0.8,
+          "end": 1.725,
+          "matched": true
+        },
+        {
+          "text": "begins",
+          "start": 1.7375,
+          "end": 2.275,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 2.2875,
+          "end": 2.45,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 2.4625,
+          "end": 2.55,
+          "matched": true
+        },
+        {
+          "text": "1960s.",
+          "start": 2.55,
+          "end": 3.625,
+          "matched": true
+        }
+      ],
+      "recognized": "The story of 911 begins in the 1960s"
+    },
+    "s06-local-numbers": {
+      "audioHash": "8cbf692254a40d61",
+      "words": [
+        {
+          "text": "Back",
+          "start": 0.075,
+          "end": 0.3,
+          "matched": true
+        },
+        {
+          "text": "then,",
+          "start": 0.3125,
+          "end": 0.7375,
+          "matched": true
+        },
+        {
+          "text": "there",
+          "start": 1.1375,
+          "end": 1.2874999999999999,
+          "matched": true
+        },
+        {
+          "text": "was",
+          "start": 1.3,
+          "end": 1.45,
+          "matched": true
+        },
+        {
+          "text": "no",
+          "start": 1.4625,
+          "end": 1.7,
+          "matched": true
+        },
+        {
+          "text": "single",
+          "start": 1.7125,
+          "end": 2.15,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 2.1625,
+          "end": 2.7125000000000004,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 2.725,
+          "end": 3.125,
+          "matched": true
+        },
+        {
+          "text": "covering",
+          "start": 3.1375,
+          "end": 3.575,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 3.5875,
+          "end": 3.65,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 3.65,
+          "end": 4,
+          "matched": true
+        },
+        {
+          "text": "States.",
+          "start": 4.0125,
+          "end": 4.5375000000000005,
+          "matched": true
+        },
+        {
+          "text": "If",
+          "start": 4.9,
+          "end": 5.050000000000001,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 5.0625,
+          "end": 5.15,
+          "matched": true
+        },
+        {
+          "text": "needed",
+          "start": 5.15,
+          "end": 5.4375,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 5.45,
+          "end": 5.5375,
+          "matched": true
+        },
+        {
+          "text": "police,",
+          "start": 5.5375,
+          "end": 6.1,
+          "matched": true
+        },
+        {
+          "text": "fire",
+          "start": 6.275,
+          "end": 6.612500000000001,
+          "matched": true
+        },
+        {
+          "text": "department,",
+          "start": 6.625,
+          "end": 7.175,
+          "matched": true
+        },
+        {
+          "text": "or",
+          "start": 7.2,
+          "end": 7.4,
+          "matched": true
+        },
+        {
+          "text": "an",
+          "start": 7.4125,
+          "end": 7.5,
+          "matched": true
+        },
+        {
+          "text": "ambulance,",
+          "start": 7.5,
+          "end": 8.075,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 8.1,
+          "end": 8.2125,
+          "matched": true
+        },
+        {
+          "text": "generally",
+          "start": 8.225,
+          "end": 8.625,
+          "matched": true
+        },
+        {
+          "text": "had",
+          "start": 8.6375,
+          "end": 8.825,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 8.8375,
+          "end": 8.925,
+          "matched": true
+        },
+        {
+          "text": "know",
+          "start": 8.9375,
+          "end": 9.3375,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 9.35,
+          "end": 9.475,
+          "matched": true
+        },
+        {
+          "text": "dial",
+          "start": 9.4875,
+          "end": 9.8125,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 9.825,
+          "end": 9.924999999999999,
+          "matched": true
+        },
+        {
+          "text": "local",
+          "start": 9.9375,
+          "end": 10.2375,
+          "matched": true
+        },
+        {
+          "text": "telephone",
+          "start": 10.25,
+          "end": 10.675,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 10.6875,
+          "end": 11,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 11.0125,
+          "end": 11.174999999999999,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 11.1875,
+          "end": 11.2625,
+          "matched": true
+        },
+        {
+          "text": "appropriate",
+          "start": 11.2625,
+          "end": 11.75,
+          "matched": true
+        },
+        {
+          "text": "service.",
+          "start": 11.7625,
+          "end": 12.2875,
+          "matched": true
+        },
+        {
+          "text": "And",
+          "start": 12.6625,
+          "end": 12.799999999999999,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 12.8125,
+          "end": 13.0625,
+          "matched": true
+        },
+        {
+          "text": "created",
+          "start": 13.075,
+          "end": 13.5625,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 13.575,
+          "end": 13.65,
+          "matched": true
+        },
+        {
+          "text": "serious",
+          "start": 13.65,
+          "end": 14.15,
+          "matched": true
+        },
+        {
+          "text": "problem.",
+          "start": 14.1625,
+          "end": 14.75,
+          "matched": true
+        }
+      ],
+      "recognized": "Back then there was no single emergency number covering the United States If you needed the police fire department or an ambulance you generally had to know and dial the local telephone number for the appropriate service And that created a serious problem"
+    },
+    "s07-every-second": {
+      "audioHash": "42e4ad05569d0d02",
+      "words": [
+        {
+          "text": "Imagine",
+          "start": 0.075,
+          "end": 0.6375,
+          "matched": true
+        },
+        {
+          "text": "witnessing",
+          "start": 0.65,
+          "end": 1.3,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 1.325,
+          "end": 1.4124999999999999,
+          "matched": true
+        },
+        {
+          "text": "serious",
+          "start": 1.425,
+          "end": 1.9625,
+          "matched": true
+        },
+        {
+          "text": "accident.",
+          "start": 1.975,
+          "end": 2.625,
+          "matched": true
+        },
+        {
+          "text": "Someone",
+          "start": 2.9875,
+          "end": 3.4,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 3.4125,
+          "end": 3.6,
+          "matched": true
+        },
+        {
+          "text": "injured.",
+          "start": 3.6125,
+          "end": 4.25,
+          "matched": true
+        },
+        {
+          "text": "There's",
+          "start": 4.6375,
+          "end": 4.8,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 4.8125,
+          "end": 4.8875,
+          "matched": true
+        },
+        {
+          "text": "fire.",
+          "start": 4.8875,
+          "end": 5.425,
+          "matched": true
+        },
+        {
+          "text": "And",
+          "start": 5.8,
+          "end": 5.8875,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 5.9,
+          "end": 5.9875,
+          "matched": true
+        },
+        {
+          "text": "have",
+          "start": 5.9875,
+          "end": 6.125,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 6.1375,
+          "end": 6.2250000000000005,
+          "matched": true
+        },
+        {
+          "text": "stop",
+          "start": 6.2375,
+          "end": 6.7375,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 6.7625,
+          "end": 6.9,
+          "matched": true
+        },
+        {
+          "text": "figure",
+          "start": 6.9125,
+          "end": 7.25,
+          "matched": true
+        },
+        {
+          "text": "out",
+          "start": 7.2625,
+          "end": 7.4625,
+          "matched": true
+        },
+        {
+          "text": "which",
+          "start": 7.475,
+          "end": 7.675,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 7.6875,
+          "end": 7.9125,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 7.925,
+          "end": 8.0125,
+          "matched": true
+        },
+        {
+          "text": "call.",
+          "start": 8.0125,
+          "end": 8.475,
+          "matched": true
+        },
+        {
+          "text": "Every",
+          "start": 8.85,
+          "end": 9.112499999999999,
+          "matched": true
+        },
+        {
+          "text": "second",
+          "start": 9.125,
+          "end": 9.5625,
+          "matched": true
+        },
+        {
+          "text": "matters.",
+          "start": 9.575,
+          "end": 10.174999999999999,
+          "matched": true
+        }
+      ],
+      "recognized": "Imagine witnessing a serious accident Someone is injured There's a fire And you have to stop and figure out which number to call Every second matters"
+    },
+    "s08-britain-999": {
+      "audioHash": "f7265efea6b87e4f",
+      "words": [
+        {
+          "text": "The",
+          "start": 0.0625,
+          "end": 0.1375,
+          "matched": true
+        },
+        {
+          "text": "idea",
+          "start": 0.1375,
+          "end": 0.6625000000000001,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 0.675,
+          "end": 0.8250000000000001,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 0.8375,
+          "end": 0.9125,
+          "matched": true
+        },
+        {
+          "text": "single",
+          "start": 0.9125,
+          "end": 1.35,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 1.3625,
+          "end": 1.925,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 1.9375,
+          "end": 2.35,
+          "matched": true
+        },
+        {
+          "text": "wasn't",
+          "start": 2.3625,
+          "end": 2.8,
+          "matched": true
+        },
+        {
+          "text": "completely",
+          "start": 2.8125,
+          "end": 3.3375,
+          "matched": true
+        },
+        {
+          "text": "new.",
+          "start": 3.35,
+          "end": 3.725,
+          "matched": true
+        },
+        {
+          "text": "In",
+          "start": 4.125,
+          "end": 4.225,
+          "matched": true
+        },
+        {
+          "text": "fact,",
+          "start": 4.2375,
+          "end": 4.6875,
+          "matched": true
+        },
+        {
+          "text": "Britain",
+          "start": 5.175,
+          "end": 5.4624999999999995,
+          "matched": true
+        },
+        {
+          "text": "had",
+          "start": 5.475,
+          "end": 5.6875,
+          "matched": true
+        },
+        {
+          "text": "already",
+          "start": 5.7,
+          "end": 6.1000000000000005,
+          "matched": true
+        },
+        {
+          "text": "introduced",
+          "start": 6.1125,
+          "end": 6.6499999999999995,
+          "matched": true
+        },
+        {
+          "text": "999",
+          "start": 6.6499999999999995,
+          "end": 7.625,
+          "matched": false
+        },
+        {
+          "text": "as",
+          "start": 7.6375,
+          "end": 7.8125,
+          "matched": true
+        },
+        {
+          "text": "an",
+          "start": 7.825,
+          "end": 7.9,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 7.9,
+          "end": 8.425,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 8.4375,
+          "end": 8.775,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 8.7875,
+          "end": 9.2125,
+          "matched": true
+        },
+        {
+          "text": "1937.",
+          "start": 9.2125,
+          "end": 10.0625,
+          "matched": true
+        }
+      ],
+      "recognized": "The idea of a single emergency number wasn't completely new In fact Britain had already introduced nine-nine-nine as an emergency number in 1937"
+    },
+    "s09-momentum": {
+      "audioHash": "f43b28513c9c23a7",
+      "words": [
+        {
+          "text": "In",
+          "start": 0.0875,
+          "end": 0.2,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 0.2125,
+          "end": 0.275,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 0.275,
+          "end": 0.6125,
+          "matched": true
+        },
+        {
+          "text": "States,",
+          "start": 0.625,
+          "end": 1.175,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.2,
+          "end": 1.2874999999999999,
+          "matched": true
+        },
+        {
+          "text": "idea",
+          "start": 1.3,
+          "end": 1.725,
+          "matched": true
+        },
+        {
+          "text": "gained",
+          "start": 1.7375,
+          "end": 2.0875,
+          "matched": true
+        },
+        {
+          "text": "momentum",
+          "start": 2.1,
+          "end": 2.675,
+          "matched": true
+        },
+        {
+          "text": "during",
+          "start": 2.6875,
+          "end": 2.9625,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 2.975,
+          "end": 3.0625,
+          "matched": true
+        },
+        {
+          "text": "1950s",
+          "start": 3.0625,
+          "end": 3.975,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 3.9875,
+          "end": 4.0874999999999995,
+          "matched": true
+        },
+        {
+          "text": "1960s.",
+          "start": 4.1,
+          "end": 5.074999999999999,
+          "matched": true
+        },
+        {
+          "text": "In",
+          "start": 5.475,
+          "end": 5.891666666666667,
+          "matched": true
+        },
+        {
+          "text": "1967,",
+          "start": 5.891666666666667,
+          "end": 6.725,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 7.1625,
+          "end": 7.25,
+          "matched": true
+        },
+        {
+          "text": "President's",
+          "start": 7.2625,
+          "end": 7.7375,
+          "matched": true
+        },
+        {
+          "text": "Commission",
+          "start": 7.75,
+          "end": 8.2625,
+          "matched": true
+        },
+        {
+          "text": "on",
+          "start": 8.275,
+          "end": 8.450000000000001,
+          "matched": true
+        },
+        {
+          "text": "Law",
+          "start": 8.4625,
+          "end": 8.6625,
+          "matched": true
+        },
+        {
+          "text": "Enforcement",
+          "start": 8.675,
+          "end": 9.325000000000001,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 9.4625,
+          "end": 9.55,
+          "matched": true
+        },
+        {
+          "text": "Administration",
+          "start": 9.5625,
+          "end": 10.3625,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 10.375,
+          "end": 10.4875,
+          "matched": true
+        },
+        {
+          "text": "Justice",
+          "start": 10.5,
+          "end": 10.95,
+          "matched": true
+        },
+        {
+          "text": "recommended",
+          "start": 10.9625,
+          "end": 11.6,
+          "matched": true
+        },
+        {
+          "text": "creating",
+          "start": 11.975,
+          "end": 12.375,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 12.3875,
+          "end": 12.45,
+          "matched": true
+        },
+        {
+          "text": "single",
+          "start": 12.45,
+          "end": 12.85,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 12.8625,
+          "end": 13.2125,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 13.2375,
+          "end": 13.4,
+          "matched": true
+        },
+        {
+          "text": "reporting",
+          "start": 13.4125,
+          "end": 13.8875,
+          "matched": true
+        },
+        {
+          "text": "emergencies.",
+          "start": 13.9,
+          "end": 14.6625,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 15.05,
+          "end": 15.1375,
+          "matched": true
+        },
+        {
+          "text": "Federal",
+          "start": 15.1375,
+          "end": 15.5,
+          "matched": true
+        },
+        {
+          "text": "Communications",
+          "start": 15.5125,
+          "end": 16.175,
+          "matched": true
+        },
+        {
+          "text": "Commission",
+          "start": 16.1875,
+          "end": 16.7,
+          "matched": true
+        },
+        {
+          "text": "then",
+          "start": 16.7125,
+          "end": 16.9625,
+          "matched": true
+        },
+        {
+          "text": "worked",
+          "start": 16.975,
+          "end": 17.3,
+          "matched": true
+        },
+        {
+          "text": "with",
+          "start": 17.3125,
+          "end": 17.475,
+          "matched": true
+        },
+        {
+          "text": "AT&T",
+          "start": 17.4875,
+          "end": 18.1875,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 18.2,
+          "end": 18.3,
+          "matched": true
+        },
+        {
+          "text": "find",
+          "start": 18.3125,
+          "end": 18.6,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 18.6125,
+          "end": 18.6625,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 18.6625,
+          "end": 19.125,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 19.1375,
+          "end": 19.3125,
+          "matched": true
+        },
+        {
+          "text": "could",
+          "start": 19.325,
+          "end": 19.474999999999998,
+          "matched": true
+        },
+        {
+          "text": "be",
+          "start": 19.4875,
+          "end": 19.675,
+          "matched": true
+        },
+        {
+          "text": "implemented",
+          "start": 19.6875,
+          "end": 20.25,
+          "matched": true
+        },
+        {
+          "text": "across",
+          "start": 20.2625,
+          "end": 20.662499999999998,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 20.675,
+          "end": 20.7625,
+          "matched": true
+        },
+        {
+          "text": "country.",
+          "start": 20.7625,
+          "end": 21.2625,
+          "matched": true
+        }
+      ],
+      "recognized": "In the United States the idea gained momentum during the 1950s and 1960s In 1967 the President's Commission on Law Enforcement and Administration of Justice recommended creating a single number for reporting emergencies The Federal Communications Commission then worked with AT&T to find a number that could be implemented across the country"
+    },
+    "s10-why-911": {
+      "audioHash": "b7e9ed5ba30f3d03",
+      "words": [
+        {
+          "text": "So",
+          "start": 0.05,
+          "end": 0.22499999999999998,
+          "matched": true
+        },
+        {
+          "text": "why",
+          "start": 0.2375,
+          "end": 0.425,
+          "matched": true
+        },
+        {
+          "text": "did",
+          "start": 0.4375,
+          "end": 0.5625,
+          "matched": true
+        },
+        {
+          "text": "they",
+          "start": 0.575,
+          "end": 0.7,
+          "matched": true
+        },
+        {
+          "text": "choose",
+          "start": 0.7125,
+          "end": 1.05,
+          "matched": true
+        },
+        {
+          "text": "911?",
+          "start": 1.0625,
+          "end": 1.9875,
+          "matched": true
+        },
+        {
+          "text": "AT&T",
+          "start": 2.3875,
+          "end": 3.0875000000000004,
+          "matched": true
+        },
+        {
+          "text": "selected",
+          "start": 3.1,
+          "end": 3.5625,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 3.575,
+          "end": 3.65,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 3.65,
+          "end": 3.975,
+          "matched": true
+        },
+        {
+          "text": "because",
+          "start": 3.9875,
+          "end": 4.25,
+          "matched": true
+        },
+        {
+          "text": "it",
+          "start": 4.2625,
+          "end": 4.3375,
+          "matched": true
+        },
+        {
+          "text": "was",
+          "start": 4.3375,
+          "end": 4.45,
+          "matched": true
+        },
+        {
+          "text": "short,",
+          "start": 4.4625,
+          "end": 4.8875,
+          "matched": true
+        },
+        {
+          "text": "easy",
+          "start": 5.4625,
+          "end": 5.7125,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 5.725,
+          "end": 5.8374999999999995,
+          "matched": true
+        },
+        {
+          "text": "remember,",
+          "start": 5.85,
+          "end": 6.3374999999999995,
+          "matched": true
+        },
+        {
+          "text": "and—critically—had",
+          "start": 8.825,
+          "end": 8.987499999999999,
+          "matched": false
+        },
+        {
+          "text": "not",
+          "start": 9,
+          "end": 9.3125,
+          "matched": true
+        },
+        {
+          "text": "already",
+          "start": 9.325,
+          "end": 9.587499999999999,
+          "matched": true
+        },
+        {
+          "text": "been",
+          "start": 9.6,
+          "end": 9.737499999999999,
+          "matched": true
+        },
+        {
+          "text": "assigned",
+          "start": 9.75,
+          "end": 10.275,
+          "matched": true
+        },
+        {
+          "text": "as",
+          "start": 10.2875,
+          "end": 10.424999999999999,
+          "matched": true
+        },
+        {
+          "text": "an",
+          "start": 10.4375,
+          "end": 10.6,
+          "matched": true
+        },
+        {
+          "text": "area",
+          "start": 10.6125,
+          "end": 10.9,
+          "matched": true
+        },
+        {
+          "text": "code,",
+          "start": 10.9125,
+          "end": 11.275,
+          "matched": true
+        },
+        {
+          "text": "office",
+          "start": 11.825,
+          "end": 12.1625,
+          "matched": true
+        },
+        {
+          "text": "code,",
+          "start": 12.175,
+          "end": 12.512500000000001,
+          "matched": true
+        },
+        {
+          "text": "or",
+          "start": 13.0625,
+          "end": 13.225,
+          "matched": true
+        },
+        {
+          "text": "service",
+          "start": 13.2375,
+          "end": 13.637500000000001,
+          "matched": true
+        },
+        {
+          "text": "code",
+          "start": 13.65,
+          "end": 13.9625,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 13.975,
+          "end": 14.0875,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 14.1,
+          "end": 14.1875,
+          "matched": true
+        },
+        {
+          "text": "telephone",
+          "start": 14.2,
+          "end": 14.6375,
+          "matched": true
+        },
+        {
+          "text": "system.",
+          "start": 14.65,
+          "end": 15.0625,
+          "matched": true
+        }
+      ],
+      "recognized": "So why did they choose 911 AT&T selected the number because it was short easy to remember andâ€ criticallyâ€ had not already been assigned as an area code office code or service code in the telephone system"
+    },
+    "s11-rotary": {
+      "audioHash": "1612f5a7c051f2c0",
+      "words": [
+        {
+          "text": "It",
+          "start": 0.0875,
+          "end": 0.1875,
+          "matched": true
+        },
+        {
+          "text": "also",
+          "start": 0.2,
+          "end": 0.6000000000000001,
+          "matched": true
+        },
+        {
+          "text": "fit",
+          "start": 0.6125,
+          "end": 0.9750000000000001,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 0.9875,
+          "end": 1.0875000000000001,
+          "matched": true
+        },
+        {
+          "text": "technology",
+          "start": 1.1,
+          "end": 1.8375000000000001,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 1.85,
+          "end": 1.9625000000000001,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.975,
+          "end": 2.0625,
+          "matched": true
+        },
+        {
+          "text": "time.",
+          "start": 2.0625,
+          "end": 2.5625,
+          "matched": true
+        },
+        {
+          "text": "Remember,",
+          "start": 2.9625,
+          "end": 3.5625,
+          "matched": true
+        },
+        {
+          "text": "these",
+          "start": 3.5875,
+          "end": 3.85,
+          "matched": true
+        },
+        {
+          "text": "were",
+          "start": 3.8625,
+          "end": 4.0125,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 4.025,
+          "end": 4.15,
+          "matched": true
+        },
+        {
+          "text": "days",
+          "start": 4.1625,
+          "end": 4.5,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 4.5125,
+          "end": 4.6625000000000005,
+          "matched": true
+        },
+        {
+          "text": "rotary",
+          "start": 4.675,
+          "end": 5.05,
+          "matched": true
+        },
+        {
+          "text": "phones.",
+          "start": 5.0625,
+          "end": 5.575,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 5.9625,
+          "end": 6.0375,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 6.0375,
+          "end": 6.3374999999999995,
+          "matched": true
+        },
+        {
+          "text": "needed",
+          "start": 6.35,
+          "end": 6.6875,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 6.7,
+          "end": 6.8,
+          "matched": true
+        },
+        {
+          "text": "be",
+          "start": 6.8125,
+          "end": 6.9625,
+          "matched": true
+        },
+        {
+          "text": "simple",
+          "start": 6.975,
+          "end": 7.387499999999999,
+          "matched": true
+        },
+        {
+          "text": "enough",
+          "start": 7.4,
+          "end": 7.6875,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 7.7,
+          "end": 7.8375,
+          "matched": true
+        },
+        {
+          "text": "remember",
+          "start": 7.85,
+          "end": 8.4,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 8.4125,
+          "end": 8.5625,
+          "matched": true
+        },
+        {
+          "text": "quick",
+          "start": 8.575,
+          "end": 8.825,
+          "matched": true
+        },
+        {
+          "text": "enough",
+          "start": 8.8375,
+          "end": 9.0875,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 9.1,
+          "end": 9.2,
+          "matched": true
+        },
+        {
+          "text": "dial",
+          "start": 9.2125,
+          "end": 9.65,
+          "matched": true
+        },
+        {
+          "text": "during",
+          "start": 9.6625,
+          "end": 9.9625,
+          "matched": true
+        },
+        {
+          "text": "an",
+          "start": 9.975,
+          "end": 10.0625,
+          "matched": true
+        },
+        {
+          "text": "emergency.",
+          "start": 10.0625,
+          "end": 10.775,
+          "matched": true
+        }
+      ],
+      "recognized": "It also fit the technology of the time Remember these were the days of rotary phones The number needed to be simple enough to remember and quick enough to dial during an emergency"
+    },
+    "s12-operator": {
+      "audioHash": "45bdde3889069f06",
+      "words": [
+        {
+          "text": "Before",
+          "start": 0.075,
+          "end": 0.41250000000000003,
+          "matched": true
+        },
+        {
+          "text": "911,",
+          "start": 0.425,
+          "end": 1.35,
+          "matched": true
+        },
+        {
+          "text": "one",
+          "start": 1.6625,
+          "end": 1.9625000000000001,
+          "matched": true
+        },
+        {
+          "text": "common",
+          "start": 1.975,
+          "end": 2.3000000000000003,
+          "matched": true
+        },
+        {
+          "text": "option",
+          "start": 2.3125,
+          "end": 2.75,
+          "matched": true
+        },
+        {
+          "text": "was",
+          "start": 2.7625,
+          "end": 2.95,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 2.9625,
+          "end": 3.0625,
+          "matched": true
+        },
+        {
+          "text": "dial",
+          "start": 3.075,
+          "end": 3.4000000000000004,
+          "matched": true
+        },
+        {
+          "text": "0",
+          "start": 3.4125,
+          "end": 3.925,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 3.9375,
+          "end": 4.1125,
+          "matched": true
+        },
+        {
+          "text": "reach",
+          "start": 4.125,
+          "end": 4.3375,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 4.35,
+          "end": 4.425,
+          "matched": true
+        },
+        {
+          "text": "telephone",
+          "start": 4.425,
+          "end": 4.9125,
+          "matched": true
+        },
+        {
+          "text": "operator.",
+          "start": 4.925,
+          "end": 5.5375,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 5.925,
+          "end": 6,
+          "matched": true
+        },
+        {
+          "text": "operator",
+          "start": 6,
+          "end": 6.525,
+          "matched": true
+        },
+        {
+          "text": "could",
+          "start": 6.5375,
+          "end": 6.725,
+          "matched": true
+        },
+        {
+          "text": "then",
+          "start": 6.7375,
+          "end": 6.9875,
+          "matched": true
+        },
+        {
+          "text": "help",
+          "start": 7,
+          "end": 7.3625,
+          "matched": true
+        },
+        {
+          "text": "connect",
+          "start": 7.375,
+          "end": 7.7375,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 7.75,
+          "end": 7.825,
+          "matched": true
+        },
+        {
+          "text": "caller",
+          "start": 7.825,
+          "end": 8.2875,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 8.3,
+          "end": 8.4375,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 8.45,
+          "end": 8.5375,
+          "matched": true
+        },
+        {
+          "text": "appropriate",
+          "start": 8.55,
+          "end": 9.0875,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 9.1,
+          "end": 9.612499999999999,
+          "matched": true
+        },
+        {
+          "text": "service.",
+          "start": 9.625,
+          "end": 10.2,
+          "matched": true
+        }
+      ],
+      "recognized": "Before 911 one common option was to dial 0 and reach a telephone operator The operator could then help connect the caller to the appropriate emergency service"
+    },
+    "s13-not-dedicated": {
+      "audioHash": "306ee8abc7cdce8e",
+      "words": [
+        {
+          "text": "But",
+          "start": 0.075,
+          "end": 0.22499999999999998,
+          "matched": true
+        },
+        {
+          "text": "this",
+          "start": 0.2375,
+          "end": 0.4625,
+          "matched": true
+        },
+        {
+          "text": "wasn't",
+          "start": 0.475,
+          "end": 0.925,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 0.95,
+          "end": 1.0875,
+          "matched": true
+        },
+        {
+          "text": "dedicated",
+          "start": 1.1,
+          "end": 1.7000000000000002,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 1.7125,
+          "end": 2.325,
+          "matched": true
+        },
+        {
+          "text": "system.",
+          "start": 2.3375,
+          "end": 2.8875,
+          "matched": true
+        },
+        {
+          "text": "It",
+          "start": 3.25,
+          "end": 3.3875,
+          "matched": true
+        },
+        {
+          "text": "depended",
+          "start": 3.4,
+          "end": 3.85,
+          "matched": true
+        },
+        {
+          "text": "on",
+          "start": 3.8625,
+          "end": 4,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 4.0125,
+          "end": 4.0875,
+          "matched": true
+        },
+        {
+          "text": "operator,",
+          "start": 4.0875,
+          "end": 4.75,
+          "matched": true
+        },
+        {
+          "text": "local",
+          "start": 4.775,
+          "end": 5.112500000000001,
+          "matched": true
+        },
+        {
+          "text": "telephone",
+          "start": 5.125,
+          "end": 5.5625,
+          "matched": true
+        },
+        {
+          "text": "infrastructure,",
+          "start": 5.575,
+          "end": 6.3875,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 6.7125,
+          "end": 6.9375,
+          "matched": true
+        },
+        {
+          "text": "knowing",
+          "start": 6.95,
+          "end": 7.3500000000000005,
+          "matched": true
+        },
+        {
+          "text": "where",
+          "start": 7.3625,
+          "end": 7.625,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 7.6375,
+          "end": 7.725,
+          "matched": true
+        },
+        {
+          "text": "appropriate",
+          "start": 7.725,
+          "end": 8.2875,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 8.3,
+          "end": 8.8375,
+          "matched": true
+        },
+        {
+          "text": "service",
+          "start": 8.85,
+          "end": 9.275,
+          "matched": true
+        },
+        {
+          "text": "was.",
+          "start": 9.2875,
+          "end": 9.6625,
+          "matched": true
+        }
+      ],
+      "recognized": "But this wasn't a dedicated emergency system It depended on the operator local telephone infrastructure and knowing where the appropriate emergency service was"
+    },
+    "s14-fire-chiefs": {
+      "audioHash": "b73eed068370616b",
+      "words": [
+        {
+          "text": "As",
+          "start": 0.0875,
+          "end": 0.2375,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 0.25,
+          "end": 0.8,
+          "matched": true
+        },
+        {
+          "text": "calls",
+          "start": 0.8125,
+          "end": 1.125,
+          "matched": true
+        },
+        {
+          "text": "increased",
+          "start": 1.1375,
+          "end": 1.7875,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 1.8,
+          "end": 1.9125,
+          "matched": true
+        },
+        {
+          "text": "society",
+          "start": 1.925,
+          "end": 2.4875,
+          "matched": true
+        },
+        {
+          "text": "became",
+          "start": 2.5,
+          "end": 2.85,
+          "matched": true
+        },
+        {
+          "text": "more",
+          "start": 2.8625,
+          "end": 3.0999999999999996,
+          "matched": true
+        },
+        {
+          "text": "dependent",
+          "start": 3.1125,
+          "end": 3.5749999999999997,
+          "matched": true
+        },
+        {
+          "text": "on",
+          "start": 3.5875,
+          "end": 3.725,
+          "matched": true
+        },
+        {
+          "text": "telephones,",
+          "start": 3.7375,
+          "end": 4.4624999999999995,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 4.8,
+          "end": 4.925,
+          "matched": true
+        },
+        {
+          "text": "limitations",
+          "start": 4.9375,
+          "end": 5.6375,
+          "matched": true
+        },
+        {
+          "text": "became",
+          "start": 5.65,
+          "end": 6.025,
+          "matched": true
+        },
+        {
+          "text": "increasingly",
+          "start": 6.0375,
+          "end": 6.762499999999999,
+          "matched": true
+        },
+        {
+          "text": "obvious.",
+          "start": 6.775,
+          "end": 7.375,
+          "matched": true
+        },
+        {
+          "text": "Fire",
+          "start": 7.775,
+          "end": 8.1625,
+          "matched": true
+        },
+        {
+          "text": "officials",
+          "start": 8.175,
+          "end": 8.75,
+          "matched": true
+        },
+        {
+          "text": "had",
+          "start": 8.7625,
+          "end": 8.975,
+          "matched": true
+        },
+        {
+          "text": "already",
+          "start": 8.9875,
+          "end": 9.375,
+          "matched": true
+        },
+        {
+          "text": "been",
+          "start": 9.3875,
+          "end": 9.5625,
+          "matched": true
+        },
+        {
+          "text": "pushing",
+          "start": 9.575,
+          "end": 10.087499999999999,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 10.1,
+          "end": 10.3375,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 10.35,
+          "end": 10.4125,
+          "matched": true
+        },
+        {
+          "text": "simpler",
+          "start": 10.4125,
+          "end": 10.875,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 10.8875,
+          "end": 11.462499999999999,
+          "matched": true
+        },
+        {
+          "text": "number.",
+          "start": 11.475,
+          "end": 11.924999999999999,
+          "matched": true
+        },
+        {
+          "text": "In",
+          "start": 12.325,
+          "end": 12.725,
+          "matched": true
+        },
+        {
+          "text": "1957,",
+          "start": 12.725,
+          "end": 13.524999999999999,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 13.8125,
+          "end": 13.925,
+          "matched": true
+        },
+        {
+          "text": "National",
+          "start": 13.9375,
+          "end": 14.375,
+          "matched": true
+        },
+        {
+          "text": "Association",
+          "start": 14.3875,
+          "end": 15.087499999999999,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 15.1,
+          "end": 15.1875,
+          "matched": true
+        },
+        {
+          "text": "Fire",
+          "start": 15.2,
+          "end": 15.5125,
+          "matched": true
+        },
+        {
+          "text": "Chiefs",
+          "start": 15.525,
+          "end": 15.9875,
+          "matched": true
+        },
+        {
+          "text": "reportedly",
+          "start": 16,
+          "end": 16.5875,
+          "matched": true
+        },
+        {
+          "text": "recommended",
+          "start": 16.6,
+          "end": 17.225,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 17.25,
+          "end": 17.3375,
+          "matched": true
+        },
+        {
+          "text": "single",
+          "start": 17.3375,
+          "end": 17.7,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 17.7125,
+          "end": 18.075,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 18.0875,
+          "end": 18.3125,
+          "matched": true
+        },
+        {
+          "text": "reporting",
+          "start": 18.325,
+          "end": 18.75,
+          "matched": true
+        },
+        {
+          "text": "fires.",
+          "start": 18.7625,
+          "end": 19.349999999999998,
+          "matched": true
+        }
+      ],
+      "recognized": "As emergency calls increased and society became more dependent on telephones the limitations became increasingly obvious Fire officials had already been pushing for a simpler emergency number In 1957 the National Association of Fire Chiefs reportedly recommended a single number for reporting fires"
+    },
+    "s15-goal": {
+      "audioHash": "077953d8c32cf2fe",
+      "words": [
+        {
+          "text": "The",
+          "start": 0.1,
+          "end": 0.1875,
+          "matched": true
+        },
+        {
+          "text": "goal",
+          "start": 0.1875,
+          "end": 0.575,
+          "matched": true
+        },
+        {
+          "text": "was",
+          "start": 0.5875,
+          "end": 0.775,
+          "matched": true
+        },
+        {
+          "text": "simple:",
+          "start": 0.7875,
+          "end": 1.35,
+          "matched": true
+        }
+      ],
+      "recognized": "The goal was simple"
+    },
+    "s16-haleyville": {
+      "audioHash": "b3cbe9a369a6775b",
+      "words": [
+        {
+          "text": "Then",
+          "start": 0.0875,
+          "end": 0.38749999999999996,
+          "matched": true
+        },
+        {
+          "text": "came",
+          "start": 0.4,
+          "end": 0.7625,
+          "matched": true
+        },
+        {
+          "text": "February",
+          "start": 0.775,
+          "end": 1.9573529411764707,
+          "matched": true
+        },
+        {
+          "text": "16th,",
+          "start": 1.9573529411764707,
+          "end": 2.6963235294117647,
+          "matched": true
+        },
+        {
+          "text": "1968.",
+          "start": 2.6963235294117647,
+          "end": 3.2875,
+          "matched": true
+        },
+        {
+          "text": "In",
+          "start": 3.6875,
+          "end": 3.7875,
+          "matched": true
+        },
+        {
+          "text": "Haleyville,",
+          "start": 3.8,
+          "end": 4.701388888888889,
+          "matched": true
+        },
+        {
+          "text": "Alabama,",
+          "start": 4.701388888888889,
+          "end": 5.275,
+          "matched": true
+        },
+        {
+          "text": "something",
+          "start": 5.675,
+          "end": 6.1,
+          "matched": true
+        },
+        {
+          "text": "happened",
+          "start": 6.1125,
+          "end": 6.575,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 6.5875,
+          "end": 6.8375,
+          "matched": true
+        },
+        {
+          "text": "would",
+          "start": 6.85,
+          "end": 7.012499999999999,
+          "matched": true
+        },
+        {
+          "text": "eventually",
+          "start": 7.025,
+          "end": 7.612500000000001,
+          "matched": true
+        },
+        {
+          "text": "change",
+          "start": 7.625,
+          "end": 8.1,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 8.1125,
+          "end": 8.700000000000001,
+          "matched": true
+        },
+        {
+          "text": "communications",
+          "start": 8.7125,
+          "end": 9.4625,
+          "matched": true
+        },
+        {
+          "text": "across",
+          "start": 9.475,
+          "end": 9.8375,
+          "matched": true
+        },
+        {
+          "text": "America.",
+          "start": 9.85,
+          "end": 10.4125,
+          "matched": true
+        }
+      ],
+      "recognized": "Then came February 16th, 1968 In Haleyville, Alabama something happened that would eventually change emergency communications across America"
+    },
+    "s17-first-call": {
+      "audioHash": "896e7a34ea60dd12",
+      "words": [
+        {
+          "text": "Alabama",
+          "start": 0.0875,
+          "end": 0.5625,
+          "matched": true
+        },
+        {
+          "text": "Speaker",
+          "start": 0.575,
+          "end": 1.0375,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 1.05,
+          "end": 1.1375,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.1375,
+          "end": 1.225,
+          "matched": true
+        },
+        {
+          "text": "House",
+          "start": 1.225,
+          "end": 1.5750000000000002,
+          "matched": true
+        },
+        {
+          "text": "Rankin",
+          "start": 1.5875,
+          "end": 1.9249999999999998,
+          "matched": true
+        },
+        {
+          "text": "Fite",
+          "start": 1.9375,
+          "end": 2.35,
+          "matched": true
+        },
+        {
+          "text": "picked",
+          "start": 2.3625,
+          "end": 2.625,
+          "matched": true
+        },
+        {
+          "text": "up",
+          "start": 2.6375,
+          "end": 2.75,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 2.7625,
+          "end": 2.825,
+          "matched": true
+        },
+        {
+          "text": "telephone",
+          "start": 2.825,
+          "end": 3.4625000000000004,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 3.4875,
+          "end": 3.6374999999999997,
+          "matched": true
+        },
+        {
+          "text": "dialed",
+          "start": 3.65,
+          "end": 4.508333333333333,
+          "matched": true
+        },
+        {
+          "text": "911.",
+          "start": 4.508333333333333,
+          "end": 4.9375,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 5.3375,
+          "end": 5.4125,
+          "matched": true
+        },
+        {
+          "text": "call",
+          "start": 5.4125,
+          "end": 5.699999999999999,
+          "matched": true
+        },
+        {
+          "text": "was",
+          "start": 5.7125,
+          "end": 5.862500000000001,
+          "matched": true
+        },
+        {
+          "text": "answered",
+          "start": 5.875,
+          "end": 6.3,
+          "matched": true
+        },
+        {
+          "text": "by",
+          "start": 6.3125,
+          "end": 6.475,
+          "matched": true
+        },
+        {
+          "text": "U.S.",
+          "start": 6.4875,
+          "end": 6.975,
+          "matched": true
+        },
+        {
+          "text": "Representative",
+          "start": 6.9875,
+          "end": 7.625,
+          "matched": true
+        },
+        {
+          "text": "Tom",
+          "start": 7.6375,
+          "end": 7.9375,
+          "matched": true
+        },
+        {
+          "text": "Bevill",
+          "start": 7.95,
+          "end": 8.4125,
+          "matched": true
+        },
+        {
+          "text": "at",
+          "start": 8.4375,
+          "end": 8.525,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 8.5375,
+          "end": 8.6375,
+          "matched": true
+        },
+        {
+          "text": "local",
+          "start": 8.65,
+          "end": 8.9625,
+          "matched": true
+        },
+        {
+          "text": "police",
+          "start": 8.975,
+          "end": 9.299999999999999,
+          "matched": true
+        },
+        {
+          "text": "station.",
+          "start": 9.3125,
+          "end": 9.7875,
+          "matched": true
+        },
+        {
+          "text": "It",
+          "start": 10.15,
+          "end": 10.3,
+          "matched": true
+        },
+        {
+          "text": "was",
+          "start": 10.3125,
+          "end": 10.475,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 10.4875,
+          "end": 10.600000000000001,
+          "matched": true
+        },
+        {
+          "text": "first",
+          "start": 10.6125,
+          "end": 10.975000000000001,
+          "matched": true
+        },
+        {
+          "text": "official",
+          "start": 10.9875,
+          "end": 11.375,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 11.3875,
+          "end": 11.960714285714285,
+          "matched": true
+        },
+        {
+          "text": "call",
+          "start": 11.960714285714285,
+          "end": 12.725,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 12.75,
+          "end": 12.8875,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 12.9,
+          "end": 12.9625,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 12.9625,
+          "end": 13.3,
+          "matched": true
+        },
+        {
+          "text": "States.",
+          "start": 13.3125,
+          "end": 13.8375,
+          "matched": true
+        }
+      ],
+      "recognized": "Alabama Speaker of the House Rankin Fite picked up a telephone and dialed 911 The call was answered by U.S. Representative Tom Bevill at the local police station It was the first official 911 call in the United States"
+    },
+    "s18-rollout": {
+      "audioHash": "55e5941c145e0a49",
+      "words": [
+        {
+          "text": "But",
+          "start": 0.0875,
+          "end": 0.175,
+          "matched": true
+        },
+        {
+          "text": "here's",
+          "start": 0.175,
+          "end": 0.425,
+          "matched": true
+        },
+        {
+          "text": "something",
+          "start": 0.4375,
+          "end": 0.775,
+          "matched": true
+        },
+        {
+          "text": "important:",
+          "start": 0.7875,
+          "end": 1.3375,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 2.025,
+          "end": 2.9,
+          "matched": true
+        },
+        {
+          "text": "didn't",
+          "start": 2.975,
+          "end": 3.25,
+          "matched": true
+        },
+        {
+          "text": "instantly",
+          "start": 3.2625,
+          "end": 3.7,
+          "matched": true
+        },
+        {
+          "text": "become",
+          "start": 3.7125,
+          "end": 4.025,
+          "matched": true
+        },
+        {
+          "text": "available",
+          "start": 4.0375,
+          "end": 4.625,
+          "matched": true
+        },
+        {
+          "text": "everywhere",
+          "start": 4.6375,
+          "end": 5.1625000000000005,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 5.175,
+          "end": 5.35,
+          "matched": true
+        },
+        {
+          "text": "America.",
+          "start": 5.3625,
+          "end": 5.875,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 6.2625,
+          "end": 6.35,
+          "matched": true
+        },
+        {
+          "text": "system",
+          "start": 6.35,
+          "end": 6.8125,
+          "matched": true
+        },
+        {
+          "text": "took",
+          "start": 6.825,
+          "end": 7.05,
+          "matched": true
+        },
+        {
+          "text": "years",
+          "start": 7.0625,
+          "end": 7.425,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 7.4375,
+          "end": 7.5625,
+          "matched": true
+        },
+        {
+          "text": "expand.",
+          "start": 7.575,
+          "end": 8.25,
+          "matched": true
+        },
+        {
+          "text": "Different",
+          "start": 8.65,
+          "end": 8.975,
+          "matched": true
+        },
+        {
+          "text": "communities",
+          "start": 8.9875,
+          "end": 9.662500000000001,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 9.675,
+          "end": 9.825000000000001,
+          "matched": true
+        },
+        {
+          "text": "telephone",
+          "start": 9.8375,
+          "end": 10.3125,
+          "matched": true
+        },
+        {
+          "text": "companies",
+          "start": 10.325,
+          "end": 10.875,
+          "matched": true
+        },
+        {
+          "text": "had",
+          "start": 10.8875,
+          "end": 11.375,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 11.3875,
+          "end": 11.5,
+          "matched": true
+        },
+        {
+          "text": "build",
+          "start": 11.5125,
+          "end": 11.899999999999999,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 11.9125,
+          "end": 12,
+          "matched": true
+        },
+        {
+          "text": "infrastructure",
+          "start": 12,
+          "end": 12.7,
+          "matched": true
+        },
+        {
+          "text": "necessary",
+          "start": 12.7125,
+          "end": 13.35,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 13.3625,
+          "end": 13.475000000000001,
+          "matched": true
+        },
+        {
+          "text": "route",
+          "start": 13.4875,
+          "end": 13.787500000000001,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 13.8,
+          "end": 14.350000000000001,
+          "matched": true
+        },
+        {
+          "text": "calls.",
+          "start": 14.3625,
+          "end": 14.825000000000001,
+          "matched": true
+        },
+        {
+          "text": "Eventually,",
+          "start": 15.225,
+          "end": 15.9,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 15.925,
+          "end": 16.85,
+          "matched": true
+        },
+        {
+          "text": "became",
+          "start": 16.8625,
+          "end": 17.337500000000002,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 17.35,
+          "end": 17.4375,
+          "matched": true
+        },
+        {
+          "text": "standard",
+          "start": 17.4375,
+          "end": 17.8875,
+          "matched": true
+        },
+        {
+          "text": "Americans",
+          "start": 17.9,
+          "end": 18.5,
+          "matched": true
+        },
+        {
+          "text": "know",
+          "start": 18.5125,
+          "end": 18.7,
+          "matched": true
+        },
+        {
+          "text": "today.",
+          "start": 18.7125,
+          "end": 19.174999999999997,
+          "matched": true
+        }
+      ],
+      "recognized": "But here's something important 911 didn't instantly become available everywhere in America The system took years to expand Different communities and telephone companies had to build the infrastructure necessary to route emergency calls Eventually 911 became the standard Americans know today"
+    },
+    "s19-what-prompted": {
+      "audioHash": "eee7e06aecd07c8e",
+      "words": [
+        {
+          "text": "So",
+          "start": 0.05,
+          "end": 0.2375,
+          "matched": true
+        },
+        {
+          "text": "what",
+          "start": 0.25,
+          "end": 0.475,
+          "matched": true
+        },
+        {
+          "text": "actually",
+          "start": 0.4875,
+          "end": 0.875,
+          "matched": true
+        },
+        {
+          "text": "prompted",
+          "start": 0.8875,
+          "end": 1.4249999999999998,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.4375,
+          "end": 1.525,
+          "matched": true
+        },
+        {
+          "text": "creation",
+          "start": 1.5375,
+          "end": 2.0375,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 2.05,
+          "end": 2.1624999999999996,
+          "matched": true
+        },
+        {
+          "text": "911?",
+          "start": 2.175,
+          "end": 3.125,
+          "matched": true
+        },
+        {
+          "text": "There",
+          "start": 3.5125,
+          "end": 3.6500000000000004,
+          "matched": true
+        },
+        {
+          "text": "wasn't",
+          "start": 3.6625,
+          "end": 4.075,
+          "matched": true
+        },
+        {
+          "text": "one",
+          "start": 4.0875,
+          "end": 4.375,
+          "matched": true
+        },
+        {
+          "text": "single",
+          "start": 4.3875,
+          "end": 4.8375,
+          "matched": true
+        },
+        {
+          "text": "event.",
+          "start": 4.85,
+          "end": 5.375,
+          "matched": true
+        },
+        {
+          "text": "It",
+          "start": 5.7375,
+          "end": 5.8875,
+          "matched": true
+        },
+        {
+          "text": "was",
+          "start": 5.9,
+          "end": 6.050000000000001,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 6.0625,
+          "end": 6.1625,
+          "matched": true
+        },
+        {
+          "text": "growing",
+          "start": 6.175,
+          "end": 6.6,
+          "matched": true
+        },
+        {
+          "text": "realization",
+          "start": 6.6125,
+          "end": 7.375,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 7.3875,
+          "end": 7.6125,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 7.6375,
+          "end": 8.2375,
+          "matched": true
+        },
+        {
+          "text": "communication",
+          "start": 8.25,
+          "end": 8.925,
+          "matched": true
+        },
+        {
+          "text": "needed",
+          "start": 8.9375,
+          "end": 9.3,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 9.3125,
+          "end": 9.4125,
+          "matched": true
+        },
+        {
+          "text": "become",
+          "start": 9.425,
+          "end": 9.762500000000001,
+          "matched": true
+        },
+        {
+          "text": "faster,",
+          "start": 9.775,
+          "end": 10.425,
+          "matched": true
+        },
+        {
+          "text": "simpler,",
+          "start": 10.7625,
+          "end": 11.4125,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 11.4375,
+          "end": 11.625,
+          "matched": true
+        },
+        {
+          "text": "more",
+          "start": 11.6375,
+          "end": 11.899999999999999,
+          "matched": true
+        },
+        {
+          "text": "reliable.",
+          "start": 11.9125,
+          "end": 12.5875,
+          "matched": true
+        }
+      ],
+      "recognized": "So what actually prompted the creation of 911 There wasn't one single event It was the growing realization that emergency communication needed to become faster simpler and more reliable"
+    },
+    "s20-nas-report": {
+      "audioHash": "296e51fad6cbd6e9",
+      "words": [
+        {
+          "text": "The",
+          "start": 0.075,
+          "end": 0.1375,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 0.1375,
+          "end": 0.4875,
+          "matched": true
+        },
+        {
+          "text": "States",
+          "start": 0.5,
+          "end": 0.925,
+          "matched": true
+        },
+        {
+          "text": "was",
+          "start": 0.9375,
+          "end": 1.0875,
+          "matched": true
+        },
+        {
+          "text": "experiencing",
+          "start": 1.1,
+          "end": 1.8375000000000001,
+          "matched": true
+        },
+        {
+          "text": "growing",
+          "start": 1.85,
+          "end": 2.25,
+          "matched": true
+        },
+        {
+          "text": "numbers",
+          "start": 2.2625,
+          "end": 2.625,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 2.6375,
+          "end": 2.725,
+          "matched": true
+        },
+        {
+          "text": "emergencies,",
+          "start": 2.725,
+          "end": 3.5,
+          "matched": true
+        },
+        {
+          "text": "including",
+          "start": 4.05,
+          "end": 4.5249999999999995,
+          "matched": true
+        },
+        {
+          "text": "serious",
+          "start": 4.5375,
+          "end": 5.012499999999999,
+          "matched": true
+        },
+        {
+          "text": "injuries",
+          "start": 5.025,
+          "end": 5.5625,
+          "matched": true
+        },
+        {
+          "text": "from",
+          "start": 5.575,
+          "end": 5.8125,
+          "matched": true
+        },
+        {
+          "text": "automobile",
+          "start": 5.8375,
+          "end": 6.4375,
+          "matched": true
+        },
+        {
+          "text": "crashes.",
+          "start": 6.45,
+          "end": 7.075,
+          "matched": true
+        },
+        {
+          "text": "A",
+          "start": 7.475,
+          "end": 7.55,
+          "matched": true
+        },
+        {
+          "text": "landmark",
+          "start": 7.55,
+          "end": 8.05,
+          "matched": true
+        },
+        {
+          "text": "1966",
+          "start": 8.0625,
+          "end": 9.25,
+          "matched": true
+        },
+        {
+          "text": "report",
+          "start": 9.2625,
+          "end": 9.6875,
+          "matched": true
+        },
+        {
+          "text": "from",
+          "start": 9.7,
+          "end": 9.85,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 9.8625,
+          "end": 9.9375,
+          "matched": true
+        },
+        {
+          "text": "National",
+          "start": 9.9375,
+          "end": 10.425,
+          "matched": true
+        },
+        {
+          "text": "Academy",
+          "start": 10.4375,
+          "end": 10.9375,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 10.95,
+          "end": 11.025,
+          "matched": true
+        },
+        {
+          "text": "Sciences",
+          "start": 11.025,
+          "end": 11.6,
+          "matched": true
+        },
+        {
+          "text": "highlighted",
+          "start": 11.6125,
+          "end": 12.2125,
+          "matched": true
+        },
+        {
+          "text": "accidental",
+          "start": 12.225,
+          "end": 12.775,
+          "matched": true
+        },
+        {
+          "text": "death",
+          "start": 12.7875,
+          "end": 13.1375,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 13.2,
+          "end": 13.35,
+          "matched": true
+        },
+        {
+          "text": "injury",
+          "start": 13.3625,
+          "end": 13.8375,
+          "matched": true
+        },
+        {
+          "text": "as",
+          "start": 13.85,
+          "end": 13.975,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 13.9875,
+          "end": 14.0375,
+          "matched": true
+        },
+        {
+          "text": "major",
+          "start": 14.0375,
+          "end": 14.4625,
+          "matched": true
+        },
+        {
+          "text": "public-health",
+          "start": 14.475,
+          "end": 15.025,
+          "matched": true
+        },
+        {
+          "text": "problem",
+          "start": 15.0375,
+          "end": 15.4625,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 15.6,
+          "end": 15.7,
+          "matched": true
+        },
+        {
+          "text": "called",
+          "start": 15.7125,
+          "end": 16.025,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 16.0375,
+          "end": 16.1875,
+          "matched": true
+        },
+        {
+          "text": "exploring",
+          "start": 16.2,
+          "end": 16.8,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 16.8125,
+          "end": 16.8625,
+          "matched": true
+        },
+        {
+          "text": "single",
+          "start": 16.8625,
+          "end": 17.337500000000002,
+          "matched": true
+        },
+        {
+          "text": "nationwide",
+          "start": 17.35,
+          "end": 18,
+          "matched": true
+        },
+        {
+          "text": "telephone",
+          "start": 18.0125,
+          "end": 18.474999999999998,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 18.4875,
+          "end": 18.7875,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 18.8,
+          "end": 18.9125,
+          "matched": true
+        },
+        {
+          "text": "summon",
+          "start": 18.925,
+          "end": 19.3875,
+          "matched": true
+        },
+        {
+          "text": "an",
+          "start": 19.4,
+          "end": 19.487499999999997,
+          "matched": true
+        },
+        {
+          "text": "ambulance.",
+          "start": 19.5,
+          "end": 20.0875,
+          "matched": true
+        }
+      ],
+      "recognized": "The United States was experiencing growing numbers of emergencies including serious injuries from automobile crashes A landmark 1966 report from the National Academy of Sciences highlighted accidental death and injury as a major public-health problem and called for exploring a single nationwide telephone number to summon an ambulance"
+    },
+    "s21-communication": {
+      "audioHash": "6fa8e402f088bd39",
+      "words": [
+        {
+          "text": "At",
+          "start": 0.0875,
+          "end": 0.175,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 0.1875,
+          "end": 0.275,
+          "matched": true
+        },
+        {
+          "text": "same",
+          "start": 0.275,
+          "end": 0.5625,
+          "matched": true
+        },
+        {
+          "text": "time,",
+          "start": 0.575,
+          "end": 0.975,
+          "matched": true
+        },
+        {
+          "text": "police",
+          "start": 1.4625,
+          "end": 1.8875,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 1.9,
+          "end": 2.05,
+          "matched": true
+        },
+        {
+          "text": "fire",
+          "start": 2.0625,
+          "end": 2.4375,
+          "matched": true
+        },
+        {
+          "text": "officials",
+          "start": 2.45,
+          "end": 2.9375,
+          "matched": true
+        },
+        {
+          "text": "were",
+          "start": 2.95,
+          "end": 3.075,
+          "matched": true
+        },
+        {
+          "text": "pushing",
+          "start": 3.0875,
+          "end": 3.475,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 3.4875,
+          "end": 3.625,
+          "matched": true
+        },
+        {
+          "text": "simpler",
+          "start": 3.6375,
+          "end": 4.0625,
+          "matched": true
+        },
+        {
+          "text": "ways",
+          "start": 4.075,
+          "end": 4.425,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 4.5,
+          "end": 4.6125,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 4.625,
+          "end": 4.7125,
+          "matched": true
+        },
+        {
+          "text": "public",
+          "start": 4.725,
+          "end": 5.1625,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 5.175,
+          "end": 5.2875,
+          "matched": true
+        },
+        {
+          "text": "report",
+          "start": 5.3,
+          "end": 5.7,
+          "matched": true
+        },
+        {
+          "text": "emergencies.",
+          "start": 5.7125,
+          "end": 6.4750000000000005,
+          "matched": true
+        },
+        {
+          "text": "In",
+          "start": 6.8375,
+          "end": 7.0125,
+          "matched": true
+        },
+        {
+          "text": "other",
+          "start": 7.025,
+          "end": 7.275,
+          "matched": true
+        },
+        {
+          "text": "words…",
+          "start": 7.2875,
+          "end": 8.174999999999999,
+          "matched": true
+        }
+      ],
+      "recognized": "At the same time police and fire officials were pushing for simpler ways for the public to report emergencies In other wordsâ€"
+    },
+    "s22-atlantic": {
+      "audioHash": "b8cf0265c0afcc67",
+      "words": [
+        {
+          "text": "Now",
+          "start": 0.075,
+          "end": 0.325,
+          "matched": true
+        },
+        {
+          "text": "let's",
+          "start": 0.3375,
+          "end": 0.5875,
+          "matched": true
+        },
+        {
+          "text": "cross",
+          "start": 0.6,
+          "end": 1,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.0125,
+          "end": 1.0999999999999999,
+          "matched": true
+        },
+        {
+          "text": "Atlantic.",
+          "start": 1.1125,
+          "end": 1.8375,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 2.225,
+          "end": 2.2875,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 2.2875,
+          "end": 2.6125000000000003,
+          "matched": true
+        },
+        {
+          "text": "States",
+          "start": 2.625,
+          "end": 3.075,
+          "matched": true
+        },
+        {
+          "text": "uses",
+          "start": 3.0875,
+          "end": 3.5,
+          "matched": true
+        },
+        {
+          "text": "911.",
+          "start": 3.5125,
+          "end": 4.575,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 4.9625,
+          "end": 5.025,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 5.025,
+          "end": 5.4125000000000005,
+          "matched": true
+        },
+        {
+          "text": "Kingdom",
+          "start": 5.425,
+          "end": 5.8999999999999995,
+          "matched": true
+        },
+        {
+          "text": "uses",
+          "start": 5.9125,
+          "end": 6.3625,
+          "matched": true
+        },
+        {
+          "text": "999.",
+          "start": 6.3625,
+          "end": 7.425000000000001,
+          "matched": false
+        },
+        {
+          "text": "So",
+          "start": 7.7875,
+          "end": 8.025,
+          "matched": true
+        },
+        {
+          "text": "are",
+          "start": 8.0375,
+          "end": 8.225,
+          "matched": true
+        },
+        {
+          "text": "they",
+          "start": 8.2375,
+          "end": 8.412500000000001,
+          "matched": true
+        },
+        {
+          "text": "basically",
+          "start": 8.425,
+          "end": 8.9875,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 9,
+          "end": 9.0875,
+          "matched": true
+        },
+        {
+          "text": "same",
+          "start": 9.1,
+          "end": 9.45,
+          "matched": true
+        },
+        {
+          "text": "thing?",
+          "start": 9.4625,
+          "end": 9.85,
+          "matched": true
+        },
+        {
+          "text": "In",
+          "start": 10.2125,
+          "end": 10.3625,
+          "matched": true
+        },
+        {
+          "text": "purpose,",
+          "start": 10.375,
+          "end": 10.9,
+          "matched": true
+        },
+        {
+          "text": "yes.",
+          "start": 10.925,
+          "end": 11.3625,
+          "matched": true
+        },
+        {
+          "text": "Both",
+          "start": 11.7625,
+          "end": 12.049999999999999,
+          "matched": true
+        },
+        {
+          "text": "are",
+          "start": 12.0625,
+          "end": 12.1875,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 12.2,
+          "end": 12.774999999999999,
+          "matched": true
+        },
+        {
+          "text": "numbers",
+          "start": 12.7875,
+          "end": 13.225,
+          "matched": true
+        },
+        {
+          "text": "designed",
+          "start": 13.2375,
+          "end": 13.725000000000001,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 13.7375,
+          "end": 13.850000000000001,
+          "matched": true
+        },
+        {
+          "text": "connect",
+          "start": 13.8625,
+          "end": 14.25,
+          "matched": true
+        },
+        {
+          "text": "people",
+          "start": 14.2625,
+          "end": 14.6375,
+          "matched": true
+        },
+        {
+          "text": "with",
+          "start": 14.65,
+          "end": 14.825000000000001,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 14.8375,
+          "end": 15.387500000000001,
+          "matched": true
+        },
+        {
+          "text": "services.",
+          "start": 15.4,
+          "end": 16.0375,
+          "matched": true
+        },
+        {
+          "text": "But",
+          "start": 16.425,
+          "end": 16.575,
+          "matched": true
+        },
+        {
+          "text": "they",
+          "start": 16.5875,
+          "end": 16.724999999999998,
+          "matched": true
+        },
+        {
+          "text": "are",
+          "start": 16.7375,
+          "end": 16.8625,
+          "matched": true
+        },
+        {
+          "text": "different",
+          "start": 16.875,
+          "end": 17.225,
+          "matched": true
+        },
+        {
+          "text": "numbers",
+          "start": 17.2375,
+          "end": 17.7375,
+          "matched": true
+        },
+        {
+          "text": "belonging",
+          "start": 17.75,
+          "end": 18.2625,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 18.275,
+          "end": 18.424999999999997,
+          "matched": true
+        },
+        {
+          "text": "different",
+          "start": 18.4375,
+          "end": 18.8625,
+          "matched": true
+        },
+        {
+          "text": "national",
+          "start": 18.875,
+          "end": 19.3125,
+          "matched": true
+        },
+        {
+          "text": "telephone",
+          "start": 19.325,
+          "end": 19.8125,
+          "matched": true
+        },
+        {
+          "text": "systems.",
+          "start": 19.825,
+          "end": 20.45,
+          "matched": true
+        }
+      ],
+      "recognized": "Now let's cross the Atlantic The United States uses 911 The United Kingdom uses nine-nine-nine So are they basically the same thing In purpose yes Both are emergency numbers designed to connect people with emergency services But they are different numbers belonging to different national telephone systems"
+    },
+    "s23-uk-112": {
+      "audioHash": "6d421235c09307b1",
+      "words": [
+        {
+          "text": "And",
+          "start": 0.0875,
+          "end": 0.1875,
+          "matched": true
+        },
+        {
+          "text": "here's",
+          "start": 0.2,
+          "end": 0.45,
+          "matched": true
+        },
+        {
+          "text": "another",
+          "start": 0.4625,
+          "end": 0.8375,
+          "matched": true
+        },
+        {
+          "text": "interesting",
+          "start": 0.85,
+          "end": 1.3624999999999998,
+          "matched": true
+        },
+        {
+          "text": "fact:",
+          "start": 1.375,
+          "end": 1.875,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 2.5,
+          "end": 2.575,
+          "matched": true
+        },
+        {
+          "text": "UK",
+          "start": 2.575,
+          "end": 3.0500000000000003,
+          "matched": true
+        },
+        {
+          "text": "also",
+          "start": 3.0625,
+          "end": 3.375,
+          "matched": true
+        },
+        {
+          "text": "supports",
+          "start": 3.3875,
+          "end": 3.9000000000000004,
+          "matched": true
+        },
+        {
+          "text": "112,",
+          "start": 3.9000000000000004,
+          "end": 4.75,
+          "matched": false
+        },
+        {
+          "text": "the",
+          "start": 5.0625,
+          "end": 5.1625,
+          "matched": true
+        },
+        {
+          "text": "pan-European",
+          "start": 5.175,
+          "end": 5.7875,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 5.8,
+          "end": 6.3,
+          "matched": true
+        },
+        {
+          "text": "number.",
+          "start": 6.3125,
+          "end": 6.725,
+          "matched": true
+        },
+        {
+          "text": "So",
+          "start": 7.1,
+          "end": 7.2875,
+          "matched": true
+        },
+        {
+          "text": "if",
+          "start": 7.3,
+          "end": 7.4125,
+          "matched": true
+        },
+        {
+          "text": "you're",
+          "start": 7.425,
+          "end": 7.55,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 7.5625,
+          "end": 7.675,
+          "matched": true
+        },
+        {
+          "text": "Britain,",
+          "start": 7.6875,
+          "end": 8.0875,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 8.1125,
+          "end": 8.2375,
+          "matched": true
+        },
+        {
+          "text": "don't",
+          "start": 8.25,
+          "end": 8.475,
+          "matched": true
+        },
+        {
+          "text": "normally",
+          "start": 8.4875,
+          "end": 8.8625,
+          "matched": true
+        },
+        {
+          "text": "dial",
+          "start": 8.875,
+          "end": 9.610714285714286,
+          "matched": true
+        },
+        {
+          "text": "911.",
+          "start": 9.610714285714286,
+          "end": 10.1625,
+          "matched": true
+        },
+        {
+          "text": "You",
+          "start": 10.5625,
+          "end": 10.6625,
+          "matched": true
+        },
+        {
+          "text": "dial",
+          "start": 10.675,
+          "end": 11.05,
+          "matched": true
+        },
+        {
+          "text": "999",
+          "start": 11.05,
+          "end": 12,
+          "matched": false
+        },
+        {
+          "text": "or",
+          "start": 12.0125,
+          "end": 12.225,
+          "matched": true
+        },
+        {
+          "text": "112",
+          "start": 12.225,
+          "end": 13.025000000000002,
+          "matched": false
+        },
+        {
+          "text": "for",
+          "start": 13.0375,
+          "end": 13.2,
+          "matched": true
+        },
+        {
+          "text": "emergencies.",
+          "start": 13.2125,
+          "end": 13.950000000000001,
+          "matched": true
+        }
+      ],
+      "recognized": "And here's another interesting fact The UK also supports one-one-two the pan-European emergency number So if you're in Britain you don't normally dial 911 You dial nine-nine-nine or one-one-two for emergencies"
+    },
+    "s24-london": {
+      "audioHash": "eada2604fd494d89",
+      "words": [
+        {
+          "text": "So",
+          "start": 0.05,
+          "end": 0.275,
+          "matched": true
+        },
+        {
+          "text": "if",
+          "start": 0.2875,
+          "end": 0.39999999999999997,
+          "matched": true
+        },
+        {
+          "text": "an",
+          "start": 0.4125,
+          "end": 0.4875,
+          "matched": true
+        },
+        {
+          "text": "American",
+          "start": 0.4875,
+          "end": 0.9125,
+          "matched": true
+        },
+        {
+          "text": "tourist",
+          "start": 0.925,
+          "end": 1.3625,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 1.375,
+          "end": 1.5125,
+          "matched": true
+        },
+        {
+          "text": "London",
+          "start": 1.525,
+          "end": 1.95,
+          "matched": true
+        },
+        {
+          "text": "instinctively",
+          "start": 1.975,
+          "end": 2.675,
+          "matched": true
+        },
+        {
+          "text": "dials",
+          "start": 2.6875,
+          "end": 3.15,
+          "matched": true
+        },
+        {
+          "text": "911…",
+          "start": 3.1625,
+          "end": 4.3625,
+          "matched": true
+        },
+        {
+          "text": "That's",
+          "start": 4.375,
+          "end": 4.6,
+          "matched": true
+        },
+        {
+          "text": "not",
+          "start": 4.6125,
+          "end": 4.8625,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 4.875,
+          "end": 4.9625,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 4.9625,
+          "end": 5.275,
+          "matched": true
+        },
+        {
+          "text": "they",
+          "start": 5.2875,
+          "end": 5.387499999999999,
+          "matched": true
+        },
+        {
+          "text": "should",
+          "start": 5.4,
+          "end": 5.6375,
+          "matched": true
+        },
+        {
+          "text": "rely",
+          "start": 5.65,
+          "end": 6.0125,
+          "matched": true
+        },
+        {
+          "text": "on.",
+          "start": 6.025,
+          "end": 6.3125,
+          "matched": true
+        }
+      ],
+      "recognized": "So if an American tourist in London instinctively dials 911â€ That's not the number they should rely on"
+    },
+    "s25-confusion": {
+      "audioHash": "a4cf467870a1d64d",
+      "words": [
+        {
+          "text": "Now",
+          "start": 0.0875,
+          "end": 0.4625,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 0.475,
+          "end": 0.725,
+          "matched": true
+        },
+        {
+          "text": "one",
+          "start": 0.7375,
+          "end": 0.9,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 0.9125,
+          "end": 1,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.0125,
+          "end": 1.1375,
+          "matched": true
+        },
+        {
+          "text": "biggest",
+          "start": 1.15,
+          "end": 1.575,
+          "matched": true
+        },
+        {
+          "text": "misconceptions",
+          "start": 1.5875,
+          "end": 2.4749999999999996,
+          "matched": true
+        },
+        {
+          "text": "surrounding",
+          "start": 2.4875,
+          "end": 3.025,
+          "matched": true
+        },
+        {
+          "text": "911.",
+          "start": 3.0375,
+          "end": 3.9375,
+          "matched": true
+        },
+        {
+          "text": "Some",
+          "start": 4.3375,
+          "end": 4.5625,
+          "matched": true
+        },
+        {
+          "text": "people",
+          "start": 4.575,
+          "end": 4.9125000000000005,
+          "matched": true
+        },
+        {
+          "text": "assume",
+          "start": 4.925,
+          "end": 5.475,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 5.4875,
+          "end": 5.5625,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 5.5625,
+          "end": 6.1,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 6.1125,
+          "end": 6.5,
+          "matched": true
+        },
+        {
+          "text": "was",
+          "start": 6.5125,
+          "end": 6.6875,
+          "matched": true
+        },
+        {
+          "text": "created",
+          "start": 6.7,
+          "end": 7.2625,
+          "matched": true
+        },
+        {
+          "text": "because",
+          "start": 7.275,
+          "end": 7.612500000000001,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 7.625,
+          "end": 7.75,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 7.7625,
+          "end": 7.85,
+          "matched": true
+        },
+        {
+          "text": "September",
+          "start": 7.85,
+          "end": 8.668181818181818,
+          "matched": true
+        },
+        {
+          "text": "11",
+          "start": 8.668181818181818,
+          "end": 8.85,
+          "matched": true
+        },
+        {
+          "text": "terrorist",
+          "start": 8.8625,
+          "end": 9.3125,
+          "matched": true
+        },
+        {
+          "text": "attacks.",
+          "start": 9.325,
+          "end": 9.875,
+          "matched": true
+        },
+        {
+          "text": "But",
+          "start": 10.2625,
+          "end": 10.4125,
+          "matched": true
+        },
+        {
+          "text": "look",
+          "start": 10.425,
+          "end": 10.675,
+          "matched": true
+        },
+        {
+          "text": "at",
+          "start": 10.6875,
+          "end": 10.8125,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 10.825,
+          "end": 10.924999999999999,
+          "matched": true
+        },
+        {
+          "text": "dates.",
+          "start": 10.9375,
+          "end": 11.4625,
+          "matched": true
+        }
+      ],
+      "recognized": "Now for one of the biggest misconceptions surrounding 911 Some people assume the emergency number was created because of the September 11 terrorist attacks But look at the dates"
+    },
+    "s26-dates": {
+      "audioHash": "f91607ac08f2b818",
+      "words": [
+        {
+          "text": "The",
+          "start": 0.075,
+          "end": 0.1625,
+          "matched": true
+        },
+        {
+          "text": "first",
+          "start": 0.1625,
+          "end": 0.475,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 0.4875,
+          "end": 1.0017857142857143,
+          "matched": true
+        },
+        {
+          "text": "call",
+          "start": 1.0017857142857143,
+          "end": 1.6875,
+          "matched": true
+        },
+        {
+          "text": "happened",
+          "start": 1.7,
+          "end": 2.175,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 2.1875,
+          "end": 2.6333333333333333,
+          "matched": true
+        },
+        {
+          "text": "1968.",
+          "start": 2.6333333333333333,
+          "end": 3.525,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 3.9125,
+          "end": 3.9875,
+          "matched": true
+        },
+        {
+          "text": "September",
+          "start": 3.9875,
+          "end": 4.8159090909090905,
+          "matched": true
+        },
+        {
+          "text": "11",
+          "start": 4.8159090909090905,
+          "end": 5,
+          "matched": true
+        },
+        {
+          "text": "attacks",
+          "start": 5.0125,
+          "end": 5.4875,
+          "matched": true
+        },
+        {
+          "text": "happened",
+          "start": 5.5,
+          "end": 5.9875,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 6,
+          "end": 6.366666666666666,
+          "matched": true
+        },
+        {
+          "text": "2001.",
+          "start": 6.366666666666666,
+          "end": 7.1,
+          "matched": true
+        },
+        {
+          "text": "That's",
+          "start": 7.4875,
+          "end": 7.7,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 7.7125,
+          "end": 7.800000000000001,
+          "matched": true
+        },
+        {
+          "text": "difference",
+          "start": 7.8125,
+          "end": 8.2875,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 8.3,
+          "end": 8.4625,
+          "matched": true
+        },
+        {
+          "text": "33",
+          "start": 8.475,
+          "end": 8.79642857142857,
+          "matched": true
+        },
+        {
+          "text": "years.",
+          "start": 8.79642857142857,
+          "end": 9.6,
+          "matched": true
+        }
+      ],
+      "recognized": "The first 911 call happened in 1968 The September 11 attacks happened in 2001 That's a difference of 33 years"
+    },
+    "s27-coincidence": {
+      "audioHash": "f56ea9c7750808ac",
+      "words": [
+        {
+          "text": "So",
+          "start": 0.05,
+          "end": 0.21250000000000002,
+          "matched": true
+        },
+        {
+          "text": "there",
+          "start": 0.225,
+          "end": 0.375,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 0.3875,
+          "end": 0.5,
+          "matched": true
+        },
+        {
+          "text": "no",
+          "start": 0.5125,
+          "end": 0.7124999999999999,
+          "matched": true
+        },
+        {
+          "text": "causal",
+          "start": 0.725,
+          "end": 1.0875,
+          "matched": true
+        },
+        {
+          "text": "connection",
+          "start": 1.1,
+          "end": 1.6500000000000001,
+          "matched": true
+        },
+        {
+          "text": "between",
+          "start": 1.6625,
+          "end": 2.025,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 2.0375,
+          "end": 2.125,
+          "matched": true
+        },
+        {
+          "text": "terrorist",
+          "start": 2.1375,
+          "end": 2.6,
+          "matched": true
+        },
+        {
+          "text": "attacks",
+          "start": 2.6125,
+          "end": 3.15,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 3.175,
+          "end": 3.3249999999999997,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 3.3375,
+          "end": 3.425,
+          "matched": true
+        },
+        {
+          "text": "creation",
+          "start": 3.425,
+          "end": 3.9749999999999996,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 3.9875,
+          "end": 4.1125,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 4.125,
+          "end": 4.2125,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 4.2125,
+          "end": 4.55625,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 4.55625,
+          "end": 5.5875,
+          "matched": true
+        },
+        {
+          "text": "number.",
+          "start": 5.6,
+          "end": 6.0375,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 6.425,
+          "end": 6.5,
+          "matched": true
+        },
+        {
+          "text": "similarity",
+          "start": 6.5,
+          "end": 7.3125,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 7.325,
+          "end": 7.4875,
+          "matched": true
+        },
+        {
+          "text": "simply",
+          "start": 7.5,
+          "end": 7.975,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 7.9875,
+          "end": 8.075,
+          "matched": true
+        },
+        {
+          "text": "coincidence.",
+          "start": 8.0875,
+          "end": 8.9625,
+          "matched": true
+        }
+      ],
+      "recognized": "So there is no causal connection between the terrorist attacks and the creation of the 911 emergency number The similarity is simply a coincidence"
+    },
+    "s28-where-911": {
+      "audioHash": "9fc817bca8f210a2",
+      "words": [
+        {
+          "text": "So,",
+          "start": 0.05,
+          "end": 0.46249999999999997,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 0.6625,
+          "end": 0.85,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 0.8625,
+          "end": 1.6875,
+          "matched": true
+        },
+        {
+          "text": "only",
+          "start": 1.7125,
+          "end": 2.0625,
+          "matched": true
+        },
+        {
+          "text": "used",
+          "start": 2.075,
+          "end": 2.5125,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 2.525,
+          "end": 2.6625,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 2.675,
+          "end": 2.7375,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 2.7375,
+          "end": 3.0749999999999997,
+          "matched": true
+        },
+        {
+          "text": "States?",
+          "start": 3.0875,
+          "end": 3.6375,
+          "matched": true
+        },
+        {
+          "text": "No.",
+          "start": 4,
+          "end": 4.2625,
+          "matched": true
+        },
+        {
+          "text": "A",
+          "start": 4.6625,
+          "end": 4.725,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 4.725,
+          "end": 5.0249999999999995,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 5.0375,
+          "end": 5.125,
+          "matched": true
+        },
+        {
+          "text": "countries",
+          "start": 5.1375,
+          "end": 5.65,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 5.6625,
+          "end": 5.75,
+          "matched": true
+        },
+        {
+          "text": "territories",
+          "start": 5.7625,
+          "end": 6.5,
+          "matched": true
+        },
+        {
+          "text": "use",
+          "start": 6.5125,
+          "end": 6.6875,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 6.7,
+          "end": 7.675,
+          "matched": true
+        },
+        {
+          "text": "as",
+          "start": 7.6875,
+          "end": 7.8125,
+          "matched": true
+        },
+        {
+          "text": "an",
+          "start": 7.825,
+          "end": 7.9,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 7.9,
+          "end": 8.4375,
+          "matched": true
+        },
+        {
+          "text": "number,",
+          "start": 8.45,
+          "end": 8.7625,
+          "matched": true
+        },
+        {
+          "text": "either",
+          "start": 9.5,
+          "end": 9.75,
+          "matched": true
+        },
+        {
+          "text": "as",
+          "start": 9.7625,
+          "end": 9.875,
+          "matched": true
+        },
+        {
+          "text": "their",
+          "start": 9.8875,
+          "end": 10.0375,
+          "matched": true
+        },
+        {
+          "text": "primary",
+          "start": 10.05,
+          "end": 10.55,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 10.5625,
+          "end": 11.0875,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 11.1,
+          "end": 11.5375,
+          "matched": true
+        },
+        {
+          "text": "or",
+          "start": 11.55,
+          "end": 11.675,
+          "matched": true
+        },
+        {
+          "text": "alongside",
+          "start": 11.6875,
+          "end": 12.3875,
+          "matched": true
+        },
+        {
+          "text": "other",
+          "start": 12.4,
+          "end": 12.6,
+          "matched": true
+        },
+        {
+          "text": "numbers.",
+          "start": 12.6125,
+          "end": 13.100000000000001,
+          "matched": true
+        },
+        {
+          "text": "Examples",
+          "start": 13.5,
+          "end": 14.0875,
+          "matched": true
+        },
+        {
+          "text": "include",
+          "start": 14.1,
+          "end": 14.5,
+          "matched": true
+        },
+        {
+          "text": "Canada,",
+          "start": 14.5125,
+          "end": 15.087499999999999,
+          "matched": true
+        },
+        {
+          "text": "Mexico,",
+          "start": 15.3,
+          "end": 15.9875,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 16.0125,
+          "end": 16.125,
+          "matched": true
+        },
+        {
+          "text": "Philippines,",
+          "start": 16.1375,
+          "end": 16.825,
+          "matched": true
+        },
+        {
+          "text": "American",
+          "start": 16.8375,
+          "end": 17.3125,
+          "matched": true
+        },
+        {
+          "text": "Samoa,",
+          "start": 17.325,
+          "end": 17.912499999999998,
+          "matched": true
+        },
+        {
+          "text": "Antigua",
+          "start": 18.3125,
+          "end": 18.9375,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 18.95,
+          "end": 19.075,
+          "matched": true
+        },
+        {
+          "text": "Barbuda,",
+          "start": 19.0875,
+          "end": 19.7125,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 19.9125,
+          "end": 20.1125,
+          "matched": true
+        },
+        {
+          "text": "several",
+          "start": 20.125,
+          "end": 20.4875,
+          "matched": true
+        },
+        {
+          "text": "Caribbean",
+          "start": 20.5,
+          "end": 20.975,
+          "matched": true
+        },
+        {
+          "text": "countries.",
+          "start": 20.9875,
+          "end": 21.587500000000002,
+          "matched": true
+        }
+      ],
+      "recognized": "So is 911 only used in the United States No. A number of countries and territories use 911 as an emergency number either as their primary emergency number or alongside other numbers Examples include Canada Mexico the Philippines American Samoa Antigua and Barbuda and several Caribbean countries"
+    },
+    "s29-warning": {
+      "audioHash": "0f5800bce06131ef",
+      "words": [
+        {
+          "text": "But",
+          "start": 0.0875,
+          "end": 0.175,
+          "matched": true
+        },
+        {
+          "text": "there's",
+          "start": 0.1875,
+          "end": 0.3625,
+          "matched": true
+        },
+        {
+          "text": "an",
+          "start": 0.375,
+          "end": 0.45,
+          "matched": true
+        },
+        {
+          "text": "important",
+          "start": 0.45,
+          "end": 0.8875,
+          "matched": true
+        },
+        {
+          "text": "warning:",
+          "start": 0.9,
+          "end": 1.3875,
+          "matched": true
+        },
+        {
+          "text": "Don't",
+          "start": 1.975,
+          "end": 2.2,
+          "matched": true
+        },
+        {
+          "text": "assume",
+          "start": 2.2125,
+          "end": 2.65,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 2.6625,
+          "end": 2.8375,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 2.85,
+          "end": 3.7125000000000004,
+          "matched": true
+        },
+        {
+          "text": "works",
+          "start": 3.725,
+          "end": 4.0875,
+          "matched": true
+        },
+        {
+          "text": "everywhere",
+          "start": 4.1125,
+          "end": 4.6625,
+          "matched": true
+        },
+        {
+          "text": "just",
+          "start": 4.675,
+          "end": 4.9125,
+          "matched": true
+        },
+        {
+          "text": "because",
+          "start": 4.925,
+          "end": 5.2124999999999995,
+          "matched": true
+        },
+        {
+          "text": "it",
+          "start": 5.225,
+          "end": 5.3374999999999995,
+          "matched": true
+        },
+        {
+          "text": "works",
+          "start": 5.35,
+          "end": 5.6875,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 5.7,
+          "end": 5.7875000000000005,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 5.8,
+          "end": 5.8625,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 5.8625,
+          "end": 6.1625,
+          "matched": true
+        },
+        {
+          "text": "States.",
+          "start": 6.175,
+          "end": 6.6625,
+          "matched": true
+        },
+        {
+          "text": "Emergency",
+          "start": 7.0625,
+          "end": 7.6375,
+          "matched": true
+        },
+        {
+          "text": "numbers",
+          "start": 7.65,
+          "end": 8.137500000000001,
+          "matched": true
+        },
+        {
+          "text": "vary",
+          "start": 8.15,
+          "end": 8.5625,
+          "matched": true
+        },
+        {
+          "text": "dramatically",
+          "start": 8.575,
+          "end": 9.375,
+          "matched": true
+        },
+        {
+          "text": "around",
+          "start": 9.3875,
+          "end": 9.774999999999999,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 9.7875,
+          "end": 9.875,
+          "matched": true
+        },
+        {
+          "text": "world.",
+          "start": 9.875,
+          "end": 10.3875,
+          "matched": true
+        }
+      ],
+      "recognized": "But there's an important warning Don't assume that 911 works everywhere just because it works in the United States Emergency numbers vary dramatically around the world"
+    },
+    "s30-world-numbers": {
+      "audioHash": "95331f5e018cf4c3",
+      "words": [
+        {
+          "text": "And",
+          "start": 0.0625,
+          "end": 0.175,
+          "matched": true
+        },
+        {
+          "text": "some",
+          "start": 0.1875,
+          "end": 0.4625,
+          "matched": true
+        },
+        {
+          "text": "countries",
+          "start": 0.475,
+          "end": 1.0499999999999998,
+          "matched": true
+        },
+        {
+          "text": "support",
+          "start": 1.0625,
+          "end": 1.5875,
+          "matched": true
+        },
+        {
+          "text": "multiple",
+          "start": 1.6,
+          "end": 2.125,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 2.1375,
+          "end": 2.6875,
+          "matched": true
+        },
+        {
+          "text": "numbers.",
+          "start": 2.7,
+          "end": 3.2625,
+          "matched": true
+        },
+        {
+          "text": "For",
+          "start": 3.6625,
+          "end": 3.7875,
+          "matched": true
+        },
+        {
+          "text": "example,",
+          "start": 3.8,
+          "end": 4.375,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 4.4,
+          "end": 4.4875,
+          "matched": true
+        },
+        {
+          "text": "United",
+          "start": 4.4875,
+          "end": 4.85,
+          "matched": true
+        },
+        {
+          "text": "Kingdom",
+          "start": 4.8625,
+          "end": 5.2749999999999995,
+          "matched": true
+        },
+        {
+          "text": "uses",
+          "start": 5.2875,
+          "end": 5.675,
+          "matched": true
+        },
+        {
+          "text": "999",
+          "start": 5.675,
+          "end": 6.6125,
+          "matched": false
+        },
+        {
+          "text": "and",
+          "start": 6.625,
+          "end": 6.8375,
+          "matched": true
+        },
+        {
+          "text": "112.",
+          "start": 6.8375,
+          "end": 7.7250000000000005,
+          "matched": false
+        },
+        {
+          "text": "Here",
+          "start": 8.125,
+          "end": 8.45,
+          "matched": true
+        },
+        {
+          "text": "are",
+          "start": 8.4625,
+          "end": 8.6125,
+          "matched": true
+        },
+        {
+          "text": "some",
+          "start": 8.625,
+          "end": 8.9125,
+          "matched": true
+        },
+        {
+          "text": "important",
+          "start": 8.925,
+          "end": 9.4375,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 9.45,
+          "end": 10,
+          "matched": true
+        },
+        {
+          "text": "numbers",
+          "start": 10.0125,
+          "end": 10.462499999999999,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 10.475,
+          "end": 10.6,
+          "matched": true
+        },
+        {
+          "text": "may",
+          "start": 10.6125,
+          "end": 10.8125,
+          "matched": true
+        },
+        {
+          "text": "encounter",
+          "start": 10.825,
+          "end": 11.424999999999999,
+          "matched": true
+        },
+        {
+          "text": "around",
+          "start": 11.4375,
+          "end": 11.775,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 11.7875,
+          "end": 11.8625,
+          "matched": true
+        },
+        {
+          "text": "world.",
+          "start": 11.8625,
+          "end": 12.350000000000001,
+          "matched": true
+        }
+      ],
+      "recognized": "And some countries support multiple emergency numbers For example the United Kingdom uses nine-nine-nine and one-one-two Here are some important emergency numbers you may encounter around the world"
+    },
+    "s31-travel": {
+      "audioHash": "1c6da3e3eb640df0",
+      "words": [
+        {
+          "text": "And",
+          "start": 0.0875,
+          "end": 0.2,
+          "matched": true
+        },
+        {
+          "text": "this",
+          "start": 0.2125,
+          "end": 0.38749999999999996,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 0.4,
+          "end": 0.5125000000000001,
+          "matched": true
+        },
+        {
+          "text": "why",
+          "start": 0.525,
+          "end": 0.7375,
+          "matched": true
+        },
+        {
+          "text": "travelers",
+          "start": 0.75,
+          "end": 1.35,
+          "matched": true
+        },
+        {
+          "text": "should",
+          "start": 1.3625,
+          "end": 1.55,
+          "matched": true
+        },
+        {
+          "text": "check",
+          "start": 1.5625,
+          "end": 1.8375,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.85,
+          "end": 1.9500000000000002,
+          "matched": true
+        },
+        {
+          "text": "local",
+          "start": 1.9625,
+          "end": 2.3625,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 2.375,
+          "end": 2.925,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 2.9375,
+          "end": 3.275,
+          "matched": true
+        },
+        {
+          "text": "before",
+          "start": 3.2875,
+          "end": 3.6875,
+          "matched": true
+        },
+        {
+          "text": "visiting",
+          "start": 3.7,
+          "end": 4.2250000000000005,
+          "matched": true
+        },
+        {
+          "text": "another",
+          "start": 4.2375,
+          "end": 4.55,
+          "matched": true
+        },
+        {
+          "text": "country.",
+          "start": 4.5625,
+          "end": 5.025,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 5.425,
+          "end": 5.5125,
+          "matched": true
+        },
+        {
+          "text": "number",
+          "start": 5.5125,
+          "end": 5.875,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 5.8875,
+          "end": 6.05,
+          "matched": true
+        },
+        {
+          "text": "saves",
+          "start": 6.0625,
+          "end": 6.4125,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 6.425,
+          "end": 6.5125,
+          "matched": true
+        },
+        {
+          "text": "life",
+          "start": 6.5125,
+          "end": 6.9125000000000005,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 6.9375,
+          "end": 7.1,
+          "matched": true
+        },
+        {
+          "text": "one",
+          "start": 7.1125,
+          "end": 7.3374999999999995,
+          "matched": true
+        },
+        {
+          "text": "country",
+          "start": 7.35,
+          "end": 7.8374999999999995,
+          "matched": true
+        },
+        {
+          "text": "might",
+          "start": 7.85,
+          "end": 8.112499999999999,
+          "matched": true
+        },
+        {
+          "text": "do",
+          "start": 8.125,
+          "end": 8.4125,
+          "matched": true
+        },
+        {
+          "text": "absolutely",
+          "start": 8.425,
+          "end": 8.9875,
+          "matched": true
+        },
+        {
+          "text": "nothing",
+          "start": 9,
+          "end": 9.4,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 9.4125,
+          "end": 9.549999999999999,
+          "matched": true
+        },
+        {
+          "text": "another.",
+          "start": 9.5625,
+          "end": 10.075,
+          "matched": true
+        }
+      ],
+      "recognized": "And this is why travelers should check the local emergency number before visiting another country The number that saves a life in one country might do absolutely nothing in another"
+    },
+    "s32-one-number": {
+      "audioHash": "adc020651cfc8438",
+      "words": [
+        {
+          "text": "One",
+          "start": 0.075,
+          "end": 0.22499999999999998,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 0.2375,
+          "end": 0.325,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 0.325,
+          "end": 0.45,
+          "matched": true
+        },
+        {
+          "text": "biggest",
+          "start": 0.4625,
+          "end": 0.8125,
+          "matched": true
+        },
+        {
+          "text": "advantages",
+          "start": 0.825,
+          "end": 1.4874999999999998,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 1.5,
+          "end": 1.5875,
+          "matched": true
+        },
+        {
+          "text": "systems",
+          "start": 1.6,
+          "end": 2.1375,
+          "matched": true
+        },
+        {
+          "text": "like",
+          "start": 2.15,
+          "end": 2.3625,
+          "matched": true
+        },
+        {
+          "text": "911",
+          "start": 2.375,
+          "end": 3.225,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 3.25,
+          "end": 3.4625,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 3.475,
+          "end": 3.6750000000000003,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 3.6875,
+          "end": 3.8,
+          "matched": true
+        },
+        {
+          "text": "don't",
+          "start": 3.8125,
+          "end": 4.025,
+          "matched": true
+        },
+        {
+          "text": "necessarily",
+          "start": 4.0375,
+          "end": 4.637499999999999,
+          "matched": true
+        },
+        {
+          "text": "have",
+          "start": 4.65,
+          "end": 4.8375,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 4.85,
+          "end": 4.9375,
+          "matched": true
+        },
+        {
+          "text": "know",
+          "start": 4.95,
+          "end": 5.2375,
+          "matched": true
+        },
+        {
+          "text": "which",
+          "start": 5.25,
+          "end": 5.4875,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 5.5,
+          "end": 6.0125,
+          "matched": true
+        },
+        {
+          "text": "service",
+          "start": 6.025,
+          "end": 6.4125000000000005,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 6.425,
+          "end": 6.5125,
+          "matched": true
+        },
+        {
+          "text": "need.",
+          "start": 6.525,
+          "end": 6.8875,
+          "matched": true
+        },
+        {
+          "text": "You",
+          "start": 7.275,
+          "end": 7.4,
+          "matched": true
+        },
+        {
+          "text": "explain",
+          "start": 7.4125,
+          "end": 8.0375,
+          "matched": true
+        },
+        {
+          "text": "what",
+          "start": 8.05,
+          "end": 8.2125,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 8.225,
+          "end": 8.35,
+          "matched": true
+        },
+        {
+          "text": "happening.",
+          "start": 8.3625,
+          "end": 8.950000000000001,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 9.3375,
+          "end": 9.4125,
+          "matched": true
+        },
+        {
+          "text": "call-taker",
+          "start": 9.4125,
+          "end": 9.987499999999999,
+          "matched": true
+        },
+        {
+          "text": "can",
+          "start": 10,
+          "end": 10.15,
+          "matched": true
+        },
+        {
+          "text": "determine",
+          "start": 10.1625,
+          "end": 10.75,
+          "matched": true
+        },
+        {
+          "text": "what",
+          "start": 10.7625,
+          "end": 10.95,
+          "matched": true
+        },
+        {
+          "text": "kind",
+          "start": 10.9625,
+          "end": 11.15,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 11.1625,
+          "end": 11.25,
+          "matched": true
+        },
+        {
+          "text": "response",
+          "start": 11.2625,
+          "end": 11.8125,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 11.825,
+          "end": 11.987499999999999,
+          "matched": true
+        },
+        {
+          "text": "required",
+          "start": 12,
+          "end": 12.625,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 12.6375,
+          "end": 12.7625,
+          "matched": true
+        },
+        {
+          "text": "dispatch",
+          "start": 12.775,
+          "end": 13.387500000000001,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 13.4,
+          "end": 13.4875,
+          "matched": true
+        },
+        {
+          "text": "appropriate",
+          "start": 13.5,
+          "end": 14.0125,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 14.025,
+          "end": 14.512500000000001,
+          "matched": true
+        },
+        {
+          "text": "services.",
+          "start": 14.525,
+          "end": 15.200000000000001,
+          "matched": true
+        }
+      ],
+      "recognized": "One of the biggest advantages of systems like 911 is that you don't necessarily have to know which emergency service you need You explain what is happening The call-taker can determine what kind of response is required and dispatch the appropriate emergency services"
+    },
+    "s33-real-power": {
+      "audioHash": "48dde15bd79645f6",
+      "words": [
+        {
+          "text": "That's",
+          "start": 0.075,
+          "end": 0.35000000000000003,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 0.3625,
+          "end": 0.4625,
+          "matched": true
+        },
+        {
+          "text": "real",
+          "start": 0.475,
+          "end": 0.7875,
+          "matched": true
+        },
+        {
+          "text": "power",
+          "start": 0.8,
+          "end": 1.3875000000000002,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 1.4,
+          "end": 1.525,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 1.5375,
+          "end": 1.6,
+          "matched": true
+        },
+        {
+          "text": "universal",
+          "start": 1.6,
+          "end": 2.25,
+          "matched": true
+        },
+        {
+          "text": "emergency",
+          "start": 2.2625,
+          "end": 2.8125,
+          "matched": true
+        },
+        {
+          "text": "number.",
+          "start": 2.825,
+          "end": 3.2750000000000004,
+          "matched": true
+        },
+        {
+          "text": "It's",
+          "start": 3.6375,
+          "end": 3.7875,
+          "matched": true
+        },
+        {
+          "text": "not",
+          "start": 3.8,
+          "end": 4.0125,
+          "matched": true
+        },
+        {
+          "text": "just",
+          "start": 4.025,
+          "end": 4.25,
+          "matched": true
+        },
+        {
+          "text": "about",
+          "start": 4.2625,
+          "end": 4.6000000000000005,
+          "matched": true
+        },
+        {
+          "text": "remembering",
+          "start": 4.6125,
+          "end": 5.1499999999999995,
+          "matched": true
+        },
+        {
+          "text": "three",
+          "start": 5.1625,
+          "end": 5.475,
+          "matched": true
+        },
+        {
+          "text": "digits.",
+          "start": 5.4875,
+          "end": 6.1125,
+          "matched": true
+        },
+        {
+          "text": "It's",
+          "start": 6.475,
+          "end": 6.637499999999999,
+          "matched": true
+        },
+        {
+          "text": "about",
+          "start": 6.65,
+          "end": 7.0125,
+          "matched": true
+        },
+        {
+          "text": "removing",
+          "start": 7.025,
+          "end": 7.550000000000001,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 7.5625,
+          "end": 7.65,
+          "matched": true
+        },
+        {
+          "text": "decision",
+          "start": 7.65,
+          "end": 8.262500000000001,
+          "matched": true
+        },
+        {
+          "text": "from",
+          "start": 8.275,
+          "end": 8.5,
+          "matched": true
+        },
+        {
+          "text": "someone",
+          "start": 8.5125,
+          "end": 8.9375,
+          "matched": true
+        },
+        {
+          "text": "who",
+          "start": 8.95,
+          "end": 9.1375,
+          "matched": true
+        },
+        {
+          "text": "may",
+          "start": 9.15,
+          "end": 9.425,
+          "matched": true
+        },
+        {
+          "text": "already",
+          "start": 9.4375,
+          "end": 9.8,
+          "matched": true
+        },
+        {
+          "text": "be",
+          "start": 9.8125,
+          "end": 9.9375,
+          "matched": true
+        },
+        {
+          "text": "panicking.",
+          "start": 9.95,
+          "end": 10.575,
+          "matched": true
+        }
+      ],
+      "recognized": "That's the real power of a universal emergency number It's not just about remembering three digits It's about removing a decision from someone who may already be panicking"
+    },
+    "s34-recap": {
+      "audioHash": "e50a5b5506e35c89",
+      "words": [
+        {
+          "text": "So",
+          "start": 0.05,
+          "end": 0.2,
+          "matched": true
+        },
+        {
+          "text": "let's",
+          "start": 0.2125,
+          "end": 0.5,
+          "matched": true
+        },
+        {
+          "text": "recap.",
+          "start": 0.5125,
+          "end": 1.0875,
+          "matched": true
+        }
+      ],
+      "recognized": "So let's recap"
+    },
+    "s35-three-digits": {
+      "audioHash": "15d92dd2c6ae4a30",
+      "words": [
+        {
+          "text": "Three",
+          "start": 0.0875,
+          "end": 0.375,
+          "matched": true
+        },
+        {
+          "text": "digits.",
+          "start": 0.3875,
+          "end": 0.9875,
+          "matched": true
+        },
+        {
+          "text": "Easy",
+          "start": 1.3875,
+          "end": 1.6749999999999998,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 1.6875,
+          "end": 1.85,
+          "matched": true
+        },
+        {
+          "text": "remember.",
+          "start": 1.8625,
+          "end": 2.525,
+          "matched": true
+        },
+        {
+          "text": "Easy",
+          "start": 2.925,
+          "end": 3.1999999999999997,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 3.2125,
+          "end": 3.3375,
+          "matched": true
+        },
+        {
+          "text": "dial.",
+          "start": 3.35,
+          "end": 3.8875,
+          "matched": true
+        },
+        {
+          "text": "And",
+          "start": 4.2875,
+          "end": 4.5249999999999995,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "start": 4.55,
+          "end": 4.75,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 4.7625,
+          "end": 4.85,
+          "matched": true
+        },
+        {
+          "text": "right",
+          "start": 4.85,
+          "end": 5.2124999999999995,
+          "matched": true
+        },
+        {
+          "text": "situation…",
+          "start": 5.225,
+          "end": 6.3999999999999995,
+          "matched": true
+        }
+      ],
+      "recognized": "Three digits Easy to remember Easy to dial And in the right situationâ€"
+    },
+    "s36-end": {
+      "audioHash": "0c36137f0ce7ab6f",
+      "words": [
+        {
+          "text": "…those",
+          "start": 0.5125,
+          "end": 0.75,
+          "matched": true
+        },
+        {
+          "text": "three",
+          "start": 0.7625,
+          "end": 1.0125,
+          "matched": true
+        },
+        {
+          "text": "digits",
+          "start": 1.025,
+          "end": 1.5,
+          "matched": true
+        },
+        {
+          "text": "can",
+          "start": 1.5125,
+          "end": 1.7,
+          "matched": true
+        },
+        {
+          "text": "be",
+          "start": 1.7125,
+          "end": 1.8499999999999999,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 1.8625,
+          "end": 1.975,
+          "matched": true
+        },
+        {
+          "text": "difference",
+          "start": 1.9875,
+          "end": 2.475,
+          "matched": true
+        },
+        {
+          "text": "between",
+          "start": 2.4875,
+          "end": 2.9,
+          "matched": true
+        },
+        {
+          "text": "waiting",
+          "start": 2.9125,
+          "end": 3.275,
+          "matched": true
+        },
+        {
+          "text": "for",
+          "start": 3.2875,
+          "end": 3.4250000000000003,
+          "matched": true
+        },
+        {
+          "text": "help…",
+          "start": 3.4375,
+          "end": 4.0875,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 4.1,
+          "end": 4.2375,
+          "matched": true
+        },
+        {
+          "text": "getting",
+          "start": 4.25,
+          "end": 4.5375,
+          "matched": true
+        },
+        {
+          "text": "it.",
+          "start": 4.55,
+          "end": 4.825,
+          "matched": true
+        }
+      ],
+      "recognized": "â€ those three digits can be the difference between waiting for helpâ€ and getting it"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "test-texture": {
+    "type": "graphic",
+    "path": "assets/test-texture.png",
+    "source": "Generated locally with FFmpeg (lavfi mandelbrot source, desaturated). Placeholder for real B-roll.",
+    "license": "Generated in this repository; no third-party rights",
+    "focalPoint": {
+      "x": 0.67,
+      "y": 0.55
+    }
+  },
+  "test-music": {
+    "type": "music",
+    "path": "audio/music/test-bed.wav",
+    "source": "Generated locally with FFmpeg aevalsrc (sustained A-major chord). Test bed only - replace with licensed music.",
+    "license": "Generated in this repository; no third-party rights"
+  },
+  "sfx-swell": {
+    "type": "sfx",
+    "path": "audio/sfx/swell.wav",
+    "source": "Generated locally with FFmpeg anoisesrc (filtered pink-noise swell).",
+    "license": "Generated in this repository; no third-party rights"
+  }
+}

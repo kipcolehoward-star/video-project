@@ -1,0 +1,225 @@
+{
+  "provider": "edge",
+  "voice": "en-US-BrianMultilingualNeural",
+  "model": "rate +0%",
+  "license": "Microsoft Edge online TTS via edge-tts \u2014 unofficial endpoint, no publishing rights granted; personal / non-monetised use only. To monetise, re-voice with Azure AI Speech (paid tier, same voice name).",
+  "attribution": null,
+  "scenes": {
+    "s01-hook": {
+      "file": "audio/narration/s01-hook.wav",
+      "duration": 5.448005,
+      "textHash": "70a755efde2aac42",
+      "timing": "audio/narration/s01-hook.timing.json"
+    },
+    "s02-questions": {
+      "file": "audio/narration/s02-questions.wav",
+      "duration": 9.816009,
+      "textHash": "821c9d8c02054e6a",
+      "timing": "audio/narration/s02-questions.timing.json"
+    },
+    "s03-911-vs-911": {
+      "file": "audio/narration/s03-911-vs-911.wav",
+      "duration": 5.52,
+      "textHash": "53f9b33b33cc28e1",
+      "timing": "audio/narration/s03-911-vs-911.timing.json"
+    },
+    "s04-answer": {
+      "file": "audio/narration/s04-answer.wav",
+      "duration": 7.032018,
+      "textHash": "93341f5e480d0bbf",
+      "timing": "audio/narration/s04-answer.timing.json"
+    },
+    "s05-origin": {
+      "file": "audio/narration/s05-origin.wav",
+      "duration": 4.008005,
+      "textHash": "5ba48b901e67f578",
+      "timing": "audio/narration/s05-origin.timing.json"
+    },
+    "s06-local-numbers": {
+      "file": "audio/narration/s06-local-numbers.wav",
+      "duration": 15.12,
+      "textHash": "9e4e7729f3220518",
+      "timing": "audio/narration/s06-local-numbers.timing.json"
+    },
+    "s07-every-second": {
+      "file": "audio/narration/s07-every-second.wav",
+      "duration": 10.536009,
+      "textHash": "7d4b13080add2306",
+      "timing": "audio/narration/s07-every-second.timing.json"
+    },
+    "s08-britain-999": {
+      "file": "audio/narration/s08-britain-999.wav",
+      "duration": 10.44,
+      "textHash": "cd14076adcef0b46",
+      "timing": "audio/narration/s08-britain-999.timing.json"
+    },
+    "s09-momentum": {
+      "file": "audio/narration/s09-momentum.wav",
+      "duration": 21.624014,
+      "textHash": "76cf8979b2b933c7",
+      "timing": "audio/narration/s09-momentum.timing.json"
+    },
+    "s10-why-911": {
+      "file": "audio/narration/s10-why-911.wav",
+      "duration": 15.432018,
+      "textHash": "d0f460d14e0aa402",
+      "timing": "audio/narration/s10-why-911.timing.json"
+    },
+    "s11-rotary": {
+      "file": "audio/narration/s11-rotary.wav",
+      "duration": 11.136009,
+      "textHash": "86593a696eca0128",
+      "timing": "audio/narration/s11-rotary.timing.json"
+    },
+    "s12-operator": {
+      "file": "audio/narration/s12-operator.wav",
+      "duration": 10.584014,
+      "textHash": "10c90875ed15379f",
+      "timing": "audio/narration/s12-operator.timing.json"
+    },
+    "s13-not-dedicated": {
+      "file": "audio/narration/s13-not-dedicated.wav",
+      "duration": 10.032018,
+      "textHash": "5baaccebc96fa95d",
+      "timing": "audio/narration/s13-not-dedicated.timing.json"
+    },
+    "s14-fire-chiefs": {
+      "file": "audio/narration/s14-fire-chiefs.wav",
+      "duration": 19.728005,
+      "textHash": "1ee01503c5d6a80f",
+      "timing": "audio/narration/s14-fire-chiefs.timing.json"
+    },
+    "s15-goal": {
+      "file": "audio/narration/s15-goal.wav",
+      "duration": 1.872018,
+      "textHash": "a04ea014e9d66b74",
+      "timing": "audio/narration/s15-goal.timing.json"
+    },
+    "s16-haleyville": {
+      "file": "audio/narration/s16-haleyville.wav",
+      "duration": 10.776009,
+      "textHash": "b6bdddcdffb3a8d3",
+      "timing": "audio/narration/s16-haleyville.timing.json"
+    },
+    "s17-first-call": {
+      "file": "audio/narration/s17-first-call.wav",
+      "duration": 14.208005,
+      "textHash": "f6c42610eabd2076",
+      "timing": "audio/narration/s17-first-call.timing.json"
+    },
+    "s18-rollout": {
+      "file": "audio/narration/s18-rollout.wav",
+      "duration": 19.536009,
+      "textHash": "2c2db7f221e9e60d",
+      "timing": "audio/narration/s18-rollout.timing.json"
+    },
+    "s19-what-prompted": {
+      "file": "audio/narration/s19-what-prompted.wav",
+      "duration": 12.96,
+      "textHash": "c60f9aee3b88e9af",
+      "timing": "audio/narration/s19-what-prompted.timing.json"
+    },
+    "s20-nas-report": {
+      "file": "audio/narration/s20-nas-report.wav",
+      "duration": 20.448005,
+      "textHash": "2a6253ffd683216a",
+      "timing": "audio/narration/s20-nas-report.timing.json"
+    },
+    "s21-communication": {
+      "file": "audio/narration/s21-communication.wav",
+      "duration": 8.544014,
+      "textHash": "2ed634d43c52c158",
+      "timing": "audio/narration/s21-communication.timing.json"
+    },
+    "s22-atlantic": {
+      "file": "audio/narration/s22-atlantic.wav",
+      "duration": 20.832018,
+      "textHash": "a424cb7aaf025086",
+      "timing": "audio/narration/s22-atlantic.timing.json"
+    },
+    "s23-uk-112": {
+      "file": "audio/narration/s23-uk-112.wav",
+      "duration": 14.328005,
+      "textHash": "68a7b1e3940a58b5",
+      "timing": "audio/narration/s23-uk-112.timing.json"
+    },
+    "s24-london": {
+      "file": "audio/narration/s24-london.wav",
+      "duration": 6.696009,
+      "textHash": "2b6b49b0965dbd09",
+      "timing": "audio/narration/s24-london.timing.json"
+    },
+    "s25-confusion": {
+      "file": "audio/narration/s25-confusion.wav",
+      "duration": 11.832018,
+      "textHash": "e2b5ef7149de6152",
+      "timing": "audio/narration/s25-confusion.timing.json"
+    },
+    "s26-dates": {
+      "file": "audio/narration/s26-dates.wav",
+      "duration": 9.984014,
+      "textHash": "81ba7c1b62c5ebfb",
+      "timing": "audio/narration/s26-dates.timing.json"
+    },
+    "s27-coincidence": {
+      "file": "audio/narration/s27-coincidence.wav",
+      "duration": 9.336009,
+      "textHash": "92b7c18afa7a1478",
+      "timing": "audio/narration/s27-coincidence.timing.json"
+    },
+    "s28-where-911": {
+      "file": "audio/narration/s28-where-911.wav",
+      "duration": 21.96,
+      "textHash": "b12608b5ea0dcfa5",
+      "timing": "audio/narration/s28-where-911.timing.json"
+    },
+    "s29-warning": {
+      "file": "audio/narration/s29-warning.wav",
+      "duration": 10.752018,
+      "textHash": "6a74d3d600869944",
+      "timing": "audio/narration/s29-warning.timing.json"
+    },
+    "s30-world-numbers": {
+      "file": "audio/narration/s30-world-numbers.wav",
+      "duration": 12.72,
+      "textHash": "3dbd05aba4f27ff6",
+      "timing": "audio/narration/s30-world-numbers.timing.json"
+    },
+    "s31-travel": {
+      "file": "audio/narration/s31-travel.wav",
+      "duration": 10.44,
+      "textHash": "7bb653b1fbd073b8",
+      "timing": "audio/narration/s31-travel.timing.json"
+    },
+    "s32-one-number": {
+      "file": "audio/narration/s32-one-number.wav",
+      "duration": 15.576009,
+      "textHash": "6956b0f1d7e3c024",
+      "timing": "audio/narration/s32-one-number.timing.json"
+    },
+    "s33-real-power": {
+      "file": "audio/narration/s33-real-power.wav",
+      "duration": 10.944014,
+      "textHash": "70e74d033e7d6f38",
+      "timing": "audio/narration/s33-real-power.timing.json"
+    },
+    "s34-recap": {
+      "file": "audio/narration/s34-recap.wav",
+      "duration": 1.872018,
+      "textHash": "e3cd7b7e437453b9",
+      "timing": "audio/narration/s34-recap.timing.json"
+    },
+    "s35-three-digits": {
+      "file": "audio/narration/s35-three-digits.wav",
+      "duration": 6.768005,
+      "textHash": "2de7180d442fee9c",
+      "timing": "audio/narration/s35-three-digits.timing.json"
+    },
+    "s36-end": {
+      "file": "audio/narration/s36-end.wav",
+      "duration": 5.208005,
+      "textHash": "5742e118c3910f27",
+      "timing": "audio/narration/s36-end.timing.json"
+    }
+  }
+}

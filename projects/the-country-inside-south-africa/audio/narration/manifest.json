@@ -1,0 +1,69 @@
+{
+  "provider": "edge",
+  "voice": "en-US-BrianMultilingualNeural",
+  "model": "rate +10%",
+  "license": "Microsoft Edge online TTS via edge-tts — unofficial endpoint, no publishing rights granted; personal / non-monetised use only. To monetise, re-voice with Azure AI Speech (paid tier, same voice name).",
+  "attribution": null,
+  "scenes": {
+    "s01-hook": {
+      "file": "audio/narration/s01-hook.wav",
+      "duration": 2.568005,
+      "textHash": "95c3f9c4198639fd",
+      "timing": "audio/narration/s01-hook.timing.json"
+    },
+    "s02-reveal": {
+      "file": "audio/narration/s02-reveal.wav",
+      "duration": 4.008005,
+      "textHash": "09affd778e575301",
+      "timing": "audio/narration/s02-reveal.timing.json"
+    },
+    "s03-no-border": {
+      "file": "audio/narration/s03-no-border.wav",
+      "duration": 6.192018,
+      "textHash": "9e6a16d57ee79f24",
+      "timing": "audio/narration/s03-no-border.timing.json"
+    },
+    "s04-highest": {
+      "file": "audio/narration/s04-highest.wav",
+      "duration": 2.808005,
+      "textHash": "eb9bc4aa0f9a4728",
+      "timing": "audio/narration/s04-highest.timing.json"
+    },
+    "s05-how": {
+      "file": "audio/narration/s05-how.wav",
+      "duration": 1.872018,
+      "textHash": "9d99df6569534d38",
+      "timing": "audio/narration/s05-how.timing.json"
+    },
+    "s06-history": {
+      "file": "audio/narration/s06-history.wav",
+      "duration": 8.448005,
+      "textHash": "c622a454bdfb3786",
+      "timing": "audio/narration/s06-history.timing.json"
+    },
+    "s07-enclosed": {
+      "file": "audio/narration/s07-enclosed.wav",
+      "duration": 5.592018,
+      "textHash": "ef43b029b6e967bf",
+      "timing": "audio/narration/s07-enclosed.timing.json"
+    },
+    "s08-people": {
+      "file": "audio/narration/s08-people.wav",
+      "duration": 3.648005,
+      "textHash": "2741c6f9f9f1b36f",
+      "timing": "audio/narration/s08-people.timing.json"
+    },
+    "s09-only-three": {
+      "file": "audio/narration/s09-only-three.wav",
+      "duration": 4.68,
+      "textHash": "2145541eada5793f",
+      "timing": "audio/narration/s09-only-three.timing.json"
+    },
+    "s10-end": {
+      "file": "audio/narration/s10-end.wav",
+      "duration": 1.872018,
+      "textHash": "840d911d09486687",
+      "timing": "audio/narration/s10-end.timing.json"
+    }
+  }
+}

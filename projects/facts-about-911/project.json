@@ -1,0 +1,22 @@
+{
+  "id": "facts-about-911",
+  "title": "Facts About 911",
+  "video": {
+    "format": "16:9",
+    "fps": 30,
+    "duration": null
+  },
+  "safeZoneProfile": "auto",
+  "theme": "documentary",
+  "captionStyle": "none",
+  "audio": {
+    "provider": "edge",
+    "voice": "en-US-BrianMultilingualNeural",
+    "rate": "+0%",
+    "music": null,
+    "musicDb": -18,
+    "duckDb": -12,
+    "targetLufs": -16,
+    "truePeak": -1.5
+  }
+}

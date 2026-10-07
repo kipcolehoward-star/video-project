@@ -1,0 +1,694 @@
+{
+  "scenes": [
+    {
+      "id": "s01-hook",
+      "type": "atlas",
+      "duration": 2,
+      "narrationOffset": 0.7,
+      "narrationTail": 0.3,
+      "narration": "A country\u2026 inside another country?",
+      "sfx": [
+        {
+          "asset": "es-rumble",
+          "at": 0,
+          "gainDb": 2
+        },
+        {
+          "asset": "es-whoosh",
+          "at": "country",
+          "gainDb": -6,
+          "offset": -1.25
+        },
+        {
+          "asset": "es-boom",
+          "at": "inside",
+          "gainDb": -8,
+          "offset": -0.12
+        }
+      ],
+      "data": {
+        "focusY": 0.55,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 15,
+            "lat": 5,
+            "zoom": 0.12
+          },
+          {
+            "at": "country",
+            "lon": 20,
+            "lat": 0,
+            "zoom": 0.95
+          },
+          {
+            "at": "inside",
+            "lon": 22,
+            "lat": -10,
+            "zoom": 1.9
+          },
+          {
+            "at": "country#2",
+            "lon": 25.5,
+            "lat": -29,
+            "zoom": 6.2
+          }
+        ],
+        "outline": [
+          {
+            "name": "South Africa",
+            "at": "another"
+          }
+        ],
+        "texts": [
+          {
+            "text": "A country\u2026",
+            "at": "country",
+            "until": "inside",
+            "style": "hero",
+            "y": 0.27
+          },
+          {
+            "text": "Inside another country?",
+            "at": "inside",
+            "style": "hero",
+            "y": 0.27
+          }
+        ],
+        "shake": [
+          "inside"
+        ]
+      }
+    },
+    {
+      "id": "s02-reveal",
+      "type": "atlas",
+      "duration": 2,
+      "narrationOffset": 0.2,
+      "narrationTail": 0.35,
+      "narration": "Hidden completely inside South Africa is the kingdom of Lesotho.",
+      "sfx": [
+        {
+          "asset": "es-whoosh",
+          "at": 0,
+          "gainDb": -6,
+          "offset": 0
+        },
+        {
+          "asset": "es-boom",
+          "at": "lesotho",
+          "gainDb": -8,
+          "offset": -0.12
+        }
+      ],
+      "data": {
+        "focusY": 0.56,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 25.5,
+            "lat": -29,
+            "zoom": 6.2
+          },
+          {
+            "at": "lesotho",
+            "lon": 28.2,
+            "lat": -29.6,
+            "zoom": 13
+          }
+        ],
+        "warm": [
+          {
+            "name": "South Africa",
+            "at": 0
+          }
+        ],
+        "outline": [
+          {
+            "name": "Lesotho",
+            "at": "kingdom"
+          }
+        ],
+        "gold": [
+          {
+            "name": "Lesotho",
+            "at": "lesotho"
+          }
+        ],
+        "pulse": [
+          {
+            "name": "Lesotho",
+            "at": "lesotho"
+          }
+        ],
+        "texts": [
+          {
+            "text": "Inside South Africa",
+            "at": "hidden",
+            "until": "lesotho",
+            "style": "sub",
+            "y": 0.26
+          },
+          {
+            "text": "Meet Lesotho",
+            "at": "lesotho",
+            "style": "stamp",
+            "y": 0.27,
+            "tone": "gold"
+          }
+        ],
+        "shake": [
+          "lesotho"
+        ]
+      }
+    },
+    {
+      "id": "s03-no-border",
+      "type": "atlas",
+      "duration": 2,
+      "narrationOffset": 0.2,
+      "narrationTail": 0.35,
+      "narration": "And unlike most countries, Lesotho has no coastline \u2014 and no border with any other country.",
+      "sfx": [
+        {
+          "asset": "es-click",
+          "at": "coastline",
+          "gainDb": -2,
+          "offset": 0
+        },
+        {
+          "asset": "es-click",
+          "at": "border",
+          "gainDb": -2,
+          "offset": 0
+        },
+        {
+          "asset": "es-sweep",
+          "at": "border",
+          "gainDb": 6,
+          "offset": -0.4
+        }
+      ],
+      "data": {
+        "focusY": 0.58,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 28.2,
+            "lat": -29.6,
+            "zoom": 13
+          },
+          {
+            "at": "unlike",
+            "lon": 26,
+            "lat": -25,
+            "zoom": 4.3
+          }
+        ],
+        "warm": [
+          {
+            "name": "South Africa",
+            "at": 0
+          }
+        ],
+        "gold": [
+          {
+            "name": "Lesotho",
+            "at": 0
+          }
+        ],
+        "outline": [
+          {
+            "name": "South Africa",
+            "at": "border"
+          }
+        ],
+        "fade": {
+          "names": [
+            "Namibia",
+            "Botswana",
+            "Zimbabwe",
+            "Mozambique",
+            "eSwatini",
+            "Angola",
+            "Zambia",
+            "Malawi",
+            "Madagascar"
+          ],
+          "at": "border"
+        },
+        "texts": [
+          {
+            "text": "No coastline",
+            "at": "coastline",
+            "style": "stamp",
+            "y": 0.22
+          },
+          {
+            "text": "No other international border",
+            "at": "border",
+            "style": "stamp",
+            "y": 0.34,
+            "tone": "gold"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s04-highest",
+      "type": "atlas",
+      "duration": 2,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.25
+      },
+      "narrationOffset": 0.2,
+      "narrationTail": 0.8,
+      "narration": "It's also one of the highest countries on Earth.",
+      "sfx": [
+        {
+          "asset": "es-rumble",
+          "at": 0,
+          "gainDb": 2
+        }
+      ],
+      "data": {
+        "background": "lesotho-mountains",
+        "texts": [
+          {
+            "text": "Lowest point",
+            "at": "highest",
+            "style": "sub",
+            "y": 0.38
+          },
+          {
+            "text": " M",
+            "value": 1400,
+            "at": "highest",
+            "style": "count",
+            "y": 0.46
+          },
+          {
+            "text": "Above sea level",
+            "at": "earth",
+            "style": "sub",
+            "y": 0.54
+          }
+        ]
+      }
+    },
+    {
+      "id": "s05-how",
+      "type": "atlas",
+      "duration": 2,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.25
+      },
+      "narrationOffset": 0.2,
+      "narrationTail": 0.9,
+      "narration": "So how did this happen?",
+      "sfx": [
+        {
+          "asset": "es-whoosh",
+          "at": 0,
+          "gainDb": -6,
+          "offset": 0
+        }
+      ],
+      "data": {
+        "background": "map-southern-africa",
+        "tint": "parchment",
+        "texts": [
+          {
+            "text": "So how did this happen?",
+            "at": "how",
+            "style": "hero",
+            "y": 0.45
+          }
+        ]
+      }
+    },
+    {
+      "id": "s06-history",
+      "type": "atlas",
+      "duration": 2,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.25
+      },
+      "narrationOffset": 0.2,
+      "narrationTail": 0.35,
+      "narration": "Lesotho survived as the Basotho kingdom \u2014 under British protection \u2014 while European colonial powers divided much of southern Africa.",
+      "data": {
+        "background": "map-basutoland",
+        "tint": "parchment",
+        "texts": [
+          {
+            "text": "Basotho kingdom",
+            "at": "basotho",
+            "style": "stamp",
+            "y": 0.3,
+            "tone": "gold"
+          },
+          {
+            "text": "British protectorate \u00b7 1868",
+            "at": "british",
+            "style": "sub",
+            "y": 0.39
+          },
+          {
+            "text": "Colonial borders all around",
+            "at": "colonial",
+            "style": "sub",
+            "y": 0.62
+          }
+        ]
+      }
+    },
+    {
+      "id": "s07-enclosed",
+      "type": "atlas",
+      "duration": 2,
+      "transitionIn": {
+        "type": "fade",
+        "duration": 0.25
+      },
+      "narrationOffset": 0.2,
+      "narrationTail": 0.4,
+      "narration": "When South Africa's borders eventually formed around it, Lesotho remained a separate country.",
+      "sfx": [
+        {
+          "asset": "es-sweep",
+          "at": "borders",
+          "gainDb": 6,
+          "offset": -0.4
+        }
+      ],
+      "data": {
+        "focusY": 0.6,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 26.5,
+            "lat": -28.5,
+            "zoom": 5
+          },
+          {
+            "at": "separate",
+            "lon": 27.4,
+            "lat": -29.2,
+            "zoom": 7.5
+          }
+        ],
+        "warm": [
+          {
+            "name": "South Africa",
+            "at": 0
+          }
+        ],
+        "gold": [
+          {
+            "name": "Lesotho",
+            "at": 0
+          }
+        ],
+        "outline": [
+          {
+            "name": "South Africa",
+            "at": "borders"
+          },
+          {
+            "name": "Lesotho",
+            "at": "lesotho",
+            "color": "gold"
+          }
+        ],
+        "labels": [
+          {
+            "text": "South Africa",
+            "lon": 23.2,
+            "lat": -31.5,
+            "at": "south",
+            "tone": "muted",
+            "dot": false
+          },
+          {
+            "text": "Lesotho",
+            "name": "Lesotho",
+            "at": "lesotho",
+            "tone": "white"
+          }
+        ],
+        "texts": [
+          {
+            "text": "Completely enclosed",
+            "at": "separate",
+            "style": "stamp",
+            "y": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "s08-people",
+      "type": "atlas",
+      "duration": 2,
+      "narrationOffset": 0.2,
+      "narrationTail": 0.4,
+      "narration": "Today, more than two million people live in this mountain kingdom.",
+      "sfx": [
+        {
+          "asset": "es-click",
+          "at": "two",
+          "gainDb": -2,
+          "offset": 0
+        },
+        {
+          "asset": "es-click",
+          "at": "two",
+          "gainDb": -2,
+          "offset": 0.15
+        },
+        {
+          "asset": "es-click",
+          "at": "two",
+          "gainDb": -2,
+          "offset": 0.3
+        },
+        {
+          "asset": "es-click",
+          "at": "two",
+          "gainDb": -2,
+          "offset": 0.45
+        }
+      ],
+      "data": {
+        "focusY": 0.6,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 27.4,
+            "lat": -29.2,
+            "zoom": 7.5
+          },
+          {
+            "at": "people",
+            "lon": 24,
+            "lat": -22,
+            "zoom": 2.2
+          },
+          {
+            "at": "kingdom",
+            "lon": 20,
+            "lat": -8,
+            "zoom": 1.0
+          }
+        ],
+        "warm": [
+          {
+            "name": "South Africa",
+            "at": 0
+          }
+        ],
+        "gold": [
+          {
+            "name": "Lesotho",
+            "at": 0
+          }
+        ],
+        "texts": [
+          {
+            "text": " million",
+            "value": 2.3,
+            "decimals": 1,
+            "at": "two",
+            "style": "count",
+            "y": 0.24,
+            "tone": "gold"
+          },
+          {
+            "text": "People \u00b7 World Bank 2024",
+            "at": "people",
+            "style": "sub",
+            "y": 0.31
+          }
+        ]
+      }
+    },
+    {
+      "id": "s09-only-three",
+      "type": "atlas",
+      "duration": 2,
+      "narrationOffset": 0.2,
+      "narrationTail": 0.55,
+      "narration": "It's one of only three countries in the world completely surrounded by another country.",
+      "sfx": [
+        {
+          "asset": "es-boom",
+          "at": "surrounded",
+          "gainDb": -10,
+          "offset": -0.12
+        }
+      ],
+      "data": {
+        "focusY": 0.6,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 20,
+            "lat": -8,
+            "zoom": 1.0
+          },
+          {
+            "at": "world",
+            "lon": 20,
+            "lat": 6,
+            "zoom": 1.25
+          }
+        ],
+        "warm": [
+          {
+            "name": "South Africa",
+            "at": 0
+          }
+        ],
+        "gold": [
+          {
+            "name": "Lesotho",
+            "at": 0
+          }
+        ],
+        "labels": [
+          {
+            "text": "Lesotho",
+            "lon": 28.2,
+            "lat": -29.6,
+            "at": "three",
+            "tone": "gold"
+          },
+          {
+            "text": "Vatican City",
+            "lon": 12.45,
+            "lat": 41.9,
+            "at": "world",
+            "tone": "white",
+            "dy": 0.7
+          },
+          {
+            "text": "San Marino",
+            "lon": 12.46,
+            "lat": 43.94,
+            "at": "completely",
+            "tone": "white",
+            "dy": -0.7
+          }
+        ],
+        "pulse": [
+          {
+            "name": "Lesotho",
+            "at": "surrounded"
+          }
+        ],
+        "texts": [
+          {
+            "text": "Only three",
+            "at": "three",
+            "style": "stamp",
+            "y": 0.2
+          },
+          {
+            "text": "Completely surrounded",
+            "at": "surrounded",
+            "style": "sub",
+            "y": 0.27,
+            "tone": "gold"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s10-end",
+      "type": "atlas",
+      "duration": 2,
+      "narrationOffset": 0.6,
+      "narrationTail": 1.6,
+      "narration": "Geography is wild.",
+      "sfx": [
+        {
+          "asset": "es-impact",
+          "at": "geography",
+          "gainDb": 3,
+          "offset": -0.2
+        }
+      ],
+      "data": {
+        "focusY": 0.6,
+        "camera": [
+          {
+            "at": 0,
+            "lon": 20,
+            "lat": 6,
+            "zoom": 1.25
+          },
+          {
+            "at": "geography",
+            "lon": 15,
+            "lat": 5,
+            "zoom": 0.5
+          }
+        ],
+        "warm": [
+          {
+            "name": "South Africa",
+            "at": 0
+          }
+        ],
+        "gold": [
+          {
+            "name": "Lesotho",
+            "at": 0
+          }
+        ],
+        "texts": [
+          {
+            "text": "Geography is wild.",
+            "at": "geography",
+            "style": "hero",
+            "y": 0.25
+          },
+          {
+            "text": "Follow for more",
+            "at": "wild",
+            "style": "sub",
+            "y": 0.33,
+            "tone": "gold"
+          }
+        ],
+        "shake": [
+          "geography"
+        ]
+      }
+    }
+  ]
+}

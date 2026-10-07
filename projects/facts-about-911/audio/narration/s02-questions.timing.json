@@ -1,0 +1,100 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "But",
+      "start": 0.075,
+      "end": 0.21250000000000002
+    },
+    {
+      "word": "why",
+      "start": 0.225,
+      "end": 0.45
+    },
+    {
+      "word": "is",
+      "start": 0.4625,
+      "end": 0.5875
+    },
+    {
+      "word": "it",
+      "start": 0.6,
+      "end": 0.7125
+    },
+    {
+      "word": "911",
+      "start": 0.725,
+      "end": 1.6749999999999998
+    },
+    {
+      "word": "Who",
+      "start": 2.075,
+      "end": 2.2625
+    },
+    {
+      "word": "created",
+      "start": 2.275,
+      "end": 2.8
+    },
+    {
+      "word": "it",
+      "start": 2.8125,
+      "end": 3.075
+    },
+    {
+      "word": "What",
+      "start": 3.475,
+      "end": 3.65
+    },
+    {
+      "word": "did",
+      "start": 3.6625,
+      "end": 3.8000000000000003
+    },
+    {
+      "word": "Americans",
+      "start": 3.8125,
+      "end": 4.4125
+    },
+    {
+      "word": "do",
+      "start": 4.425,
+      "end": 4.7124999999999995
+    },
+    {
+      "word": "before",
+      "start": 4.725,
+      "end": 5.1125
+    },
+    {
+      "word": "911",
+      "start": 5.125,
+      "end": 5.9625
+    },
+    {
+      "word": "existed",
+      "start": 5.975,
+      "end": 6.6499999999999995
+    },
+    {
+      "word": "And",
+      "start": 7.05,
+      "end": 7.2375
+    },
+    {
+      "word": "perhaps",
+      "start": 7.25,
+      "end": 7.7375
+    },
+    {
+      "word": "most",
+      "start": 7.75,
+      "end": 8.125
+    },
+    {
+      "word": "interestingly\u00e2\u20ac",
+      "start": 8.15,
+      "end": 9.450000000000001
+    }
+  ]
+}

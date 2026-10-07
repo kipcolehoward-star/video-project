@@ -1,0 +1,1426 @@
+{
+  "engine": "whisper.cpp b5454 ggml-base.en (timing) + script text (display)",
+  "scenes": {
+    "s1-hook": {
+      "audioHash": "1c58dc2f224af4cf",
+      "words": [
+        {
+          "text": "Your",
+          "start": 0.06,
+          "end": 0.18,
+          "matched": true
+        },
+        {
+          "text": "phone",
+          "start": 0.24,
+          "end": 0.45,
+          "matched": true
+        },
+        {
+          "text": "can",
+          "start": 0.45,
+          "end": 0.6,
+          "matched": true
+        },
+        {
+          "text": "find",
+          "start": 0.6,
+          "end": 0.8,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 0.8,
+          "end": 0.95,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 0.95,
+          "end": 1.03,
+          "matched": true
+        },
+        {
+          "text": "within",
+          "start": 1.08,
+          "end": 1.39,
+          "matched": true
+        },
+        {
+          "text": "about",
+          "start": 1.4,
+          "end": 1.64,
+          "matched": true
+        },
+        {
+          "text": "five",
+          "emphasis": true,
+          "start": 1.8,
+          "end": 2.004,
+          "matched": false
+        },
+        {
+          "text": "metres,",
+          "emphasis": true,
+          "start": 2.004,
+          "end": 2.31,
+          "matched": false
+        },
+        {
+          "text": "out",
+          "start": 2.68,
+          "end": 2.94,
+          "matched": true
+        },
+        {
+          "text": "under",
+          "start": 2.94,
+          "end": 3.47,
+          "matched": true
+        },
+        {
+          "text": "open",
+          "start": 3.47,
+          "end": 3.85,
+          "matched": true
+        },
+        {
+          "text": "sky.",
+          "start": 3.92,
+          "end": 4.22,
+          "matched": true
+        },
+        {
+          "text": "It",
+          "start": 4.28,
+          "end": 4.4,
+          "matched": true
+        },
+        {
+          "text": "does",
+          "start": 4.46,
+          "end": 4.64,
+          "matched": true
+        },
+        {
+          "text": "it",
+          "start": 4.64,
+          "end": 4.76,
+          "matched": true
+        },
+        {
+          "text": "by",
+          "start": 4.78,
+          "end": 4.9,
+          "matched": true
+        },
+        {
+          "text": "listening",
+          "start": 4.94,
+          "end": 5.56,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 5.56,
+          "end": 5.69,
+          "matched": true
+        },
+        {
+          "text": "clocks",
+          "emphasis": true,
+          "start": 5.74,
+          "end": 6.12,
+          "matched": true
+        },
+        {
+          "text": "in",
+          "emphasis": true,
+          "start": 6.12,
+          "end": 6.26,
+          "matched": true
+        },
+        {
+          "text": "space.",
+          "emphasis": true,
+          "start": 6.26,
+          "end": 6.86,
+          "matched": true
+        }
+      ],
+      "recognized": "Your phone can find you to within about 5 meters out under open sky. It does it by listening to clocks in space."
+    },
+    "s2-constellation": {
+      "audioHash": "78f8863a6557083e",
+      "words": [
+        {
+          "text": "More",
+          "start": 0.05,
+          "end": 0.27,
+          "matched": true
+        },
+        {
+          "text": "than",
+          "start": 0.27,
+          "end": 0.54,
+          "matched": true
+        },
+        {
+          "text": "thirty",
+          "start": 0.54,
+          "end": 0.87,
+          "matched": false
+        },
+        {
+          "text": "GPS",
+          "start": 0.99,
+          "end": 1.15,
+          "matched": true
+        },
+        {
+          "text": "satellites",
+          "start": 1.15,
+          "end": 1.76,
+          "matched": true
+        },
+        {
+          "text": "circle",
+          "start": 1.87,
+          "end": 2.21,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 2.26,
+          "end": 2.45,
+          "matched": true
+        },
+        {
+          "text": "Earth,",
+          "start": 2.45,
+          "end": 2.92,
+          "matched": true
+        },
+        {
+          "text": "about",
+          "start": 2.99,
+          "end": 3.31,
+          "matched": true
+        },
+        {
+          "text": "twenty",
+          "start": 3.31,
+          "end": 3.6775,
+          "matched": false
+        },
+        {
+          "text": "thousand",
+          "start": 3.6775,
+          "end": 4.1675,
+          "matched": false
+        },
+        {
+          "text": "kilometres",
+          "start": 4.1675,
+          "end": 4.78,
+          "matched": false
+        },
+        {
+          "text": "up.",
+          "start": 5.19,
+          "end": 5.4,
+          "matched": true
+        },
+        {
+          "text": "Each",
+          "start": 5.45,
+          "end": 5.66,
+          "matched": true
+        },
+        {
+          "text": "carries",
+          "start": 5.66,
+          "end": 6.07,
+          "matched": true
+        },
+        {
+          "text": "atomic",
+          "emphasis": true,
+          "start": 6.15,
+          "end": 6.51,
+          "matched": true
+        },
+        {
+          "text": "clocks,",
+          "emphasis": true,
+          "start": 6.51,
+          "end": 6.9,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 6.9,
+          "end": 7.09,
+          "matched": true
+        },
+        {
+          "text": "broadcasts",
+          "start": 7.09,
+          "end": 7.69,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 7.76,
+          "end": 7.93,
+          "matched": true
+        },
+        {
+          "text": "exact",
+          "start": 7.93,
+          "end": 8.049999999999999,
+          "matched": true
+        },
+        {
+          "text": "time",
+          "start": 8.31,
+          "end": 8.48,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 8.65,
+          "end": 8.72,
+          "matched": false
+        },
+        {
+          "text": "its",
+          "start": 8.72,
+          "end": 8.93,
+          "matched": true
+        },
+        {
+          "text": "own",
+          "start": 9.02,
+          "end": 9.2,
+          "matched": true
+        },
+        {
+          "text": "position,",
+          "start": 9.22,
+          "end": 10.08,
+          "matched": true
+        },
+        {
+          "text": "over",
+          "start": 10.08,
+          "end": 10.18,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 10.56,
+          "end": 10.68,
+          "matched": true
+        },
+        {
+          "text": "over.",
+          "start": 10.71,
+          "end": 10.9,
+          "matched": true
+        }
+      ],
+      "recognized": "More than 30 GPS satellites circle the Earth, about 20,000 kilometers up. Each carries atomic clocks and broadcasts the exact time in its own position, over and over."
+    },
+    "s3-delay": {
+      "audioHash": "fd7c7c2833c67350",
+      "words": [
+        {
+          "text": "Your",
+          "start": 0.08,
+          "end": 0.3,
+          "matched": true
+        },
+        {
+          "text": "phone",
+          "start": 0.3,
+          "end": 0.67,
+          "matched": true
+        },
+        {
+          "text": "notes",
+          "start": 0.67,
+          "end": 1.02,
+          "matched": true
+        },
+        {
+          "text": "when",
+          "start": 1.06,
+          "end": 1.34,
+          "matched": true
+        },
+        {
+          "text": "each",
+          "start": 1.34,
+          "end": 1.64,
+          "matched": true
+        },
+        {
+          "text": "signal",
+          "start": 1.64,
+          "end": 2.02,
+          "matched": true
+        },
+        {
+          "text": "arrives.",
+          "start": 2.09,
+          "end": 2.68,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 2.75,
+          "end": 2.84,
+          "matched": true
+        },
+        {
+          "text": "signal",
+          "start": 2.95,
+          "end": 3.29,
+          "matched": true
+        },
+        {
+          "text": "travels",
+          "start": 3.29,
+          "end": 3.77,
+          "matched": true
+        },
+        {
+          "text": "at",
+          "start": 3.77,
+          "end": 3.86,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 3.92,
+          "end": 4.1,
+          "matched": true
+        },
+        {
+          "text": "speed",
+          "emphasis": true,
+          "start": 4.1,
+          "end": 4.44,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "emphasis": true,
+          "start": 4.44,
+          "end": 4.57,
+          "matched": true
+        },
+        {
+          "text": "light,",
+          "emphasis": true,
+          "start": 4.57,
+          "end": 4.85,
+          "matched": true
+        },
+        {
+          "text": "so",
+          "start": 5.09,
+          "end": 5.21,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 5.28,
+          "end": 5.37,
+          "matched": true
+        },
+        {
+          "text": "delay",
+          "start": 5.37,
+          "end": 5.62,
+          "matched": true
+        },
+        {
+          "text": "reveals",
+          "start": 5.62,
+          "end": 6.24,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 6.25,
+          "end": 6.46,
+          "matched": true
+        },
+        {
+          "text": "distance.",
+          "start": 6.56,
+          "end": 7.32,
+          "matched": true
+        },
+        {
+          "text": "From",
+          "start": 7.47,
+          "end": 7.56,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 7.67,
+          "end": 7.72,
+          "matched": true
+        },
+        {
+          "text": "satellite",
+          "start": 7.72,
+          "end": 8.31,
+          "matched": true
+        },
+        {
+          "text": "overhead,",
+          "start": 8.31,
+          "end": 8.95,
+          "matched": true
+        },
+        {
+          "text": "about",
+          "start": 8.96,
+          "end": 9.29,
+          "matched": true
+        },
+        {
+          "text": "seven",
+          "start": 9.29,
+          "end": 9.549999999999999,
+          "matched": false
+        },
+        {
+          "text": "hundredths",
+          "start": 9.549999999999999,
+          "end": 10.07,
+          "matched": false
+        },
+        {
+          "text": "of",
+          "start": 10.1,
+          "end": 10.2,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 10.2,
+          "end": 10.26,
+          "matched": true
+        },
+        {
+          "text": "second",
+          "start": 10.26,
+          "end": 10.49,
+          "matched": true
+        },
+        {
+          "text": "means",
+          "start": 10.65,
+          "end": 10.97,
+          "matched": true
+        },
+        {
+          "text": "twenty",
+          "start": 10.97,
+          "end": 11.3475,
+          "matched": false
+        },
+        {
+          "text": "thousand",
+          "start": 11.3475,
+          "end": 11.850833333333334,
+          "matched": false
+        },
+        {
+          "text": "kilometres.",
+          "start": 11.850833333333334,
+          "end": 12.48,
+          "matched": false
+        }
+      ],
+      "recognized": "Your phone notes when each signal arrives. The signal travels at the speed of light so the delay reveals the distance. From a satellite overhead, about 700ths of a second means 20,000 km."
+    },
+    "s4-trilateration": {
+      "audioHash": "07ee7cf00b6ae668",
+      "words": [
+        {
+          "text": "One",
+          "start": 0.05,
+          "end": 0.15,
+          "matched": true
+        },
+        {
+          "text": "distance",
+          "start": 0.15,
+          "end": 0.55,
+          "matched": true
+        },
+        {
+          "text": "puts",
+          "start": 0.56,
+          "end": 0.68,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 0.77,
+          "end": 0.91,
+          "matched": true
+        },
+        {
+          "text": "somewhere",
+          "start": 0.91,
+          "end": 1.4,
+          "matched": true
+        },
+        {
+          "text": "on",
+          "start": 1.4,
+          "end": 1.51,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 1.51,
+          "end": 1.63,
+          "matched": true
+        },
+        {
+          "text": "giant",
+          "start": 1.63,
+          "end": 1.84,
+          "matched": true
+        },
+        {
+          "text": "sphere",
+          "start": 1.84,
+          "end": 2.19,
+          "matched": true
+        },
+        {
+          "text": "around",
+          "start": 2.2,
+          "end": 2.48,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 2.48,
+          "end": 2.84,
+          "matched": true
+        },
+        {
+          "text": "satellite.",
+          "start": 2.84,
+          "end": 3.7,
+          "matched": true
+        },
+        {
+          "text": "A",
+          "start": 3.75,
+          "end": 3.77,
+          "matched": true
+        },
+        {
+          "text": "second",
+          "start": 3.77,
+          "end": 4.21,
+          "matched": true
+        },
+        {
+          "text": "distance",
+          "start": 4.21,
+          "end": 4.79,
+          "matched": true
+        },
+        {
+          "text": "narrows",
+          "start": 4.79,
+          "end": 5.25,
+          "matched": true
+        },
+        {
+          "text": "it",
+          "start": 5.34,
+          "end": 5.44,
+          "matched": true
+        },
+        {
+          "text": "down.",
+          "start": 5.44,
+          "end": 5.98,
+          "matched": true
+        },
+        {
+          "text": "A",
+          "start": 6.03,
+          "end": 6.06,
+          "matched": true
+        },
+        {
+          "text": "third",
+          "start": 6.06,
+          "end": 6.48,
+          "matched": true
+        },
+        {
+          "text": "leaves",
+          "start": 6.48,
+          "end": 6.99,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 6.99,
+          "end": 7.07,
+          "matched": true
+        },
+        {
+          "text": "single",
+          "emphasis": true,
+          "start": 7.07,
+          "end": 7.53,
+          "matched": true
+        },
+        {
+          "text": "point.",
+          "emphasis": true,
+          "start": 7.62,
+          "end": 8.13,
+          "matched": true
+        },
+        {
+          "text": "And",
+          "start": 8.13,
+          "end": 8.27,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 8.27,
+          "end": 8.31,
+          "matched": true
+        },
+        {
+          "text": "fourth",
+          "start": 8.31,
+          "end": 8.52,
+          "matched": true
+        },
+        {
+          "text": "satellite",
+          "start": 8.61,
+          "end": 9.08,
+          "matched": true
+        },
+        {
+          "text": "corrects",
+          "start": 9.08,
+          "end": 9.6,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 9.72,
+          "end": 9.74,
+          "matched": true
+        },
+        {
+          "text": "cheap",
+          "start": 9.74,
+          "end": 9.98,
+          "matched": true
+        },
+        {
+          "text": "clock",
+          "start": 9.98,
+          "end": 10.2,
+          "matched": true
+        },
+        {
+          "text": "inside",
+          "start": 10.27,
+          "end": 10.57,
+          "matched": true
+        },
+        {
+          "text": "your",
+          "start": 10.63,
+          "end": 10.79,
+          "matched": true
+        },
+        {
+          "text": "phone.",
+          "start": 10.83,
+          "end": 11.13,
+          "matched": true
+        }
+      ],
+      "recognized": "One distance puts you somewhere on a giant sphere around that satellite. A second distance narrows it down. A third leaves a single point, and a fourth satellite corrects the cheap clock inside your phone."
+    },
+    "s5-sensitivity": {
+      "audioHash": "f9a023866757a380",
+      "words": [
+        {
+          "text": "That's",
+          "start": 0.08,
+          "end": 0.46,
+          "matched": true
+        },
+        {
+          "text": "why",
+          "start": 0.46,
+          "end": 0.69,
+          "matched": true
+        },
+        {
+          "text": "timing",
+          "start": 0.69,
+          "end": 1.09,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 1.15,
+          "end": 1.29,
+          "matched": true
+        },
+        {
+          "text": "everything.",
+          "start": 1.29,
+          "end": 2.14,
+          "matched": true
+        },
+        {
+          "text": "A",
+          "start": 2.21,
+          "end": 2.22,
+          "matched": true
+        },
+        {
+          "text": "clock",
+          "start": 2.22,
+          "end": 2.56,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 2.56,
+          "end": 2.84,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 2.84,
+          "end": 2.98,
+          "matched": true
+        },
+        {
+          "text": "off",
+          "start": 2.98,
+          "end": 3.19,
+          "matched": true
+        },
+        {
+          "text": "by",
+          "start": 3.19,
+          "end": 3.31,
+          "matched": true
+        },
+        {
+          "text": "just",
+          "start": 3.31,
+          "end": 3.52,
+          "matched": true
+        },
+        {
+          "text": "one",
+          "start": 3.65,
+          "end": 3.71,
+          "matched": false
+        },
+        {
+          "text": "millionth",
+          "start": 3.71,
+          "end": 4.24,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 4.32,
+          "end": 4.34,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 4.34,
+          "end": 4.48,
+          "matched": false
+        },
+        {
+          "text": "second",
+          "start": 4.53,
+          "end": 4.73,
+          "matched": true
+        },
+        {
+          "text": "puts",
+          "start": 4.85,
+          "end": 5,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 5,
+          "end": 5.18,
+          "matched": true
+        },
+        {
+          "text": "about",
+          "start": 5.18,
+          "end": 5.48,
+          "matched": true
+        },
+        {
+          "text": "three",
+          "emphasis": true,
+          "start": 5.48,
+          "end": 5.707777777777778,
+          "matched": false
+        },
+        {
+          "text": "hundred",
+          "emphasis": true,
+          "start": 5.707777777777778,
+          "end": 6.026666666666667,
+          "matched": false
+        },
+        {
+          "text": "metres",
+          "emphasis": true,
+          "start": 6.026666666666667,
+          "end": 6.300000000000001,
+          "matched": false
+        },
+        {
+          "text": "from",
+          "start": 6.39,
+          "end": 6.56,
+          "matched": true
+        },
+        {
+          "text": "where",
+          "start": 6.56,
+          "end": 6.7,
+          "matched": true
+        },
+        {
+          "text": "you",
+          "start": 6.7,
+          "end": 6.92,
+          "matched": true
+        },
+        {
+          "text": "are.",
+          "start": 7.02,
+          "end": 7.2,
+          "matched": true
+        }
+      ],
+      "recognized": "That's why timing is everything. A clock that is off by just 1 millionth of the second puts you about 300 meters from where you are."
+    },
+    "s6-relativity": {
+      "audioHash": "fb81b024a3a99a78",
+      "words": [
+        {
+          "text": "And",
+          "start": 0.05,
+          "end": 0.22,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 0.22,
+          "end": 0.44,
+          "matched": true
+        },
+        {
+          "text": "satellite",
+          "start": 0.44,
+          "end": 1.05,
+          "matched": true
+        },
+        {
+          "text": "clocks",
+          "start": 1.15,
+          "end": 1.55,
+          "matched": true
+        },
+        {
+          "text": "do",
+          "start": 1.55,
+          "end": 1.69,
+          "matched": true
+        },
+        {
+          "text": "drift,",
+          "start": 1.69,
+          "end": 1.81,
+          "matched": true
+        },
+        {
+          "text": "because",
+          "start": 2.17,
+          "end": 2.73,
+          "matched": true
+        },
+        {
+          "text": "of",
+          "start": 2.73,
+          "end": 2.88,
+          "matched": true
+        },
+        {
+          "text": "Einstein.",
+          "emphasis": true,
+          "start": 2.95,
+          "end": 3.68,
+          "matched": true
+        },
+        {
+          "text": "Their",
+          "start": 3.73,
+          "end": 3.97,
+          "matched": true
+        },
+        {
+          "text": "speed",
+          "start": 3.97,
+          "end": 4.26,
+          "matched": true
+        },
+        {
+          "text": "slows",
+          "start": 4.26,
+          "end": 4.38,
+          "matched": true
+        },
+        {
+          "text": "them",
+          "start": 4.56,
+          "end": 4.73,
+          "matched": true
+        },
+        {
+          "text": "by",
+          "start": 4.83,
+          "end": 4.95,
+          "matched": true
+        },
+        {
+          "text": "about",
+          "start": 4.98,
+          "end": 5.29,
+          "matched": true
+        },
+        {
+          "text": "seven",
+          "start": 5.29,
+          "end": 5.39,
+          "matched": true
+        },
+        {
+          "text": "microseconds",
+          "start": 5.84,
+          "end": 6.46,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 6.48,
+          "end": 6.6000000000000005,
+          "matched": true
+        },
+        {
+          "text": "day.",
+          "start": 6.63,
+          "end": 7.32,
+          "matched": true
+        },
+        {
+          "text": "The",
+          "start": 7.37,
+          "end": 7.55,
+          "matched": true
+        },
+        {
+          "text": "weaker",
+          "start": 7.55,
+          "end": 8.01,
+          "matched": true
+        },
+        {
+          "text": "gravity",
+          "start": 8.01,
+          "end": 8.52,
+          "matched": true
+        },
+        {
+          "text": "up",
+          "start": 8.6,
+          "end": 8.7,
+          "matched": true
+        },
+        {
+          "text": "there",
+          "start": 8.7,
+          "end": 9.03,
+          "matched": false
+        },
+        {
+          "text": "speeds",
+          "start": 9.48,
+          "end": 9.6,
+          "matched": true
+        },
+        {
+          "text": "them",
+          "start": 9.6,
+          "end": 9.8,
+          "matched": true
+        },
+        {
+          "text": "up",
+          "start": 9.87,
+          "end": 10.01,
+          "matched": true
+        },
+        {
+          "text": "by",
+          "start": 10.01,
+          "end": 10.16,
+          "matched": true
+        },
+        {
+          "text": "forty",
+          "start": 10.16,
+          "end": 10.582222222222223,
+          "matched": false
+        },
+        {
+          "text": "five.",
+          "start": 10.582222222222223,
+          "end": 10.92,
+          "matched": false
+        },
+        {
+          "text": "Overall,",
+          "start": 10.97,
+          "end": 11.61,
+          "matched": true
+        },
+        {
+          "text": "they",
+          "start": 11.62,
+          "end": 11.93,
+          "matched": true
+        },
+        {
+          "text": "gain",
+          "start": 11.93,
+          "end": 12.24,
+          "matched": true
+        },
+        {
+          "text": "thirty",
+          "emphasis": true,
+          "start": 12.24,
+          "end": 12.452727272727273,
+          "matched": false
+        },
+        {
+          "text": "eight",
+          "emphasis": true,
+          "start": 12.452727272727273,
+          "end": 12.63,
+          "matched": false
+        },
+        {
+          "text": "microseconds",
+          "emphasis": true,
+          "start": 12.78,
+          "end": 13.65,
+          "matched": true
+        },
+        {
+          "text": "every",
+          "start": 13.65,
+          "end": 14.04,
+          "matched": true
+        },
+        {
+          "text": "day.",
+          "start": 14.04,
+          "end": 14.42,
+          "matched": true
+        }
+      ],
+      "recognized": "and the satellite clocks do drift because of Einstein. Their speed slows them by about seven microseconds a day. The weaker gravity up their speeds them up by 45. Overall, they gain 38 microseconds every day."
+    },
+    "s7-uncorrected": {
+      "audioHash": "b9ad96ecf81f9bf6",
+      "words": [
+        {
+          "text": "Left",
+          "start": 0.06,
+          "end": 0.16,
+          "matched": true
+        },
+        {
+          "text": "alone,",
+          "start": 0.28,
+          "end": 0.57,
+          "matched": true
+        },
+        {
+          "text": "that",
+          "start": 0.57,
+          "end": 0.7,
+          "matched": true
+        },
+        {
+          "text": "would",
+          "start": 1.12,
+          "end": 1.14,
+          "matched": true
+        },
+        {
+          "text": "add",
+          "start": 1.14,
+          "end": 1.33,
+          "matched": true
+        },
+        {
+          "text": "roughly",
+          "start": 1.33,
+          "end": 1.78,
+          "matched": true
+        },
+        {
+          "text": "ten",
+          "emphasis": true,
+          "start": 1.78,
+          "end": 2.0246153846153847,
+          "matched": false
+        },
+        {
+          "text": "kilometres",
+          "emphasis": true,
+          "start": 2.0246153846153847,
+          "end": 2.84,
+          "matched": false
+        },
+        {
+          "text": "of",
+          "start": 2.84,
+          "end": 2.93,
+          "matched": true
+        },
+        {
+          "text": "error",
+          "start": 3.06,
+          "end": 3.36,
+          "matched": false
+        },
+        {
+          "text": "every",
+          "start": 3.36,
+          "end": 3.83,
+          "matched": true
+        },
+        {
+          "text": "day.",
+          "start": 4.32,
+          "end": 4.44,
+          "matched": true
+        },
+        {
+          "text": "So",
+          "start": 4.44,
+          "end": 4.53,
+          "matched": true
+        },
+        {
+          "text": "before",
+          "start": 4.53,
+          "end": 4.98,
+          "matched": true
+        },
+        {
+          "text": "launch,",
+          "start": 4.98,
+          "end": 5.6,
+          "matched": true
+        },
+        {
+          "text": "engineers",
+          "start": 5.6,
+          "end": 6.06,
+          "matched": true
+        },
+        {
+          "text": "set",
+          "start": 6.07,
+          "end": 6.2,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 6.29,
+          "end": 6.37,
+          "matched": true
+        },
+        {
+          "text": "satellite",
+          "start": 6.45,
+          "end": 6.96,
+          "matched": true
+        },
+        {
+          "text": "clocks",
+          "start": 6.96,
+          "end": 7.31,
+          "matched": true
+        },
+        {
+          "text": "to",
+          "start": 7.44,
+          "end": 7.46,
+          "matched": true
+        },
+        {
+          "text": "tick",
+          "start": 7.46,
+          "end": 7.67,
+          "matched": false
+        },
+        {
+          "text": "slightly",
+          "start": 7.71,
+          "end": 8.18,
+          "matched": true
+        },
+        {
+          "text": "slow.",
+          "start": 8.18,
+          "end": 8.54,
+          "matched": true
+        }
+      ],
+      "recognized": "left alone that would add roughly 10 kilometers of air every day. So before launch, engineers set the satellite clocks to take slightly slow."
+    },
+    "s8-outro": {
+      "audioHash": "0a8996594c9daafc",
+      "words": [
+        {
+          "text": "GPS",
+          "start": 0.07,
+          "end": 0.35,
+          "matched": true
+        },
+        {
+          "text": "is",
+          "start": 0.35,
+          "end": 0.57,
+          "matched": true
+        },
+        {
+          "text": "really",
+          "start": 0.58,
+          "end": 1.28,
+          "matched": true
+        },
+        {
+          "text": "a",
+          "start": 1.28,
+          "end": 1.39,
+          "matched": true
+        },
+        {
+          "text": "timing",
+          "emphasis": true,
+          "start": 1.39,
+          "end": 2.09,
+          "matched": true
+        },
+        {
+          "text": "system.",
+          "emphasis": true,
+          "start": 2.09,
+          "end": 2.88,
+          "matched": true
+        },
+        {
+          "text": "Get",
+          "start": 2.88,
+          "end": 3,
+          "matched": true
+        },
+        {
+          "text": "the",
+          "start": 3.05,
+          "end": 3.08,
+          "matched": true
+        },
+        {
+          "text": "time",
+          "start": 3.08,
+          "end": 3.41,
+          "matched": true
+        },
+        {
+          "text": "right,",
+          "start": 3.41,
+          "end": 3.66,
+          "matched": true
+        },
+        {
+          "text": "and",
+          "start": 3.94,
+          "end": 4.02,
+          "matched": true
+        },
+        {
+          "text": "your",
+          "start": 4.02,
+          "end": 4.26,
+          "matched": true
+        },
+        {
+          "text": "position",
+          "start": 4.26,
+          "end": 4.68,
+          "matched": true
+        },
+        {
+          "text": "follows.",
+          "start": 4.78,
+          "end": 5.24,
+          "matched": true
+        }
+      ],
+      "recognized": "GPS is really a timing system, get the time right and your position follows."
+    }
+  }
+}

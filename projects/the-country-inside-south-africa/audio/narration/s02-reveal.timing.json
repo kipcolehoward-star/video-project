@@ -1,0 +1,55 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "Hidden",
+      "start": 0.090916,
+      "end": 0.454541
+    },
+    {
+      "word": "completely",
+      "start": 0.465916,
+      "end": 0.999999
+    },
+    {
+      "word": "inside",
+      "start": 1.011375,
+      "end": 1.4090829999999999
+    },
+    {
+      "word": "South",
+      "start": 1.420458,
+      "end": 1.7045409999999999
+    },
+    {
+      "word": "Africa",
+      "start": 1.715916,
+      "end": 2.193207
+    },
+    {
+      "word": "is",
+      "start": 2.204541,
+      "end": 2.4090819999999997
+    },
+    {
+      "word": "the",
+      "start": 2.420458,
+      "end": 2.522749
+    },
+    {
+      "word": "kingdom",
+      "start": 2.534083,
+      "end": 2.931791
+    },
+    {
+      "word": "of",
+      "start": 2.943166,
+      "end": 3.0795410000000003
+    },
+    {
+      "word": "Lesotho",
+      "start": 3.090916,
+      "end": 3.6590819999999997
+    }
+  ]
+}

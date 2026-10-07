@@ -1,0 +1,70 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "Was",
+      "start": 0.1125,
+      "end": 0.3375
+    },
+    {
+      "word": "the",
+      "start": 0.35,
+      "end": 0.425
+    },
+    {
+      "word": "emergency",
+      "start": 0.4375,
+      "end": 1.0125
+    },
+    {
+      "word": "number",
+      "start": 1.025,
+      "end": 1.45
+    },
+    {
+      "word": "actually",
+      "start": 1.4625,
+      "end": 1.8125
+    },
+    {
+      "word": "named",
+      "start": 1.825,
+      "end": 2.3375
+    },
+    {
+      "word": "because",
+      "start": 2.35,
+      "end": 2.6875
+    },
+    {
+      "word": "of",
+      "start": 2.7,
+      "end": 2.8125
+    },
+    {
+      "word": "the",
+      "start": 2.825,
+      "end": 2.9250000000000003
+    },
+    {
+      "word": "terrorist",
+      "start": 2.9375,
+      "end": 3.4375
+    },
+    {
+      "word": "attacks",
+      "start": 3.45,
+      "end": 3.9125
+    },
+    {
+      "word": "of",
+      "start": 3.925,
+      "end": 4.05
+    },
+    {
+      "word": "September 11",
+      "start": 4.0625,
+      "end": 5.15
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title",
+      "duration": 4,
+      "data": {
+        "kicker": "",
+        "title": "{{TITLE}}",
+        "subtitle": ""
+      },
+      "narration": ""
+    }
+  ]
+}

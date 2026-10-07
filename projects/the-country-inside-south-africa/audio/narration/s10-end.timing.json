@@ -1,0 +1,20 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "Geography",
+      "start": 0.045458,
+      "end": 0.647749
+    },
+    {
+      "word": "is",
+      "start": 0.659083,
+      "end": 0.806791
+    },
+    {
+      "word": "wild",
+      "start": 0.818166,
+      "end": 1.363624
+    }
+  ]
+}

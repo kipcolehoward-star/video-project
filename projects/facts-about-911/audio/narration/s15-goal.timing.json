@@ -1,0 +1,25 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "The",
+      "start": 0.1,
+      "end": 0.175
+    },
+    {
+      "word": "goal",
+      "start": 0.1875,
+      "end": 0.575
+    },
+    {
+      "word": "was",
+      "start": 0.5875,
+      "end": 0.775
+    },
+    {
+      "word": "simple",
+      "start": 0.7875,
+      "end": 1.35
+    }
+  ]
+}

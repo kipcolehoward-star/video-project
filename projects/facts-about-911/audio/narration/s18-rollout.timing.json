@@ -1,0 +1,210 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "But",
+      "start": 0.0875,
+      "end": 0.16249999999999998
+    },
+    {
+      "word": "here's",
+      "start": 0.175,
+      "end": 0.425
+    },
+    {
+      "word": "something",
+      "start": 0.4375,
+      "end": 0.775
+    },
+    {
+      "word": "important",
+      "start": 0.7875,
+      "end": 1.3375
+    },
+    {
+      "word": "911",
+      "start": 2.025,
+      "end": 2.9
+    },
+    {
+      "word": "didn't",
+      "start": 2.975,
+      "end": 3.25
+    },
+    {
+      "word": "instantly",
+      "start": 3.2625,
+      "end": 3.7
+    },
+    {
+      "word": "become",
+      "start": 3.7125,
+      "end": 4.025
+    },
+    {
+      "word": "available",
+      "start": 4.0375,
+      "end": 4.625
+    },
+    {
+      "word": "everywhere",
+      "start": 4.6375,
+      "end": 5.1625000000000005
+    },
+    {
+      "word": "in",
+      "start": 5.175,
+      "end": 5.35
+    },
+    {
+      "word": "America",
+      "start": 5.3625,
+      "end": 5.875
+    },
+    {
+      "word": "The",
+      "start": 6.2625,
+      "end": 6.3375
+    },
+    {
+      "word": "system",
+      "start": 6.35,
+      "end": 6.8125
+    },
+    {
+      "word": "took",
+      "start": 6.825,
+      "end": 7.05
+    },
+    {
+      "word": "years",
+      "start": 7.0625,
+      "end": 7.425
+    },
+    {
+      "word": "to",
+      "start": 7.4375,
+      "end": 7.5625
+    },
+    {
+      "word": "expand",
+      "start": 7.575,
+      "end": 8.25
+    },
+    {
+      "word": "Different",
+      "start": 8.65,
+      "end": 8.975
+    },
+    {
+      "word": "communities",
+      "start": 8.9875,
+      "end": 9.662500000000001
+    },
+    {
+      "word": "and",
+      "start": 9.675,
+      "end": 9.825000000000001
+    },
+    {
+      "word": "telephone",
+      "start": 9.8375,
+      "end": 10.3125
+    },
+    {
+      "word": "companies",
+      "start": 10.325,
+      "end": 10.875
+    },
+    {
+      "word": "had",
+      "start": 10.8875,
+      "end": 11.375
+    },
+    {
+      "word": "to",
+      "start": 11.3875,
+      "end": 11.5
+    },
+    {
+      "word": "build",
+      "start": 11.5125,
+      "end": 11.899999999999999
+    },
+    {
+      "word": "the",
+      "start": 11.9125,
+      "end": 11.987499999999999
+    },
+    {
+      "word": "infrastructure",
+      "start": 12.0,
+      "end": 12.7
+    },
+    {
+      "word": "necessary",
+      "start": 12.7125,
+      "end": 13.35
+    },
+    {
+      "word": "to",
+      "start": 13.3625,
+      "end": 13.475000000000001
+    },
+    {
+      "word": "route",
+      "start": 13.4875,
+      "end": 13.787500000000001
+    },
+    {
+      "word": "emergency",
+      "start": 13.8,
+      "end": 14.350000000000001
+    },
+    {
+      "word": "calls",
+      "start": 14.3625,
+      "end": 14.825000000000001
+    },
+    {
+      "word": "Eventually",
+      "start": 15.225,
+      "end": 15.9
+    },
+    {
+      "word": "911",
+      "start": 15.925,
+      "end": 16.85
+    },
+    {
+      "word": "became",
+      "start": 16.8625,
+      "end": 17.337500000000002
+    },
+    {
+      "word": "the",
+      "start": 17.35,
+      "end": 17.425
+    },
+    {
+      "word": "standard",
+      "start": 17.4375,
+      "end": 17.8875
+    },
+    {
+      "word": "Americans",
+      "start": 17.9,
+      "end": 18.5
+    },
+    {
+      "word": "know",
+      "start": 18.5125,
+      "end": 18.7
+    },
+    {
+      "word": "today",
+      "start": 18.7125,
+      "end": 19.174999999999997
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "gps-iif-satellite": {
+    "type": "photo",
+    "path": "assets/images/gps-iif-satellite.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Navstar-2F.jpg",
+    "license": "Public domain",
+    "author": "USAF",
+    "provider": "commons",
+    "attributionRequired": false,
+    "credit": "Navstar-2F — USAF (Public domain), via Wikimedia Commons",
+    "retrieved": "2026-10-06",
+    "original": {
+      "width": 2100,
+      "height": 1644
+    },
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.5
+    }
+  }
+}

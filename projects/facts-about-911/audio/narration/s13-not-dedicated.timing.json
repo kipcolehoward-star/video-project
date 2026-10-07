@@ -1,0 +1,120 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "But",
+      "start": 0.075,
+      "end": 0.22499999999999998
+    },
+    {
+      "word": "this",
+      "start": 0.2375,
+      "end": 0.4625
+    },
+    {
+      "word": "wasn't",
+      "start": 0.475,
+      "end": 0.925
+    },
+    {
+      "word": "a",
+      "start": 0.95,
+      "end": 1.0875
+    },
+    {
+      "word": "dedicated",
+      "start": 1.1,
+      "end": 1.7000000000000002
+    },
+    {
+      "word": "emergency",
+      "start": 1.7125,
+      "end": 2.325
+    },
+    {
+      "word": "system",
+      "start": 2.3375,
+      "end": 2.8875
+    },
+    {
+      "word": "It",
+      "start": 3.25,
+      "end": 3.3875
+    },
+    {
+      "word": "depended",
+      "start": 3.4,
+      "end": 3.85
+    },
+    {
+      "word": "on",
+      "start": 3.8625,
+      "end": 4.0
+    },
+    {
+      "word": "the",
+      "start": 4.0125,
+      "end": 4.075
+    },
+    {
+      "word": "operator",
+      "start": 4.0875,
+      "end": 4.75
+    },
+    {
+      "word": "local",
+      "start": 4.775,
+      "end": 5.112500000000001
+    },
+    {
+      "word": "telephone",
+      "start": 5.125,
+      "end": 5.5625
+    },
+    {
+      "word": "infrastructure",
+      "start": 5.575,
+      "end": 6.3875
+    },
+    {
+      "word": "and",
+      "start": 6.7125,
+      "end": 6.9375
+    },
+    {
+      "word": "knowing",
+      "start": 6.95,
+      "end": 7.3500000000000005
+    },
+    {
+      "word": "where",
+      "start": 7.3625,
+      "end": 7.625
+    },
+    {
+      "word": "the",
+      "start": 7.6375,
+      "end": 7.7125
+    },
+    {
+      "word": "appropriate",
+      "start": 7.725,
+      "end": 8.2875
+    },
+    {
+      "word": "emergency",
+      "start": 8.3,
+      "end": 8.8375
+    },
+    {
+      "word": "service",
+      "start": 8.85,
+      "end": 9.275
+    },
+    {
+      "word": "was",
+      "start": 9.2875,
+      "end": 9.6625
+    }
+  ]
+}

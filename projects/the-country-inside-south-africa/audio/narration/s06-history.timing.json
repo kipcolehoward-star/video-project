@@ -1,0 +1,105 @@
+{
+  "engine": "edge-tts en-US-BrianMultilingualNeural",
+  "words": [
+    {
+      "word": "Lesotho",
+      "start": 0.079541,
+      "end": 0.511374
+    },
+    {
+      "word": "survived",
+      "start": 0.522708,
+      "end": 1.045416
+    },
+    {
+      "word": "as",
+      "start": 1.056833,
+      "end": 1.2045409999999999
+    },
+    {
+      "word": "the",
+      "start": 1.215916,
+      "end": 1.295457
+    },
+    {
+      "word": "Basotho",
+      "start": 1.306833,
+      "end": 1.7841239999999998
+    },
+    {
+      "word": "kingdom",
+      "start": 1.795458,
+      "end": 2.159083
+    },
+    {
+      "word": "\u00e2\u20ac",
+      "start": 2.170458,
+      "end": 2.624999
+    },
+    {
+      "word": "under",
+      "start": 2.943166,
+      "end": 3.181791
+    },
+    {
+      "word": "British",
+      "start": 3.193166,
+      "end": 3.488624
+    },
+    {
+      "word": "protection",
+      "start": 3.5,
+      "end": 3.965916
+    },
+    {
+      "word": "\u00e2\u20ac",
+      "start": 3.977291,
+      "end": 4.374999
+    },
+    {
+      "word": "while",
+      "start": 4.977291,
+      "end": 5.170457
+    },
+    {
+      "word": "European",
+      "start": 5.181833,
+      "end": 5.681833
+    },
+    {
+      "word": "colonial",
+      "start": 5.693166,
+      "end": 6.113624
+    },
+    {
+      "word": "powers",
+      "start": 6.125,
+      "end": 6.579541
+    },
+    {
+      "word": "divided",
+      "start": 6.590916,
+      "end": 6.999999
+    },
+    {
+      "word": "much",
+      "start": 7.011375,
+      "end": 7.295458
+    },
+    {
+      "word": "of",
+      "start": 7.306833,
+      "end": 7.374999
+    },
+    {
+      "word": "southern",
+      "start": 7.386375,
+      "end": 7.681833
+    },
+    {
+      "word": "Africa",
+      "start": 7.693166,
+      "end": 8.113624
+    }
+  ]
+}
