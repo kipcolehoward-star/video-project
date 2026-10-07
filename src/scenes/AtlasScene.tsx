@@ -44,7 +44,8 @@ export interface AtlasData {
     text: string;
     at?: At;
     until?: At;
-    style?: 'hero' | 'stamp' | 'sub' | 'count';
+    /** mega: thumbnail-size type (2.6× display) with a heavy outline. */
+    style?: 'hero' | 'stamp' | 'sub' | 'count' | 'mega';
     /** For count: animate 0 → value, shown with `decimals` and `text` as suffix. */
     value?: number;
     decimals?: number;
@@ -91,6 +92,8 @@ export interface AtlasData {
     fromFlag?: string;
     toFlag?: string;
     label?: string;
+    /** Line width multiplier (thumbnails: 2–3). */
+    width?: number;
   }[];
 }
 
@@ -252,7 +255,9 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
   const textStyle = (style: string | undefined, tone: string | undefined): React.CSSProperties => {
     const color = tone === 'gold' ? PALETTE.gold : (PALETTE.textInk ?? PALETTE.ink);
     if (style === 'sub') return {fontFamily: theme.fonts.body, fontSize: Math.round(ctx.type.label * 1.25), fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', color};
-    const size = style === 'stamp' ? ctx.type.display * 0.95 : ctx.type.display * 1.35;
+    const size = style === 'stamp' ? ctx.type.display * 0.95 : style === 'mega' ? ctx.type.display * 2.6 : ctx.type.display * 1.35;
+    if (style === 'mega')
+      return {fontFamily: '"Bebas Neue", "Anton", sans-serif', fontSize: Math.round(size), lineHeight: 0.9, letterSpacing: '0.01em', textTransform: 'uppercase', color, WebkitTextStroke: `${3 * unit}px rgba(0,0,0,0.85)`, paintOrder: 'stroke fill', textShadow: `0 ${6 * unit}px ${30 * unit}px rgba(0,0,0,0.75)`};
     return {fontFamily: '"Bebas Neue", "Anton", sans-serif', fontSize: Math.round(size), lineHeight: 0.95, letterSpacing: '0.01em', textTransform: 'uppercase', color, textShadow: color === '#ffffff' ? `0 ${4 * unit}px ${24 * unit}px rgba(0,0,0,0.65)` : 'none'};
   };
 
@@ -401,8 +406,8 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
                     <>
                       {/* soft dark underlay keeps the line readable over any land colour */}
                       {/* halo in the palette's background tone: dark on dark maps, light on paper */}
-                      <path d={dd} fill="none" stroke={PALETTE.routeHalo ?? PALETTE.halo} strokeOpacity={PALETTE.routeHalo ? 1 : 0.7} strokeWidth={9 * unit} strokeLinecap="round" strokeLinejoin="round" />
-                      <path d={dd} fill="none" stroke={color} strokeWidth={4.5 * unit} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={r.style === 'dashed' ? `${12 * unit} ${9 * unit}` : undefined} />
+                      <path d={dd} fill="none" stroke={PALETTE.routeHalo ?? PALETTE.halo} strokeOpacity={PALETTE.routeHalo ? 1 : 0.7} strokeWidth={9 * unit * (r.width ?? 1)} strokeLinecap="round" strokeLinejoin="round" />
+                      <path d={dd} fill="none" stroke={color} strokeWidth={4.5 * unit * (r.width ?? 1)} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={r.style === 'dashed' ? `${12 * unit} ${9 * unit}` : undefined} />
                     </>
                   ) : null}
                   {r.arrow !== false && tip && t < 1 ? (

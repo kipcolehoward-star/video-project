@@ -254,6 +254,7 @@ UI); square → `social-square`. Override in project.json `safeZoneProfile`.
 | `npm run voiceover -- --dry-run` | show scenes/characters that would be generated (and billed) |
 | `npm run image -- search/pick ...` | licensed image search with thumbnail sheet; pick writes assets.json |
 | `npm run credits` | attribution text for the video description |
+| `npm run posters -- --project <id> [--only a,b]` | thumbnails / logo / banner from `posters.json` (one atlas-or-any scene per image, any size e.g. 1280x720, 800x800, 2560x1440) → `output/<id>-<name>.png/.jpg`. Thumbnail text: atlas `texts` style `mega`; thick lines: route `width: 2–3` |
 | `npm run geo:setup [-- --force]` | build Natural Earth map layers into data/geo/ |
 | `npm run audio:add -- ...` | download a licensed audio file (Epidemic signed URL) into the project + assets.json |
 | `npm run typecheck` | tsc |
