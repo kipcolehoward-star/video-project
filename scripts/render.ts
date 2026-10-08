@@ -8,6 +8,11 @@
  *   --from s10-why-911 --to s14-fire-chiefs    a scene range
  *   Scene ids may be given by prefix: --from s10 --to s14
  *
+ * Long videos (> 2 min) render in ~60 s parts automatically: resumable (re-run
+ * the same command after an interruption), stall watchdog, lossless join with
+ * the master audio. --chunk <seconds> sets the part length, --no-chunks renders
+ * in one pass, --keep-parts keeps the parts after joining.
+ *
  * Format priority: --format(s) > VIDEO_FORMAT env > project.json.
  * Rebuilds a stale audio mix, validates before and runs QC after every render.
  */
@@ -19,6 +24,7 @@ import {checkAssets, checkFonts, checkGeo, checkLayout, checkNarration, checkSto
 import {buildMix} from './lib/mix';
 import {buildProps, currentMix, loadProject, parseArgs, pickProject, rel, resolveProjectFormat} from './lib/project';
 import {qcFile} from './lib/qc';
+import {renderChunked} from './lib/chunked';
 import {bundleProject, closeBrowser, RENDER_DEFAULTS, renderVideo} from './lib/remotion';
 
 const args = parseArgs();
@@ -84,7 +90,27 @@ for (const fmt of formats) {
   const output = path.join(outDir, `${id}_${formatSlug(fmt)}${suffix}.mp4`);
 
   console.log(`\n▶ ${fmt.id}  ${fmt.width}x${fmt.height} @ ${fmt.fps}fps  (${fmt.orientation}, ${props.transcript ? `${props.captionStyle} captions` : 'no captions'}, ${props.audioMix ? 'mixed audio' : 'silent'})${preview ? '  [preview, 50% scale]' : ''}`);
-  await renderVideo({serveUrl, props, output, preview, frameRange, concurrency: args.str('concurrency') ? Number(args.str('concurrency')) : undefined});
+  const concurrency = args.str('concurrency') ? Number(args.str('concurrency')) : undefined;
+  const totalFrames = buildTimeline(p.storyboard, fmt.fps).durationInFrames;
+  const range: [number, number] = frameRange ?? [0, totalFrames - 1];
+  const seconds = (range[1] - range[0] + 1) / fmt.fps;
+  const chunkSeconds = args.str('chunk') ? Number(args.str('chunk')) : 60;
+  if (!args.bool('no-chunks') && (args.str('chunk') || seconds > 120)) {
+    await renderChunked({
+      serveUrl,
+      props,
+      output,
+      preview,
+      range,
+      fps: fmt.fps,
+      chunkSeconds,
+      audioFile: props.audioMix ? path.join(p.dir, props.audioMix) : null,
+      concurrency,
+      keepParts: args.bool('keep-parts'),
+    });
+  } else {
+    await renderVideo({serveUrl, props, output, preview, frameRange, concurrency});
+  }
 
   const scale = preview ? RENDER_DEFAULTS.previewScale : 1;
   const findings = qcFile(output, {

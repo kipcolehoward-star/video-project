@@ -5,7 +5,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {bundle} from '@remotion/bundler';
-import {openBrowser, renderMedia, renderStill, selectComposition} from '@remotion/renderer';
+import {openBrowser, renderMedia, renderStill, selectComposition, type CancelSignal} from '@remotion/renderer';
 import type {MainProps} from '../../src/config/project';
 import {ROOT} from './project';
 import {ensureGeoData} from './geodata';
@@ -90,6 +90,11 @@ export async function renderVideo(opts: {
   concurrency?: number;
   /** Inclusive [first, last] frames, to render only part of the timeline. */
   frameRange?: [number, number];
+  /** No audio track (chunks: the master mix is muxed in when they are joined). */
+  muted?: boolean;
+  cancelSignal?: CancelSignal;
+  /** Called with 0–1 progress (in addition to the console progress line). */
+  onProgress?: (progress: number) => void;
 }) {
   const puppeteerInstance = await getBrowser();
   const composition = await selectComposition({serveUrl: opts.serveUrl, id: 'Main', inputProps: opts.props, puppeteerInstance, timeoutInMilliseconds: RENDER_DEFAULTS.timeoutMs});
@@ -114,8 +119,13 @@ export async function renderVideo(opts: {
     // Previews trade encode efficiency for speed; finals use the default (medium) preset.
     ...(opts.preview ? {x264Preset: 'veryfast' as const} : {}),
     ...(opts.frameRange ? {frameRange: opts.frameRange} : {}),
+    ...(opts.muted ? {muted: true} : {}),
+    ...(opts.cancelSignal ? {cancelSignal: opts.cancelSignal} : {}),
     overwrite: true,
-    onProgress: ({progress}) => onP(progress),
+    onProgress: ({progress}) => {
+      onP(progress);
+      opts.onProgress?.(progress);
+    },
   });
   const secs = (Date.now() - t) / 1000;
   const frames = opts.frameRange ? opts.frameRange[1] - opts.frameRange[0] + 1 : composition.durationInFrames;

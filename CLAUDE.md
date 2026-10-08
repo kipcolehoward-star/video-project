@@ -29,12 +29,14 @@ explicitly approves them.
 - **Close the user's Chrome/other heavy apps before rendering.** With Chrome open (≈2 GB),
   free RAM drops below 500 MB: renders fall from ~7 fps to ~1 fps and Chrome startup
   times out. Check free RAM first (PowerShell Win32_OperatingSystem.FreePhysicalMemory).
-- **Long renders: render in chunks.** A single 6-min render froze (idle Chrome/FFmpeg) and
-  background renders get killed by Claude Code under memory pressure while the session is idle.
-  Reliable method: `npm run render -- --from <id> --to <id>` in ~1-min chunks run in the
-  FOREGROUND (each < 10 min), then join with FFmpeg: trim the first 12 frames (0.4 s fade
-  overlap) of every chunk that starts on a fading scene, concat video only, and map the
-  master `audio/mix.wav` as the audio (AAC 320k), `-crf 16`, bt709 tags; then `npm run qc`.
+- **Long renders are chunked automatically** (`scripts/lib/chunked.ts`): anything over 2 min
+  renders in ~60 s parts (exact frame ranges, a fresh browser per part, muted), into
+  `<output>.parts/`. Finished parts are recorded in `parts.json`, so **re-running the same
+  command resumes** after a crash, a page crash or Claude Code killing a background job under
+  memory pressure. A watchdog cancels and retries a part with no progress for 4 min (up to 3 tries).
+  Parts are joined with stream copy (no re-encode) and the master `audio/mix.wav` is muxed in;
+  the frame count is verified, then QC runs. Flags: `--chunk <s>` (also forces chunking),
+  `--no-chunks`, `--keep-parts`. (History: single 6-min renders froze; manual chunking worked.)
 - Consequences: render concurrency 2; review edits with `render:preview --scenes …`
   (partial, 50% scale) and only render the full video at the end; an 8-minute
   photo/map-heavy video takes ~50 min at full quality; full 1080p renders run ~1–3 fps. Avoid GPU-only/PyTorch tools.
@@ -244,7 +246,7 @@ UI); square → `social-square`. Override in project.json `safeZoneProfile`.
 | `npm run render:preview -- --project <id> [--format 9:16]` | 50% scale, veryfast x264, JPEG 70 → `previews/` (review drafts) |
 | `npm run render:preview -- --project <id> --scenes s16,s17` | only those scenes (+ everything between), with their audio — fastest way to check an edit |
 | `npm run render -- --project <id> --from s10 --to s14` | partial final-quality render of a scene range (ids or unique prefixes) |
-| `npm run render -- --project <id> [--format 9:16] [--guides]` | full render → `output/`, then QC |
+| `npm run render -- --project <id> [--format 9:16] [--guides]` | full render → `output/`, then QC; long videos render in resumable parts automatically (re-run to resume) |
 | `npm run render:all-formats -- --project <id>` | 16:9, 9:16, 1:1 from one bundle |
 | `npm run qc -- <file.mp4> --project <id> [--format 9:16]` | QC an existing file |
 | `npm run clean` | delete previews + caches (never `output/`) |
