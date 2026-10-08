@@ -116,3 +116,9 @@ export function resolveFormat(spec: FormatSpec | string): VideoFormat {
 
 /** Filesystem-safe slug for output file names. */
 export const formatSlug = (f: VideoFormat) => `${f.id.replace(/:/g, 'x')}_${f.width}x${f.height}`;
+
+/** Platform image specs for channel branding (YouTube): profile picture and banner. */
+export const BRAND_SIZES = {
+  logo: {width: 800, height: 800},
+  banner: {width: 2560, height: 1440},
+} as const;

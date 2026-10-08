@@ -1,6 +1,8 @@
 import React from 'react';
 import {Composition, type CalculateMetadataFunction} from 'remotion';
+import {BrandBanner, BrandLogo} from './compositions/Brand';
 import {Main} from './compositions/Main';
+import {BRAND_SIZES} from './config/formats';
 import {buildTimeline, type MainProps} from './config/project';
 import studioProps from './generated/studio-props.json';
 
@@ -21,6 +23,7 @@ const calculateMetadata: CalculateMetadataFunction<MainProps> = ({props}) => {
 };
 
 export const RemotionRoot: React.FC = () => (
+  <>
   <Composition
     id="Main"
     component={Main}
@@ -32,4 +35,7 @@ export const RemotionRoot: React.FC = () => (
     fps={30}
     durationInFrames={1}
   />
+  <Composition id="BrandLogo" component={BrandLogo} {...BRAND_SIZES.logo} fps={30} durationInFrames={1} />
+  <Composition id="BrandBanner" component={BrandBanner} {...BRAND_SIZES.banner} fps={30} durationInFrames={1} />
+  </>
 );

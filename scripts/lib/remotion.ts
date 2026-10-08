@@ -145,3 +145,11 @@ export async function renderStills(opts: {serveUrl: string; props: MainProps; fr
   }
   return files;
 }
+
+/** Renders frame 0 of a fixed-size composition (e.g. BrandLogo) to a PNG. */
+export async function renderCompositionStill(opts: {serveUrl: string; id: string; output: string}) {
+  const puppeteerInstance = await getBrowser();
+  const composition = await selectComposition({serveUrl: opts.serveUrl, id: opts.id, inputProps: {}, puppeteerInstance, timeoutInMilliseconds: RENDER_DEFAULTS.timeoutMs});
+  await renderStill({serveUrl: opts.serveUrl, composition, inputProps: {}, puppeteerInstance, timeoutInMilliseconds: RENDER_DEFAULTS.timeoutMs, frame: 0, output: opts.output, imageFormat: 'png', overwrite: true});
+  return opts.output;
+}

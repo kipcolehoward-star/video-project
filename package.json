@@ -31,7 +31,8 @@
     "geo:setup": "tsx scripts/geo-setup.ts",
     "secrets:check": "node scripts/check-secrets.mjs",
     "hooks:install": "node scripts/install-hooks.mjs",
-    "posters": "tsx scripts/posters.ts"
+    "posters": "tsx scripts/posters.ts",
+    "brand": "tsx scripts/brand.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.5",
