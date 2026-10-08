@@ -33,7 +33,8 @@
     "hooks:install": "node scripts/install-hooks.mjs",
     "posters": "tsx scripts/posters.ts",
     "brand": "tsx scripts/brand.ts",
-    "short": "tsx scripts/short.ts"
+    "short": "tsx scripts/short.ts",
+    "paleo:setup": "tsx scripts/paleo-setup.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.5",

@@ -7,6 +7,7 @@ import type {GeometryCollection, Topology} from 'topojson-specification';
 import worldTopo from 'world-atlas/countries-50m.json';
 import world110Topo from 'world-atlas/countries-110m.json';
 import {SatelliteGlobe} from '../graphics/geo/Satellite';
+import {boundaryLines, paleoLand, paleoPoint, usePaleo, usePaleoBoundaries} from '../graphics/geo/paleo';
 import {routePoint, routeUpTo, sampleRoute, type LonLat} from '../graphics/geo/routes';
 import {fixWinding, flagUrl, inView, usePreloadImages, useGeoLayer, visibleAngle, type FC} from '../graphics/geo/data';
 import {EASE_IN_OUT, EASE_OUT, progress} from '../animations/motion';
@@ -44,7 +45,7 @@ export interface AtlasData {
   fade?: {names: string[]; at?: At};
   outline?: {name: string; at?: At; color?: 'white' | 'gold'}[];
   pulse?: {name: string; at?: At}[];
-  labels?: {text: string; name?: string; lon?: number; lat?: number; at?: At; tone?: 'gold' | 'white' | 'muted'; /** vertical offset in label heights (+ down) */ dy?: number; /** pin dot for point labels (default true; false for region names) */ dot?: boolean}[];
+  labels?: {text: string; name?: string; lon?: number; lat?: number; until?: At; /** paleo: today's lon/lat on this plate; the label moves with it. */ pid?: number; at?: At; tone?: 'gold' | 'white' | 'muted'; /** vertical offset in label heights (+ down) */ dy?: number; /** pin dot for point labels (default true; false for region names) */ dot?: boolean}[];
   texts?: {
     text: string;
     at?: At;
@@ -68,6 +69,21 @@ export interface AtlasData {
    * vector map between zoom 1.3 and 3.2 (the imagery is soft beyond that).
    */
   basemap?: 'vector' | 'satellite';
+  /** No land at all (an early, molten Earth): ocean sphere and grid only. */
+  blank?: boolean;
+  /**
+   * Deep time: draw the continents as they were `ma` million years ago from a
+   * plate model (npm run paleo:setup), instead of today's countries. `ma`
+   * keyframes animate the drift (linear in time). `counter` shows the age.
+   */
+  paleo?: {
+    model: 'muller2019' | 'merdith2021';
+    ma: {at?: At; ma: number}[];
+    counter?: {y?: number; at?: At; until?: At};
+    /** Today's plate boundaries (ridges gold, subduction zones red). */
+    boundaries?: boolean;
+    boundariesAt?: At;
+  };
   /** Coastline detail. auto: 110m when whole-Earth, 50m mid, 10m for close zooms. */
   detail?: 'auto' | '50m' | '10m';
   /** Extra Natural Earth layers (run npm run geo:setup once). */
@@ -191,6 +207,20 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
   const zoomK = ctx.format.orientation === 'portrait' ? (d.portraitZoom ?? 1) : 1;
   zoom *= zoomK;
 
+  // ---- deep time: age keyframes (linear), land rotated by the plate model
+  const paleo = usePaleo(d.paleo && !d.background ? d.paleo.model : null);
+  const paleoB = usePaleoBoundaries(d.paleo?.boundaries && !d.background ? d.paleo.model : null);
+  let ma = 0;
+  if (d.paleo) {
+    const ks = d.paleo.ma.map((k, i, all) => ({ma: k.ma, f: at(k.at, Math.round((i / Math.max(1, all.length - 1)) * durationInFrames))}));
+    ma = ks[0].ma;
+    for (let i = 0; i < ks.length - 1; i++) {
+      if (frame >= ks[i].f) ma = interpolate(frame, [ks[i].f, Math.max(ks[i].f + 1, ks[i + 1].f)], [ks[i].ma, ks[i + 1].ma], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+    }
+  }
+  const paleoFeatures = paleo ? paleoLand(paleo, ma) : null;
+  const paleoBounds = paleoB ? boundaryLines(paleoB) : null;
+
   // ---- impact shake (small, decaying)
   const shakeOffset = (d.shake ?? []).reduce<number>((acc, s) => {
     const f0 = at(s, -999);
@@ -281,7 +311,20 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
           <svg width={W} height={H} style={{opacity: globeIn, position: 'absolute', left: 0, top: 0}}>
             <path d={path({type: 'Sphere'}) ?? undefined} fill={PALETTE.ocean} fillOpacity={1 - sat} stroke={PALETTE.limb} strokeWidth={2 * unit} />
             {d.grid !== false ? <path d={path(GRATICULE) ?? undefined} fill="none" stroke={PALETTE.grid} strokeWidth={1 * unit} opacity={1 - sat} /> : null}
-            {visible(base.features).map((f: Feature<Geometry, Props>, i) => {
+            {paleoFeatures
+              ? paleoFeatures.map((f, i) => {
+                  const dd = path(f);
+                  return dd ? <path key={`p${i}`} d={dd} fill={PALETTE.land} stroke={PALETTE.land} strokeWidth={1.2 * unit} strokeLinejoin="round" /> : null;
+                })
+              : null}
+            {paleoBounds ? (
+              <g opacity={progress(frame, at(d.paleo?.boundariesAt, 0), 18)} fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <path d={path(paleoBounds.other.geometry) ?? undefined} stroke={PALETTE.ink} strokeOpacity={0.45} strokeWidth={2 * unit} />
+                <path d={path(paleoBounds.ridge.geometry) ?? undefined} stroke={PALETTE.gold} strokeWidth={3.5 * unit} />
+                <path d={path(paleoBounds.subduction.geometry) ?? undefined} stroke="#ff3b30" strokeWidth={3.5 * unit} />
+              </g>
+            ) : null}
+            {(paleoFeatures || d.blank ? [] : visible(base.features)).map((f: Feature<Geometry, Props>, i) => {
               const {fill, op} = fillFor(f.properties.name);
               const dd = path(f);
               // Over satellite imagery, plain land is transparent; highlights stay (slightly see-through).
@@ -463,9 +506,10 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
             })}
             {(d.labels ?? []).map((l, i) => {
               const f = l.name ? byName.get(l.name) : null;
-              const pt = f ? projection(geoCentroid(f)) : l.lon !== undefined && l.lat !== undefined ? projection([l.lon, l.lat]) : null;
+              const ll: [number, number] | null = l.lon !== undefined && l.lat !== undefined ? (paleo && l.pid ? paleoPoint(paleo, l.pid, l.lon, l.lat, ma) : [l.lon, l.lat]) : null;
+              const pt = f ? projection(geoCentroid(f)) : ll ? projection(ll) : null;
               if (!pt) return null;
-              const p = progress(frame, at(l.at, 0), 12);
+              const p = progress(frame, at(l.at, 0), 12) * (l.until !== undefined ? 1 - progress(frame, at(l.until, durationInFrames + 1), 8) : 1);
               const color = l.tone === 'gold' ? PALETTE.gold : l.tone === 'muted' ? (PALETTE.waterInk ?? (PALETTE.ink === '#ffffff' ? 'rgba(255,255,255,0.55)' : 'rgba(28,26,23,0.55)')) : PALETTE.ink;
               const halo = l.tone === 'muted' && PALETTE.waterHalo ? PALETTE.waterHalo : PALETTE.halo;
               return (
@@ -489,6 +533,24 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
         )}
       </AbsoluteFill>
 
+      {/* Deep-time age counter. */}
+      {d.paleo?.counter
+        ? (() => {
+            const c = d.paleo.counter;
+            const f0 = at(c.at, 0);
+            const f1 = c.until !== undefined ? at(c.until, durationInFrames + 1) : durationInFrames + 1;
+            const op = progress(frame, f0, 10) * (1 - progress(frame, f1, 8));
+            if (op <= 0) return null;
+            const y = ctx.safe.y + ctx.safe.h * Math.min(1, Math.max(0, ((c.y ?? 0.12) * H - ctx.safe.y) / ctx.safe.h));
+            const n = Math.round(ma);
+            return (
+              <div style={{position: 'absolute', left: ctx.safe.x, width: ctx.safe.w, top: y, transform: 'translateY(-50%)', textAlign: 'center', opacity: op}}>
+                <div style={{...textStyle('stamp', undefined), fontVariantNumeric: 'tabular-nums'}}>{n < 1 ? 'TODAY' : n >= 1000 ? `${(n / 1000).toFixed(1)} BILLION` : `${n} MILLION`}</div>
+                {n >= 1 ? <div style={{...textStyle('sub', 'gold'), marginTop: 6 * unit}}>YEARS AGO</div> : null}
+              </div>
+            );
+          })()
+        : null}
       {/* Text layer: 1–5 words at a time, inside the safe zone. */}
       {(d.texts ?? []).map((t, i) => {
         const f0 = at(t.at, 0);
@@ -556,7 +618,11 @@ export const AtlasScene: SceneDefinition<AtlasData> = {
       d.fade?.at,
       ...(d.outline ?? []).map((g) => g.at),
       ...(d.pulse ?? []).map((g) => g.at),
-      ...(d.labels ?? []).map((g) => g.at),
+      ...(d.labels ?? []).flatMap((g) => [g.at, g.until]),
+      ...(d.paleo?.ma ?? []).map((k) => k.at),
+      d.paleo?.counter?.at,
+      d.paleo?.counter?.until,
+      d.paleo?.boundariesAt,
       ...(d.texts ?? []).flatMap((t) => [t.at, t.until]),
       ...(d.shake ?? []),
       d.layersAt,

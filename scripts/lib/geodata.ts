@@ -28,6 +28,10 @@ export function geoNeeds(p: LoadedProject) {
     const maxZoom = Math.max(...(d.camera ?? [{zoom: 1}]).map((k) => k.zoom)) * Math.max(1, d.portraitZoom ?? 1);
     if (d.detail === '10m' || (d.detail !== '50m' && maxZoom >= 7)) layers.add('countries-10m');
     if (d.basemap === 'satellite') layers.add('raster:bluemarble');
+    if (d.paleo) {
+      layers.add(`paleo/${d.paleo.model}`);
+      if (d.paleo.boundaries) layers.add(`paleo/${d.paleo.model}-boundaries`);
+    }
     for (const m of d.flagMasks ?? []) flags.add(`4x3/${m.iso.toLowerCase()}`);
     for (const b of d.flagBadges ?? []) flags.add(`1x1/${b.iso.toLowerCase()}`);
     for (const r of d.routes ?? []) for (const iso of [r.fromFlag, r.toFlag]) if (iso) flags.add(`1x1/${iso.toLowerCase()}`);
@@ -39,7 +43,7 @@ export function geoNeeds(p: LoadedProject) {
 export function geoProblems(p: LoadedProject): string[] {
   const {layers, flags} = geoNeeds(p);
   const out: string[] = [];
-  for (const l of layers) if (!fs.existsSync(layerSrc(l))) out.push(`map layer "${l}" missing — run npm run geo:setup`);
+  for (const l of layers) if (!fs.existsSync(layerSrc(l))) out.push(`map layer "${l}" missing — run ${l.startsWith('paleo/') ? 'npm run paleo:setup' : 'npm run geo:setup'}`);
   for (const f of flags) if (!fs.existsSync(path.join(FLAGS, `${f}.svg`))) out.push(`flag "${f.split('/')[1]}" not found in flag-icons (use ISO 3166-1 alpha-2, e.g. "ls", "za")`);
   return out;
 }

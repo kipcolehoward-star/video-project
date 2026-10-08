@@ -191,6 +191,16 @@ Atlas options (all timing via cue word or seconds):
   color: gold|white|red, arrow, fromFlag, toFlag, label}]` — great-circle lines that
   draw themselves with an arrowhead. Use `via` waypoints to keep sea lanes at sea
   (e.g. Malacca, Bab-el-Mandeb, Suez, offshore Iberia) and check the still.
+- `paleo: {model: 'muller2019'|'merdith2021', ma: [{at, ma}], counter: {y, at, until}, boundaries, boundariesAt}`:
+  deep time. Draws the continents as they were `ma` million years ago (keyframes animate the drift,
+  linear in time) by rotating today's coastlines with the plate model's own rotations (slerp between
+  steps; same method as GPlates, verified 0.000° against the service). Data: `npm run paleo:setup`
+  (Müller 2019, 0–250 Ma, 1 Myr) and `-- --model MERDITH2021 --max 1000 --step 10` (Rodinia), saved in
+  data/geo/paleo/ (CC BY 4.0, credit Müller et al. 2019 / Merdith et al. 2021 / EarthByte coastlines).
+  Labels can ride a plate: `{text, lon, lat, pid}` with today's position (find pids with
+  gws.gplates.org/reconstruct/assign_points_plate_ids). `boundaries` draws today's ridges (gold) and
+  subduction zones (red). `blank: true` = no land (early molten Earth). Labels support `until`.
+  Deep-time maps use today's coastline shapes (as GPlates does); say so in research notes.
 - `portraitZoom`: zoom multiplier applied only in portrait frames (a 9:16 frame keeps the
   landscape framing's width, so maps look far away; 1.5–1.8 fills it). `npm run short` sets 1.6.
 - `palette`: atlas (dark/amber) | geo (slate, red #FF3B30 focus, yellow #FFCC00 `alt`,
@@ -264,6 +274,7 @@ UI); square → `social-square`. Override in project.json `safeZoneProfile`.
 | `npm run brand` | channel logo (800×800) + banner (2560×1440) from `src/compositions/Brand.tsx` → `channel/` with 98 px avatar and banner safe-area previews; channel setup guide: `channel/CHANNEL-SETUP.md` |
 | `npm run posters -- --project <id> [--only a,b]` | thumbnails / logo / banner from `posters.json` (one atlas-or-any scene per image, any size e.g. 1280x720, 800x800, 2560x1440) → `output/<id>-<name>.png/.jpg`. Thumbnail text: atlas `texts` style `mega`; thick lines: route `width: 2–3` |
 | `npm run geo:setup [-- --force]` | build Natural Earth map layers into data/geo/ |
+| `npm run paleo:setup [-- --model MERDITH2021 --max 1000 --step 10]` | plate-model coastlines + rotations for deep-time maps (one-off online fetch from gws.gplates.org) |
 | `npm run audio:add -- ...` | download a licensed audio file (Epidemic signed URL) into the project + assets.json |
 | `npm run typecheck` | tsc |
 | `npm run voiceover -- [--scene <id>] [--force]` | Piper → `audio/narration/<scene>.wav` + manifest (unchanged scenes skipped) |
