@@ -24,7 +24,8 @@ export function geoNeeds(p: LoadedProject) {
     const d = s.data as AtlasData;
     if (d.background) continue;
     for (const l of d.layers ?? []) layers.add(l);
-    const maxZoom = Math.max(...(d.camera ?? [{zoom: 1}]).map((k) => k.zoom));
+    // Portrait renders may zoom further (portraitZoom), so plan data for the larger zoom.
+    const maxZoom = Math.max(...(d.camera ?? [{zoom: 1}]).map((k) => k.zoom)) * Math.max(1, d.portraitZoom ?? 1);
     if (d.detail === '10m' || (d.detail !== '50m' && maxZoom >= 7)) layers.add('countries-10m');
     if (d.basemap === 'satellite') layers.add('raster:bluemarble');
     for (const m of d.flagMasks ?? []) flags.add(`4x3/${m.iso.toLowerCase()}`);

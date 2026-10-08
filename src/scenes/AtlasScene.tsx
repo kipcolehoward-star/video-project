@@ -31,6 +31,11 @@ export interface AtlasData {
   /** Styling for archival backgrounds: "parchment" warms a scanned map. */
   tint?: 'parchment';
   camera?: {at?: At; lon: number; lat: number; zoom: number}[];
+  /**
+   * Zoom multiplier in portrait frames. A portrait frame keeps the landscape
+   * framing's horizontal span, so maps look far away; 1.5–1.8 fills the frame.
+   */
+  portraitZoom?: number;
   /** Vertical position of the globe centre, 0–1 of frame height. */
   focusY?: number;
   grid?: boolean;
@@ -183,6 +188,8 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
       ({lon, lat, zoom} = b);
     }
   }
+  const zoomK = ctx.format.orientation === 'portrait' ? (d.portraitZoom ?? 1) : 1;
+  zoom *= zoomK;
 
   // ---- impact shake (small, decaying)
   const shakeOffset = (d.shake ?? []).reduce<number>((acc, s) => {
@@ -200,7 +207,7 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
   const path = geoPath(projection);
 
   // ---- data: detail level by zoom, extra layers and flags load on demand
-  const maxZoom = Math.max(...(d.camera ?? [{zoom: 1}]).map((k) => k.zoom));
+  const maxZoom = Math.max(...(d.camera ?? [{zoom: 1}]).map((k) => k.zoom)) * zoomK;
   const want10 = d.detail === '10m' || (d.detail !== '50m' && maxZoom >= 7);
   const layers = new Set(d.layers ?? []);
   const countries10 = useGeoLayer(!d.background && want10 ? 'countries-10m' : null) as unknown as FeatureCollection<Geometry, Props> | null;

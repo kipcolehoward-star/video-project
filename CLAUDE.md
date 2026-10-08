@@ -191,6 +191,8 @@ Atlas options (all timing via cue word or seconds):
   color: gold|white|red, arrow, fromFlag, toFlag, label}]` — great-circle lines that
   draw themselves with an arrowhead. Use `via` waypoints to keep sea lanes at sea
   (e.g. Malacca, Bab-el-Mandeb, Suez, offshore Iberia) and check the still.
+- `portraitZoom`: zoom multiplier applied only in portrait frames (a 9:16 frame keeps the
+  landscape framing's width, so maps look far away; 1.5–1.8 fills it). `npm run short` sets 1.6.
 - `palette`: atlas (dark/amber) | geo (slate, red #FF3B30 focus, yellow #FFCC00 `alt`,
   grey #8E8E93 disputed) | paper (parchment, dark ink) | dusk (navy sea, lifted grey-green
   land, clear white borders — dramatic beats) | ocean (blue sea, cream land, dark borders,
@@ -256,6 +258,7 @@ UI); square → `social-square`. Override in project.json `safeZoneProfile`.
 | `npm run voiceover -- --dry-run` | show scenes/characters that would be generated (and billed) |
 | `npm run image -- search/pick ...` | licensed image search with thumbnail sheet; pick writes assets.json |
 | `npm run credits` | attribution text for the video description |
+| `npm run short -- --project <id> --scenes s1a,s1b,s10a [--outro "..."] [--portrait-zoom 1.6] [--force]` | 9:16 Short from chosen long-video scenes → `projects/<id>-short/` (copies only used assets + music, map outro "full video on the channel", −14 LUFS, kinetic captions, Shorts safe zone, map `portraitZoom`). Then `narrate`, `stills --formats 9:16`, `render`. Aim for ≤ 60 s |
 | `npm run brand` | channel logo (800×800) + banner (2560×1440) from `src/compositions/Brand.tsx` → `channel/` with 98 px avatar and banner safe-area previews; channel setup guide: `channel/CHANNEL-SETUP.md` |
 | `npm run posters -- --project <id> [--only a,b]` | thumbnails / logo / banner from `posters.json` (one atlas-or-any scene per image, any size e.g. 1280x720, 800x800, 2560x1440) → `output/<id>-<name>.png/.jpg`. Thumbnail text: atlas `texts` style `mega`; thick lines: route `width: 2–3` |
 | `npm run geo:setup [-- --force]` | build Natural Earth map layers into data/geo/ |
