@@ -14,7 +14,7 @@ import {ROOT, type LoadedProject} from './project';
 const DATA = path.join(ROOT, 'data', 'geo');
 const FLAGS = path.join(ROOT, 'node_modules', 'flag-icons', 'flags');
 
-const layerSrc = (l: string) => (l === 'raster:bluemarble' ? path.join(DATA, 'raster', 'bluemarble-5400.jpg') : path.join(DATA, `${l}.json`));
+const layerSrc = (l: string) => (l === 'raster:bluemarble' ? path.join(DATA, 'raster', 'bluemarble-3600.jpg') : path.join(DATA, `${l}.json`));
 
 export function geoNeeds(p: LoadedProject) {
   const layers = new Set<string>();

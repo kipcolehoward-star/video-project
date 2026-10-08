@@ -2,8 +2,9 @@
  * Satellite globe: NASA Blue Marble (public domain) wrapped onto the
  * orthographic globe by inverse projection on a canvas, every frame.
  *
- * The texture is 15 px/degree — sharp at whole-Earth scale, soft when zoomed
- * in — so the atlas scene cross-fades it into the vector map as zoom grows.
+ * The texture is 10 px/degree (3600x1800) — sharp at whole-Earth scale, soft when
+ * zoomed in — so the atlas scene cross-fades it into the vector map as zoom grows.
+ * Frames with an unchanged camera reuse the last drawing.
  */
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {cancelRender, continueRender, delayRender, staticFile} from 'remotion';
@@ -66,6 +67,9 @@ export const SatelliteGlobe: React.FC<{
     }
   };
 
+  // Last drawn view: consecutive frames with the same camera reuse the canvas.
+  const drawn = useRef('');
+
   // Layout effect: the canvas is painted before Remotion captures the frame.
   useLayoutEffect(() => {
     const canvas = ref.current;
@@ -74,8 +78,15 @@ export const SatelliteGlobe: React.FC<{
       release();
       return;
     }
-    // Half resolution, smoothed on upscale (the texture is softer than that anyway).
-    const s = 0.5;
+    // Half resolution, smoothed on upscale (the texture is softer than that anyway);
+    // lower still while the globe is fading out, where detail can't be seen.
+    const s = opacity > 0.6 ? 0.5 : 0.35;
+    const key = [W, H, cx, cy, R, lon, lat, s].map((v) => v.toFixed(3)).join('|');
+    if (key === drawn.current) {
+      release();
+      return;
+    }
+    drawn.current = key;
     const w = Math.ceil(W * s);
     const h = Math.ceil(H * s);
     canvas.width = w;
@@ -84,38 +95,46 @@ export const SatelliteGlobe: React.FC<{
     const out = g.createImageData(w, h);
     const o = out.data;
     const t = texture;
-    const r = R * s;
+    const td = t.data;
+    const tw = t.w;
+    const thMax = t.h - 1;
+    const invR = 1 / (R * s);
     const x0 = cx * s;
     const y0 = cy * s;
     const sinP = Math.sin(lat * RAD);
     const cosP = Math.cos(lat * RAD);
-    for (let y = 0; y < h; y++) {
-      const py = (y0 - y) / r;
-      for (let x = 0; x < w; x++) {
-        const px = (x - x0) / r;
-        const rho2 = px * px + py * py;
+    const DEG = 180 / Math.PI;
+    const uOff = lon + 180;
+    // Only rows/columns the globe can cover.
+    const yA = Math.max(0, Math.floor(y0 - R * s));
+    const yB = Math.min(h, Math.ceil(y0 + R * s));
+    const xA = Math.max(0, Math.floor(x0 - R * s));
+    const xB = Math.min(w, Math.ceil(x0 + R * s));
+    for (let y = yA; y < yB; y++) {
+      const py = (y0 - y) * invR;
+      const py2 = py * py;
+      if (py2 >= 1) continue;
+      const pySinP = py * sinP;
+      const pyCosP = py * cosP;
+      let i = (y * w + xA) * 4;
+      for (let x = xA; x < xB; x++, i += 4) {
+        const px = (x - x0) * invR;
+        const rho2 = px * px + py2;
         if (rho2 >= 1) continue; // space: transparent
-        const rho = Math.sqrt(rho2);
         const cosc = Math.sqrt(1 - rho2);
-        let phi: number;
-        let lam: number;
-        if (rho < 1e-9) {
-          phi = lat * RAD;
-          lam = lon * RAD;
-        } else {
-          phi = Math.asin(cosc * sinP + (py * rho * cosP) / rho);
-          lam = lon * RAD + Math.atan2(px * rho, rho * cosP * cosc - py * sinP * rho);
-        }
-        let u = ((lam / RAD + 180) / 360) % 1;
+        // Inverse orthographic (rho cancels out of the textbook form).
+        const phi = Math.asin(cosc * sinP + pyCosP);
+        const lam = Math.atan2(px, cosP * cosc - pySinP) * DEG + uOff;
+        let u = (lam / 360) % 1;
         if (u < 0) u += 1;
-        const v = (90 - phi / RAD) / 180;
-        const ti = (Math.min(t.h - 1, Math.max(0, Math.floor(v * t.h))) * t.w + Math.floor(u * t.w)) * 4;
+        let row = ((90 - phi * DEG) / 180) * t.h;
+        row = row < 0 ? 0 : row > thMax ? thMax : row;
+        const ti = ((row | 0) * tw + ((u * tw) | 0)) * 4;
         // Gentle limb darkening gives the sphere its volume.
         const shade = 0.55 + 0.45 * cosc;
-        const i = (y * w + x) * 4;
-        o[i] = t.data[ti] * shade;
-        o[i + 1] = t.data[ti + 1] * shade;
-        o[i + 2] = t.data[ti + 2] * shade;
+        o[i] = td[ti] * shade;
+        o[i + 1] = td[ti + 1] * shade;
+        o[i + 2] = td[ti + 2] * shade;
         o[i + 3] = 255;
       }
     }

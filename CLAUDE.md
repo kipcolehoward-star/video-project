@@ -200,8 +200,10 @@ Atlas options (all timing via cue word or seconds):
   faint borders (2026-10-07): default to mixing ocean (explainers) + dusk (drama) + paper (history). Defaults from project theme
   (`geo`/`paper` themes exist). `alt: [{name, at}]` = second highlight colour.
 - `basemap: "satellite"` — NASA Blue Marble (public domain, data/geo/raster) on the
-  globe, cross-fading to the vector map between zoom 1.3 and 3.2. Heaviest effect
-  (~2 fps at preview size): use for short globe-scale hooks, not long scenes.
+  globe, cross-fading to the vector map between zoom 1.3 and 3.2. Heaviest effect:
+  ~3.5 fps vs ~5 fps without it (3600x1800 texture, unchanged-camera frames reuse the canvas,
+  lower resolution while fading). Use for globe-scale hooks/closes, not long scenes. A WebGL
+  version was considered (2026-10-08) and judged not worth the risk on this machine.
 - project.json `texture`: none | grain | paper — procedural grain overlay (5–12%).
 Engine notes: only features in view are drawn (culling); polygons with reversed
 winding (would flood the globe) are corrected per part on load (`fixWinding`) —
