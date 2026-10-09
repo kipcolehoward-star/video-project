@@ -257,7 +257,7 @@ a short "to-X" scene (rotate, `highlightAt` glowing border + locator ring, end k
   `cardsAt`, `cardsAllAt`, `cardsOutAt` (cards shrink into points of light that sink into the country; QR
   scatters into a constellation). Kinds: image, xray (flash), train (lateral sweep), print (block, then the
   print `asset2` presses down), steam (food), qr (real scannable code via qrcode-generator + phone scan + tick;
-  `qrText`), mp3 (waveform squeezes into an MP3 file; generic player + headphones).
+  `qrText`), mp3 (waveform squeezes into an MP3 file; generic player + headphones), rain (drawn rain gauge after the Joseon cheugugi; rain falls, water rises from the focus cue; no asset).
 - `montage: {items: [{kind: "qr"} | {asset, at}], collapseAt, targets: [[lon,lat]...], qrText}` = hook cuts that
   collapse into points of light landing on the globe; `globeAt` fades the globe in.
 - `locators`, `texts` (`style: hero|country|sub`, `accent: [words]` in blue, `textWrap: balance`), `dimAt`,
@@ -407,6 +407,7 @@ preview → QC → final render. Each stage writes files into `projects/<id>/`.
 | `facts-about-911` | 16:9 | 8:06 | user's script verbatim; Edge voice Brian (non-monetised); 8 licensed photos; synthesised phone ring; captions off (SRT exported) |
 | `the-country-inside-south-africa` | 9:16 | 49.9 s | Lesotho Short; Epidemic music + SFX |
 | `the-world-gave-us-this-01` | 9:16 | 66.6 s | Ep. 01 of "The World Gave Us This" (China → Germany → Japan), user's locked script; journey scene, 14 licensed images + drawn QR/MP3, Epidemic music ("Riddle" 66.6 s edit) + 12 SFX; Edge voice (non-monetised) |
+| `the-world-gave-us-this-02` | 9:16 | 79.2 s | Ep. 02 (Italy → India → South Korea), script drafted by Claude and approved; first video rendered on the render server; drawn rain-gauge card; truePeak -1.5 |
 | `the-strait-of-malacca` | 16:9 | 6:00 | first geography long-form, final rendered 2026-10-07; dusk/ocean/paper palettes, satellite hook + close, Epidemic music bed (2 tracks crossfaded) + SFX; captions off (SRT exported); Edge voice (non-monetised) |
 
 ## Backup (git)

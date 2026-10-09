@@ -15,7 +15,7 @@ import React, {useMemo} from 'react';
 import {Img, interpolate} from 'remotion';
 import {EASE_IN_OUT, EASE_OUT} from '../../animations/motion';
 
-export type CardKind = 'image' | 'xray' | 'train' | 'print' | 'steam' | 'qr' | 'mp3';
+export type CardKind = 'image' | 'xray' | 'train' | 'print' | 'steam' | 'qr' | 'mp3' | 'rain';
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 const BLUE = '#4ea8ff';
@@ -139,6 +139,65 @@ const Mp3Scene: React.FC<{w: number; h: number; t: number; tc: number; unit: num
   );
 };
 
+/**
+ * Rain gauge (drawn, after the Joseon cheugugi: a metal cylinder on a stone pedestal).
+ * Rain falls; from the focus cue the water inside rises past the scale marks.
+ */
+const RainScene: React.FC<{w: number; h: number; t: number; age: number; unit: number}> = ({w, h, t, age, unit}) => {
+  const cx = w / 2;
+  const cw = w * 0.17;
+  const top = h * 0.17;
+  const bottom = h * 0.6;
+  const rim = cw * 0.16;
+  const level = interpolate(t, [0, 75], [0.08, 0.62], {...clamp, easing: EASE_OUT});
+  const waterY = bottom - (bottom - top) * level;
+  const metal = '#c8a46a';
+  const drops = Array.from({length: 46}, (_, i) => {
+    const seed = (i * 7919) % 997;
+    const x = ((seed * 13) % 1000) / 1000;
+    const speed = 0.018 + ((seed % 7) / 7) * 0.012;
+    const y = ((age * speed + seed / 997) % 1) * 1.1 - 0.1;
+    return {x: x * w * 1.1 - w * 0.05, y: y * h * 0.9, len: h * (0.035 + (seed % 5) * 0.006)};
+  });
+  return (
+    <svg width={w} height={h} style={{position: 'absolute', left: 0, top: 0}}>
+      <defs>
+        <linearGradient id="rain-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#0b1524" />
+          <stop offset="1" stopColor="#13233a" />
+        </linearGradient>
+        <linearGradient id="rain-metal" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#7a5f36" />
+          <stop offset="0.35" stopColor={metal} />
+          <stop offset="1" stopColor="#6b522d" />
+        </linearGradient>
+      </defs>
+      <rect width={w} height={h} fill="url(#rain-sky)" />
+      {drops.map((d, i) => (
+        <line key={i} x1={d.x} y1={d.y} x2={d.x - d.len * 0.18} y2={d.y + d.len} stroke="#bcd8ff" strokeWidth={1.6 * unit} opacity={0.45} strokeLinecap="round" />
+      ))}
+      {/* stone pedestal */}
+      <rect x={cx - w * 0.17} y={bottom} width={w * 0.34} height={h * 0.13} fill="#4c5564" />
+      <rect x={cx - w * 0.17} y={bottom} width={w * 0.34} height={h * 0.018} fill="#6d7686" />
+      {/* cylinder: metal walls, cut-away front showing the water */}
+      <rect x={cx - cw / 2} y={top} width={cw} height={bottom - top} fill="url(#rain-metal)" />
+      <rect x={cx - cw * 0.36} y={top + rim} width={cw * 0.72} height={bottom - top - rim * 1.4} fill="#0d1a2c" />
+      <rect x={cx - cw * 0.36} y={waterY} width={cw * 0.72} height={bottom - rim * 0.4 - waterY} fill={BLUE} opacity={0.85} />
+      <ellipse cx={cx} cy={waterY} rx={cw * 0.36} ry={rim * 0.35} fill="#9fd0ff" opacity={0.9} />
+      {[0.5, 0.75].map((r) => (
+        <rect key={r} x={cx - cw / 2 - unit} y={top + (bottom - top) * r} width={cw + 2 * unit} height={3 * unit} fill="#5a4426" />
+      ))}
+      <ellipse cx={cx} cy={top} rx={cw / 2} ry={rim * 0.5} fill="#2a2f38" stroke={metal} strokeWidth={3 * unit} />
+      {/* scale marks beside the gauge, and a marker riding the water level */}
+      {Array.from({length: 9}, (_, i) => {
+        const y = bottom - rim * 0.4 - ((bottom - top - rim * 1.4) * i) / 8;
+        return <rect key={i} x={cx + cw / 2 + w * 0.025} y={y - unit} width={i % 2 ? w * 0.025 : w * 0.045} height={2 * unit} fill="rgba(220,235,255,0.75)" />;
+      })}
+      <path d={`M${cx + cw / 2 + w * 0.085} ${waterY} l${w * 0.035} ${-w * 0.022} v${w * 0.044} Z`} fill={BLUE} />
+    </svg>
+  );
+};
+
 const Steam: React.FC<{w: number; h: number; t: number}> = ({w, h, t}) => (
   <svg width={w} height={h} style={{position: 'absolute', left: 0, top: 0, filter: `blur(${Math.max(2, w * 0.012)}px)`}}>
     {[0, 1, 2].map((i) => {
@@ -185,6 +244,8 @@ export const CardBody: React.FC<{v: CardVisual; w: number; h: number; t: number;
       return <QrScene w={w} h={h} t={t} unit={unit * Math.min(1, w / 700)} text={v.qrText ?? ''} />;
     case 'mp3':
       return <Mp3Scene w={w} h={h} t={age} tc={tAlt} unit={unit * Math.min(1, w / 500)} />;
+    case 'rain':
+      return <RainScene w={w} h={h} t={t} age={age} unit={unit * Math.min(1, w / 500)} />;
     case 'train': {
       const sweep = interpolate(t, [0, 20], [16, -4], {...clamp, easing: EASE_OUT}) + interpolate(t, [20, 200], [0, -5], clamp);
       const lines = interpolate(t, [0, 6, 22], [0, 1, 0], clamp);
