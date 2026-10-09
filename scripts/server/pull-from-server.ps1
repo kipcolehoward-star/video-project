@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
-  Download a project's finished output (MP4, subtitles, credits, reports) from the render server.
+  Download a project's finished output (MP4, subtitles, credits, reports) from the render server
+  into projects/<id>/output/from-server/, so local renders are never overwritten.
 
 .EXAMPLE
   .\scripts\server\pull-from-server.ps1 -Server root@203.0.113.10 -Project the-world-gave-us-this-01
@@ -15,7 +16,7 @@ $root = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $tar = Join-Path $env:SystemRoot 'System32\tar.exe'
 $ssh = Join-Path $env:SystemRoot 'System32\OpenSSH\ssh.exe'
 $scp = Join-Path $env:SystemRoot 'System32\OpenSSH\scp.exe'
-$dest = Join-Path $root "projects\$Project\output"
+$dest = Join-Path $root "projects\$Project\output\from-server"
 New-Item -ItemType Directory -Force -Path $dest | Out-Null
 
 # Pack the output files (not the render parts) on the server, then copy one file.

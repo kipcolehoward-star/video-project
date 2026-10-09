@@ -54,7 +54,9 @@ A 4 vCPU / 8 GB Ubuntu server (no GPU) can take full renders off this laptop. Sc
   without node_modules, tools, .git, previews, project geo copies or MP4s, then scp's it and runs `setup-ubuntu.sh --app`.
   The repo is private, so the server gets code by upload, not git clone. `.env` is copied only with
   `-WithEnv` (chmod 600). Rendering doesn't need it. Local deletions are not mirrored.
-- `pull-from-server.ps1 -Server user@ip -Project <id>`: copies `output/` back (overwrites same-name files).
+- `pull-from-server.ps1 -Server user@ip -Project <id>`: copies the server's `output/` into `output/from-server/` (never overwrites local renders).
+  Measured 2026-10-10: Ep. 01 (1998 frames, 9:16) rendered in 5m53s at 5.9 fps, about 3x the laptop. The server's FFmpeg 8.0.1 gave
+  true peak -0.8 dBTP where the laptop's FFmpeg 9 gave -1.0. If a brief requires <= -1 strictly, set `truePeak` to -1.5.
 - Render there over SSH: `cd ~/video-project && npm run render -- --project <id>`. Studio:
   `ssh -L 3000:localhost:3000 user@ip`, then `npm run dev` on the server and open localhost:3000 locally.
 - Epidemic/image downloads still happen in the Windows session. Push the project after adding assets.
