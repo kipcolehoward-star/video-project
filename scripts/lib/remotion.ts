@@ -15,7 +15,8 @@ import type {LoadedProject} from './project';
 export const RENDER_DEFAULTS = {
   /** Page setup / per-frame timeout. Remotion's 30 s default is too tight on this 4 GB machine. */
   timeoutMs: 120_000,
-  concurrency: 2,
+  /** Parallel browser tabs. RENDER_CONCURRENCY overrides it (the render server sets 3). */
+  concurrency: Number(process.env.RENDER_CONCURRENCY) || 2,
   crf: 18,
   previewCrf: 28,
   previewScale: 0.5,

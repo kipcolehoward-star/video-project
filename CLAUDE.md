@@ -42,6 +42,23 @@ explicitly approves them.
   photo/map-heavy video takes ~50 min at full quality; full 1080p renders run ~1–3 fps. Avoid GPU-only/PyTorch tools.
   Keep media proxies small; don't open many Chrome tabs while rendering.
 
+## Render server (optional, Ubuntu VPS)
+
+A 4 vCPU / 8 GB Ubuntu server (no GPU) can take full renders off this laptop. Scripts in `scripts/server/`:
+- `setup-ubuntu.sh`: run once on the server with `sudo bash setup-ubuntu.sh`. Installs FFmpeg, Node 24
+  (NodeSource), Chrome Headless Shell libraries, Noto fonts, a 4 GB swap file (swappiness 10), and edge-tts 7.2.8
+  in `~/.venvs/video`. Adds a block at the top of `~/.bashrc` that puts the venv first on PATH (scripts call
+  `python`) and sets `RENDER_CONCURRENCY=3`, which `RENDER_DEFAULTS` reads. Laptop default: 2.
+  `--app` (no sudo) runs only `npm ci` (skipped when the lock is unchanged), `remotion browser ensure`, and checks.
+- `push-to-server.ps1 -Server user@ip -Project <id> [-WithEnv] [-DryRun]` (Windows): tars the working tree
+  without node_modules, tools, .git, previews, project geo copies or MP4s, then scp's it and runs `setup-ubuntu.sh --app`.
+  The repo is private, so the server gets code by upload, not git clone. `.env` is copied only with
+  `-WithEnv` (chmod 600). Rendering doesn't need it. Local deletions are not mirrored.
+- `pull-from-server.ps1 -Server user@ip -Project <id>`: copies `output/` back (overwrites same-name files).
+- Render there over SSH: `cd ~/video-project && npm run render -- --project <id>`. Studio:
+  `ssh -L 3000:localhost:3000 user@ip`, then `npm run dev` on the server and open localhost:3000 locally.
+- Epidemic/image downloads still happen in the Windows session. Push the project after adding assets.
+
 ## Layout of the repo
 
 ```
