@@ -20,6 +20,12 @@ export function geoNeeds(p: LoadedProject) {
   const layers = new Set<string>();
   const flags = new Set<string>(); // "4x3/ls", "1x1/ls"
   for (const s of p.rawStoryboard.scenes) {
+    if (s.type === 'journey') {
+      // Journey scenes always show the satellite globe; close fits (small countries) need 10m borders.
+      layers.add('raster:bluemarble');
+      layers.add('countries-10m');
+      continue;
+    }
     if (s.type !== 'atlas') continue;
     const d = s.data as AtlasData;
     if (d.background) continue;

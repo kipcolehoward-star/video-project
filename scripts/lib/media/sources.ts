@@ -29,7 +29,8 @@ export interface Candidate {
   warning?: string;
 }
 
-const UA = 'video-project/0.1 (local video research tool; Node fetch)';
+// Wikimedia's User-Agent policy wants a contact URL; generic agents get rate-limited (HTTP 429).
+const UA = 'video-project/0.1 (https://github.com/kipcolehoward-star/video-project; local video research tool)';
 
 async function getJson(url: string, headers: Record<string, string> = {}) {
   const res = await fetch(url, {headers: {'User-Agent': UA, ...headers}});

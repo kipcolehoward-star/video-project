@@ -26,8 +26,9 @@ const perScene: Record<string, string[]> = {};
 
 for (const fmt of formats) {
   const {scenes} = buildTimeline(p.storyboard, fmt.fps);
-  // ~75% through each scene: entrance animations have settled.
-  const frames = scenes.map((s) => s.from + Math.floor(s.durationInFrames * 0.75));
+  // ~75% through each scene: entrance animations have settled. `--at 1.5,12` = those seconds instead.
+  const atList = args.str('at') && args.str('at') !== 'mid' ? args.str('at')!.split(',').map((x) => Math.round(Number(x) * fmt.fps)) : null;
+  const frames = atList ?? scenes.map((s) => s.from + Math.floor(s.durationInFrames * 0.75));
   console.log(`▶ ${fmt.id}: frames ${frames.join(', ')}`);
   const files = await renderStills({
     serveUrl,
@@ -35,7 +36,8 @@ for (const fmt of formats) {
     frames,
     outputFor: (fr) => path.join(outDir, `${formatSlug(fmt)}_f${String(fr).padStart(5, '0')}${guides ? '_guides' : ''}.png`),
   });
-  files.forEach((file, i) => (perScene[scenes[i].scene.id] ??= []).push(file));
+  if (!atList) files.forEach((file, i) => (perScene[scenes[i].scene.id] ??= []).push(file));
+  else console.log(files.map((f) => `  ${rel(f)}`).join('\n'));
 }
 
 await closeBrowser();

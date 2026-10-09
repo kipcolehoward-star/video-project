@@ -43,6 +43,8 @@ export interface AudioConfig {
   musicCutAt?: string;
   /** Seconds into the music file to start from (skip a quiet intro). */
   musicStart?: number;
+  /** Fade-out at the end, seconds (default 2.5). 0 = none: for edits that already end on a resolve (Epidemic EditRecording). */
+  musicFadeOut?: number;
   /** Music level when nobody is speaking, dB relative to its source. */
   musicDb?: number;
   /** Extra attenuation applied to music under narration, dB. */
@@ -52,7 +54,7 @@ export interface AudioConfig {
   truePeak?: number;
 }
 
-export const AUDIO_DEFAULTS: Required<Omit<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart'>> = {
+export const AUDIO_DEFAULTS: Required<Omit<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut'>> = {
   provider: 'piper',
   rate: '+0%',
   voice: 'en_US-joe-medium',

@@ -82,7 +82,12 @@ export function buildMix(p: LoadedProject, fps: number): MixReport {
     const cut = p.audio.musicCutAt ? scenes.find((t) => t.scene.id === p.audio.musicCutAt) : undefined;
     if (p.audio.musicCutAt && !cut) throw new Error(`audio.musicCutAt "${p.audio.musicCutAt}" is not a scene id`);
     const end = cut ? cut.from / fps : T;
-    const fadeOut = cut ? `afade=t=out:st=${r3(Math.max(0, end - 0.06))}:d=0.06,apad,atrim=0:${r3(T)}` : `afade=t=out:st=${r3(Math.max(0, T - 2.5))}:d=2.5`;
+    const fadeLen = p.audio.musicFadeOut ?? 2.5;
+    const fadeOut = cut
+      ? `afade=t=out:st=${r3(Math.max(0, end - 0.06))}:d=0.06,apad,atrim=0:${r3(T)}`
+      : fadeLen > 0
+        ? `afade=t=out:st=${r3(Math.max(0, T - fadeLen))}:d=${r3(fadeLen)}`
+        : 'apad';
     chains.push(
       `[${idx}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=start=${r3(p.audio.musicStart ?? 0)},asetpts=PTS-STARTPTS,atrim=0:${r3(end)},` +
         `afade=t=in:d=1.5,${fadeOut},` +

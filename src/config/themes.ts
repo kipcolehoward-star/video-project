@@ -86,4 +86,18 @@ THEMES.paper = {
   fonts: {display: '"Bebas Neue", "Anton", sans-serif', body: '"Inter Variable", "Segoe UI", sans-serif'},
 };
 
-export const getTheme = (id?: string): Theme => THEMES[id ?? 'documentary'] ?? THEMES.documentary;
+// Space/globe journeys ("The World Gave Us This"): near-black, restrained blue accent.
+THEMES.orbit = {
+  id: 'orbit',
+  background: '#02050b',
+  surface: '#0b1422',
+  text: '#ffffff',
+  textMuted: '#9fb0c4',
+  accent: '#4ea8ff',
+  rule: 'rgba(255, 255, 255, 0.16)',
+  chartMuted: '#2a3646',
+  mapLand: '#1b2636',
+  fonts: {display: '"Bebas Neue", "Anton", sans-serif', body: '"Inter Variable", "Segoe UI", sans-serif'},
+};
+
+export const getTheme =(id?: string): Theme => THEMES[id ?? 'documentary'] ?? THEMES.documentary;

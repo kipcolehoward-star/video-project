@@ -224,6 +224,32 @@ Script input: the user may write cue-sheet scripts (VOICEOVER / VISUAL_TYPE /
 MAP_TARGET / OVERLAY / SFX_TRIGGER); convert them to storyboard JSON by hand, mapping
 timestamps to narration cue words.
 
+## Journey scene (globe travel series, e.g. "The World Gave Us This")
+
+`type: "journey"` (src/scenes/JourneyScene.tsx, cards in src/graphics/journey/). A NASA Blue Marble globe
+in a starfield (limb shading, atmosphere, speed-scaled motion blur) and a camera that travels between countries:
+`camera` keys `{at, lon, lat, zoom, fy, ease: inOut|in|out|linear}` or `{at, fit: true}` (frames `country`
+inside the map box for the current format; 10m borders load automatically when zoom ≥ 6). Split a country into
+a short "to-X" scene (rotate, `highlightAt` glowing border + locator ring, end key `ease: "in"`) and an "X" scene
+(first key = previous end, `fit` with `ease: "out"`, so the dive is one continuous accelerate/decelerate).
+- `mapAt`/`mapOutAt`: satellite → dark silhouette map (exact Natural Earth border) and back; `fill.assets`
+  are clipped inside the country, cross-fading `every` seconds.
+- `cards: [{slot: left|center|right, kind, asset, asset2, label "TEXT · 1886", focus: cue, alt: cue}]`,
+  `cardsAt`, `cardsAllAt`, `cardsOutAt` (cards shrink into points of light that sink into the country; QR
+  scatters into a constellation). Kinds: image, xray (flash), train (lateral sweep), print (block, then the
+  print `asset2` presses down), steam (food), qr (real scannable code via qrcode-generator + phone scan + tick;
+  `qrText`), mp3 (waveform squeezes into an MP3 file; generic player + headphones).
+- `montage: {items: [{kind: "qr"} | {asset, at}], collapseAt, targets: [[lon,lat]...], qrText}` = hook cuts that
+  collapse into points of light landing on the globe; `globeAt` fades the globe in.
+- `locators`, `texts` (`style: hero|country|sub`, `accent: [words]` in blue, `textWrap: balance`), `dimAt`,
+  `fadeOut`. `At` = cue word | seconds | negative seconds from end | "end" | "start" (already fully in,
+  for continuity across a cut).
+- Continuity: hard cuts between scenes are invisible when the next scene's first camera key equals the previous
+  scene's last key. Card layout is a fan above the caption band (pure `cardRects(ctx)`, also used by QC).
+- Theme `orbit` (near-black, accent #4ea8ff) colours kinetic captions to match.
+- Render speed: about 2.5 fps at 1080×1920. `npm run stills -- --formats 9:16 --at 1.5,12,30` renders exact seconds.
+- Reference project: `projects/the-world-gave-us-this-01`.
+
 ## Images (licensed sourcing)
 
 `npm run image -- search "<query>" --project <id> --source nasa|commons|pexels`
@@ -256,7 +282,7 @@ UI); square → `social-square`. Override in project.json `safeZoneProfile`.
 | `npm run create -- "Topic" [--format 9:16]` | scaffold `projects/<slug>/` |
 | `npm run dev -- --project <id> [--format 9:16] [--guides]` | Remotion Studio (`preview` is an alias) |
 | `npm run validate -- --project <id>` | storyboard, assets, fonts, layout for 16:9/9:16/1:1 |
-| `npm run stills -- --project <id> [--guides]` | one still per scene per format + side-by-side sheets |
+| `npm run stills -- --project <id> [--guides] [--formats 9:16] [--at 1.5,12]` | one still per scene per format + side-by-side sheets |
 | `npm run render:preview -- --project <id> [--format 9:16]` | 50% scale, veryfast x264, JPEG 70 → `previews/` (review drafts) |
 | `npm run render:preview -- --project <id> --scenes s16,s17` | only those scenes (+ everything between), with their audio — fastest way to check an edit |
 | `npm run render -- --project <id> --from s10 --to s14` | partial final-quality render of a scene range (ids or unique prefixes) |
@@ -361,6 +387,7 @@ preview → QC → final render. Each stage writes files into `projects/<id>/`.
 | `how-gps-knows-where-you-are` | 16:9 | 88.2 s | first real video, rendered 2026-10-06; no music (none licensed); research.md cites every claim |
 | `facts-about-911` | 16:9 | 8:06 | user's script verbatim; Edge voice Brian (non-monetised); 8 licensed photos; synthesised phone ring; captions off (SRT exported) |
 | `the-country-inside-south-africa` | 9:16 | 49.9 s | Lesotho Short; Epidemic music + SFX |
+| `the-world-gave-us-this-01` | 9:16 | 66.6 s | Ep. 01 of "The World Gave Us This" (China → Germany → Japan), user's locked script; journey scene, 14 licensed images + drawn QR/MP3, Epidemic music ("Riddle" 66.6 s edit) + 12 SFX; Edge voice (non-monetised) |
 | `the-strait-of-malacca` | 16:9 | 6:00 | first geography long-form, final rendered 2026-10-07; dusk/ocean/paper palettes, satellite hook + close, Epidemic music bed (2 tracks crossfaded) + SFX; captions off (SRT exported); Edge voice (non-monetised) |
 
 ## Backup (git)

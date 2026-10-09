@@ -72,7 +72,7 @@ export interface LoadedProject {
   assets: Record<string, AssetMeta>;
   narration: NarrationManifest | null;
   transcript: Transcript | null;
-  audio: Required<Omit<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart'>> & Pick<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart'>;
+  audio: Required<Omit<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut'>> & Pick<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut'>;
 }
 
 export const NARRATION_MANIFEST = 'audio/narration/manifest.json';
@@ -115,7 +115,7 @@ export function mixKey(p: LoadedProject, fps: number): string {
     // Cue-timed SFX move when word timings change.
     timing: p.storyboard.scenes.some((s) => (s.sfx ?? []).some((x) => typeof x.at === 'string')) ? fileHash(path.join(p.dir, TRANSCRIPT_FILE)) : null,
     music: p.audio.music ? fileHash(path.join(p.dir, p.assets[p.audio.music]?.path ?? '')) : null,
-    levels: [p.audio.musicDb, p.audio.duckDb, p.audio.targetLufs, p.audio.truePeak, p.audio.musicCutAt ?? null, p.audio.musicStart ?? 0],
+    levels: [p.audio.musicDb, p.audio.duckDb, p.audio.targetLufs, p.audio.truePeak, p.audio.musicCutAt ?? null, p.audio.musicStart ?? 0, ...(p.audio.musicFadeOut !== undefined ? [p.audio.musicFadeOut] : [])],
     transitions: p.storyboard.scenes.map((s) => s.transitionIn ?? null),
   };
   return sha1(JSON.stringify(parts));
