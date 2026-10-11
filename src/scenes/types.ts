@@ -25,4 +25,6 @@ export interface SceneDefinition<T> {
   assetRefs?: (data: T) => string[];
   /** Narration cue words this scene animates on (checked against the narration). */
   cues?: (data: T) => string[];
+  /** Problems in the scene's storyboard data (misspelt or out-of-range fields); `validate` reports them as errors. */
+  problems?: (data: T) => string[];
 }

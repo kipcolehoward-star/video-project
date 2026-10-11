@@ -43,6 +43,7 @@ export function checkStoryboard(p: LoadedProject, format: VideoFormat): Finding[
       if (!s.narration) out.push(f('warn', 'cue', `scene "${s.id}": cue "${cue}" but the scene has no narration (using fallback timing)`));
       else if (findCue(parseNarration(s.narration), cue) < 0) out.push(f('error', 'cue', `scene "${s.id}": cue "${cue}" does not appear in its narration`));
     }
+    for (const m of SCENES[s.type]?.problems?.(s.data) ?? []) out.push(f('error', 'scene-data', `scene "${s.id}": ${m}`));
     for (const fx of s.sfx ?? []) {
       if (typeof fx.at === 'string' && (!s.narration || findCue(parseNarration(s.narration), fx.at) < 0)) {
         out.push(f('error', 'cue', `scene "${s.id}": sfx cue "${fx.at}" does not appear in its narration`));

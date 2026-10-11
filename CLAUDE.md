@@ -203,6 +203,15 @@ copy only what a project uses into `<project>/geo/` (gitignored), plus flag SVGs
 Avoid GADM (non-commercial licence); OSM data needs "© OpenStreetMap contributors".
 
 Atlas options (all timing via cue word or seconds):
+- `cameraPath`: eased (default; every leg eases in and out, so the camera stops at each key) | smooth (one continuous
+  path through the keys, `smoothPath` in motion.ts: keeps moving through a key when the move carries on in the same
+  direction, never overshoots a key, rests only at a turnaround, between two equal keys (a deliberate hold) and at the
+  first and last key; longitude takes the shortest way round, so add a middle key for a turn of more than 180°).
+  Keys and their times are unchanged. `cameraDrift`: slow push-in during the hold after the last key, zoom change per
+  second (0.01 = 1%, limit ±0.05; default 0 = still). With drift the scene ends slightly past its last key, so don't
+  use it on a scene the next one continues from. Pilot: `the-strait-of-malacca` s3-geography (2026-10-11).
+- `validate` now errors on unknown atlas fields (misspellings were silently ignored) via the optional
+  `problems(data)` hook on a SceneDefinition; other scene types have no such check yet.
 - `detail`: auto (110m whole-Earth, 50m mid, 10m when any camera zoom ≥ 7) | 50m | 10m
 - `layers`: ["rivers","lakes","admin1","disputed"], `layersAt`, `admin1Countries: ["South Africa"]`
 - `flagMasks: [{name, iso, at, opacity}]` — flag clipped inside the country, fitted

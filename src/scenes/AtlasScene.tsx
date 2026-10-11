@@ -10,7 +10,7 @@ import {SatelliteGlobe} from '../graphics/geo/Satellite';
 import {boundaryLines, paleoLand, paleoPoint, usePaleo, usePaleoBoundaries} from '../graphics/geo/paleo';
 import {routePoint, routeUpTo, sampleRoute, type LonLat} from '../graphics/geo/routes';
 import {fixWinding, flagUrl, inView, usePreloadImages, useGeoLayer, visibleAngle, type FC} from '../graphics/geo/data';
-import {EASE_IN_OUT, EASE_OUT, progress} from '../animations/motion';
+import {driftTime, EASE_IN_OUT, EASE_OUT, lonDelta, progress, smoothPath} from '../animations/motion';
 import {Backdrop} from '../components/Backdrop';
 import {SafeZoneGuides} from '../components/SafeZoneGuides';
 import type {LayoutContext, Region} from '../layouts/engine';
@@ -32,6 +32,19 @@ export interface AtlasData {
   /** Styling for archival backgrounds: "parchment" warms a scanned map. */
   tint?: 'parchment';
   camera?: {at?: At; lon: number; lat: number; zoom: number}[];
+  /**
+   * How the camera travels between keys. "eased" (default): every leg eases in
+   * and out, so the camera stops at each key. "smooth": one continuous path
+   * through the keys (motion.ts smoothPath) that only rests where the move turns
+   * around or two keys are equal; longitude takes the shortest way round.
+   */
+  cameraPath?: 'eased' | 'smooth';
+  /**
+   * Slow push-in while the camera holds after its last key: zoom change per
+   * second (0.01 = 1%; negative pulls back). Default 0: the hold is still.
+   * The scene then ends slightly past its last key.
+   */
+  cameraDrift?: number;
   /**
    * Zoom multiplier in portrait frames. A portrait frame keeps the landscape
    * framing's horizontal span, so maps look far away; 1.5–1.8 fills the frame.
@@ -116,6 +129,24 @@ export interface AtlasData {
     /** Line width multiplier (thumbnails: 2–3). */
     width?: number;
   }[];
+}
+
+/** Every atlas option. Typed against AtlasData, so adding an option without listing it here fails typecheck. */
+const ATLAS_FIELDS: Record<keyof AtlasData, true> = {
+  background: true, tint: true, camera: true, cameraPath: true, cameraDrift: true, portraitZoom: true, focusY: true, grid: true,
+  gold: true, warm: true, fade: true, outline: true, pulse: true, labels: true, texts: true, shake: true, palette: true, alt: true,
+  basemap: true, blank: true, paleo: true, detail: true, layers: true, layersAt: true, admin1Countries: true, flagMasks: true,
+  flagBadges: true, routes: true,
+};
+
+function problemsFor(d: AtlasData): string[] {
+  const out = Object.keys(d)
+    .filter((k) => !(k in ATLAS_FIELDS))
+    .map((k) => `unknown atlas field "${k}" (check the spelling; it would be ignored)`);
+  if (d.cameraPath !== undefined && d.cameraPath !== 'eased' && d.cameraPath !== 'smooth') out.push(`cameraPath must be "eased" or "smooth" (got ${JSON.stringify(d.cameraPath)})`);
+  if (d.cameraDrift !== undefined && (typeof d.cameraDrift !== 'number' || !Number.isFinite(d.cameraDrift) || Math.abs(d.cameraDrift) > 0.05))
+    out.push(`cameraDrift must be a number from -0.05 to 0.05, zoom change per second (got ${JSON.stringify(d.cameraDrift)})`);
+  return out;
 }
 
 type Props = {name: string};
@@ -204,6 +235,20 @@ const AtlasView: React.FC<SceneProps<AtlasData>> = ({scene, durationInFrames}) =
       ({lon, lat, zoom} = b);
     }
   }
+  // "smooth": one path through all keys instead of a stop at each (keys and their times are unchanged).
+  const smooth = useMemo(() => {
+    if (d.cameraPath !== 'smooth' || cam.length < 2) return null;
+    const f = cam.map((k) => k.f);
+    let unwrapped = cam[0].lon;
+    const lons = cam.map((k, i) => (i === 0 ? unwrapped : (unwrapped += lonDelta(cam[i - 1].lon, k.lon))));
+    return {lon: smoothPath(f, lons), lat: smoothPath(f, cam.map((k) => k.lat)), zoom: smoothPath(f, cam.map((k) => Math.log(k.zoom)))};
+  }, [cam, d.cameraPath]);
+  if (smooth) {
+    lon = ((((smooth.lon(frame) + 180) % 360) + 360) % 360) - 180;
+    lat = smooth.lat(frame);
+    zoom = Math.exp(smooth.zoom(frame));
+  }
+  if (d.cameraDrift) zoom *= Math.exp(d.cameraDrift * driftTime((frame - cam[cam.length - 1].f) / fps));
   const zoomK = ctx.format.orientation === 'portrait' ? (d.portraitZoom ?? 1) : 1;
   zoom *= zoomK;
 
@@ -609,6 +654,7 @@ export const AtlasScene: SceneDefinition<AtlasData> = {
       .slice(0, 1)
       .map((t) => ({region: 'text', text: t.text, fontSize: Math.round(ctx.type.display * (t.style === 'stamp' ? 0.95 : 1.35) * 0.62), lineHeight: 0.95})),
   assetRefs: (d) => (d.background ? [d.background] : []),
+  problems: problemsFor,
   cues: (d) =>
     [
       ...(d.camera ?? []).map((k) => k.at),
