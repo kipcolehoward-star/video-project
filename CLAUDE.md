@@ -60,6 +60,14 @@ A 4 vCPU / 8 GB Ubuntu server (no GPU) can take full renders off this laptop. Sc
 - Render there over SSH: `cd ~/video-project && npm run render -- --project <id>`. Studio:
   `ssh -L 3000:localhost:3000 user@ip`, then `npm run dev` on the server and open localhost:3000 locally.
 - Epidemic/image downloads still happen in the Windows session. Push the project after adding assets.
+- `transcribe.py` (server only): speech-to-text for checking a finished video or studying a reference video, since Claude
+  cannot hear audio. faster-whisper 1.2.1 (MIT) in its own venv `~/.venvs/whisper`, model `turbo` (1.6 GB, cached in
+  `~/.cache/huggingface`), CPU int8. Upload audio only (`ffmpeg -i in.mp4 -vn -ac 1 -ar 16000 -c:a libopus -b:a 32k out.opus`,
+  about 2.5 MB per 10 min), then `~/.venvs/whisper/bin/python scripts/server/transcribe.py <file> --lang en` writes
+  `<file>.transcript.txt` (timestamps + confidence per line) and `.srt`. Measured 2026-10-11: 10m48s of noisy body-camera
+  speech in 4m12s including the model download. Limits: no speaker labels, mishears overlapping or shouted speech, and
+  cannot judge pronunciation or tone. Captions still use the laptop's whisper.cpp path (`npm run transcribe`).
+- Disk: 643 GB since 2026-10-11 (was 40 GB and filled up; partition grown with `growpart /dev/vda 2` + `resize2fs`).
 
 ## Layout of the repo
 
