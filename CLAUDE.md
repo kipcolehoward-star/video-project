@@ -533,6 +533,22 @@ preview → QC → final render. Each stage writes files into `projects/<id>/`.
 | `the-world-gave-us-this-02` | 9:16 | 79.2 s | Ep. 02 (Italy → India → South Korea), script drafted by Claude and approved; first video rendered on the render server; drawn rain-gauge card; truePeak -1.5 |
 | `the-strait-of-malacca` | 16:9 | 6:00 | first geography long-form, final rendered 2026-10-07; dusk/ocean/paper palettes, satellite hook + close, Epidemic music bed (2 tracks crossfaded) + SFX; captions off (SRT exported); Edge voice (non-monetised) |
 
+## YouTube upload (added 2026-10-20)
+
+`npm run upload -- --login` (once; browser sign-in, shows the channel), then `npm run upload -- --project <id> [--dry-run]`
+uploads the single final MP4 in `output/` with `projects/<id>/youtube.json` (title, description, tags, categoryId,
+privacy, madeForKids, publishAt?, thumbnail?), the credits file appended to the description and the SRT as captions;
+it records `output/<id>-youtube.json` and refuses a second upload without `--again`. `--file <mp4> --title ...` = bare test.
+- The user's own Google Cloud project `checkpoint-uploader` (YouTube Data API v3, Desktop OAuth client): `YOUTUBE_CLIENT_ID`
+  and `YOUTUBE_CLIENT_SECRET` in `.env`; the refresh token lives outside the repo in `~/.video-project/youtube-token.json`.
+  The consent screen is in Testing (Publish was greyed out), so Google expires the login after ~7 days; the script
+  then simply opens the sign-in again.
+- Until the project passes Google's YouTube API audit, YouTube locks API uploads to private: publish in Studio.
+  Custom thumbnails need a phone-verified channel.
+- **Upload only after the user approves that specific video.** Composio was tried and dropped (2026-10-20): its
+  shared Google project ran out of its daily upload allowance (966/day across all its users).
+- Test upload 2026-10-20: https://youtu.be/N0RTY00TWFY (private, 8 s hook preview; for the user to delete).
+
 ## Backup (git)
 
 Private repo: https://github.com/kipcolehoward-star/video-project (branch `main`).

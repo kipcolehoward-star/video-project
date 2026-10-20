@@ -36,7 +36,8 @@
     "short": "tsx scripts/short.ts",
     "paleo:setup": "tsx scripts/paleo-setup.ts",
     "terrain:setup": "tsx scripts/terrain-setup.ts",
-    "imagery:setup": "tsx scripts/imagery-setup.ts"
+    "imagery:setup": "tsx scripts/imagery-setup.ts",
+    "upload": "tsx scripts/upload.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.5",
