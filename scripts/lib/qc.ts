@@ -17,6 +17,8 @@ export interface Expected {
   truePeak?: number;
   /** Narrated videos must have an audio stream. */
   requireAudio?: boolean;
+  /** Kinetic style: error on any stretch longer than this (seconds) where the picture does not change. */
+  maxFreeze?: number;
 }
 
 export function qcFile(file: string, expected: Expected): Finding[] {
@@ -58,6 +60,15 @@ export function qcFile(file: string, expected: Expected): Finding[] {
   const black = capture('ffmpeg', ['-hide_banner', '-nostats', '-i', file, '-vf', 'blackdetect=d=0.25:pic_th=0.98:pix_th=0.03', '-an', '-f', 'null', '-']);
   const segs = [...black.stderr.matchAll(/black_start:([\d.]+) black_end:([\d.]+)/g)].map((m) => `${m[1]}–${m[2]}s`);
   out.push(segs.length ? f('warn', 'black-frames', `black segments: ${segs.join(', ')}`) : f('ok', 'black-frames', 'none ≥0.25s'));
+
+  // Frozen picture (kinetic style). Frames are compared 4 times a second, so a slow drift adds up to a measurable change.
+  if (expected.maxFreeze) {
+    const fz = capture('ffmpeg', ['-hide_banner', '-nostats', '-i', file, '-vf', `fps=4,freezedetect=n=-50dB:d=${expected.maxFreeze}`, '-an', '-f', 'null', '-']);
+    const starts = [...fz.stderr.matchAll(/freeze_start: ([\d.]+)/g)].map((m) => Number(m[1]));
+    const ends = [...fz.stderr.matchAll(/freeze_end: ([\d.]+)/g)].map((m) => Number(m[1]));
+    const spans = starts.map((st, i) => `${st.toFixed(2)}–${ends[i] !== undefined ? ends[i].toFixed(2) : 'end'}s`);
+    out.push(spans.length ? f('error', 'frozen', `picture frozen for more than ${expected.maxFreeze}s at ${spans.join(', ')}`) : f('ok', 'frozen', `nothing frozen for more than ${expected.maxFreeze}s`));
+  }
 
   // Audio
   if (!a) {

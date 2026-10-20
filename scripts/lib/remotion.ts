@@ -5,7 +5,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {bundle} from '@remotion/bundler';
-import {openBrowser, renderMedia, renderStill, selectComposition, type CancelSignal} from '@remotion/renderer';
+import {openBrowser, renderMedia, renderStill, selectComposition, type CancelSignal, type ChromiumOptions} from '@remotion/renderer';
 import type {MainProps} from '../../src/config/project';
 import {ROOT} from './project';
 import {ensureGeoData} from './geodata';
@@ -27,6 +27,21 @@ export const RENDER_DEFAULTS = {
 type Browser = Awaited<ReturnType<typeof openBrowser>>;
 let browser: Browser | null = null;
 
+type Gl = NonNullable<ChromiumOptions['gl']>;
+/**
+ * WebGL backend for headless Chrome, or null for Chrome's default. Only
+ * projects with a glmap scene (MapLibre) switch it on, so every other render
+ * runs exactly as before. Windows uses the GPU (angle); Linux defaults to
+ * software rendering (swangle) because the render server has no GPU.
+ * RENDER_GL overrides the choice.
+ */
+let gl: Gl | null = null;
+function setWebGl(on: boolean) {
+  const next = on ? ((process.env.RENDER_GL as Gl | undefined) ?? (process.platform === 'win32' ? 'angle' : 'swangle')) : null;
+  if (next !== gl && browser) void closeBrowser();
+  gl = next;
+}
+
 /**
  * One shared headless Chrome for the whole run. Launching a fresh browser per
  * still/render fails intermittently on a 4 GB machine.
@@ -36,7 +51,7 @@ async function getBrowser(): Promise<Browser> {
   // scanning new media), which Remotion treats as fatal. Retry before giving up.
   for (let attempt = 1; !browser; attempt++) {
     try {
-      browser = await openBrowser('chrome');
+      browser = await openBrowser('chrome', gl ? {chromiumOptions: {gl}} : undefined);
     } catch (e) {
       if (attempt >= 3) throw e;
       console.warn(`\n  browser start failed (attempt ${attempt}/3): ${(e as Error).message.split('\n')[0]} — retrying`);
@@ -61,6 +76,7 @@ function ensureStudioProps(props: MainProps) {
 export async function bundleProject(projectDir: string, props: MainProps, project?: LoadedProject): Promise<string> {
   ensureStudioProps(props);
   if (project) ensureGeoData(project);
+  setWebGl(props.storyboard.scenes.some((s) => s.type === 'glmap'));
   process.stdout.write('Bundling… ');
   const t = Date.now();
   const serveUrl = await bundle({
@@ -88,6 +104,8 @@ export async function renderVideo(opts: {
   props: MainProps;
   output: string;
   preview?: boolean;
+  /** Preview size as a fraction of full resolution (default 0.5). */
+  scale?: number;
   concurrency?: number;
   /** Inclusive [first, last] frames, to render only part of the timeline. */
   frameRange?: [number, number];
@@ -111,7 +129,7 @@ export async function renderVideo(opts: {
     outputLocation: opts.output,
     concurrency: opts.concurrency ?? RENDER_DEFAULTS.concurrency,
     crf: opts.preview ? RENDER_DEFAULTS.previewCrf : RENDER_DEFAULTS.crf,
-    scale: opts.preview ? RENDER_DEFAULTS.previewScale : 1,
+    scale: opts.preview ? (opts.scale ?? RENDER_DEFAULTS.previewScale) : 1,
     pixelFormat: 'yuv420p',
     // Standard TV-range BT.709. Without it, JPEG frames produce full-range yuvj420p, which players and platforms interpret inconsistently.
     colorSpace: 'bt709',

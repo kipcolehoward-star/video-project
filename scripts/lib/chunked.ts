@@ -17,6 +17,13 @@ import {capture} from './exec';
 import {rel, sha1} from './project';
 import {closeBrowser, renderVideo} from './remotion';
 
+/**
+ * FFmpeg output options for the master mix in a final MP4. AAC encoding overshoots sharp transients: the Kaliningrad
+ * mix at -1.4 dBTP came out at +0.2 dBTP (2026-10-20). A limiter at -3 dBFS, run at 4x the sample rate so it also
+ * catches peaks between samples, keeps the file under -1.5 dBTP; it touches only the hits (about -0.3 LU overall).
+ */
+export const MASTER_AUDIO = ['-af', 'aresample=192000,alimiter=limit=0.708:attack=1:release=50:level=false,aresample=48000', '-c:a', 'aac', '-b:a', '320k'];
+
 export interface ChunkOptions {
   serveUrl: string;
   props: MainProps;
@@ -113,7 +120,7 @@ export async function renderChunked(o: ChunkOptions): Promise<void> {
   const inputs = ['-f', 'concat', '-safe', '0', '-i', list];
   // The master audio covers the whole timeline; seek to where the rendered range starts.
   if (o.audioFile) inputs.push(...(o.range[0] > 0 ? ['-ss', (o.range[0] / o.fps).toFixed(3)] : []), '-i', o.audioFile);
-  const maps = o.audioFile ? ['-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '320k', '-shortest'] : ['-map', '0:v', '-an'];
+  const maps = o.audioFile ? ['-map', '0:v', '-map', '1:a', ...MASTER_AUDIO, '-shortest'] : ['-map', '0:v', '-an'];
   const args = ['-y', '-hide_banner', '-loglevel', 'error', ...inputs, ...maps, '-c:v', 'copy', '-movflags', '+faststart', o.output];
   const r = capture('ffmpeg', args);
   if (r.code !== 0) throw new Error(`joining parts failed: ${r.stderr}`);

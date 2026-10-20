@@ -24,13 +24,17 @@ import {checkAssets, checkFonts, checkGeo, checkLayout, checkNarration, checkSto
 import {buildMix} from './lib/mix';
 import {buildProps, currentMix, loadProject, parseArgs, pickProject, rel, resolveProjectFormat} from './lib/project';
 import {qcFile} from './lib/qc';
-import {renderChunked} from './lib/chunked';
+import {MASTER_AUDIO, renderChunked} from './lib/chunked';
+import {capture} from './lib/exec';
 import {bundleProject, closeBrowser, RENDER_DEFAULTS, renderVideo} from './lib/remotion';
 
 const args = parseArgs();
 const id = pickProject(args.str('project'));
 let p = loadProject(id);
 const preview = args.bool('preview');
+// --scale 0.25 (270×480 for 9:16) or 0.1333 (144p): smaller, faster previews for checking motion and timing.
+const previewScale = args.str('scale') ? Number(args.str('scale')) : RENDER_DEFAULTS.previewScale;
+if (!(previewScale > 0 && previewScale <= 1)) throw new Error('--scale must be a number above 0 and at most 1');
 const guides = args.bool('guides');
 const captions = args.str('captions');
 const formats = (args.str('formats')?.split(',') ?? [args.str('format')]).map((s) => resolveProjectFormat(p.config, s));
@@ -89,7 +93,7 @@ for (const fmt of formats) {
   const suffix = `${rangeLabel}${preview ? '_preview' : ''}${guides ? '_guides' : ''}${captions ? `_${captions}` : ''}`;
   const output = path.join(outDir, `${id}_${formatSlug(fmt)}${suffix}.mp4`);
 
-  console.log(`\n▶ ${fmt.id}  ${fmt.width}x${fmt.height} @ ${fmt.fps}fps  (${fmt.orientation}, ${props.transcript ? `${props.captionStyle} captions` : 'no captions'}, ${props.audioMix ? 'mixed audio' : 'silent'})${preview ? '  [preview, 50% scale]' : ''}`);
+  console.log(`\n▶ ${fmt.id}  ${fmt.width}x${fmt.height} @ ${fmt.fps}fps  (${fmt.orientation}, ${props.transcript ? `${props.captionStyle} captions` : 'no captions'}, ${props.audioMix ? 'mixed audio' : 'silent'})${preview ? `  [preview, ${Math.round(previewScale * 100)}% scale]` : ''}`);
   const concurrency = args.str('concurrency') ? Number(args.str('concurrency')) : undefined;
   const totalFrames = buildTimeline(p.storyboard, fmt.fps).durationInFrames;
   const range: [number, number] = frameRange ?? [0, totalFrames - 1];
@@ -109,10 +113,19 @@ for (const fmt of formats) {
       keepParts: args.bool('keep-parts'),
     });
   } else {
-    await renderVideo({serveUrl, props, output, preview, frameRange, concurrency});
+    await renderVideo({serveUrl, props, output, preview, scale: previewScale, frameRange, concurrency});
+    // Put the master mix in with FFmpeg, as chunked renders do (MASTER_AUDIO keeps AAC's overshoot under the
+    // true-peak limit; Remotion's own audio pass gave -0.5 dBTP from a -1.4 dBTP mix, Kaliningrad 2026-10-20).
+    if (props.audioMix) {
+      const tmp = `${output}.audio.mp4`;
+      const seek = range[0] > 0 ? ['-ss', (range[0] / fmt.fps).toFixed(3)] : [];
+      const r = capture('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-i', output, ...seek, '-i', path.join(p.dir, props.audioMix), '-map', '0:v', '-map', '1:a', '-c:v', 'copy', ...MASTER_AUDIO, '-shortest', '-movflags', '+faststart', tmp]);
+      if (r.code !== 0) throw new Error(`muxing the master audio failed: ${r.stderr}`);
+      fs.renameSync(tmp, output);
+    }
   }
 
-  const scale = preview ? RENDER_DEFAULTS.previewScale : 1;
+  const scale = preview ? previewScale : 1;
   const findings = qcFile(output, {
     width: Math.round(fmt.width * scale),
     height: Math.round(fmt.height * scale),
@@ -122,6 +135,7 @@ for (const fmt of formats) {
     targetLufs: props.audioMix && !frameRange ? p.audio.targetLufs : undefined,
     truePeak: props.audioMix && !frameRange ? p.audio.truePeak : undefined,
     requireAudio: narrated,
+    maxFreeze: p.config.style === 'kinetic' ? 1.5 : undefined,
   });
   printFindings(`QC ${rel(output)}`, findings);
   failed ||= hasErrors(findings);

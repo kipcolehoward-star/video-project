@@ -16,7 +16,9 @@ import edge_tts
 
 async def main() -> None:
     voice, rate, out_mp3, out_json = sys.argv[1:5]
-    text = sys.stdin.read().strip()
+    # Node writes UTF-8; Windows Python would decode stdin with the ANSI code page and the voice would read
+    # "Königsberg" as "KÃ¶nigsberg" (found 2026-10-20).
+    text = sys.stdin.buffer.read().decode("utf-8").strip()
     words = []
     communicate = edge_tts.Communicate(text, voice, rate=rate, boundary="WordBoundary")
     with open(out_mp3, "wb") as f:

@@ -7,6 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {resolveFormat, type VideoFormat} from '../../src/config/formats';
+import {SCENES} from '../../src/scenes/registry';
 import {
   AUDIO_DEFAULTS,
   narrationStarts,
@@ -90,11 +91,32 @@ export function loadProject(id: string): LoadedProject {
     dir,
     config,
     rawStoryboard,
-    storyboard: resolveDurations(rawStoryboard, narration),
+    storyboard: withImpliedSounds(resolveDurations(rawStoryboard, narration), config),
     assets: readJson<Record<string, AssetMeta>>(path.join(dir, 'assets.json'), {}),
     narration,
     transcript: readJson<Transcript | null>(path.join(dir, TRANSCRIPT_FILE), null),
     audio: {...AUDIO_DEFAULTS, ...config.audio},
+  };
+}
+
+/**
+ * Adds the sounds scene animations imply (SceneDefinition.sounds, e.g. a pop
+ * for every highlight) as ordinary sfx, using project.json `sfxKit`. Kinds
+ * missing from the kit are left out here and reported by validate.
+ */
+function withImpliedSounds(sb: Storyboard, config: ProjectConfig): Storyboard {
+  const kit = config.sfxKit ?? {};
+  return {
+    ...sb,
+    scenes: sb.scenes.map((s) => {
+      const implied = (SCENES[s.type]?.sounds?.(s.data) ?? []).flatMap(({kind, at, offset}) => {
+        const k = kit[kind];
+        if (!k) return [];
+        const {asset, gainDb} = typeof k === 'string' ? {asset: k, gainDb: undefined} : k;
+        return [{asset, at, ...(offset ? {offset} : {}), ...(gainDb !== undefined ? {gainDb} : {})}];
+      });
+      return implied.length ? {...s, sfx: [...(s.sfx ?? []), ...implied]} : s;
+    }),
   };
 }
 

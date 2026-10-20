@@ -56,11 +56,63 @@ export function checkStoryboard(p: LoadedProject, format: VideoFormat): Finding[
   const {durationInFrames} = buildTimeline(p.storyboard, format.fps);
   const seconds = durationInFrames / format.fps;
   out.push(f('ok', 'duration', `timeline ${seconds.toFixed(2)}s (${durationInFrames} frames @ ${format.fps}fps)`));
+  out.push(...checkSounds(p), ...checkMoments(p, format));
   const target = p.config.video.duration;
   if (target && Math.abs(target - seconds) > 0.5) {
     out.push(f('warn', 'duration', `timeline is ${seconds.toFixed(2)}s but project.json target is ${target}s`));
   }
   return out;
+}
+
+/** Every sound an animation asks for needs an asset in project.json sfxKit. */
+function checkSounds(p: LoadedProject): Finding[] {
+  const out: Finding[] = [];
+  const kit = p.config.sfxKit ?? {};
+  const missing = new Set<string>();
+  for (const s of p.rawStoryboard.scenes ?? []) for (const {kind} of SCENES[s.type]?.sounds?.(s.data) ?? []) if (!kit[kind]) missing.add(kind);
+  if (missing.size) out.push(f('error', 'sfx-kit', `animations ask for sound${missing.size > 1 ? 's' : ''} ${[...missing].map((k) => `"${k}"`).join(', ')} but project.json sfxKit has no asset for ${missing.size > 1 ? 'them' : 'it'} (or set sfx: false on the beat)`));
+  for (const [kind, k] of Object.entries(kit)) {
+    const id = typeof k === 'string' ? k : k.asset;
+    if (!p.assets[id]) out.push(f('error', 'sfx-kit', `sfxKit "${kind}" uses asset "${id}", which is not in assets.json`));
+  }
+  return out;
+}
+
+/** Longest allowed stretch without a visible event in kinetic projects (seconds). */
+export const MAX_MOMENT_GAP = 2;
+
+/**
+ * Kinetic projects: something must happen on screen at least every 2 s. Moments are scene
+ * cuts plus each scene's `moments` (cue words timed from the transcript, or seconds).
+ */
+function checkMoments(p: LoadedProject, format: VideoFormat): Finding[] {
+  if (p.config.style !== 'kinetic') return [];
+  const {scenes, durationInFrames} = buildTimeline(p.storyboard, format.fps);
+  const times: number[] = [];
+  let untimed = 0;
+  scenes.forEach((t, i) => {
+    const start = t.from / format.fps;
+    times.push(start);
+    const words = p.transcript?.scenes[t.scene.id]?.words;
+    for (const m of SCENES[t.scene.type]?.moments?.(t.scene.data) ?? []) {
+      if (typeof m === 'number') times.push(start + m);
+      else {
+        const k = words ? findCue(words, m) : -1;
+        if (k < 0) untimed++;
+        else times.push(start + narrationOffset(t.scene, i) + words![k].start);
+      }
+    }
+  });
+  if (untimed) return [f('warn', 'moments', `${untimed} cue-timed moment(s) have no word timing yet; gaps are checked after npm run transcribe`)];
+  const end = durationInFrames / format.fps;
+  const sorted = [...times, end].sort((a, b) => a - b);
+  const gaps: string[] = [];
+  for (let i = 1; i < sorted.length; i++) if (sorted[i] - sorted[i - 1] > MAX_MOMENT_GAP + 1e-6) gaps.push(`${sorted[i - 1].toFixed(2)}–${sorted[i].toFixed(2)}s`);
+  return [
+    gaps.length
+      ? f('error', 'moments', `nothing new happens for more than ${MAX_MOMENT_GAP}s at ${gaps.join(', ')} (add a beat on a word there)`)
+      : f('ok', 'moments', `${times.length} moments, none more than ${MAX_MOMENT_GAP}s apart`),
+  ];
 }
 
 export function checkAssets(p: LoadedProject): Finding[] {

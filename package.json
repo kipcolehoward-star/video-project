@@ -34,7 +34,9 @@
     "posters": "tsx scripts/posters.ts",
     "brand": "tsx scripts/brand.ts",
     "short": "tsx scripts/short.ts",
-    "paleo:setup": "tsx scripts/paleo-setup.ts"
+    "paleo:setup": "tsx scripts/paleo-setup.ts",
+    "terrain:setup": "tsx scripts/terrain-setup.ts",
+    "imagery:setup": "tsx scripts/imagery-setup.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.5",
@@ -48,6 +50,7 @@
     "@types/topojson-client": "^3.1.5",
     "d3-geo": "^3.1.1",
     "flag-icons": "^7.5.0",
+    "maplibre-gl": "5.24.0",
     "qrcode-generator": "^2.0.4",
     "react": "19.2.0",
     "react-dom": "19.2.0",

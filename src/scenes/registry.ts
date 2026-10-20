@@ -1,6 +1,7 @@
 import {AtlasScene} from './AtlasScene';
 import {ComparisonScene} from './ComparisonScene';
 import {DiagramScene} from './DiagramScene';
+import {GlMapScene} from './GlMapScene';
 import {GridScene} from './GridScene';
 import {JourneyScene} from './JourneyScene';
 import {ListScene} from './ListScene';
@@ -30,4 +31,5 @@ export const SCENES: Record<string, SceneDefinition<any>> = {
   grid: GridScene,
   atlas: AtlasScene,
   journey: JourneyScene,
+  glmap: GlMapScene,
 };

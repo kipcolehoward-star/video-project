@@ -7,15 +7,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {SCENES} from '../src/scenes/registry';
 import {loadProject, parseArgs, pickProject, rel} from './lib/project';
+import {IMAGERY_CREDIT_LINE, usesImagery} from './lib/imagery';
+import {TERRAIN_CREDIT, usesTerrain} from './lib/terrain';
 
 const args = parseArgs();
 const p = loadProject(pickProject(args.str('project')));
 const required: string[] = [];
 const courtesy: string[] = [];
 
-// Only assets that actually appear in the video.
+// Only assets that actually appear in the video (the resolved storyboard includes sounds implied by animations).
 const used = new Set<string>();
-for (const s of p.rawStoryboard.scenes) {
+for (const s of p.storyboard.scenes) {
   for (const ref of SCENES[s.type]?.assetRefs?.(s.data) ?? []) used.add(ref.replace(/^asset:/, ''));
   for (const fx of s.sfx ?? []) used.add(fx.asset.replace(/^asset:/, ''));
 }
@@ -28,6 +30,8 @@ for (const [id, a] of Object.entries(p.assets)) {
   (a.attributionRequired ? required : courtesy).push(`${line}${a.source.startsWith('http') ? `\n  ${a.source}` : ''}`);
 }
 if (p.narration?.attribution) required.push(`Narration: ${p.narration.attribution}`);
+if (usesTerrain(p)) required.push(TERRAIN_CREDIT);
+if (usesImagery(p)) required.push(IMAGERY_CREDIT_LINE);
 
 const text = [
   `Credits — ${p.config.title}`,

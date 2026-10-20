@@ -27,4 +27,11 @@ export interface SceneDefinition<T> {
   cues?: (data: T) => string[];
   /** Problems in the scene's storyboard data (misspelt or out-of-range fields); `validate` reports them as errors. */
   problems?: (data: T) => string[];
+  /** When something visibly happens (cue words or seconds from scene start): kinetic projects check the gaps between them. */
+  moments?: (data: T) => (string | number)[];
+  /**
+   * Sounds the scene's animations imply: a kind from project.json `sfxKit` ("pop", "whoosh"...),
+   * at a cue word or seconds, plus `offset` seconds. The loader turns them into ordinary scene sfx.
+   */
+  sounds?: (data: T) => {kind: string; at: string | number; offset?: number}[];
 }

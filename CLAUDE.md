@@ -16,9 +16,10 @@ explicitly approves them.
 3. **Captions come from real timing** (word-level transcription). Never guess.
 4. **Never fabricate** facts, asset sources or licenses. Unknown → write
    `"unknown"`; validation will flag it.
-5. **Editorial restraint.** No gradients-for-decoration, glow, emoji, bouncy or
+5. **Editorial restraint** (documentary style, the default). No gradients-for-decoration, glow, emoji, bouncy or
    random motion, gratuitous transitions or fake UI. Every element must serve
    the narration. Default to cuts; fades only where they mean something.
+   Projects with `style: "kinetic"` (Shorts) follow the kinetic rules instead — see "Kinetic style".
 6. Inspect before changing; smallest appropriate change; test; report how to preview.
 
 ## Machine constraints (inspected 2026-10-06)
@@ -120,7 +121,7 @@ separators, optional bar/column chart), `steps` (numbered process),
 highlight and pins drop on cues; tiny places are pins, not shapes), `photo`
 (full-bleed photo, focal-point push-in, lower-left title on a cue), `list`
 (display / numbered recap / pairs, fitted to space, optional photo backdrop),
-`grid` (reference cards, e.g. country emergency numbers). `title` also takes
+`grid` (reference cards, e.g. country emergency numbers), `glmap` (MapLibre flat map with tilt; see "GL map scene"). `title` also takes
 `cue`, `subtitleCue`, `size: "hero"` (one-word punchlines), `background`,
 `fadeOut`. `comparison` items take `display` strings ("9/11", "1968", names).
 Planned: timeline, quote, photo-montage, broll (video), screen-recording.
@@ -260,6 +261,111 @@ Script input: the user may write cue-sheet scripts (VOICEOVER / VISUAL_TYPE /
 MAP_TARGET / OVERLAY / SFX_TRIGGER); convert them to storyboard JSON by hand, mapping
 timestamps to narration cue words.
 
+## GL map scene (MapLibre, V1.1, added 2026-10-19)
+
+`type: "glmap"` (src/scenes/GlMapScene.tsx, src/graphics/glmap/): a flat web map drawn on the GPU by MapLibre GL JS
+5.24.0 (BSD-3, pinned; no token, no account, no network at render) with a camera that can tilt and rotate. Use it for
+regional close-ups (straits, coasts, shipping lanes); atlas stays the globe scene.
+- Base map: one GeoJSON source built from Natural Earth 1:10m land (`countries-10m`, copied by geodata.ts), filtered to
+  the area the scene shows. Layers: sea, a blurred shallow-water band along coasts, land, coastline. Palettes: `teal`
+  (default), `dusk`. Natural Earth 1:10m gets visibly angular above about zoom 7.5.
+- `camera: [{at, lon, lat, zoom, pitch, bearing}]`: one continuous path (smoothPath) through the keys; longitude and
+  bearing take the shortest way round. `zoom` is MapLibre's (+1 = twice as close; ~6.5 = the whole Strait of Malacca in
+  16:9). `pitch` 0–60.
+- `routes: [{via, at, duration, color: gold|white|red, style: solid|dashed}]`, `vessels: [{route, count, seconds,
+  reverse, offset, at}]` (markers sailing along a route, only on its drawn part), `labels: [{text, lon, lat, kind:
+  land|water|place, at, until, toward}]`, `vignette` (0–1, default 0). Routes, vessels and labels are SVG drawn at
+  `map.project()` positions, so they use the project fonts (MapLibre's own text would need glyph files).
+- `terrain: {relief, tint, depth}` (all optional; relief 0–1, default 0.6; tint/depth default true): real elevation, flat
+  shaded (no 3D). Hillshade lit from the north-west, land coloured by height, sea coloured by depth (replaces the drawn
+  shallow-water band). Data: Terrain Tiles (AWS Open Data, terrarium PNGs, built from SRTM + GMTED2010 on land and
+  ETOPO1 at sea), downloaded once with `npm run terrain:setup -- --project <id> [--dry-run]` into `data/geo/terrain/` (gitignored),
+  only the tiles the camera path can need in the project's format (`planTiles`, src/graphics/glmap/tiles.ts; zooms 5–8);
+  renders copy those tiles into the project, so rendering stays offline. `validate` errors when tiles are missing; `npm run
+  credits` adds the required USGS/NOAA credit line. The depth colours are drawn over the relief at 85% so the coarse
+  seabed data's shading (speckle, seams between tile zoom levels in a tilted view) stays hidden; land keeps full relief.
+  Coastlines remain Natural Earth; elevation and coastline can disagree by up to about 1 km at the shore.
+- Ship markers: hull 1.2×, wake follows the route behind each ship (a straight wake cut across coasts at bends).
+  Symbols are far larger than real ships, so in narrow straits keep `offset` small (3 px in glmap-test) and check the
+  route and ships against the coastline before rendering.
+- `validate` errors on unknown or out-of-range glmap fields (`problems`).
+- Rendering: each frame sets the camera with `jumpTo` and is held (delayRender) until MapLibre reports `idle`.
+  MapLibre is imported dynamically inside the browser, so Node tools (validate, qc) and other projects never load it.
+  WebGL: `bundleProject` switches Chrome's `gl` option on only when the storyboard has a glmap scene (Windows `angle`,
+  Linux `swangle` = software, as the server has no GPU; `RENDER_GL` overrides). All other projects render unchanged.
+- Mapbox GL JS was rejected: its Product Terms (§1.7, July 2026) forbid map content in internet video without purchased
+  video rights, and §1.9 forbids automated queries.
+- Test project: `projects/glmap-test` (12 s Strait of Malacca, silent).
+
+## Kinetic style (Shorts, added 2026-10-20)
+
+User decision (2026-10-20): Shorts in this style until they are good, then long-form. The problem it solves, in the
+user's words: videos were "static and lifeless", the voice talks while the picture sits still "like describing an
+image". project.json `style: "kinetic"`; documentary projects are unaffected.
+- **Rules:** a visible event every 1–2 s, each on the narration word that motivates it; nothing frozen > 1.5 s (the
+  camera always drifts); entrances spring in with a small overshoot (`src/animations/kinetic.ts`: pop, slam,
+  glowPulse, breathe, snap easing), highlights glow; a sound on every animation; no music; Edge voice; 30 fps; 9:16.
+  Accuracy rules still apply (facts, licences, readable text in the safe zone, captions from real timings).
+- **Checks:** `validate` errors when moments (scene cuts + each scene's `moments` hook, cue words timed from the
+  transcript) are more than 2 s apart; `render`/`qc` error on a frozen picture > 1.5 s (`fps=4,freezedetect`).
+- **Sounds:** scenes declare the sounds their animations imply (`SceneDefinition.sounds`: kind + cue); the loader adds
+  them as ordinary scene sfx through project.json `sfxKit` (`{"pop": "es-pop", "slam": {"asset": "es-impact",
+  "gainDb": -6}}`); `validate` errors on a kind missing from the kit. A beat's `sfx: false` silences it.
+- **glmap beats** (`data.beats`, each `{on, off?, sfx?}`): `highlight` (country or province by Natural Earth name;
+  fill + white outline + glow pulse, drawn by MapLibre so it follows the tilt; parts inside a disputed area, e.g.
+  Crimea, are left out; `flag: "ru"` fills it with the country's flag instead, fitted to the part on screen, smaller
+  shapes drawn on top; user preference 2026-10-20: countries named in narration show their flag), `pulse` (re-fire an earlier highlight's glow), `label` (text slammed on at lon/lat, `size`
+  hero|big|small), `link` (dashed line drawing itself, optional red ✕ with its own click). Colours: red, gold,
+  orange, blue, white. Camera keys with `move` (seconds) start on their word (`at`) and ease `snap` (default, whoosh)
+  or `glide` (swish). `drift` = push-in in zoom levels per second (default 0.02 in kinetic projects).
+- Rings crossing the 180° meridian (Russia, Fiji) are unwrapped before MapLibre gets them; otherwise they draw a band
+  across the world.
+- **Previews:** approvals are on moving previews, not stills (user: "even if previews are 144p"):
+  `npm run render:preview -- --project <id> --scale 0.25` (270×480, about 3 fps for a glmap scene on the laptop).
+- **glmap `imagery`** (`true` or a grade `{saturation, contrast, brightness}`, -1..1, defaults 0.2/0.12/0.04): satellite
+  picture instead of the drawn sea and land. Source: EOxCloudless **2016** (Sentinel-2 cloudless, EOX layer
+  `s2cloudless_3857`), **CC BY 4.0** — only 2016 is; 2018–2025 are CC BY-NC-SA (checked 2026-10-20 on
+  cloudless.eox.at/license-non-commercial and in the WMTS layer abstract). `npm run imagery:setup -- --project <id>
+  [--dry-run]` downloads only the planned tiles (4 at a time; EOX publishes no bulk rules) into `data/geo/imagery/`
+  (gitignored, with SOURCES.md); `validate` errors when tiles are missing; `npm run credits` adds the EOX line.
+  EOX's imagery has real water only in a strip along coasts and flat blue beyond it (a visible band), so pair imagery
+  with `terrain: {depth: true, tint: false}`: the sea is then drawn from depth data (bright bathymetric blues, opaque,
+  stopping at -3 m so land below sea level such as the Vistula delta keeps its imagery). Caspian-type depressions
+  deeper than -3 m on land would still turn blue; check such places.
+- **Tile plans must be complete.** `planTiles` samples the camera path between keys (8 points per move) and plans
+  the finest level where the frame is and all coarser levels over everything a tilted camera sees. A missing tile
+  (404) is drawn from its parent in a still, but froze a video render on one frame (delayRender timeout, 2026-10-20).
+  The first terrain planner (16:9-only, finest zoom everywhere) asked for 6,198 tiles for one portrait scene; the
+  path plan needs ~580 per tile set.
+- If a preview MP4 is open in a player, Remotion cannot replace it (EPERM on rename); the finished file is left as
+  `<name>.mp4.<id>.remotion-in-progress`. Never close the user's player; rename that file instead.
+- **Picture layer** (`src/graphics/kinetic/pictures.tsx`, glmap beats; user rule 2026-10-20: icons drawn in code,
+  pictures public domain / openly licensed via `npm run image`, licence checked per item, no AI or paid art):
+  `card` (asset on a paper card that swings in; `caption` in the bundled serif, `crop`, `tilt`; sound "paper"),
+  `icon` (drawn icon from `ICONS`, e.g. `teutonic-shield`, drops in and lands; sound "thud" at the landing),
+  `year` (counts up to `value`, then punches in; sound "tick"), `tint` (`warm` old-map grade that also hides modern
+  borders, `cold`, `none`; silent, it rides on a camera move), label `was` (shown from the scene start, flips to
+  `text` on its word; sound "flip"). `place` = top | center | bottom of the safe area; `top` is the big one (60%),
+  because the map's subject sits at the frame centre. Show pictures one after another in `top` rather than stacking.
+- Over imagery the depth-drawn sea fades out between map zoom 7.5 and 9 (the seabed data drew blobs over lagoons
+  in a city view); close up, the imagery's own water is real. EOX serves open-sea tiles as tiny PNGs (kept as .jpg).
+- `planTiles`' finest level reaches 2.5·sin(pitch) half-frames up a tilted frame: MapLibre asked for zoom 11 tiles
+  1.8 half-frames north of the centre at pitch 40, and the missing tile stopped the render (2026-10-20).
+- Edge voice: `edge_tts_cli.py` must read stdin as UTF-8. Until 2026-10-20 it used the Windows code page, so
+  "Königsberg", "Tomé" and em dashes reached the voice garbled (heard as junk syllables; affected the Malacca
+  quote, the 911 video and the Lesotho Short).
+- More glmap beats (step 4): `arrow` (thick bowed arrow drawing itself; army moves; whoosh), `stamp` (rubber-stamp word;
+  sound "stamp"), `march` (small walking figures from/to; footsteps), `measure` (ruler line + `text` such as "65 km";
+  swish). Highlights take `flag: "asset:<id>"` for flags that are not countries today (Soviet flag, PD-RU-exempt, from
+  Commons), `flagFit: "stretch"` (keeps a corner emblem in view), `exit: "fall"` + `offSfx` (flag drops away with a
+  crack). Any beat `on: 0` is already showing at the scene start (continuity across cuts; silent). Plain colour fills
+  stay for things that are not one country (EU/NATO areas use the EU flag on members or a label; NATO's emblem is a
+  protected mark, so it is never drawn).
+- **Master audio:** every render now muxes `audio/mix.wav` with FFmpeg (`MASTER_AUDIO` in chunked.ts: 4x-oversampled
+  limiter at -3 dBFS, AAC 320k), short renders included. AAC overshoots sharp SFX: a -1.4 dBTP mix came out at +0.2
+  dBTP, and Remotion's own audio pass at -0.5. Lowering the mix target instead cost a full LU of loudness.
+- Pilot: `projects/kaliningrad` (6 scenes, 57.4 s; final rendered on the laptop in 25 min at concurrency 1): hook, Königsberg, 1945, renamed, 1991, today/Suwałki Gap. Render previews with `--concurrency 1` when memory is short.
+
 ## Journey scene (globe travel series, e.g. "The World Gave Us This")
 
 `type: "journey"` (src/scenes/JourneyScene.tsx, cards in src/graphics/journey/). A NASA Blue Marble globe
@@ -319,7 +425,7 @@ UI); square → `social-square`. Override in project.json `safeZoneProfile`.
 | `npm run dev -- --project <id> [--format 9:16] [--guides]` | Remotion Studio (`preview` is an alias) |
 | `npm run validate -- --project <id>` | storyboard, assets, fonts, layout for 16:9/9:16/1:1 |
 | `npm run stills -- --project <id> [--guides] [--formats 9:16] [--at 1.5,12]` | one still per scene per format + side-by-side sheets |
-| `npm run render:preview -- --project <id> [--format 9:16]` | 50% scale, veryfast x264, JPEG 70 → `previews/` (review drafts) |
+| `npm run render:preview -- --project <id> [--format 9:16] [--scale 0.25]` | 50% scale (or `--scale`), veryfast x264, JPEG 70 → `previews/` (review drafts) |
 | `npm run render:preview -- --project <id> --scenes s16,s17` | only those scenes (+ everything between), with their audio — fastest way to check an edit |
 | `npm run render -- --project <id> --from s10 --to s14` | partial final-quality render of a scene range (ids or unique prefixes) |
 | `npm run render -- --project <id> [--format 9:16] [--guides]` | full render → `output/`, then QC; long videos render in resumable parts automatically (re-run to resume) |

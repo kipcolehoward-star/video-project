@@ -28,3 +28,8 @@ projects/*/audio/music/es-*.wav
 
 # Per-project copies of map layers and flags (rebuilt from data/geo + flag-icons at render)
 projects/*/geo/
+
+# Elevation tiles for glmap terrain (re-download with npm run terrain:setup -- --project <id>)
+data/geo/terrain/
+# Satellite imagery tiles for glmap (re-download with npm run imagery:setup -- --project <id>)
+data/geo/imagery/

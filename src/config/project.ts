@@ -14,6 +14,14 @@ export interface ProjectConfig {
   audio?: AudioConfig;
   /** Subtle surface texture over the whole video: film grain or paper grain. */
   texture?: 'none' | 'grain' | 'paper';
+  /**
+   * "documentary" (default): restrained motion (animations/motion.ts).
+   * "kinetic": Shorts where something happens every 1–2 s on the spoken word (animations/kinetic.ts);
+   * validate errors when moments are more than 2 s apart, and qc errors on anything frozen for more than 1.5 s.
+   */
+  style?: 'documentary' | 'kinetic';
+  /** Sound for each animation kind the scenes ask for ("pop", "slam", "whoosh"...): an asset id, or {asset, gainDb}. */
+  sfxKit?: Record<string, string | {asset: string; gainDb?: number}>;
 }
 
 export type CaptionStyle = 'documentary' | 'kinetic' | 'educational' | 'none';
