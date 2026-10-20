@@ -535,6 +535,11 @@ preview → QC → final render. Each stage writes files into `projects/<id>/`.
 
 ## YouTube upload (added 2026-10-20)
 
+**Every finished video ships with an upload sheet (user rule, 2026-10-20):** write `projects/<id>/youtube.json`
+(title, description with intro + sources + hashtags, exactly 4 tags, categoryId, privacy, madeForKids), run
+`npm run credits` and `npm run captions`, then `npm run upload:md -- --project <id>` → `output/<id>-upload.md` (title,
+tags, settings, description with all credits, and the MP4/SRT/VTT to attach). It checks YouTube's limits.
+
 `npm run upload -- --login` (once; browser sign-in, shows the channel), then `npm run upload -- --project <id> [--dry-run]`
 uploads the single final MP4 in `output/` with `projects/<id>/youtube.json` (title, description, tags, categoryId,
 privacy, madeForKids, publishAt?, thumbnail?), the credits file appended to the description and the SRT as captions;
@@ -543,8 +548,11 @@ it records `output/<id>-youtube.json` and refuses a second upload without `--aga
   and `YOUTUBE_CLIENT_SECRET` in `.env`; the refresh token lives outside the repo in `~/.video-project/youtube-token.json`.
   The consent screen is in Testing (Publish was greyed out), so Google expires the login after ~7 days; the script
   then simply opens the sign-in again.
-- Until the project passes Google's YouTube API audit, YouTube locks API uploads to private: publish in Studio.
-  Custom thumbnails need a phone-verified channel.
+- **Until the project passes Google's YouTube API audit, YouTube locks API uploads to private, permanently for that
+  video:** the creator cannot make it public in Studio and cannot appeal; it has to be uploaded again through the
+  YouTube site/app (YouTube help, checked 2026-10-20). So do NOT upload a finished video through this command before
+  the audit is approved; until then upload final videos in YouTube Studio (Claude prepares title, description,
+  tags, captions). Custom thumbnails need a phone-verified channel.
 - **Upload only after the user approves that specific video.** Composio was tried and dropped (2026-10-20): its
   shared Google project ran out of its daily upload allowance (966/day across all its users).
 - Test upload 2026-10-20: https://youtu.be/N0RTY00TWFY (private, 8 s hook preview; for the user to delete).

@@ -98,7 +98,7 @@ async function main() {
   }
   const status = await videoStatus(token, id);
   console.log(`Status: ${JSON.stringify(status)}`);
-  if (meta.privacy !== 'private' && status?.privacyStatus === 'private') console.log('YouTube kept it private: the API project has not passed the YouTube API audit yet. Publish it in YouTube Studio.');
+  if (meta.privacy !== 'private' && status?.privacyStatus === 'private') console.log('YouTube kept it private: the API project has not passed the YouTube API audit yet, and such a lock cannot be lifted for this video. Upload it in YouTube Studio instead.');
   if (record) fs.writeFileSync(record, JSON.stringify({videoId: id, url: `https://youtu.be/${id}`, uploaded: new Date().toISOString(), channel: ch?.snippet.title, file: rel(file), status}, null, 2) + '\n');
 }
 
