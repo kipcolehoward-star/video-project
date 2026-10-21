@@ -35,6 +35,13 @@ export interface AudioConfig {
   provider?: 'piper' | 'edge' | 'elevenlabs';
   /** Edge speaking rate, e.g. "+0%", "-5%". */
   rate?: string;
+  /**
+   * Edge only: longest silence kept inside a clip, seconds (e.g. 0.2). Longer pauses (Edge leaves ~0.5–0.9 s after
+   * each full stop) are shortened and the silence before the first and after the last word is trimmed, so the
+   * voice-over runs on continuously (user rule for kinetic Shorts, 2026-10-20). Unset = clips as Edge made them.
+   * Pair it with scene `narrationOffset: 0` and `narrationTail: 0` so scene joins add no gap either.
+   */
+  maxPause?: number;
   /** Piper voice id (tools.ts VOICES) or ElevenLabs voice_id (npm run voices). */
   voice?: string;
   /** ElevenLabs model id, e.g. eleven_multilingual_v2, eleven_v4. */
@@ -62,7 +69,7 @@ export interface AudioConfig {
   truePeak?: number;
 }
 
-export const AUDIO_DEFAULTS: Required<Omit<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut'>> = {
+export const AUDIO_DEFAULTS: Required<Omit<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut' | 'maxPause'>> = {
   provider: 'piper',
   rate: '+0%',
   voice: 'en_US-joe-medium',

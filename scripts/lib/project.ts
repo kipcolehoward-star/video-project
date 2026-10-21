@@ -73,7 +73,7 @@ export interface LoadedProject {
   assets: Record<string, AssetMeta>;
   narration: NarrationManifest | null;
   transcript: Transcript | null;
-  audio: Required<Omit<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut'>> & Pick<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut'>;
+  audio: Required<Omit<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut' | 'maxPause'>> & Pick<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut' | 'maxPause'>;
 }
 
 export const NARRATION_MANIFEST = 'audio/narration/manifest.json';

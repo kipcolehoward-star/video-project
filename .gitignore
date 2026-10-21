@@ -33,3 +33,8 @@ projects/*/geo/
 data/geo/terrain/
 # Satellite imagery tiles for glmap (re-download with npm run imagery:setup -- --project <id>)
 data/geo/imagery/
+
+# Personal SFX library: audio stays local, SOURCES.txt is tracked
+library/sfx/**/*
+!library/sfx/*/
+!library/sfx/SOURCES.txt

@@ -56,7 +56,7 @@ export function checkStoryboard(p: LoadedProject, format: VideoFormat): Finding[
   const {durationInFrames} = buildTimeline(p.storyboard, format.fps);
   const seconds = durationInFrames / format.fps;
   out.push(f('ok', 'duration', `timeline ${seconds.toFixed(2)}s (${durationInFrames} frames @ ${format.fps}fps)`));
-  out.push(...checkSounds(p), ...checkMoments(p, format));
+  out.push(...checkSounds(p), ...checkMoments(p, format), ...checkVoiceGaps(p, format));
   const target = p.config.video.duration;
   if (target && Math.abs(target - seconds) > 0.5) {
     out.push(f('warn', 'duration', `timeline is ${seconds.toFixed(2)}s but project.json target is ${target}s`));
@@ -112,6 +112,33 @@ function checkMoments(p: LoadedProject, format: VideoFormat): Finding[] {
     gaps.length
       ? f('error', 'moments', `nothing new happens for more than ${MAX_MOMENT_GAP}s at ${gaps.join(', ')} (add a beat on a word there)`)
       : f('ok', 'moments', `${times.length} moments, none more than ${MAX_MOMENT_GAP}s apart`),
+  ];
+}
+
+/** Longest silence allowed between two spoken words when the project asks for a continuous voice-over (seconds). */
+export const MAX_VOICE_GAP = 0.35;
+
+/**
+ * Projects with audio.maxPause (continuous voice-over, user rule 2026-10-20): no silence between consecutive words
+ * longer than MAX_VOICE_GAP anywhere on the timeline, scene joins included (word times from the transcript).
+ */
+function checkVoiceGaps(p: LoadedProject, format: VideoFormat): Finding[] {
+  if (p.audio.maxPause === undefined || !p.transcript) return [];
+  const {scenes} = buildTimeline(p.storyboard, format.fps);
+  const words: {start: number; end: number; text: string}[] = [];
+  scenes.forEach((t, i) => {
+    const base = t.from / format.fps + narrationOffset(t.scene, i);
+    for (const w of p.transcript!.scenes[t.scene.id]?.words ?? []) words.push({start: base + w.start, end: base + w.end, text: w.text});
+  });
+  const gaps: string[] = [];
+  for (let i = 1; i < words.length; i++) {
+    const g = words[i].start - words[i - 1].end;
+    if (g > MAX_VOICE_GAP) gaps.push(`${words[i - 1].end.toFixed(2)}s "${words[i - 1].text} … ${words[i].text}" ${g.toFixed(2)}s`);
+  }
+  return [
+    gaps.length
+      ? f('error', 'voice-gaps', `voice-over pauses longer than ${MAX_VOICE_GAP}s: ${gaps.join('; ')} (scene joins: set narrationOffset 0 and narrationTail 0)`)
+      : f('ok', 'voice-gaps', `continuous voice-over: no pause longer than ${MAX_VOICE_GAP}s across ${words.length} words`),
   ];
 }
 

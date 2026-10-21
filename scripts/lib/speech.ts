@@ -27,7 +27,7 @@ export function narrationTextHash(p: LoadedProject, narration: string) {
     a.provider === 'elevenlabs'
       ? ['elevenlabs', a.voice, a.model, a.voiceSettings ?? null]
       : a.provider === 'edge'
-        ? ['edge', a.voice, a.rate]
+        ? ['edge', a.voice, a.rate, ...(a.maxPause !== undefined ? [a.maxPause] : [])]
         : [a.voice, a.speaker ?? null, a.lengthScale];
   return sha1(JSON.stringify([spokenText(narration), ...voiceKey]));
 }
@@ -38,6 +38,49 @@ const EDGE_LICENSE = {
   attribution: null,
 };
 const EDGE_HELPER = path.join(path.dirname(fileURLToPath(import.meta.url)), 'tts', 'edge_tts_cli.py');
+
+/**
+ * Shortens the silences in a voice clip using the engine's word timings: every gap between two words longer than
+ * `maxPause` keeps maxPause/2 after the first word and before the next (so no syllable or breath ending is cut),
+ * and the clip starts 0.06 s before the first word and ends 0.12 s after the last. Each kept piece gets a 6 ms fade
+ * at both ends so the cuts never click. The timing file is rewritten to the new positions.
+ */
+function tightenClip(wav: string, timingFile: string, maxPause: number, id: string) {
+  const timing = JSON.parse(fs.readFileSync(timingFile, 'utf8')) as {engine: string; words: {word: string; start: number; end: number}[]};
+  const w = timing.words;
+  if (!w.length) return;
+  const total = audioDuration(wav);
+  const half = maxPause / 2;
+  const keep: [number, number][] = [];
+  let from = Math.max(0, w[0].start - 0.06);
+  for (let i = 0; i < w.length - 1; i++) {
+    if (w[i + 1].start - w[i].end > maxPause) {
+      keep.push([from, w[i].end + half]);
+      from = w[i + 1].start - half;
+    }
+  }
+  keep.push([from, Math.min(total, w[w.length - 1].end + 0.12)]);
+  // New time of an old position: drop the removed spans before it.
+  const remap = (t: number) => {
+    let out = 0;
+    for (const [a, b] of keep) {
+      if (t <= a) break;
+      out += Math.min(t, b) - a;
+    }
+    return out;
+  };
+  const f = 0.006;
+  const chains = keep.map(([a, b], k) => `[0:a]atrim=start=${a.toFixed(4)}:end=${b.toFixed(4)},asetpts=PTS-STARTPTS,afade=t=in:d=${f},afade=t=out:st=${Math.max(0, b - a - f).toFixed(4)}:d=${f}[k${k}]`);
+  const graph = `${chains.join(';')};${keep.map((_, k) => `[k${k}]`).join('')}concat=n=${keep.length}:v=0:a=1[out]`;
+  const tmp = `${wav}.tight.wav`;
+  const r = capture('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-i', wav, '-filter_complex', graph, '-map', '[out]', '-c:a', 'pcm_s16le', tmp]);
+  if (r.code !== 0) throw new Error(`could not tighten the pauses in "${id}": ${r.stderr.slice(-400)}`);
+  fs.renameSync(tmp, wav);
+  timing.words = w.map((x) => ({...x, start: remap(x.start), end: remap(x.end)}));
+  fs.writeFileSync(timingFile, JSON.stringify({...timing, maxPause}, null, 2));
+  const after = audioDuration(wav);
+  console.log(`  tight ${id}: ${total.toFixed(2)}s -> ${after.toFixed(2)}s (${keep.length - 1} pause(s) shortened to ${maxPause}s)`);
+}
 
 const ELEVENLABS_LICENSE = {
   license: 'ElevenLabs output — commercial use requires a paid plan',
@@ -138,6 +181,7 @@ export async function generateVoiceover(p: LoadedProject, opts: {force?: boolean
       if (r.status !== 0 || !fs.existsSync(mp3)) throw new Error(`edge-tts failed on scene "${s.id}": ${r.stderr.slice(-400)}`);
       const conv = capture('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-i', mp3, '-ac', '1', '-ar', '44100', '-c:a', 'pcm_s16le', abs]);
       if (conv.code !== 0) throw new Error(`ffmpeg could not decode edge-tts audio for "${s.id}": ${conv.stderr}`);
+      if (p.audio.maxPause !== undefined) tightenClip(abs, path.join(p.dir, timing), p.audio.maxPause, s.id);
     } else {
       const args = ['--model', TOOL_PATHS.piperVoice(voice), '--output_file', abs, '--sentence_silence', '0.3', '--length_scale', String(p.audio.lengthScale)];
       if (p.audio.speaker !== undefined) args.push('--speaker', String(p.audio.speaker));

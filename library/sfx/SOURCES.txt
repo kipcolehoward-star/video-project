@@ -1,0 +1,17 @@
+SFX library — one line per file. A file without a line here is not used in videos.
+
+Format:
+folder\file-name | site | page link | licence
+
+Example:
+water\river-soft.mp3 | Pixabay | https://pixabay.com/sound-effects/... | Pixabay Content License
+
+Folders:
+water   river flow, splash, waves
+whoosh  soft transitions, camera moves
+pop     flags, labels appearing
+impact  stamps, reveals, big moments
+ui      ticks, clicks, counters
+paper   cards, maps, pages
+
+Files:

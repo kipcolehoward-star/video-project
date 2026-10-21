@@ -361,6 +361,14 @@ image". project.json `style: "kinetic"`; documentary projects are unaffected.
   crack). Any beat `on: 0` is already showing at the scene start (continuity across cuts; silent). Plain colour fills
   stay for things that are not one country (EU/NATO areas use the EU flag on members or a label; NATO's emblem is a
   protected mark, so it is never drawn).
+- **Continuous voice-over** (user rule 2026-10-20): project.json `audio.maxPause` (0.2) shortens pauses inside Edge clips
+  using the word timings and trims the clip ends; scenes after the first use `narrationOffset: 0` and `narrationTail: 0`
+  (last scene keeps a tail). `validate` errors on any pause > 0.35 s between words (`voice-gaps`). Pilot: `the-nile`.
+- glmap `river` beat (Natural Earth river names, drawn from `from`), lakes as highlights, `holes` (lakes kept out of a
+  flag), `year` with `format: "number"` + `suffix`, icon `rain-cloud`. Never put a CSS `filter` (blur, drop-shadow) on
+  large SVG overlays: a blurred river glow stalled MapLibre so the frame never reached idle ("glmap: map load" timeout);
+  an icon pinned to lon/lat hung the same way (use `place` until that is understood). Overlays must only project
+  points near the view: a tilted camera projects far points (behind it) to wild positions.
 - **Master audio:** every render now muxes `audio/mix.wav` with FFmpeg (`MASTER_AUDIO` in chunked.ts: 4x-oversampled
   limiter at -3 dBFS, AAC 320k), short renders included. AAC overshoots sharp SFX: a -1.4 dBTP mix came out at +0.2
   dBTP, and Remotion's own audio pass at -0.5. Lowering the mix target instead cost a full LU of loudness.

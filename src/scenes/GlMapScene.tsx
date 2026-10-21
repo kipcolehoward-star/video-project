@@ -34,7 +34,9 @@ type At = string | number;
  *   `flag` (ISO 3166-1 alpha-2, e.g. "ru", or "asset:<id>" for a flag that is not a country today, e.g. the Soviet
  *   Union) fills it with that flag instead of a colour, fitted to the part on screen. `exit: "fall"` drops the flag
  *   away on `off` instead of fading it. `flagFit: "stretch"` fits the whole flag to the shape's box instead of covering
- *   it (keeps a corner emblem, like the Soviet hammer and sickle, from being cropped away).
+ *   it (keeps a corner emblem, like the Soviet hammer and sickle, from being cropped away). `holes` (lake names)
+ *   keep lakes inside the country free of its flag (Lake Victoria under Uganda, Kenya and Tanzania).
+ *   `name` may also be a lake (Natural Earth name, e.g. "Lake Victoria").
  * - label: text slammed onto the map at lon/lat (`size` hero | big | small).
  * - pulse: an earlier highlight (same `name`) flashes its glow again.
  * - link: a dashed line draws itself from `from` to `to`; `cross` puts a red ✕ on it when it lands.
@@ -49,24 +51,29 @@ type At = string | number;
  * - stamp: a word pressed onto the screen at an angle, like a rubber stamp.
  * - march: `count` small figures walk on the map from `from` to `to` over `duration` seconds and fade out.
  * - measure: a ruler line from `from` to `to` that draws itself, then shows `text` (e.g. "65 km").
+ * - river: Natural Earth rivers (`rivers`, names as in the data) drawn as one glowing line that runs from the end
+ *   nearest `from` (the source) over `duration` seconds; `name` is the id a pulse beat uses to flash it.
+ * - year with `format: "number"` counts any number with thousands separators (from 0) and an optional `suffix`
+ *   (" km", "%").
  * Any beat with `on: 0` is already showing when the scene starts (continuity across a cut): no entrance, no sound.
  * `offSfx` plays a sound when the beat's `off` word comes.
  */
 export type GlBeat = {on: At; off?: At; sfx?: string | false; offSfx?: string} & (
-  | {do: 'highlight'; name: string; color?: GlAccent; flag?: string; flagFit?: 'cover' | 'stretch'; exit?: 'fade' | 'fall'}
+  | {do: 'highlight'; name: string; color?: GlAccent; flag?: string; flagFit?: 'cover' | 'stretch'; exit?: 'fade' | 'fall'; holes?: string[]}
   | {do: 'pulse'; name: string}
   | {do: 'label'; text: string; lon: number; lat: number; size?: 'hero' | 'big' | 'small'; color?: GlAccent; was?: string}
   | {do: 'link'; from: LonLat; to: LonLat; cross?: boolean; color?: GlAccent; duration?: number}
   | {do: 'card'; asset: string; caption?: string; crop?: [number, number, number, number]; tilt?: number; place?: Slot}
   | {do: 'icon'; icon: string; place?: Slot; lon?: number; lat?: number; size?: number}
-  | {do: 'year'; value: number; from?: number; place?: Slot; color?: GlAccent}
+  | {do: 'year'; value: number; from?: number; place?: Slot; color?: GlAccent; format?: 'year' | 'number'; suffix?: string}
+  | {do: 'river'; name: string; rivers: string[]; from: LonLat; color?: GlAccent; width?: number; duration?: number}
   | {do: 'tint'; tone: Tone}
   | {do: 'arrow'; from: LonLat; to: LonLat; color?: GlAccent; bend?: number; duration?: number}
   | {do: 'stamp'; text: string; place?: Slot; color?: GlAccent}
   | {do: 'march'; from: LonLat; to: LonLat; count?: number; duration?: number}
   | {do: 'measure'; from: LonLat; to: LonLat; text: string; duration?: number}
 );
-const BEAT_SFX: Record<GlBeat['do'], string | null> = {highlight: 'pop', pulse: 'pulse', label: 'slam', link: 'swish', card: 'paper', icon: 'thud', year: 'tick', tint: null, arrow: 'whoosh', stamp: 'stamp', march: 'footsteps', measure: 'swish'};
+const BEAT_SFX: Record<GlBeat['do'], string | null> = {highlight: 'pop', pulse: 'pulse', label: 'slam', link: 'swish', card: 'paper', icon: 'thud', year: 'tick', tint: null, arrow: 'whoosh', stamp: 'stamp', march: 'footsteps', measure: 'swish', river: 'swish'};
 const beatSfx = (b: GlBeat) => (b.do === 'label' && b.was ? 'flip' : BEAT_SFX[b.do]);
 const FLIP_FRAMES = 10;
 const TINT_FRAMES = 18;
@@ -151,8 +158,9 @@ function problemsFor(d: GlMapData): string[] {
       if (b.flag !== undefined && !(typeof b.flag === 'string' && (/^[a-z]{2}$/i.test(b.flag) || b.flag.startsWith('asset:')))) out.push(`${n}: flag must be a two-letter ISO 3166-1 code (e.g. "ru") or "asset:<id>"`);
       if (b.exit !== undefined && b.exit !== 'fade' && b.exit !== 'fall') out.push(`${n}: exit must be fade or fall`);
       if (b.flagFit !== undefined && b.flagFit !== 'cover' && b.flagFit !== 'stretch') out.push(`${n}: flagFit must be cover or stretch`);
+      if (b.holes !== undefined && !(Array.isArray(b.holes) && b.holes.every((h) => typeof h === 'string'))) out.push(`${n}: holes must be a list of lake names`);
     } else if (b.do === 'pulse') {
-      if (!(d.beats ?? []).some((h) => h.do === 'highlight' && h.name === b.name)) out.push(`${n}: pulse "${b.name}" needs a highlight beat with the same name`);
+      if (!(d.beats ?? []).some((h) => (h.do === 'highlight' || h.do === 'river') && h.name === b.name)) out.push(`${n}: pulse "${b.name}" needs a highlight or river beat with the same name`);
     } else if (b.do === 'label') {
       if (typeof b.text !== 'string' || !num(b.lon) || !num(b.lat)) out.push(`${n}: label needs text, lon and lat`);
       if (b.size !== undefined && !['hero', 'big', 'small'].includes(b.size)) out.push(`${n}: size must be hero, big or small`);
@@ -168,7 +176,15 @@ function problemsFor(d: GlMapData): string[] {
       if (!(b.icon in ICONS)) out.push(`${n}: unknown icon "${b.icon}" (drawn icons: ${Object.keys(ICONS).join(', ')})`);
       if ((b.lon === undefined) !== (b.lat === undefined) || (b.lon !== undefined && (!num(b.lon) || !num(b.lat)))) out.push(`${n}: icon on the map needs both lon and lat as numbers`);
       if (b.size !== undefined && (!num(b.size) || b.size <= 0 || b.size > 1)) out.push(`${n}: size must be a share of the safe width, more than 0 and at most 1`);
+    } else if (b.do === 'river') {
+      if (typeof b.name !== 'string' || !b.name) out.push(`${n}: river needs a "name" (the id pulses use)`);
+      if (!Array.isArray(b.rivers) || !b.rivers.length || !b.rivers.every((r) => typeof r === 'string')) out.push(`${n}: river needs "rivers": Natural Earth river names`);
+      if (!lonLat(b.from)) out.push(`${n}: river needs "from" [lon, lat] (where it starts drawing)`);
+      if (b.width !== undefined && (!num(b.width) || b.width <= 0 || b.width > 5)) out.push(`${n}: width must be a number from 0 to 5`);
+      if (b.duration !== undefined && (!num(b.duration) || b.duration <= 0 || b.duration > 10)) out.push(`${n}: duration must be seconds, more than 0 and at most 10`);
     } else if (b.do === 'year') {
+      if (b.format !== undefined && b.format !== 'year' && b.format !== 'number') out.push(`${n}: format must be year or number`);
+      if (b.suffix !== undefined && typeof b.suffix !== 'string') out.push(`${n}: suffix must be text`);
       if (!Number.isInteger(b.value)) out.push(`${n}: year needs a whole-number "value"`);
       if (b.from !== undefined && !Number.isInteger(b.from)) out.push(`${n}: from must be a whole number`);
     } else if (b.do === 'tint') {
@@ -262,8 +278,8 @@ function unwrapAntimeridian(fc: FC): FC {
  * that lie in a disputed area (e.g. Crimea in Natural Earth's Russia) are left
  * out, so a highlight never takes a side in a territorial dispute.
  */
-function findShape(name: string, countries: FC, admin1: FC | null, disputed: FC | null): FC | null {
-  const hit = countries.features.find((f) => f.properties.name === name) ?? admin1?.features.find((f) => f.properties.name === name);
+function findShape(name: string, countries: FC, admin1: FC | null, disputed: FC | null, lakes: FC | null = null): FC | null {
+  const hit = countries.features.find((f) => f.properties.name === name) ?? admin1?.features.find((f) => f.properties.name === name) ?? lakes?.features.find((f) => f.properties.name === name);
   if (!hit) return null;
   let geometry = hit.geometry;
   if (geometry?.type === 'MultiPolygon' && disputed) {
@@ -301,6 +317,32 @@ function flagPolygons(fc: FC, tol: number): {box: [number, number, number, numbe
         return {box: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)] as [number, number, number, number], rings};
       });
   });
+}
+
+/** River lines (Natural Earth names) chained into drawing order, starting from the end nearest `from`. */
+function riverChain(rivers: FC, names: string[], from: LonLat): Position[][] {
+  const left: Position[][] = rivers.features
+    .filter((f) => names.includes(f.properties.name ?? ''))
+    .flatMap((f) => (f.geometry?.type === 'LineString' ? [f.geometry.coordinates] : f.geometry?.type === 'MultiLineString' ? f.geometry.coordinates : []));
+  if (!left.length) throw new Error(`glmap river: no Natural Earth river named ${names.join(' / ')}`);
+  const out: Position[][] = [];
+  let cur: Position = from;
+  const d2 = (a: Position, b: Position) => (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2;
+  while (left.length) {
+    let best = 0;
+    let rev = false;
+    let bd = Infinity;
+    left.forEach((l, k) => {
+      const [a, b] = [d2(l[0], cur), d2(l[l.length - 1], cur)];
+      if (a < bd) [bd, best, rev] = [a, k, false];
+      if (b < bd) [bd, best, rev] = [b, k, true];
+    });
+    const l = left.splice(best, 1)[0];
+    const o = rev ? [...l].reverse() : l;
+    out.push(o);
+    cur = o[o.length - 1];
+  }
+  return out;
 }
 
 const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) => {
@@ -367,15 +409,33 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
   const highlightBeats = beats.filter((b): b is Extract<GlBeat, {do: 'highlight'}> => b.do === 'highlight');
   const admin1 = useGeoLayer(highlightBeats.length ? 'admin1' : null);
   const disputed = useGeoLayer(highlightBeats.length ? 'disputed' : null);
+  const lakes = useGeoLayer(highlightBeats.length ? 'lakes' : null);
+  const riverBeats = beats.filter((b) => b.do === 'river');
+  const riversLayer = useGeoLayer(riverBeats.length ? 'rivers' : null);
   const shapes = useMemo(() => {
-    if (!world || (highlightBeats.length && (!admin1 || !disputed))) return null;
+    if (!world || (highlightBeats.length && (!admin1 || !disputed || !lakes))) return null;
     return highlightBeats.map((b) => {
-      const shape = findShape(b.name, world, admin1, disputed);
-      if (!shape) throw new Error(`glmap highlight "${b.name}": no country or province with that Natural Earth name`);
+      const shape = findShape(b.name, world, admin1, disputed, lakes);
+      if (!shape) throw new Error(`glmap highlight "${b.name}": no country, province or lake with that Natural Earth name`);
       return shape;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [world, admin1, disputed, d.beats]);
+  }, [world, admin1, disputed, lakes, d.beats]);
+  // Lakes cut out of a flag (`holes`), as SVG paths in lon/lat, per highlight.
+  const holeRings = useMemo(
+    () => highlightBeats.map((b) => (b.holes ?? []).flatMap((h) => {
+      const shape = lakes ? findShape(h, {type: 'FeatureCollection', features: []} as unknown as FC, null, null, lakes) : null;
+      if (lakes && !shape) throw new Error(`glmap highlight "${b.name}": no lake named "${h}" for holes`);
+      return shape ? flagPolygons(shape, 0) : [];
+    })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [lakes, d.beats],
+  );
+  const riverLines = useMemo(
+    () => beats.map((b) => (b.do === 'river' && riversLayer ? riverChain(riversLayer, b.rivers, b.from) : null)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [riversLayer, d.beats],
+  );
   // Flag fills are drawn in SVG over the map; outlines thinned to about half a pixel at the closest camera key.
   const flagRings = useMemo(() => {
     if (!shapes) return [];
@@ -385,7 +445,7 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
   }, [shapes, d.camera]);
   usePreloadImages(highlightBeats.filter((b) => b.flag).map((b) => flagOf(b.flag!).src));
   const style = useMemo(() => {
-    if (!world || !shapes) return null;
+    if (!world || !shapes || (riverBeats.length && !riversLayer)) return null;
     const pts: LonLat[] = [...d.camera.map((k) => [k.lon, k.lat] as LonLat), ...(d.routes ?? []).flatMap((r) => r.via), ...(d.labels ?? []).map((l) => [l.lon, l.lat] as LonLat)];
     const lons = pts.map((p) => p[0]);
     const lats = pts.map((p) => p[1]);
@@ -499,16 +559,76 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
               const fw = (b.flagFit === 'stretch' ? x1 - x0 : fh * flag.ratio) * (b.flagFit === 'stretch' ? settle : 1);
               const id = `flag-${scene.id}-${i}`;
               const [cx, cy] = [(x0 + x1) / 2, (y0 + y1) / 2];
+              const holes = (holeRings[i] ?? []).flatMap((h) => h.rings.map((ring) => `M${ring.map((q) => project(q as LonLat).map((v) => v.toFixed(1)).join(',')).join('L')}Z`)).join('');
               return (
                 <g key={id} opacity={ramp} transform={fall > 0 ? `translate(0,${(fall * 0.3 * H).toFixed(1)}) rotate(${(fall * 12).toFixed(2)},${cx.toFixed(1)},${cy.toFixed(1)})` : undefined}>
                   <clipPath id={id}>
                     <path d={dd} fillRule="evenodd" />
                   </clipPath>
-                  <image href={flag.src} x={cx - fw / 2} y={cy - fh / 2} width={fw} height={fh} preserveAspectRatio="none" clipPath={`url(#${id})`} opacity={0.92} />
+                  {holes ? (
+                    <mask id={`${id}-holes`} maskUnits="userSpaceOnUse" x={0} y={0} width={W} height={H}>
+                      <rect width={W} height={H} fill="#ffffff" />
+                      <path d={holes} fill="#000000" />
+                    </mask>
+                  ) : null}
+                  <image href={flag.src} x={cx - fw / 2} y={cy - fh / 2} width={fw} height={fh} preserveAspectRatio="none" clipPath={`url(#${id})`} mask={holes ? `url(#${id}-holes)` : undefined} opacity={0.92} />
                   <path d={dd} fill="none" stroke="#ffffff" strokeWidth={2.2 * unit} strokeLinejoin="round" />
                 </g>
               );
             })}
+          {/* Rivers draw themselves from their source; a pulse widens their glow. */}
+          {beats.map((b, i) => {
+            if (b.do !== 'river') return null;
+            const on = onAt(b.on);
+            const len = Math.max(1, Math.round((b.duration ?? 1.6) * fps));
+            const drawnTo = progress(frame, on, len, EASE_IN_OUT);
+            const out = b.off !== undefined ? exit(frame, at(b.off, durationInFrames), 8) : 1;
+            if (drawnTo <= 0 || out <= 0) return null;
+            const pulses = beats.filter((p) => p.do === 'pulse' && p.name === b.name).map((p) => onAt(p.on));
+            const g = Math.max(0.35, ...pulses.map((p) => glowPulse(frame, p, fps, 0.35)));
+            // The drawn share is measured along the river in lon/lat, so it does not depend on the camera. Only points
+            // near the view are projected: a tilted camera projects far-off points (behind it) to wild screen positions,
+            // which drew straight lines across the frame (Nile, 2026-10-20).
+            const view = map.getBounds();
+            const pad = 1.5;
+            const near = (q: Position) => q[0] > view.getWest() - pad && q[0] < view.getEast() + pad && q[1] > view.getSouth() - pad && q[1] < view.getNorth() + pad;
+            const chain = riverLines[i] ?? [];
+            const length = (l: Position[]) => l.reduce((t, q, k) => (k ? t + Math.hypot(q[0] - l[k - 1][0], q[1] - l[k - 1][1]) : 0), 0);
+            let left = chain.reduce((t, l) => t + length(l), 0) * drawnTo;
+            const parts: string[] = [];
+            for (const l of chain) {
+              if (left <= 0) break;
+              let run: Position[] = [];
+              const flush = () => {
+                if (run.length > 1) parts.push(`M${run.map((q) => project(q as LonLat).map((v) => v.toFixed(1)).join(',')).join('L')}`);
+                run = [];
+              };
+              if (near(l[0])) run.push(l[0]);
+              for (let k = 1; k < l.length && left > 0; k++) {
+                const seg = Math.hypot(l[k][0] - l[k - 1][0], l[k][1] - l[k - 1][1]);
+                const f = Math.min(1, left / Math.max(seg, 1e-9));
+                const q: Position = [l[k - 1][0] + (l[k][0] - l[k - 1][0]) * f, l[k - 1][1] + (l[k][1] - l[k - 1][1]) * f];
+                left -= seg;
+                if (near(q)) {
+                  if (!run.length) run.push(l[k - 1]);
+                  run.push(q);
+                } else flush();
+              }
+              flush();
+            }
+            const dd = parts.join('');
+            const color = P[b.color ?? 'blue'];
+            const w = (b.width ?? 1) * unit;
+            return (
+              <g key={`river-${i}`} opacity={out} fill="none" strokeLinecap="round" strokeLinejoin="round">
+                {/* Glow as two soft wide strokes: a CSS blur on a long path over the map canvas stalled MapLibre's drawing. */}
+                <path d={dd} stroke={color} strokeOpacity={0.18 * g} strokeWidth={w * (10 + 18 * g)} />
+                <path d={dd} stroke={color} strokeOpacity={0.3 * g} strokeWidth={w * (6 + 8 * g)} />
+                <path d={dd} stroke={P.halo} strokeWidth={w * 6.5} />
+                <path d={dd} stroke={color} strokeWidth={w * 3.6} />
+              </g>
+            );
+          })}
           {(d.routes ?? []).map((r, i) => {
             if (drawn[i] <= 0) return null;
             const pts = routeUpTo(sampled[i], drawn[i]).map(project);
@@ -759,7 +879,8 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
             if (b.do === 'year') {
               const r = slotRect(ctx, b.place ?? 'top');
               const glow = b.color ? P[b.color] : P.gold;
-              return <CountingYear key={`year-${i}`} value={b.value} from={b.from ?? b.value - 60} x={r.x + r.w / 2} y={r.y + r.h / 2} frame={frame} start={on} end={off} fps={fps} fontSize={Math.round(ctx.type.h1 * 1.6)} fontFamily={theme.fonts.body} glow={glow} />;
+              const number = b.format === 'number';
+              return <CountingYear key={`year-${i}`} value={b.value} from={b.from ?? (number ? 0 : b.value - 60)} x={r.x + r.w / 2} y={r.y + r.h / 2} frame={frame} start={on} end={off} fps={fps} fontSize={Math.round(ctx.type.h1 * 1.6)} fontFamily={theme.fonts.body} glow={glow} grouped={number} suffix={b.suffix} />;
             }
             return null;
           })

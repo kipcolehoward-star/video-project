@@ -61,9 +61,28 @@ function TeutonicShield({id}: {id: string}) {
   );
 }
 
+/** A rain cloud with falling drops (seasonal rains). */
+function RainCloud({id}: {id: string}) {
+  return (
+    <svg viewBox="0 0 100 100" width="100%" height="100%" style={{overflow: 'visible'}}>
+      <defs>
+        <linearGradient id={`${id}-cloud`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#f4f6f8" />
+          <stop offset="1" stopColor="#aeb8c4" />
+        </linearGradient>
+      </defs>
+      {[18, 34, 50, 66, 82].map((x, k) => (
+        <path key={k} d={`M${x - 4},${64 + (k % 2) * 8} q4,-9 8,0 a4.5,4.5 0 1 1 -8,0 z`} transform={`translate(${-6 + k * 1.5},${10 + (k % 2) * 6})`} fill="#3fa7e0" stroke="#0b2f4a" strokeWidth={1.4} />
+      ))}
+      <path d="M22,62 a14,14 0 0 1 2,-27.8 a20,20 0 0 1 37,-8 a16,16 0 0 1 21,15.8 a10,10 0 0 1 -2,20 z" fill={`url(#${id}-cloud)`} stroke="#3c4652" strokeWidth={2.2} strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 /** Drawn icons by name, with their width : height ratio. */
 export const ICONS: Record<string, {ratio: number; draw: React.FC<{id: string}>}> = {
   'teutonic-shield': {ratio: 100 / 120, draw: TeutonicShield},
+  'rain-cloud': {ratio: 1, draw: RainCloud},
 };
 
 /**
@@ -191,7 +210,7 @@ export function PaperCard({card, box, frame, start, end, fps, ctx}: {card: CardS
 /** Frames a year takes to count up (its ticking sound covers the same time). */
 export const COUNT_SECONDS = 0.7;
 
-export function CountingYear({value, from, x, y, frame, start, end, fps, fontSize, fontFamily, glow}: {value: number; from: number; x: number; y: number; frame: number; start: number; end?: number; fps: number; fontSize: number; fontFamily: string; glow: string}) {
+export function CountingYear({value, from, x, y, frame, start, end, fps, fontSize, fontFamily, glow, grouped = false, suffix}: {value: number; from: number; x: number; y: number; frame: number; start: number; end?: number; fps: number; fontSize: number; fontFamily: string; glow: string; grouped?: boolean; suffix?: string}) {
   if (frame < start) return null;
   const n = Math.round(COUNT_SECONDS * fps);
   const t = Math.min(1, (frame - start) / n);
@@ -219,7 +238,8 @@ export function CountingYear({value, from, x, y, frame, start, end, fps, fontSiz
         textShadow: `0 0 ${fontSize * 0.18}px ${glow}, 0 ${fontSize * 0.04}px ${fontSize * 0.12}px rgba(0,0,0,0.7)`,
       }}
     >
-      {shown}
+      {grouped ? shown.toLocaleString('en-US') : shown}
+      {suffix ? <span style={{fontSize: '0.55em', marginLeft: '0.12em'}}>{suffix}</span> : null}
     </div>
   );
 }
