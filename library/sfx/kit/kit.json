@@ -1,0 +1,172 @@
+{
+  "note": "Standard kinetic-Short SFX kit (same sounds as the Nile, each 3 dB quieter). For a new project: copy the WAVs into <project>/audio/sfx/, add \"assets\" to its assets.json and \"sfxKit\" to its project.json.",
+  "sfxKit": {
+    "pop": {
+      "asset": "es-pop",
+      "gainDb": -3
+    },
+    "slam": {
+      "asset": "es-impact",
+      "gainDb": -9
+    },
+    "swish": {
+      "asset": "es-swish-soft",
+      "gainDb": -3
+    },
+    "click": {
+      "asset": "es-click",
+      "gainDb": -3
+    },
+    "whoosh": {
+      "asset": "es-whoosh-low",
+      "gainDb": -6
+    },
+    "pulse": {
+      "asset": "es-pulse",
+      "gainDb": -7
+    },
+    "paper": {
+      "asset": "es-paper",
+      "gainDb": -7
+    },
+    "tick": {
+      "asset": "es-tick",
+      "gainDb": -5
+    },
+    "thud": {
+      "asset": "es-thud",
+      "gainDb": -7
+    },
+    "flip": {
+      "asset": "es-flip",
+      "gainDb": -3
+    },
+    "stamp": {
+      "asset": "es-press",
+      "gainDb": -5
+    }
+  },
+  "assets": {
+    "es-pop": {
+      "type": "sfx",
+      "path": "audio/sfx/es-pop.wav",
+      "source": "epidemic-sound:7cce069c-4a3a-4746-b5c8-94a653fab587",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "User Interface, Click, UI Buttons, Bubbly, Select — Epidemic Sound",
+      "retrieved": "2026-10-19",
+      "notes": "User Interface, Click, UI Buttons, Bubbly, Select"
+    },
+    "es-impact": {
+      "type": "sfx",
+      "path": "audio/sfx/es-impact.wav",
+      "source": "epidemic-sound:0e356c2f-1089-4faa-8143-326dbeee3085",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Designed, Impact, Cinematic, Impact, Hit, Electric Tonne — Epidemic Sound",
+      "retrieved": "2026-10-09",
+      "notes": "Designed, Impact, Cinematic, Impact, Hit, Electric Tonne"
+    },
+    "es-swish-soft": {
+      "type": "sfx",
+      "path": "audio/sfx/es-swish-soft.wav",
+      "source": "epidemic-sound:073cf199-3d1b-4a67-9128-a5abd13870ff",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Designed, Whoosh, Soft Airy — Epidemic Sound",
+      "retrieved": "2026-10-20",
+      "notes": "Designed, Whoosh, Soft Airy"
+    },
+    "es-click": {
+      "type": "sfx",
+      "path": "audio/sfx/es-click.wav",
+      "source": "epidemic-sound:aca1653c-deeb-44e0-a9a6-38fa4500a677",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Clocks, Mechanics, Old, Small, Mechanism, Soft, Short, Light — Epidemic Sound",
+      "retrieved": "2026-10-09",
+      "notes": "Clocks, Mechanics, Old, Small, Mechanism, Soft, Short, Light"
+    },
+    "es-whoosh-low": {
+      "type": "sfx",
+      "path": "audio/sfx/es-whoosh-low.wav",
+      "source": "epidemic-sound:0fd74260-bed7-4f67-a69c-4058477e1506",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Swooshes, Whoosh, Low, Long 01 — Epidemic Sound",
+      "retrieved": "2026-10-09",
+      "notes": "Swooshes, Whoosh, Low, Long 01"
+    },
+    "es-pulse": {
+      "type": "sfx",
+      "path": "audio/sfx/es-pulse.wav",
+      "source": "epidemic-sound:53d103e7-fdd7-4e11-8994-4f724415f262",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "User Interface, Data, Computer, Data Read Out, Burst 01 — Epidemic Sound",
+      "retrieved": "2026-10-09",
+      "notes": "User Interface, Data, Computer, Data Read Out, Burst 01"
+    },
+    "es-paper": {
+      "type": "sfx",
+      "path": "audio/sfx/es-paper.wav",
+      "source": "epidemic-sound:3f495b4d-546f-4afb-b97a-2b9579c50c3f",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Paper, Handle, Several Sheets, Movements 02 — Epidemic Sound",
+      "retrieved": "2026-10-09",
+      "notes": "Paper, Handle, Several Sheets, Movements 02"
+    },
+    "es-tick": {
+      "type": "sfx",
+      "path": "audio/sfx/es-tick.wav",
+      "source": "epidemic-sound:5ffb8ffb-62aa-40e1-bc63-c6e15ddee5d0",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Mechanical, Gears, Clicking, Ticks 03 — Epidemic Sound",
+      "retrieved": "2026-10-20",
+      "notes": "Mechanical, Gears, Clicking, Ticks 03"
+    },
+    "es-thud": {
+      "type": "sfx",
+      "path": "audio/sfx/es-thud.wav",
+      "source": "epidemic-sound:8ceb628f-83db-4df7-a176-534ac9fdd1e9",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Wood, Impact, Hit, Thud, Heavy, Distant — Epidemic Sound",
+      "retrieved": "2026-10-20",
+      "notes": "Wood, Impact, Hit, Thud, Heavy, Distant"
+    },
+    "es-flip": {
+      "type": "sfx",
+      "path": "audio/sfx/es-flip.wav",
+      "source": "epidemic-sound:595ad5e3-5573-4d12-b231-666ea5205adc",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Playing Card, Turn Over On Table 02 — Epidemic Sound",
+      "retrieved": "2026-10-20",
+      "notes": "Playing Card, Turn Over On Table 02"
+    },
+    "es-press": {
+      "type": "sfx",
+      "path": "audio/sfx/es-press.wav",
+      "source": "epidemic-sound:84d38bdb-905c-484e-8cae-3611e14115e4",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Machines, Antique, Printing Press, One Clack — Epidemic Sound",
+      "retrieved": "2026-10-09",
+      "notes": "Machines, Antique, Printing Press, One Clack"
+    }
+  }
+}

@@ -15,3 +15,46 @@ ui      ticks, clicks, counters
 paper   cards, maps, pages
 
 Files:
+whoosh\glide-brush.wav | Epidemic Sound | epidemic-sound:1a973b75-94db-4baf-8f64-a44176884c38 "Swooshes, Whoosh, Brushs" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+whoosh\glide-wind.wav | Epidemic Sound | epidemic-sound:a951b5b5-4deb-454c-952b-560193d79b99 "Swooshes, Whoosh, Wind" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+whoosh\glide-wind-soft.wav | Epidemic Sound | epidemic-sound:120a5c8d-8eb8-47bf-a777-972af2758385 "Swooshes, Whoosh, Wind, Soft 04" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+whoosh\snap-soft-airy.wav | Epidemic Sound | epidemic-sound:073cf199-3d1b-4a67-9128-a5abd13870ff "Designed, Whoosh, Soft Airy" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-20
+whoosh\snap-soft-resonant.wav | Epidemic Sound | epidemic-sound:3eb43b90-168b-404b-b6c2-28c69e53754b "Designed, Whoosh, Soft Resonant" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+whoosh\snap-soft-short.wav | Epidemic Sound | epidemic-sound:e62847da-57d8-4abf-a96c-552aa7db1969 "Whoosh, Soft, Short 02" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+water\small-river-1.wav | Epidemic Sound | epidemic-sound:a9425310-49e2-4a8f-8340-f2063b404096 "Water, Flow, Small River, The Trolls Road, Loop 01" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+water\small-river-2.wav | Epidemic Sound | epidemic-sound:a79e15a9-4d64-4af6-9487-c808a476febd "Water, Flow, Small River, The Trolls Road, Loop 02" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+water\stream-calm.wav | Epidemic Sound | epidemic-sound:19cf7565-e913-467c-b6d0-bbd486ea9950 "Water, Flow, Detailed, Small Stream, Calm" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+pop\label-tap-click.wav | Kenney (kenney_interface-sounds, click_002.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+pop\label-tap-select.wav | Kenney (kenney_interface-sounds, select_001.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+pop\label-tap-soft.wav | Kenney (kenney_impact-sounds, impactSoft_medium_000.ogg) | https://kenney.nl/assets/impact-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+pop\pop-bong.wav | Kenney (kenney_interface-sounds, bong_001.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+pop\pop-drop-1.wav | Kenney (kenney_interface-sounds, drop_001.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+pop\pop-drop-2.wav | Kenney (kenney_interface-sounds, drop_002.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+pop\pop-pluck.wav | Kenney (kenney_interface-sounds, pluck_001.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+impact\crack-plank.wav | Kenney (kenney_impact-sounds, impactPlank_medium_000.ogg) | https://kenney.nl/assets/impact-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+impact\footsteps-grass.wav | Kenney (kenney_impact-sounds, footstep_grass_000-004.ogg (5 steps, 0.3 s apart)) | https://kenney.nl/assets/impact-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+impact\footsteps-rpg.wav | Kenney (kenney_rpg-audio, footstep00-04.ogg (5 steps, 0.3 s apart)) | https://kenney.nl/assets/rpg-audio | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+impact\record-scratch.wav | Epidemic Sound | epidemic-sound:663d9cdd-37fc-41cd-9a1a-3d6391eddaba "Communications, Phonograph, Vinyl, Record Scratch 08" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+impact\record-scratch-short.wav | Epidemic Sound | epidemic-sound:9fc0f4f4-b27c-4c73-a44a-5f72a0bee571 "Communications, Phonograph, Vinyl, Record Scratch 06" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+impact\reveal-bell-bright.wav | Epidemic Sound | epidemic-sound:750b3bb7-497d-4e08-a828-198e0121bba2 "User Interface, Alert, Alert Chime, Bell, Bright, Positive" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+impact\reveal-chime-wood-1.wav | Epidemic Sound | epidemic-sound:fa5cf124-455f-48af-a76f-74672dcf88f8 "Musical, Chime, Twinkle, Wood, Positive, Short 02" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+impact\reveal-chime-wood-2.wav | Epidemic Sound | epidemic-sound:3b59d502-740d-4c71-b0ea-cd58d78383b0 "Musical, Chime, Twinkle, Wood, Positive, Short 03" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+impact\stamp-press.wav | Epidemic Sound | epidemic-sound:84d38bdb-905c-484e-8cae-3611e14115e4 "Machines, Antique, Printing Press, One Clack" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-09
+impact\stamp-rubber.wav | Epidemic Sound | epidemic-sound:d530c5b9-3047-42fe-a06a-7c479d637b60 "Office Supplies, Rubber Stamp, Document 01" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+impact\thud-soft.wav | Kenney (kenney_impact-sounds, impactSoft_heavy_000.ogg) | https://kenney.nl/assets/impact-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+impact\thud-wood.wav | Kenney (kenney_impact-sounds, impactWood_light_000.ogg) | https://kenney.nl/assets/impact-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+ui\correct-1.wav | Kenney (kenney_interface-sounds, confirmation_001.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+ui\correct-2.wav | Kenney (kenney_interface-sounds, confirmation_002.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+ui\correct-3.wav | Kenney (kenney_interface-sounds, confirmation_004.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+ui\counter-clock-fast.wav | Epidemic Sound | epidemic-sound:c01d3778-e34f-4f0a-8a33-55d6c576b644 "Clocks, Tick, Designed, Ticking Clock, Speed, Fast, Loop" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+ui\counter-clock-rising.wav | Epidemic Sound | epidemic-sound:5e66aac1-651e-4735-9447-d309e9564007 "Clocks, Tick, Designed, Ticking Clock, Fast, Pitch Quick Up, Loop" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+ui\counter-mechanical.wav | Epidemic Sound | epidemic-sound:b460d7db-992d-4b03-a1c6-819378ff6841 "Scifi, Mechanism, Counter, Mechanical Clicks, Loop" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+ui\tick-1.wav | Kenney (kenney_interface-sounds, tick_001.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+ui\tick-2.wav | Kenney (kenney_interface-sounds, tick_002.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+ui\wrong-1.wav | Kenney (kenney_interface-sounds, error_001.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+ui\wrong-2.wav | Kenney (kenney_interface-sounds, error_004.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+ui\wrong-3.wav | Kenney (kenney_interface-sounds, error_006.ogg) | https://kenney.nl/assets/interface-sounds | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+paper\page-flip-1.wav | Kenney (kenney_rpg-audio, bookFlip1.ogg) | https://kenney.nl/assets/rpg-audio | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+paper\page-flip-2.wav | Kenney (kenney_rpg-audio, bookFlip2.ogg) | https://kenney.nl/assets/rpg-audio | CC0 1.0 (public domain, no credit needed) | 2026-10-21
+paper\slide-envelope.wav | Epidemic Sound | epidemic-sound:a5da9fbb-5b96-4968-8ac5-f7c76c9dfc0a "Paper, Friction, Envelope, Slide" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21
+paper\slide-sheet-table.wav | Epidemic Sound | epidemic-sound:6a2298cb-c05a-44c7-9bc2-8759eba61d89 "Paper, Friction, Sheet, Laminated, Slide On Wooden Table" | Epidemic Sound licence, user's Pro subscription (publish while active) | 2026-10-21

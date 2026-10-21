@@ -38,3 +38,4 @@ data/geo/imagery/
 library/sfx/**/*
 !library/sfx/*/
 !library/sfx/SOURCES.txt
+!library/sfx/kit/kit.json
