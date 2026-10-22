@@ -23,7 +23,8 @@ export const GL_PALETTES = {
     gold: '#e8b04a', white: '#ffffff', red: '#e0533f', ship: '#ffffff', orange: '#f08a3c', blue: '#3fa7e0',
     ink: '#ffffff', water: 'rgba(190,220,240,0.9)', halo: 'rgba(10,22,34,0.75)',
     depth: [[-6000, '#0e2236'], [-3000, '#122b44'], [-1000, '#16344f'], [-200, '#1d4466'], [-60, '#25567e'], [-15, '#2e6690'], [-1, '#3a75a0']],
-    tint: [[0, '#3b4740'], [150, '#414d3e'], [500, '#4c5240'], [1000, '#585746'], [1800, '#656053'], [3000, '#747066']],
+    // Above 3,000 m: bare rock, then snow (the ramp used to stop at 3,000 m, leaving the Himalayas uncoloured).
+    tint: [[0, '#3b4740'], [150, '#414d3e'], [500, '#4c5240'], [1000, '#585746'], [1800, '#656053'], [3000, '#747066'], [4300, '#86786a'], [5100, '#968d84'], [5900, '#d3d6da'], [6800, '#f4f6f8']],
   },
 } as const;
 export type GlPaletteName = keyof typeof GL_PALETTES;

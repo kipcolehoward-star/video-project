@@ -79,10 +79,60 @@ function RainCloud({id}: {id: string}) {
   );
 }
 
+/**
+ * Everest beside Mauna Kea, to scale (4.6 units per km): Everest measured from sea level (8,849 m), Mauna Kea from
+ * its base on the sea floor (about 6 km down; 10,210 m base to peak per NOAA), most of it under the water.
+ */
+function HeightCompare({id}: {id: string}) {
+  const sea = 54;
+  const k = 4.6;
+  const everest = sea - 8.849 * k;
+  const keaTop = sea - 4.207 * k;
+  const keaBase = keaTop + 10.21 * k;
+  const text = {fontFamily: 'Inter, sans-serif', fontWeight: 800, fill: '#ffffff', stroke: 'rgba(0,0,0,0.75)', strokeWidth: 0.9, paintOrder: 'stroke'} as const;
+  const bar = (x: number, y1: number, y2: number, color: string) => (
+    <g stroke={color} strokeWidth={1.1} strokeLinecap="round">
+      <path d={`M${x},${y1} V${y2} M${x - 1.6},${y1} H${x + 1.6} M${x - 1.6},${y2} H${x + 1.6}`} />
+    </g>
+  );
+  return (
+    <svg viewBox="0 0 110 100" width="100%" height="100%" style={{overflow: 'visible'}}>
+      <defs>
+        <linearGradient id={`${id}-water`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#3fa7e0" stopOpacity={0.55} />
+          <stop offset="1" stopColor="#0b3a66" stopOpacity={0.8} />
+        </linearGradient>
+        <linearGradient id={`${id}-rock`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#9aa0a6" />
+          <stop offset="1" stopColor="#5b5249" />
+        </linearGradient>
+      </defs>
+      {/* Land under Everest, sea floor under Mauna Kea. */}
+      <rect x={0} y={sea} width={48} height={keaBase - sea + 4} fill="#6b5a45" />
+      <rect x={48} y={keaBase} width={62} height={4} fill="#3d3328" />
+      {/* Everest: a jagged peak with a snow cap. */}
+      <path d={`M6,${sea} L16,${sea - 14} L20,${sea - 12} L27,${everest} L33,${sea - 20} L37,${sea - 17} L44,${sea} Z`} fill={`url(#${id}-rock)`} stroke="#2a2622" strokeWidth={0.8} strokeLinejoin="round" />
+      <path d={`M27,${everest} L23.5,${everest + 9} L26,${everest + 7.5} L28,${everest + 10} L30.6,${everest + 8} Z`} fill="#f4f6f8" />
+      {/* Mauna Kea: a broad shield volcano rising from the sea floor; the water is drawn over it. */}
+      <path d={`M52,${keaBase} C62,${keaBase - 8} 68,${keaTop + 6} 77,${keaTop} C86,${keaTop + 6} 92,${keaBase - 8} 102,${keaBase} Z`} fill={`url(#${id}-rock)`} stroke="#2a2622" strokeWidth={0.8} strokeLinejoin="round" />
+      <rect x={48} y={sea} width={62} height={keaBase - sea} fill={`url(#${id}-water)`} />
+      <path d={`M0,${sea} H110`} stroke="#ffffff" strokeWidth={0.7} strokeDasharray="2 1.6" />
+      <text x={5} y={sea + 5} fontSize={3.6} style={{...text, fontWeight: 600}}>sea level</text>
+      {bar(3, everest, sea, '#ffcc00')}
+      {bar(106, keaTop, keaBase, '#ffcc00')}
+      <text x={27} y={everest - 9} fontSize={5.4} textAnchor="middle" style={text}>EVEREST</text>
+      <text x={27} y={everest - 3} fontSize={5} textAnchor="middle" style={{...text, fill: '#ffcc00'}}>8,849 m</text>
+      <text x={77} y={keaTop - 9} fontSize={5.4} textAnchor="middle" style={text}>MAUNA KEA</text>
+      <text x={77} y={keaTop - 3} fontSize={5} textAnchor="middle" style={{...text, fill: '#ffcc00'}}>10,210 m</text>
+    </svg>
+  );
+}
+
 /** Drawn icons by name, with their width : height ratio. */
 export const ICONS: Record<string, {ratio: number; draw: React.FC<{id: string}>}> = {
   'teutonic-shield': {ratio: 100 / 120, draw: TeutonicShield},
   'rain-cloud': {ratio: 1, draw: RainCloud},
+  'height-compare': {ratio: 1.1, draw: HeightCompare},
 };
 
 /**

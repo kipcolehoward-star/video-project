@@ -349,6 +349,11 @@ image". project.json `style: "kinetic"`; documentary projects are unaffected.
   because the map's subject sits at the frame centre. Show pictures one after another in `top` rather than stacking.
 - Over imagery the depth-drawn sea fades out between map zoom 7.5 and 9 (the seabed data drew blobs over lagoons
   in a city view); close up, the imagery's own water is real. EOX serves open-sea tiles as tiny PNGs (kept as .jpg).
+- `planTiles` turns the frame by the camera `bearing` (2026-10-22): at bearing -15 / pitch 50 the reach up the frame
+  runs diagonally, and the Everest Short's stills hit zoom 10 404s off to the side before this.
+- Icon `height-compare`: Everest beside Mauna Kea to scale, sea level marked (Everest Short). The `dusk` height tint
+  now continues above 3,000 m (rock, snow from ~5,900 m); before, the Himalayas were left uncoloured. EOX 2016
+  imagery of the Himalayas shows granule seams and haze, so the Everest scene uses terrain tint instead of imagery.
 - `planTiles`' finest level reaches 2.5·sin(pitch) half-frames up a tilted frame: MapLibre asked for zoom 11 tiles
   1.8 half-frames north of the centre at pitch 40, and the missing tile stopped the render (2026-10-20).
 - Edge voice: `edge_tts_cli.py` must read stdin as UTF-8. Until 2026-10-20 it used the Windows code page, so

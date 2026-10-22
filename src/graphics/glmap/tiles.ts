@@ -3,7 +3,7 @@
  * (satellite imagery, elevation). Pure, shared by the scene (MapLibre source
  * bounds) and the Node scripts (which tiles to download and copy).
  */
-type Key = {lon: number; lat: number; zoom: number; pitch?: number};
+type Key = {lon: number; lat: number; zoom: number; pitch?: number; bearing?: number};
 export type Box = [number, number, number, number];
 export type TileId = {z: number; x: number; y: number};
 
@@ -12,17 +12,24 @@ const latOf = (y: number) => (Math.atan(Math.sinh(Math.PI * (1 - 2 * y))) * 180)
 
 /**
  * Lon/lat box one camera key can see in a W×H frame (MapLibre zoom: 512 px
- * world at zoom 0), with margin for bearing. `reach` (in half-frame heights per
- * unit of sin(pitch)) adds the extra distance a tilted camera sees towards the top of the frame.
+ * world at zoom 0). `reach` (in half-frame heights per unit of sin(pitch)) adds the extra distance a tilted
+ * camera sees towards the top of the frame. The frame's corners are turned by the bearing: the long reach up a
+ * tilted frame then runs diagonally, and the Everest Short (bearing -15, pitch 50) missed zoom 10 tiles off to
+ * the side when it was taken straight north (2026-10-22).
  */
 function keyBox(k: Key, W: number, H: number, reach: number): Box {
   const world = 512 * 2 ** k.zoom;
   const pitch = ((k.pitch ?? 0) * Math.PI) / 180;
-  const hw = (W / 2 / world) * 360 * 1.15 * (1 + Math.sin(pitch));
+  const hw = (W / 2 / world) * 1.15 * (1 + Math.sin(pitch));
   const cy = mercY(k.lat);
   const down = ((H / 2) * 1.3) / world;
   const up = ((H / 2) * (1.3 + reach * Math.sin(pitch))) / world;
-  return [Math.max(-180, k.lon - hw), Math.max(-85, latOf(Math.min(1, cy + down))), Math.min(180, k.lon + hw), Math.min(85, latOf(Math.max(0, cy - up)))];
+  // Screen offsets (x right, y down, in world widths) turned onto the map (x east, y south).
+  const b = ((k.bearing ?? 0) * Math.PI) / 180;
+  const corners = [[-hw, -up], [hw, -up], [-hw, down], [hw, down]].map(([sx, sy]) => [sx * Math.cos(b) - sy * Math.sin(b), sx * Math.sin(b) + sy * Math.cos(b)]);
+  const xs = corners.map((c) => c[0]);
+  const ys = corners.map((c) => c[1]);
+  return [Math.max(-180, k.lon + Math.min(...xs) * 360), Math.max(-85, latOf(Math.min(1, cy + Math.max(...ys)))), Math.min(180, k.lon + Math.max(...xs) * 360), Math.min(85, latOf(Math.max(0, cy + Math.min(...ys))))];
 }
 
 const union = (a: Box | undefined, b: Box): Box => (a ? [Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])] : b);
@@ -56,7 +63,8 @@ function pathSamples(camera: Key[], steps = 8): Key[] {
     for (let s = 1; s <= steps; s++) {
       const t = s / steps;
       const mix = (u: number, v: number) => u + (v - u) * t;
-      out.push({lon: mix(a.lon, b.lon), lat: mix(a.lat, b.lat), zoom: mix(a.zoom, b.zoom), pitch: mix(a.pitch ?? 0, b.pitch ?? 0)});
+      const turn = ((((b.bearing ?? 0) - (a.bearing ?? 0)) % 360) + 540) % 360 - 180;
+      out.push({lon: mix(a.lon, b.lon), lat: mix(a.lat, b.lat), zoom: mix(a.zoom, b.zoom), pitch: mix(a.pitch ?? 0, b.pitch ?? 0), bearing: (a.bearing ?? 0) + turn * t});
     }
   }
   return out;
