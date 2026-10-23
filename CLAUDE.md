@@ -354,6 +354,11 @@ image". project.json `style: "kinetic"`; documentary projects are unaffected.
 - Icon `height-compare`: Everest beside Mauna Kea to scale, sea level marked (Everest Short). The `dusk` height tint
   now continues above 3,000 m (rock, snow from ~5,900 m); before, the Himalayas were left uncoloured. EOX 2016
   imagery of the Himalayas shows granule seams and haze, so the Everest scene uses terrain tint instead of imagery.
+- glmap `move` beat (Africa Short, 2026-10-23): a country's real outline (flag or colour) slides to `to`, moved on the
+  sphere so it shows its true size at the new latitude (Greenland shrinks onto Africa), kept upright (a long
+  great-circle trip tipped the USA on its side), `turn` extra degrees, `keep` box to drop parts (Alaska). Packing
+  real shapes needs a few still checks (China turned 90° fits southern Africa). A zoomed-out glmap now loads land
+  well beyond 25° of the camera, and move flags are copied like highlight flags.
 - `planTiles`' finest level reaches 2.5·sin(pitch) half-frames up a tilted frame: MapLibre asked for zoom 11 tiles
   1.8 half-frames north of the centre at pitch 40, and the missing tile stopped the render (2026-10-20).
 - Edge voice: `edge_tts_cli.py` must read stdin as UTF-8. Until 2026-10-20 it used the Windows code page, so

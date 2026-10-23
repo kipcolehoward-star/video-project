@@ -55,6 +55,10 @@ type At = string | number;
  *   nearest `from` (the source) over `duration` seconds; `name` is the id a pulse beat uses to flash it.
  * - year with `format: "number"` counts any number with thousands separators (from 0) and an optional `suffix`
  *   (" km", "%").
+ * - move: a country's real outline (flag-filled with `flag`, else `color`) slides across the globe to `to` (its
+ *   centre lands there) over `duration` seconds, turning `turn` degrees clockwise on the way. It is moved on the
+ *   sphere, so on the flat map it shrinks or grows to its true size at the new latitude (Greenland onto Africa).
+ *   `keep` [w, s, e, n] keeps only the parts whose centre lies in that box (the contiguous USA without Alaska).
  * Any beat with `on: 0` is already showing when the scene starts (continuity across a cut): no entrance, no sound.
  * `offSfx` plays a sound when the beat's `off` word comes.
  */
@@ -72,8 +76,9 @@ export type GlBeat = {on: At; off?: At; sfx?: string | false; offSfx?: string} &
   | {do: 'stamp'; text: string; place?: Slot; color?: GlAccent}
   | {do: 'march'; from: LonLat; to: LonLat; count?: number; duration?: number}
   | {do: 'measure'; from: LonLat; to: LonLat; text: string; duration?: number}
+  | {do: 'move'; name: string; to: LonLat; flag?: string; color?: GlAccent; duration?: number; turn?: number; keep?: [number, number, number, number]}
 );
-const BEAT_SFX: Record<GlBeat['do'], string | null> = {highlight: 'pop', pulse: 'pulse', label: 'slam', link: 'swish', card: 'paper', icon: 'thud', year: 'tick', tint: null, arrow: 'whoosh', stamp: 'stamp', march: 'footsteps', measure: 'swish', river: 'swish'};
+const BEAT_SFX: Record<GlBeat['do'], string | null> = {highlight: 'pop', pulse: 'pulse', label: 'slam', link: 'swish', card: 'paper', icon: 'thud', year: 'tick', tint: null, arrow: 'whoosh', stamp: 'stamp', march: 'footsteps', measure: 'swish', river: 'swish', move: 'whoosh'};
 const beatSfx = (b: GlBeat) => (b.do === 'label' && b.was ? 'flip' : BEAT_SFX[b.do]);
 const FLIP_FRAMES = 10;
 const TINT_FRAMES = 18;
@@ -197,7 +202,14 @@ function problemsFor(d: GlMapData): string[] {
       if (b.do === 'arrow' && b.bend !== undefined && (!num(b.bend) || Math.abs(b.bend) > 1)) out.push(`${n}: bend must be a number from -1 to 1`);
     } else if (b.do === 'stamp') {
       if (typeof b.text !== 'string' || !b.text) out.push(`${n}: stamp needs "text"`);
-    } else out.push(`${n}: unknown beat "${(b as {do?: unknown}).do}" (use highlight, pulse, label, link, card, icon, year, tint, arrow, stamp, march or measure)`);
+    } else if (b.do === 'move') {
+      if (typeof b.name !== 'string' || !b.name) out.push(`${n}: move needs a "name" (country)`);
+      if (!lonLat(b.to)) out.push(`${n}: move needs "to" as [lon, lat]`);
+      if (b.flag !== undefined && !(typeof b.flag === 'string' && /^[a-z]{2}$/i.test(b.flag))) out.push(`${n}: flag must be a two-letter ISO 3166-1 code`);
+      if (b.duration !== undefined && (!num(b.duration) || b.duration <= 0 || b.duration > 10)) out.push(`${n}: duration must be seconds, more than 0 and at most 10`);
+      if (b.turn !== undefined && !num(b.turn)) out.push(`${n}: turn must be degrees`);
+      if (b.keep !== undefined && !(Array.isArray(b.keep) && b.keep.length === 4 && b.keep.every(num))) out.push(`${n}: keep must be [west, south, east, north]`);
+    } else out.push(`${n}: unknown beat "${(b as {do?: unknown}).do}" (use highlight, pulse, label, link, card, icon, year, tint, arrow, stamp, march, measure or move)`);
     if (b.offSfx !== undefined && typeof b.offSfx !== 'string') out.push(`${n}: offSfx must be a sound kind`);
     if (b.offSfx !== undefined && b.off === undefined) out.push(`${n}: offSfx needs an "off" word`);
     const place = (b as {place?: unknown}).place;
@@ -316,6 +328,53 @@ function flagPolygons(fc: FC, tol: number): {box: [number, number, number, numbe
         const ys = rings[0].map((p) => p[1]);
         return {box: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)] as [number, number, number, number], rings};
       });
+  });
+}
+
+type Vec = [number, number, number];
+const RAD = Math.PI / 180;
+const toVec = ([lon, lat]: Position): Vec => [Math.cos(lat * RAD) * Math.cos(lon * RAD), Math.cos(lat * RAD) * Math.sin(lon * RAD), Math.sin(lat * RAD)];
+const fromVec = ([x, y, z]: Vec): Position => [Math.atan2(y, x) / RAD, Math.asin(Math.max(-1, Math.min(1, z))) / RAD];
+const cross = (a: Vec, b: Vec): Vec => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const dot = (a: Vec, b: Vec) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+/** Rodrigues: `v` turned by `angle` (radians, anticlockwise seen from outside) about the unit axis `k`. */
+const turnAbout = (v: Vec, k: Vec, angle: number): Vec => {
+  const [c, s] = [Math.cos(angle), Math.sin(angle)];
+  const kv = cross(k, v);
+  const f = dot(k, v) * (1 - c);
+  return [v[0] * c + kv[0] * s + k[0] * f, v[1] * c + kv[1] * s + k[1] * f, v[2] * c + kv[2] * s + k[2] * f];
+};
+
+/**
+ * A move beat's rings `t` (0–1) of the way from where they are to `to`: the whole shape is turned on the sphere along
+ * the great circle that carries its centre there (so it keeps its true size), turned back about its centre so its own
+ * north still points north (a long great-circle trip tips it over: the USA arrived on its side, 2026-10-23), then
+ * `turn` degrees clockwise. Each ring is unwrapped so it never jumps across the antimeridian.
+ */
+function movedRings(rings: Position[][], centre: Position, to: LonLat, t: number, turn: number): Position[][] {
+  const [c, target] = [toVec(centre), toVec(to)];
+  const axis = cross(c, target);
+  const len = Math.hypot(...axis);
+  const travel = Math.acos(Math.max(-1, Math.min(1, dot(c, target)))) * t;
+  const k: Vec = len > 1e-9 ? [axis[0] / len, axis[1] / len, axis[2] / len] : [0, 0, 1];
+  const mid = len > 1e-9 ? turnAbout(c, k, travel) : c;
+  // Local north at a point on the sphere; the carried-along north is turned onto the new centre's north.
+  const north = ([x, y, z]: Vec): Vec => {
+    const h = Math.hypot(x, y) || 1e-9;
+    return [(-z * x) / h, (-z * y) / h, h];
+  };
+  const carried = len > 1e-9 ? turnAbout(north(c), k, travel) : north(c);
+  const upright = Math.atan2(dot(mid, cross(carried, north(mid))), dot(carried, north(mid)));
+  const spin = upright - turn * RAD * t;
+  return rings.map((ring) => {
+    let prev: number | null = null;
+    return ring.map((q) => {
+      const v = turnAbout(len > 1e-9 ? turnAbout(toVec(q), k, travel) : toVec(q), mid, spin);
+      let [lon, lat] = fromVec(v);
+      if (prev !== null) lon += Math.round((prev - lon) / 360) * 360;
+      prev = lon;
+      return [lon, lat];
+    });
   });
 }
 
@@ -443,13 +502,36 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
     return highlightBeats.map((b, i) => (b.flag ? flagPolygons(shapes[i], tol) : []));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shapes, d.camera]);
-  usePreloadImages(highlightBeats.filter((b) => b.flag).map((b) => flagOf(b.flag!).src));
+  // Move beats: each shape's rings (thinned like flags) and the centre that travels to `to`.
+  const moveShapes = useMemo(() => {
+    if (!world) return [];
+    const tol = 360 / (512 * 2 ** Math.max(...d.camera.map((k) => k.zoom))) / 2;
+    return beats.map((b) => {
+      if (b.do !== 'move') return null;
+      const shape = findShape(b.name, world, null, null);
+      if (!shape) throw new Error(`glmap move "${b.name}": no country with that Natural Earth name`);
+      const g = shape.features[0].geometry;
+      let polys = g?.type === 'Polygon' ? [g.coordinates] : g?.type === 'MultiPolygon' ? g.coordinates : [];
+      if (b.keep) {
+        const [w, s, e, n] = b.keep;
+        polys = polys.filter((part) => {
+          const [lon, lat] = geoCentroid({type: 'Polygon', coordinates: part});
+          return lon >= w && lon <= e && lat >= s && lat <= n;
+        });
+      }
+      const kept = {type: 'FeatureCollection', features: [{...shape.features[0], geometry: {type: 'MultiPolygon', coordinates: polys}}]} as FC;
+      return {rings: flagPolygons(kept, tol).flatMap((p) => p.rings), centre: geoCentroid(kept as unknown as Feature) as Position};
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [world, d.beats, d.camera]);
+  usePreloadImages([...highlightBeats.filter((b) => b.flag).map((b) => flagOf(b.flag!).src), ...beats.flatMap((b) => (b.do === 'move' && b.flag ? [flagOf(b.flag).src] : []))]);
   const style = useMemo(() => {
     if (!world || !shapes || (riverBeats.length && !riversLayer)) return null;
     const pts: LonLat[] = [...d.camera.map((k) => [k.lon, k.lat] as LonLat), ...(d.routes ?? []).flatMap((r) => r.via), ...(d.labels ?? []).map((l) => [l.lon, l.lat] as LonLat)];
     const lons = pts.map((p) => p[0]);
     const lats = pts.map((p) => p[1]);
-    const pad = 25;
+    // 25° around a regional view; a zoomed-out (world) view needs land much further out.
+    const pad = Math.max(25, 400 / 2 ** Math.min(...d.camera.map((k) => k.zoom)));
     const t = d.terrain;
     const terrain = t
       ? {tiles: `${new URL(staticFile('geo/terrain'), window.location.href).href}/{z}/{x}/{y}.png`, bounds: terrainFor(d, W, H, durationInFrames / fps, config.style).bounds, relief: t.relief ?? 0.6, tint: t.tint ?? true, depth: t.depth ?? true}
@@ -576,6 +658,46 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
                 </g>
               );
             })}
+          {/* Moved countries: true-size outlines sliding across the sphere, on top of the flags. */}
+          {beats.map((b, i) => {
+            if (b.do !== 'move' || !moveShapes[i]) return null;
+            const on = onAt(b.on);
+            if (frame < on) return null;
+            const out = b.off !== undefined ? exit(frame, at(b.off, durationInFrames), 8) : 1;
+            if (out <= 0) return null;
+            // Pops up where it really is, then travels.
+            const t = progress(frame, on + Math.round(0.3 * fps), Math.max(1, Math.round((b.duration ?? 1.6) * fps)), EASE_IN_OUT);
+            const {rings, centre} = moveShapes[i]!;
+            let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
+            const dd = movedRings(rings, centre, b.to, t, b.turn ?? 0)
+              .map((ring) => {
+                const pts = ring.map((q) => project(q as LonLat));
+                for (const [x, y] of pts) [x0, y0, x1, y1] = [Math.min(x0, x), Math.min(y0, y), Math.max(x1, x), Math.max(y1, y)];
+                return `M${pts.map((q) => `${q[0].toFixed(1)},${q[1].toFixed(1)}`).join('L')}Z`;
+              })
+              .join('');
+            const id = `move-${scene.id}-${i}`;
+            const scale = 0.6 + 0.4 * pop(frame, on, fps);
+            const [cx, cy] = [(x0 + x1) / 2, (y0 + y1) / 2];
+            const flag = b.flag ? flagOf(b.flag) : null;
+            const fh = flag ? Math.max((x1 - x0) / flag.ratio, y1 - y0) : 0;
+            return (
+              <g key={id} opacity={Math.min(1, (frame - on + 1) / 4) * out} transform={`translate(${cx.toFixed(1)},${cy.toFixed(1)}) scale(${scale.toFixed(4)}) translate(${(-cx).toFixed(1)},${(-cy).toFixed(1)})`}>
+                <path d={dd} fill="none" stroke="rgba(0,0,0,0.45)" strokeWidth={7 * unit} strokeLinejoin="round" />
+                {flag ? (
+                  <>
+                    <clipPath id={id}>
+                      <path d={dd} fillRule="evenodd" />
+                    </clipPath>
+                    <image href={flag.src} x={cx - (fh * flag.ratio) / 2} y={cy - fh / 2} width={fh * flag.ratio} height={fh} preserveAspectRatio="none" clipPath={`url(#${id})`} opacity={0.94} />
+                  </>
+                ) : (
+                  <path d={dd} fill={P[b.color ?? 'gold']} fillOpacity={0.75} fillRule="evenodd" />
+                )}
+                <path d={dd} fill="none" stroke="#ffffff" strokeWidth={2.2 * unit} strokeLinejoin="round" />
+              </g>
+            );
+          })}
           {/* Rivers draw themselves from their source; a pulse widens their glow. */}
           {beats.map((b, i) => {
             if (b.do !== 'river') return null;

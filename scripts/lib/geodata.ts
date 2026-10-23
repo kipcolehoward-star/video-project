@@ -39,8 +39,8 @@ export function geoNeeds(p: LoadedProject) {
         layers.add('lakes');
       }
       if ((s.data as unknown as GlMapData).beats?.some((b) => b.do === 'river')) layers.add('rivers');
-      // Highlights can show the country's flag inside its border.
-      for (const b of (s.data as unknown as GlMapData).beats ?? []) if (b.do === 'highlight' && b.flag && !b.flag.startsWith('asset:')) flags.add(`4x3/${b.flag.toLowerCase()}`);
+      // Highlights and moved countries can show the country's flag inside its border.
+      for (const b of (s.data as unknown as GlMapData).beats ?? []) if ((b.do === 'highlight' || b.do === 'move') && b.flag && !b.flag.startsWith('asset:')) flags.add(`4x3/${b.flag.toLowerCase()}`);
       continue;
     }
     if (s.type !== 'atlas') continue;
