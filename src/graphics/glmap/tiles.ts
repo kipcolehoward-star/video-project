@@ -29,18 +29,24 @@ function keyBox(k: Key, W: number, H: number, reach: number): Box {
   const corners = [[-hw, -up], [hw, -up], [-hw, down], [hw, down]].map(([sx, sy]) => [sx * Math.cos(b) - sy * Math.sin(b), sx * Math.sin(b) + sy * Math.cos(b)]);
   const xs = corners.map((c) => c[0]);
   const ys = corners.map((c) => c[1]);
-  return [Math.max(-180, k.lon + Math.min(...xs) * 360), Math.max(-85, latOf(Math.min(1, cy + Math.max(...ys)))), Math.min(180, k.lon + Math.max(...xs) * 360), Math.min(85, latOf(Math.max(0, cy + Math.min(...ys))))];
+  // Longitudes are not clamped: a frame across the 180° meridian (Bering Strait) runs past ±180 and tilesIn wraps it.
+  return [k.lon + Math.min(...xs) * 360, Math.max(-85, latOf(Math.min(1, cy + Math.max(...ys)))), k.lon + Math.max(...xs) * 360, Math.min(85, latOf(Math.max(0, cy + Math.min(...ys))))];
 }
 
 const union = (a: Box | undefined, b: Box): Box => (a ? [Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])] : b);
 
-/** Every tile at zoom z that intersects the box (the same rule MapLibre uses for source bounds). */
+/**
+ * Every tile at zoom z that intersects the box (the same rule MapLibre uses for source bounds). A box past ±180
+ * wraps round to the tiles on the other side of the meridian (MapLibre requests those by their wrapped x).
+ */
 function tilesIn(b: Box, z: number): TileId[] {
   const n = 2 ** z;
-  const [x0, x1] = [Math.max(0, Math.floor(((b[0] + 180) / 360) * n)), Math.min(n - 1, Math.ceil(((b[2] + 180) / 360) * n) - 1)];
+  const [x0, x1] = [Math.max(-n, Math.floor(((b[0] + 180) / 360) * n)), Math.min(2 * n - 1, Math.ceil(((b[2] + 180) / 360) * n) - 1)];
   const [y0, y1] = [Math.max(0, Math.floor(mercY(b[3]) * n)), Math.min(n - 1, Math.ceil(mercY(b[1]) * n) - 1)];
+  const xs = new Set<number>();
+  for (let x = x0; x <= x1 && xs.size < n; x++) xs.add(((x % n) + n) % n);
   const out: TileId[] = [];
-  for (let x = x0; x <= x1; x++) for (let y = y0; y <= y1; y++) out.push({z, x, y});
+  for (const x of xs) for (let y = y0; y <= y1; y++) out.push({z, x, y});
   return out;
 }
 
@@ -84,17 +90,20 @@ export function planTiles(camera: Key[], W: number, H: number, extra: number, mi
   const perLevel = new Map<number, Box>();
   for (const k of pathSamples(camera)) {
     // MapLibre keeps the finest level far up a tilted frame: at pitch 40 it asked for zoom 11 tiles
-    // 1.8 half-frames north of the centre (2026-10-20), so the near box reaches 2.5·sin(pitch) further.
+    // 1.8 half-frames north of the centre (2026-10-20), so the near box reaches 2.5·sin(pitch) further. Above pitch 50
+    // it reaches as far as the full box: at pitch 58 it asked for a zoom 12 tile ~4 half-frames up (Diomede Short, 2026-10-24).
     const full = keyBox(k, W, H, 4);
-    const near = keyBox(k, W, H, 2.5);
+    const near = keyBox(k, W, H, (k.pitch ?? 0) > 50 ? 4 : 2.5);
     bounds = union(bounds, full);
     for (let z = minzoom; z <= top(k); z++) perLevel.set(z, union(perLevel.get(z), z > minzoom && z === top(k) ? near : full));
   }
   const r = (v: number) => Math.round(v * 100) / 100;
+  // MapLibre's source bounds cannot cross the meridian: such a plan gets the full width (only planned tiles are in view).
+  const [w, s, e, nb] = bounds!;
   return {
     minzoom,
     maxzoom: Math.max(...camera.map(top)),
-    bounds: bounds!.map(r) as Box,
+    bounds: (w < -180 || e > 180 ? [-180, s, 180, nb] : [w, s, e, nb]).map(r) as Box,
     tiles: [...perLevel.entries()].sort((a, b) => a[0] - b[0]).flatMap(([z, b]) => tilesIn(b, z)),
   };
 }

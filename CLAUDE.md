@@ -360,7 +360,12 @@ image". project.json `style: "kinetic"`; documentary projects are unaffected.
   real shapes needs a few still checks (China turned 90° fits southern Africa). A zoomed-out glmap now loads land
   well beyond 25° of the camera, and move flags are copied like highlight flags.
 - `planTiles`' finest level reaches 2.5·sin(pitch) half-frames up a tilted frame: MapLibre asked for zoom 11 tiles
-  1.8 half-frames north of the centre at pitch 40, and the missing tile stopped the render (2026-10-20).
+  1.8 half-frames north of the centre at pitch 40, and the missing tile stopped the render (2026-10-20). Above pitch 50
+  it reaches as far as the coarser levels (4·sin(pitch)): at pitch 58 MapLibre asked for a zoom 12 tile ~4 half-frames
+  up (Diomede Short, 2026-10-24).
+- Frames across the 180° meridian (Bering Strait, Chukotka): `planTiles` no longer clamps to ±180; tiles past it wrap to
+  the other side, and such a plan's source bounds are the full width. Before, that part of the frame had no imagery
+  or depth (dark strip). Full-res glmap renders with imagery at pitch 50–58 ran 0.6 fps on the server (32 s in 27 min).
 - Edge voice: `edge_tts_cli.py` must read stdin as UTF-8. Until 2026-10-20 it used the Windows code page, so
   "Königsberg", "Tomé" and em dashes reached the voice garbled (heard as junk syllables; affected the Malacca
   quote, the 911 video and the Lesotho Short).
