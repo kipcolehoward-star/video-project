@@ -1,7 +1,8 @@
 /**
  * npm run voiceover -- [--project <id>] [--force] [--scene <id>] [--dry-run]
  * Generates narration for every scene with `narration`, using
- * project.json audio.provider ("piper" local, or "elevenlabs" paid API).
+ * project.json audio.provider ("piper" local, "edge" online, "kokoro" on the render
+ * server over SSH, or "elevenlabs" paid API).
  * Unchanged scenes are never regenerated (no repeat billing).
  */
 import {loadProject, parseArgs, pickProject} from './lib/project';

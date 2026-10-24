@@ -30,11 +30,14 @@ export interface AudioConfig {
   /**
    * "piper" (local, free, commercial OK), "edge" (Microsoft Edge online voices
    * via edge-tts: free, personal/non-monetised only), "elevenlabs" (API key;
-   * commercial use needs a paid plan).
+   * commercial use needs a paid plan), "kokoro" (Kokoro-82M, Apache 2.0, free and commercial OK; runs on the
+   * render server, see CLAUDE.md "Kokoro voice"; locked design: voice am_liam, speed 0.90).
    */
-  provider?: 'piper' | 'edge' | 'elevenlabs';
+  provider?: 'piper' | 'edge' | 'elevenlabs' | 'kokoro';
   /** Edge speaking rate, e.g. "+0%", "-5%". */
   rate?: string;
+  /** Kokoro speed (1 = Kokoro's normal pace; locked design 0.90). */
+  speed?: number;
   /**
    * Edge only: longest silence kept inside a clip, seconds (e.g. 0.2). Longer pauses (Edge leaves ~0.5–0.9 s after
    * each full stop) are shortened and the silence before the first and after the last word is trimmed, so the
@@ -72,6 +75,7 @@ export interface AudioConfig {
 export const AUDIO_DEFAULTS: Required<Omit<AudioConfig, 'music' | 'speaker' | 'voiceSettings' | 'musicCutAt' | 'musicStart' | 'musicFadeOut' | 'maxPause'>> = {
   provider: 'piper',
   rate: '+0%',
+  speed: 0.9,
   voice: 'en_US-joe-medium',
   model: 'eleven_multilingual_v2',
   lengthScale: 1,
@@ -154,7 +158,7 @@ export interface SceneSpec<T = Record<string, unknown>> {
 
 /** audio/narration/manifest.json, written by `npm run voiceover`. */
 export interface NarrationManifest {
-  provider?: 'piper' | 'edge' | 'elevenlabs';
+  provider?: AudioConfig['provider'];
   voice: string;
   model?: string;
   speaker?: number;

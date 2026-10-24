@@ -8,6 +8,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {alignScript, normWord, parseNarration, spokenText, type RecognizedWord} from '../../src/captions/words';
 import type {NarrationManifest, Transcript} from '../../src/config/project';
+import {env} from './env';
 import {capture} from './exec';
 import {fileHash, NARRATION_MANIFEST, sha1, TRANSCRIPT_FILE, type LoadedProject} from './project';
 import {TOOL_PATHS, TOOLS_DIR, VOICES} from './tools';
@@ -28,7 +29,9 @@ export function narrationTextHash(p: LoadedProject, narration: string) {
       ? ['elevenlabs', a.voice, a.model, a.voiceSettings ?? null]
       : a.provider === 'edge'
         ? ['edge', a.voice, a.rate, ...(a.maxPause !== undefined ? [a.maxPause] : [])]
-        : [a.voice, a.speaker ?? null, a.lengthScale];
+        : a.provider === 'kokoro'
+          ? ['kokoro', a.voice, a.speed]
+          : [a.voice, a.speaker ?? null, a.lengthScale];
   return sha1(JSON.stringify([spokenText(narration), ...voiceKey]));
 }
 
@@ -82,6 +85,53 @@ function tightenClip(wav: string, timingFile: string, maxPause: number, id: stri
   console.log(`  tight ${id}: ${total.toFixed(2)}s -> ${after.toFixed(2)}s (${keep.length - 1} pause(s) shortened to ${maxPause}s)`);
 }
 
+const KOKORO_LICENSE = {
+  license: 'Kokoro-82M (hexgrad), open weights under Apache 2.0 — commercial use allowed, no attribution required. Generated locally (render server).',
+  attribution: null,
+};
+const KOKORO_SCRIPT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'server', 'kokoro_voice.py');
+const KOKORO_PYTHON = '~/.venvs/kokoro/bin/python';
+// Windows' own OpenSSH: Git Bash's ssh/scp misread "C:" paths.
+const sshTool = (name: 'ssh' | 'scp') => (process.platform === 'win32' ? path.join(process.env.SystemRoot ?? 'C:\\Windows', 'System32', 'OpenSSH', `${name}.exe`) : name);
+
+/**
+ * Voices scenes with Kokoro (scripts/server/kokoro_voice.py, locked design: one trimmed clip per scene). Kokoro needs
+ * the render server's Python 3.12 venv, so on any other machine the job runs there over SSH (RENDER_SERVER in .env,
+ * e.g. root@203.0.113.10): the script and the texts go up, the WAVs and Kokoro's word timings come back.
+ * Writes <workDir>/<scene-id>.wav (24 kHz) and <scene-id>.timing.json.
+ */
+function kokoroVoice(p: LoadedProject, scenes: {id: string; text: string}[], workDir: string) {
+  const job = JSON.stringify({voice: p.audio.voice, speed: p.audio.speed, scenes});
+  fs.mkdirSync(workDir, {recursive: true});
+  const localPython = KOKORO_PYTHON.replace('~', process.env.HOME ?? '~');
+  if (process.platform !== 'win32' && fs.existsSync(localPython)) {
+    const r = spawnSync(localPython, [KOKORO_SCRIPT, '--stdin', workDir], {input: job, encoding: 'utf8'});
+    if (r.status !== 0) throw new Error(`Kokoro failed: ${r.stderr.slice(-600)}`);
+    return;
+  }
+  const host = env('RENDER_SERVER');
+  if (!host) throw new Error('Kokoro runs on the render server: set RENDER_SERVER=user@host in .env (or run on the server itself).');
+  const remote = `/tmp/kokoro-${p.id}-${Date.now()}`;
+  const ssh = (cmd: string, input?: string) => spawnSync(sshTool('ssh'), ['-o', 'BatchMode=yes', host, cmd], {input, encoding: 'utf8'});
+  const scp = (from: string, to: string) => spawnSync(sshTool('scp'), ['-q', '-o', 'BatchMode=yes', from, to], {encoding: 'utf8'});
+  try {
+    let r = ssh(`mkdir -p ${remote}/out`);
+    if (r.status !== 0) throw new Error(`cannot reach ${host}: ${r.stderr.slice(-300)}`);
+    r = scp(KOKORO_SCRIPT, `${host}:${remote}/kokoro_voice.py`);
+    if (r.status !== 0) throw new Error(`could not upload kokoro_voice.py: ${r.stderr.slice(-300)}`);
+    r = ssh(`${KOKORO_PYTHON} ${remote}/kokoro_voice.py --stdin ${remote}/out 2>&1 | grep -v -i warn`, job);
+    if (r.status !== 0 && !/s audio/.test(r.stdout)) throw new Error(`Kokoro failed on ${host}: ${(r.stdout + r.stderr).slice(-600)}`);
+    for (const s of scenes) {
+      for (const ext of ['wav', 'timing.json']) {
+        const got = scp(`${host}:${remote}/out/${s.id}.${ext}`, path.join(workDir, `${s.id}.${ext}`));
+        if (got.status !== 0) throw new Error(`Kokoro produced no ${ext} for "${s.id}": ${(r.stdout + got.stderr).slice(-400)}`);
+      }
+    }
+  } finally {
+    ssh(`rm -rf ${remote}`);
+  }
+}
+
 const ELEVENLABS_LICENSE = {
   license: 'ElevenLabs output — commercial use requires a paid plan',
   attribution: 'Free plan only: put "elevenlabs.io" in the video title and do not monetise.',
@@ -120,6 +170,8 @@ export async function generateVoiceover(p: LoadedProject, opts: {force?: boolean
     lic = EDGE_LICENSE;
     const check = spawnSync('python', ['-c', 'import edge_tts'], {encoding: 'utf8'});
     if (check.status !== 0) throw new Error('edge-tts is not installed for `python`. Install with: python -m pip install edge-tts');
+  } else if (provider === 'kokoro') {
+    lic = KOKORO_LICENSE;
   } else {
     const model = TOOL_PATHS.piperVoice(voice);
     if (!fs.existsSync(TOOL_PATHS.piper) || !fs.existsSync(model)) throw new Error(`Piper or voice "${voice}" missing. Run: npm run setup:tools`);
@@ -135,13 +187,20 @@ export async function generateVoiceover(p: LoadedProject, opts: {force?: boolean
   const manifest: NarrationManifest = {
     provider,
     voice,
-    model: provider === 'elevenlabs' ? p.audio.model : provider === 'edge' ? `rate ${p.audio.rate}` : undefined,
+    model: provider === 'elevenlabs' ? p.audio.model : provider === 'edge' ? `rate ${p.audio.rate}` : provider === 'kokoro' ? `speed ${p.audio.speed}` : undefined,
     speaker: provider === 'piper' ? p.audio.speaker : undefined,
     license: lic.license,
     attribution: lic.attribution,
     scenes: {},
   };
   const narrated = p.rawStoryboard.scenes.filter((s) => s.narration?.trim());
+  // Kokoro voices every scene that needs it in one run (one model load), into a work folder read by the loop below.
+  const kokoroDir = path.join(outDir, '.kokoro');
+  if (provider === 'kokoro' && plan.size) {
+    const t = Date.now();
+    kokoroVoice(p, narrated.filter((s) => plan.has(s.id)).map((s) => ({id: s.id, text: spokenText(s.narration!)})), kokoroDir);
+    console.log(`  kokoro ${plan.size} scene(s) in ${((Date.now() - t) / 1000).toFixed(1)}s`);
+  }
 
   for (const [i, s] of narrated.entries()) {
     const file = `audio/narration/${s.id}.wav`;
@@ -182,6 +241,12 @@ export async function generateVoiceover(p: LoadedProject, opts: {force?: boolean
       const conv = capture('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-i', mp3, '-ac', '1', '-ar', '44100', '-c:a', 'pcm_s16le', abs]);
       if (conv.code !== 0) throw new Error(`ffmpeg could not decode edge-tts audio for "${s.id}": ${conv.stderr}`);
       if (p.audio.maxPause !== undefined) tightenClip(abs, path.join(p.dir, timing), p.audio.maxPause, s.id);
+    } else if (provider === 'kokoro') {
+      // Already voiced above; Kokoro's clips come trimmed, with its own word timings.
+      timing = `audio/narration/${s.id}.timing.json`;
+      const conv = capture('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-i', path.join(kokoroDir, `${s.id}.wav`), '-ac', '1', '-ar', '44100', '-c:a', 'pcm_s16le', abs]);
+      if (conv.code !== 0) throw new Error(`ffmpeg could not convert Kokoro audio for "${s.id}": ${conv.stderr}`);
+      fs.copyFileSync(path.join(kokoroDir, `${s.id}.timing.json`), path.join(p.dir, timing));
     } else {
       const args = ['--model', TOOL_PATHS.piperVoice(voice), '--output_file', abs, '--sentence_silence', '0.3', '--length_scale', String(p.audio.lengthScale)];
       if (p.audio.speaker !== undefined) args.push('--speaker', String(p.audio.speaker));
@@ -195,6 +260,7 @@ export async function generateVoiceover(p: LoadedProject, opts: {force?: boolean
     fs.writeFileSync(path.join(p.dir, NARRATION_MANIFEST), JSON.stringify({...manifest, scenes: {...prev, ...manifest.scenes}}, null, 2));
   }
 
+  fs.rmSync(kokoroDir, {recursive: true, force: true});
   // Remove audio for scenes that no longer have narration.
   for (const f of fs.readdirSync(outDir)) {
     const id = f.replace(/\.(wav|mp3|timing\.json)$/, '');

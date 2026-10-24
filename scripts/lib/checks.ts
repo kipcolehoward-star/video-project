@@ -117,13 +117,21 @@ function checkMoments(p: LoadedProject, format: VideoFormat): Finding[] {
 
 /** Longest silence allowed between two spoken words when the project asks for a continuous voice-over (seconds). */
 export const MAX_VOICE_GAP = 0.35;
+/**
+ * Kokoro keeps its own ~0.4 s breath between sentences (user's locked design, 2026-10-24); its word timings fold
+ * that pause into the word before it, so gaps only show at scene joins (~0.3 s by design; untrimmed joins were 0.9 s).
+ */
+export const MAX_KOKORO_GAP = 0.6;
 
 /**
- * Projects with audio.maxPause (continuous voice-over, user rule 2026-10-20): no silence between consecutive words
- * longer than MAX_VOICE_GAP anywhere on the timeline, scene joins included (word times from the transcript).
+ * Projects with audio.maxPause (continuous voice-over, user rule 2026-10-20) or the Kokoro voice: no silence between
+ * consecutive words longer than MAX_VOICE_GAP (Kokoro: MAX_KOKORO_GAP) anywhere on the timeline, scene joins included
+ * (word times from the transcript).
  */
 function checkVoiceGaps(p: LoadedProject, format: VideoFormat): Finding[] {
-  if (p.audio.maxPause === undefined || !p.transcript) return [];
+  const kokoro = p.audio.provider === 'kokoro';
+  if ((p.audio.maxPause === undefined && !kokoro) || !p.transcript) return [];
+  const limit = kokoro ? MAX_KOKORO_GAP : MAX_VOICE_GAP;
   const {scenes} = buildTimeline(p.storyboard, format.fps);
   const words: {start: number; end: number; text: string}[] = [];
   scenes.forEach((t, i) => {
@@ -133,12 +141,13 @@ function checkVoiceGaps(p: LoadedProject, format: VideoFormat): Finding[] {
   const gaps: string[] = [];
   for (let i = 1; i < words.length; i++) {
     const g = words[i].start - words[i - 1].end;
-    if (g > MAX_VOICE_GAP) gaps.push(`${words[i - 1].end.toFixed(2)}s "${words[i - 1].text} … ${words[i].text}" ${g.toFixed(2)}s`);
+    if (g > limit) gaps.push(`${words[i - 1].end.toFixed(2)}s "${words[i - 1].text} … ${words[i].text}" ${g.toFixed(2)}s`);
   }
+  const fix = kokoro ? 'scene joins: narrationOffset 0, narrationTail 0.18 (last scene keeps its tail)' : 'scene joins: set narrationOffset 0 and narrationTail 0';
   return [
     gaps.length
-      ? f('error', 'voice-gaps', `voice-over pauses longer than ${MAX_VOICE_GAP}s: ${gaps.join('; ')} (scene joins: set narrationOffset 0 and narrationTail 0)`)
-      : f('ok', 'voice-gaps', `continuous voice-over: no pause longer than ${MAX_VOICE_GAP}s across ${words.length} words`),
+      ? f('error', 'voice-gaps', `voice-over pauses longer than ${limit}s: ${gaps.join('; ')} (${fix})`)
+      : f('ok', 'voice-gaps', `continuous voice-over: no pause longer than ${limit}s across ${words.length} words`),
   ];
 }
 

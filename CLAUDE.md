@@ -535,8 +535,17 @@ permissive and some synthetic audio per its model card), run locally on the rend
 - `scripts/server/kokoro_voice.py <storyboard.json> <out-dir> [--joined all.wav]` writes `<scene-id>.wav` (24 kHz) with
   those defaults; ~4 s per scene on the server. Install: `sudo bash scripts/server/setup-ubuntu.sh --kokoro`
   (~/.venvs/kokoro, Python 3.12 via uv because kokoro 0.9.4 needs < 3.13; CPU torch; espeak-ng; spaCy en_core_web_sm; 1.3 GB).
-- **Not wired into `npm run voiceover` yet** (planned with the "import your own recording" step: timing from whisper, then
-  the usual captions/mix). `audio.maxPause` / the `voice-gaps` check must then allow Kokoro's sentence pauses (~0.42 s).
+- **In the pipeline (2026-10-24):** project.json `audio: {"provider": "kokoro", "voice": "am_liam", "speed": 0.9}` (no
+  `maxPause`). `npm run voiceover`/`narrate` on Windows sends the scene texts and the script to the server over SSH
+  (`RENDER_SERVER=user@host` in .env; not a secret), runs `kokoro_voice.py --stdin`, and copies back each scene's WAV
+  plus `<scene>.timing.json`: **Kokoro's own word timings** (misaki tokens, shifted to the trimmed clip), so transcribe
+  needs no whisper. On the server itself it runs locally. Storyboard joins: `narrationOffset: 0` on scenes after the
+  first and `narrationTail: 0.18` on every scene but the last (0.8). The `voice-gaps` check allows 0.6 s for Kokoro
+  (its sentence pauses are folded into the word before them; only joins show as gaps).
+- **Pronunciation:** check every new script with whisper on the server (it heard "Los Angeles" as "Lowe's Angels").
+  Fix per word with overrides: `*{Los|Loss}* *{Angeles|Anjeless}*` (captions keep the real spelling). Kokoro also takes
+  inline IPA (`[Los Angeles](/lɔs ˈænʤələs/)`), but our overrides split on spaces, so use respellings.
+- First real output: `projects/reno-myth` preview (approved 2026-10-24 as the Liam test; not rendered as a final).
 - 54 voices in 8 languages (28 English); blends of two voices are possible. Avoid for commercial use: XTTS (CPML),
   F5-TTS / Voxtral weights (CC BY-NC).
 
