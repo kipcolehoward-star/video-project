@@ -3,6 +3,7 @@
 #
 #   sudo bash setup-ubuntu.sh    system packages, Node, swap, edge-tts, then the app steps
 #   bash setup-ubuntu.sh --app   app steps only, no sudo (npm ci, Chrome Headless Shell, checks)
+#   sudo bash setup-ubuntu.sh --kokoro   Kokoro voice venv (~/.venvs/kokoro, Python 3.12 via uv, CPU torch)
 #
 # Idempotent: safe to re-run; finished steps are skipped. The code itself is
 # uploaded from Windows with scripts/server/push-to-server.ps1 (the GitHub repo
@@ -13,6 +14,7 @@ NODE_MAJOR=24            # matches the Windows machine (Node 24.12)
 EDGE_TTS_VERSION=7.2.8   # matches the Windows machine
 SWAP_GB=4                # no swap = Linux kills a render that runs out of memory
 RENDER_CONCURRENCY=3     # parallel Chrome tabs per render; 4 vCPU leaves one for FFmpeg
+KOKORO_VERSION=0.9.4     # Kokoro voice (--kokoro); tested 2026-10-24
 
 TARGET_USER="${SUDO_USER:-$(id -un)}"
 TARGET_HOME="$(getent passwd "$TARGET_USER" | cut -d: -f6)"
@@ -130,8 +132,26 @@ app_setup() {
   fi
 }
 
+# Kokoro voice (scripts/server/kokoro_voice.py): its own venv with Python 3.12, because kokoro 0.9.4 needs < 3.13.
+# uv (in its own small venv) fetches that Python; torch is the CPU build (~200 MB instead of the CUDA build's 2 GB+).
+kokoro_setup() {
+  [ "$(id -u)" -eq 0 ] || { echo "Run with sudo: espeak-ng is a system package." >&2; exit 1; }
+  say "Kokoro voice ($KOKORO_VERSION, Python 3.12, CPU)"
+  apt-get install -y -q espeak-ng >/dev/null
+  local uv="$TARGET_HOME/.venvs/uv-tool/bin/uv" kv="$TARGET_HOME/.venvs/kokoro"
+  [ -x "$uv" ] || { as_user python3 -m venv "$TARGET_HOME/.venvs/uv-tool"; as_user "$TARGET_HOME/.venvs/uv-tool/bin/pip" install -q uv; }
+  as_user "$uv" python install 3.12
+  [ -x "$kv/bin/python" ] || as_user "$uv" venv --python 3.12 "$kv"
+  as_user env VIRTUAL_ENV="$kv" "$uv" pip install -q --index-url https://download.pytorch.org/whl/cpu torch
+  # pip itself: misaki downloads its spaCy English model with pip.
+  as_user env VIRTUAL_ENV="$kv" "$uv" pip install -q "kokoro==$KOKORO_VERSION" soundfile pip
+  as_user "$kv/bin/python" -m spacy download en_core_web_sm >/dev/null
+  as_user "$kv/bin/python" -c 'import torch, kokoro; print("kokoro ok, torch", torch.__version__)'
+}
+
 case "${1:-}" in
   --app) app_setup ;;
+  --kokoro) kokoro_setup ;;
   "") system_setup; app_setup ;;
-  *) echo "Usage: sudo bash $0   |   bash $0 --app" >&2; exit 2 ;;
+  *) echo "Usage: sudo bash $0   |   bash $0 --app   |   sudo bash $0 --kokoro" >&2; exit 2 ;;
 esac

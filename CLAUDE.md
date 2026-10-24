@@ -522,6 +522,24 @@ Versions, URLs and licences are recorded in `scripts/lib/tools.ts`.
   remaining quota first, and supports `--dry-run`. Never use `--force` with
   ElevenLabs unless the user wants to pay for regeneration.
 
+**Kokoro voice (LOCKED by the user, 2026-10-24: "100% perfect, lock it"):** the free, commercially safe replacement
+for Edge (Edge has no publishing rights). Kokoro-82M (hexgrad, **Apache 2.0** open weights; trained on public-domain,
+permissive and some synthetic audio per its model card), run locally on the render server; no account, no API.
+- **Design:** voice `am_liam` (American male), speed **0.90**, **one clip per storyboard scene**, each clip's edge silence
+  trimmed (keep 20 ms before / 60 ms after the sound), joined with **0.18 s** of silence (heard as ~0.3 s). Kokoro's own
+  0.37–0.42 s pauses between sentences inside a scene are kept. Tested on the Diomede and Everest scripts; whisper heard
+  every word (8,849, 4,207, Mauna Kea, Chimborazo).
+- **Rejected while testing:** one long read (rushes and runs words together after ~8 s: 23.4 s vs 31.4 s per scene);
+  untrimmed per-scene clips (0.9 s gaps at every join); sentence-by-sentence reads with added gaps (choppy).
+  The user picked Liam from rewind.ai's Kokoro demos; Kokoro grades it C (minutes of training audio) but it sounds right.
+- `scripts/server/kokoro_voice.py <storyboard.json> <out-dir> [--joined all.wav]` writes `<scene-id>.wav` (24 kHz) with
+  those defaults; ~4 s per scene on the server. Install: `sudo bash scripts/server/setup-ubuntu.sh --kokoro`
+  (~/.venvs/kokoro, Python 3.12 via uv because kokoro 0.9.4 needs < 3.13; CPU torch; espeak-ng; spaCy en_core_web_sm; 1.3 GB).
+- **Not wired into `npm run voiceover` yet** (planned with the "import your own recording" step: timing from whisper, then
+  the usual captions/mix). `audio.maxPause` / the `voice-gaps` check must then allow Kokoro's sentence pauses (~0.42 s).
+- 54 voices in 8 languages (28 English); blends of two voices are possible. Avoid for commercial use: XTTS (CPML),
+  F5-TTS / Voxtral weights (CC BY-NC).
+
 Voices (licences checked from each MODEL_CARD):
 - `en_US-joe-medium` — CC0. Default.
 - `en_US-libritts_r-medium` — CC BY 4.0; **credit required**:
