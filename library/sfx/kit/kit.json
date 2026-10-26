@@ -1,13 +1,13 @@
 {
-  "note": "Standard kinetic-Short SFX kit (Nile sounds 3 dB quieter; from 2026-10-26 slam = es-impact-short, stamp = px-mouse-click, whoosh = px-whoosh-flutter fitted to the camera move). For a new project: copy the WAVs into <project>/audio/sfx/, add \"assets\" to its assets.json and \"sfxKit\" to its project.json. The subscribe button (ov-subscribe) is a video, not a sound: copy library/overlays/subscribe-button.webm to <project>/assets/overlays/.",
+  "note": "Standard kinetic-Short SFX kit (Nile sounds 3 dB quieter; from 2026-10-26 slam = px-notification (was es-impact-short), stamp = px-mouse-click, whoosh = px-whoosh-flutter fitted to the camera move). For a new project: copy the WAVs into <project>/audio/sfx/, add \"assets\" to its assets.json and \"sfxKit\" to its project.json. The subscribe button (ov-subscribe) is a video, not a sound: copy library/overlays/subscribe-button.webm to <project>/assets/overlays/.",
   "sfxKit": {
     "pop": {
       "asset": "es-pop",
       "gainDb": -3
     },
     "slam": {
-      "asset": "es-impact-short",
-      "gainDb": -9
+      "asset": "px-notification",
+      "gainDb": -6
     },
     "swish": {
       "asset": "es-swish-soft",
@@ -222,6 +222,18 @@
       "end": 2,
       "notes": "Animated subscribe button, transparent VP9 WebM. Cropped to the button (868x322 of 1920x1080), played at 2x (4 s -> 2 s), audio removed; the cursor clicks at 1.15 s. Library copy: library/overlays/subscribe-button.webm. Used by the glmap beat {do: \"subscribe\"}. profounder.com's terms not found (2026-10-26): check before publishing.",
       "credit": "Subscribe button animation made with profounder.com"
+    },
+    "px-notification": {
+      "type": "sfx",
+      "path": "audio/sfx/px-notification.wav",
+      "source": "https://pixabay.com/sound-effects/new-notification-040-493469/",
+      "license": "Pixabay Content License (free for commercial use, attribution not required)",
+      "provider": "pixabay",
+      "author": "Universfield",
+      "attributionRequired": false,
+      "credit": "New Notification 040 by Universfield — Pixabay",
+      "retrieved": "2026-10-26",
+      "notes": "Label sound (sfxKit slam: names appearing on screen). Replaces es-impact-short (user, 2026-10-26, after a 15 s audio-only test on uk-myth). Leading 0.09 s silence cut so it lands on the word; 0.3 s with a 0.1 s fade. Original MP3 in library/sfx/kit/sources/."
     }
   }
 }

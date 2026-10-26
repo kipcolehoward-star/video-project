@@ -376,7 +376,7 @@ image". project.json `style: "kinetic"`; documentary projects are unaffected.
   crack). Any beat `on: 0` is already showing at the scene start (continuity across cuts; silent). Plain colour fills
   stay for things that are not one country (EU/NATO areas use the EU flag on members or a label; NATO's emblem is a
   protected mark, so it is never drawn).
-- **SFX kit v2 (2026-10-26, each approved by the user on audio-only tests):** slam = `es-impact-short` (0.75 s), stamp =
+- **SFX kit v2 (2026-10-26, each approved by the user on audio-only tests):** slam (labels) = `px-notification` (0.3 s ding, Pixabay; replaced `es-impact-short` the same day), stamp =
   `px-mouse-click` (0.2 s, Pixabay), whoosh = `px-whoosh-flutter` (Pixabay) with sfxKit `fit: {peak, span}`: sounds
   from a camera move carry its `span` (the `move` seconds) and the loader sets `tempo` (FFmpeg atempo) and `offset` so
   the audible part covers the first 40% of the snap move with the peak at 10%. The old 4.3 s `es-whoosh-low` was heard
