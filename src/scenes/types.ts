@@ -32,6 +32,7 @@ export interface SceneDefinition<T> {
   /**
    * Sounds the scene's animations imply: a kind from project.json `sfxKit` ("pop", "whoosh"...),
    * at a cue word or seconds, plus `offset` seconds. The loader turns them into ordinary scene sfx.
+   * `span` = seconds the motion lasts (a camera move); kit sounds with `fit` are sped up or slowed to match it.
    */
-  sounds?: (data: T) => {kind: string; at: string | number; offset?: number}[];
+  sounds?: (data: T) => {kind: string; at: string | number; offset?: number; span?: number}[];
 }

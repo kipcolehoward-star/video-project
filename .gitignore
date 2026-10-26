@@ -39,3 +39,6 @@ library/sfx/**/*
 !library/sfx/*/
 !library/sfx/SOURCES.txt
 !library/sfx/kit/kit.json
+
+# Overlay library (subscribe button): media stays local like the SFX library
+library/overlays/**/*.webm

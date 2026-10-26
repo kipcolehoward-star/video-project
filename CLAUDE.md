@@ -376,6 +376,22 @@ image". project.json `style: "kinetic"`; documentary projects are unaffected.
   crack). Any beat `on: 0` is already showing at the scene start (continuity across cuts; silent). Plain colour fills
   stay for things that are not one country (EU/NATO areas use the EU flag on members or a label; NATO's emblem is a
   protected mark, so it is never drawn).
+- **SFX kit v2 (2026-10-26, each approved by the user on audio-only tests):** slam = `es-impact-short` (0.75 s), stamp =
+  `px-mouse-click` (0.2 s, Pixabay), whoosh = `px-whoosh-flutter` (Pixabay) with sfxKit `fit: {peak, span}`: sounds
+  from a camera move carry its `span` (the `move` seconds) and the loader sets `tempo` (FFmpeg atempo) and `offset` so
+  the audible part covers the first 40% of the snap move with the peak at 10%. The old 4.3 s `es-whoosh-low` was heard
+  as a background rumble. Kit changes go into `library/sfx/kit` only; projects copy the kit when created.
+- glmap `subscribe` beat: the channel's animated subscribe button (`library/overlays/subscribe-button.webm`, VP9 with
+  alpha, 868x322, 2 s, click at 1.15 s; copy to `<project>/assets/overlays/`, asset `ov-subscribe`) starts `hit` s
+  before its word so the cursor clicks on it; sound "stamp". Encode such overlays with frequent keyframes (`-g 5`): with
+  one keyframe Remotion's compositor failed with "No frame found at position".
+- **Loop endings** (user rule 2026-10-26): no spoken CTA; the last line runs into the first on replay, the camera ends on
+  the opening framing, the subscribe button plays during the payoff, the comment question goes in a pinned comment.
+- `admin1.json` also holds England, Scotland, Wales and Northern Ireland (`type_en` "Country of the UK"), dissolved from
+  Natural Earth's UK subdivisions by `geonunit` in geo-setup. Highlight flags accept flag-icons subdivisions (`gb-eng`,
+  `gb-sct`, `gb-wls`); Northern Ireland has no official flag, so use a plain colour (blue is too faint over imagery).
+- Laptop glmap renders (preview and final) need `--concurrency 1` with ~1 GB free RAM: at 2 tabs a scene cut timed out
+  on "glmap: map load". The 29 s uk-myth final took ~20 min on the laptop (the server ran these at 0.5 fps: no GPU).
 - **Continuous voice-over** (user rule 2026-10-20): project.json `audio.maxPause` (0.2) shortens pauses inside Edge clips
   using the word timings and trims the clip ends; scenes after the first use `narrationOffset: 0` and `narrationTail: 0`
   (last scene keeps a tail). `validate` errors on any pause > 0.35 s between words (`voice-gaps`). Pilot: `the-nile`.

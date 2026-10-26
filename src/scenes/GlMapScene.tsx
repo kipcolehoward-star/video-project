@@ -1,7 +1,7 @@
 import {geoCentroid, geoContains} from 'd3-geo';
 import type {Feature, Geometry, Position} from 'geojson';
 import React, {useMemo} from 'react';
-import {AbsoluteFill, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {exit, glowPulse, legsDrift, legsPath, pop, slam, breathe, type CameraLeg} from '../animations/kinetic';
 import {EASE_IN_OUT, lonDelta, progress, smoothPath} from '../animations/motion';
 import {SafeZoneGuides} from '../components/SafeZoneGuides';
@@ -49,6 +49,9 @@ type At = string | number;
  *   Silent by default: it is a mood change that rides on a camera move or another beat.
  * - arrow: a thick arrow that draws itself on the map from `from` to `to`, bowed by `bend` (army movements).
  * - stamp: a word pressed onto the screen at an angle, like a rubber stamp.
+ * - subscribe: the channel's animated subscribe button (transparent video, `asset`, default the kit's
+ *   "asset:ov-subscribe") at `place` (default top), `width` share of the safe width (default 0.85). It starts
+ *   `hit` seconds (default 1.15) before its word, so the cursor clicks on the word; the click sound is "stamp".
  * - march: `count` small figures walk on the map from `from` to `to` over `duration` seconds and fade out.
  * - measure: a ruler line from `from` to `to` that draws itself, then shows `text` (e.g. "65 km").
  * - river: Natural Earth rivers (`rivers`, names as in the data) drawn as one glowing line that runs from the end
@@ -74,13 +77,17 @@ export type GlBeat = {on: At; off?: At; sfx?: string | false; offSfx?: string} &
   | {do: 'tint'; tone: Tone}
   | {do: 'arrow'; from: LonLat; to: LonLat; color?: GlAccent; bend?: number; duration?: number}
   | {do: 'stamp'; text: string; place?: Slot; color?: GlAccent}
+  | {do: 'subscribe'; asset?: string; place?: Slot; width?: number; hit?: number}
   | {do: 'march'; from: LonLat; to: LonLat; count?: number; duration?: number}
   | {do: 'measure'; from: LonLat; to: LonLat; text: string; duration?: number}
   | {do: 'move'; name: string; to: LonLat; flag?: string; color?: GlAccent; duration?: number; turn?: number; keep?: [number, number, number, number]}
 );
-const BEAT_SFX: Record<GlBeat['do'], string | null> = {highlight: 'pop', pulse: 'pulse', label: 'slam', link: 'swish', card: 'paper', icon: 'thud', year: 'tick', tint: null, arrow: 'whoosh', stamp: 'stamp', march: 'footsteps', measure: 'swish', river: 'swish', move: 'whoosh'};
+const BEAT_SFX: Record<GlBeat['do'], string | null> = {highlight: 'pop', pulse: 'pulse', label: 'slam', link: 'swish', card: 'paper', icon: 'thud', year: 'tick', tint: null, arrow: 'whoosh', stamp: 'stamp', subscribe: 'stamp', march: 'footsteps', measure: 'swish', river: 'swish', move: 'whoosh'};
 const beatSfx = (b: GlBeat) => (b.do === 'label' && b.was ? 'flip' : BEAT_SFX[b.do]);
 const FLIP_FRAMES = 10;
+/** The kit's subscribe button (library/overlays/subscribe-button.webm) and when its cursor clicks, in seconds. */
+const SUBSCRIBE_ASSET = 'asset:ov-subscribe';
+const SUBSCRIBE_HIT = 1.15;
 const TINT_FRAMES = 18;
 
 export interface GlMapData {
@@ -160,7 +167,7 @@ function problemsFor(d: GlMapData): string[] {
     if (!accent((b as {color?: unknown}).color)) out.push(`${n}: color must be one of ${GL_ACCENTS.join(', ')}`);
     if (b.do === 'highlight') {
       if (typeof b.name !== 'string' || !b.name) out.push(`${n}: highlight needs a "name" (country or province)`);
-      if (b.flag !== undefined && !(typeof b.flag === 'string' && (/^[a-z]{2}$/i.test(b.flag) || b.flag.startsWith('asset:')))) out.push(`${n}: flag must be a two-letter ISO 3166-1 code (e.g. "ru") or "asset:<id>"`);
+      if (b.flag !== undefined && !(typeof b.flag === 'string' && (/^[a-z]{2}(-[a-z]{3})?$/i.test(b.flag) || b.flag.startsWith('asset:')))) out.push(`${n}: flag must be a two-letter ISO 3166-1 code (e.g. "ru"), a flag-icons subdivision ("gb-sct") or "asset:<id>"`);
       if (b.exit !== undefined && b.exit !== 'fade' && b.exit !== 'fall') out.push(`${n}: exit must be fade or fall`);
       if (b.flagFit !== undefined && b.flagFit !== 'cover' && b.flagFit !== 'stretch') out.push(`${n}: flagFit must be cover or stretch`);
       if (b.holes !== undefined && !(Array.isArray(b.holes) && b.holes.every((h) => typeof h === 'string'))) out.push(`${n}: holes must be a list of lake names`);
@@ -202,6 +209,10 @@ function problemsFor(d: GlMapData): string[] {
       if (b.do === 'arrow' && b.bend !== undefined && (!num(b.bend) || Math.abs(b.bend) > 1)) out.push(`${n}: bend must be a number from -1 to 1`);
     } else if (b.do === 'stamp') {
       if (typeof b.text !== 'string' || !b.text) out.push(`${n}: stamp needs "text"`);
+    } else if (b.do === 'subscribe') {
+      if (b.asset !== undefined && !(typeof b.asset === 'string' && b.asset.startsWith('asset:'))) out.push(`${n}: asset must be "asset:<id>"`);
+      if (b.width !== undefined && (!num(b.width) || b.width <= 0 || b.width > 1)) out.push(`${n}: width must be a share of the safe width, more than 0 and at most 1`);
+      if (b.hit !== undefined && (!num(b.hit) || b.hit < 0 || b.hit > 10)) out.push(`${n}: hit must be seconds from 0 to 10`);
     } else if (b.do === 'move') {
       if (typeof b.name !== 'string' || !b.name) out.push(`${n}: move needs a "name" (country)`);
       if (!lonLat(b.to)) out.push(`${n}: move needs "to" as [lon, lat]`);
@@ -209,7 +220,7 @@ function problemsFor(d: GlMapData): string[] {
       if (b.duration !== undefined && (!num(b.duration) || b.duration <= 0 || b.duration > 10)) out.push(`${n}: duration must be seconds, more than 0 and at most 10`);
       if (b.turn !== undefined && !num(b.turn)) out.push(`${n}: turn must be degrees`);
       if (b.keep !== undefined && !(Array.isArray(b.keep) && b.keep.length === 4 && b.keep.every(num))) out.push(`${n}: keep must be [west, south, east, north]`);
-    } else out.push(`${n}: unknown beat "${(b as {do?: unknown}).do}" (use highlight, pulse, label, link, card, icon, year, tint, arrow, stamp, march, measure or move)`);
+    } else out.push(`${n}: unknown beat "${(b as {do?: unknown}).do}" (use highlight, pulse, label, link, card, icon, year, tint, arrow, stamp, subscribe, march, measure or move)`);
     if (b.offSfx !== undefined && typeof b.offSfx !== 'string') out.push(`${n}: offSfx must be a sound kind`);
     if (b.offSfx !== undefined && b.off === undefined) out.push(`${n}: offSfx needs an "off" word`);
     const place = (b as {place?: unknown}).place;
@@ -998,6 +1009,21 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
               const r = slotRect(ctx, b.place ?? 'top');
               return <StampMark key={`stamp-${i}`} text={b.text} x={r.x + r.w / 2} y={r.y + r.h / 2} frame={frame} start={on} end={off} fps={fps} fontSize={Math.round(ctx.type.h1 * 1.15)} fontFamily={theme.fonts.body} color={P[b.color ?? 'red']} />;
             }
+            if (b.do === 'subscribe') {
+              const meta = assets[(b.asset ?? SUBSCRIBE_ASSET).slice(6)];
+              if (!meta) throw new Error(`glmap subscribe: unknown asset "${b.asset ?? SUBSCRIBE_ASSET}"`);
+              const r = slotRect(ctx, b.place ?? 'top');
+              const o = meta.original ?? {width: 868, height: 322};
+              const w = (b.width ?? 0.85) * ctx.safe.w;
+              const h = (w * o.height) / o.width;
+              // Starts early so the cursor's click lands on the word.
+              const from = on - Math.round((b.hit ?? SUBSCRIBE_HIT) * fps);
+              return (
+                <Sequence key={`subscribe-${i}`} from={from} durationInFrames={Math.round((meta.end ?? 2) * fps)} layout="none">
+                  <OffthreadVideo src={staticFile(meta.path)} transparent muted style={{position: 'absolute', left: r.x + r.w / 2 - w / 2, top: r.y + r.h / 2 - h / 2, width: w, height: h}} />
+                </Sequence>
+              );
+            }
             if (b.do === 'year') {
               const r = slotRect(ctx, b.place ?? 'top');
               const glow = b.color ? P[b.color] : P.gold;
@@ -1025,7 +1051,7 @@ export const GlMapScene: SceneDefinition<GlMapData> = {
       ...(d.labels ?? []).flatMap((l) => [l.at, l.until]),
       ...(d.beats ?? []).flatMap((b) => [b.on, b.off]),
     ].filter((v): v is string => typeof v === 'string'),
-  assetRefs: (d) => (d.beats ?? []).flatMap((b) => (b.do === 'card' ? [b.asset] : b.do === 'highlight' && b.flag?.startsWith('asset:') ? [b.flag] : [])),
+  assetRefs: (d) => (d.beats ?? []).flatMap((b) => (b.do === 'card' ? [b.asset] : b.do === 'subscribe' ? [b.asset ?? SUBSCRIBE_ASSET] : b.do === 'highlight' && b.flag?.startsWith('asset:') ? [b.flag] : [])),
   moments: (d) => [
     ...(d.beats ?? []).map((b) => b.on),
     ...(usesLegs(d) ? d.camera.slice(1).map((k) => k.at) : []),
@@ -1046,6 +1072,6 @@ export const GlMapScene: SceneDefinition<GlMapData> = {
     }),
     ...(usesLegs(d) ? d.camera.slice(1) : [])
       .filter((k) => k.sfx !== false && k.at !== undefined)
-      .map((k) => ({kind: (k.sfx as string | undefined) ?? (k.ease === 'glide' ? 'swish' : 'whoosh'), at: k.at as At})),
+      .map((k) => ({kind: (k.sfx as string | undefined) ?? (k.ease === 'glide' ? 'swish' : 'whoosh'), at: k.at as At, span: k.move ?? 1})),
   ],
 };

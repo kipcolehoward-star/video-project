@@ -109,10 +109,16 @@ function withImpliedSounds(sb: Storyboard, config: ProjectConfig): Storyboard {
   return {
     ...sb,
     scenes: sb.scenes.map((s) => {
-      const implied = (SCENES[s.type]?.sounds?.(s.data) ?? []).flatMap(({kind, at, offset}) => {
+      const implied = (SCENES[s.type]?.sounds?.(s.data) ?? []).flatMap(({kind, at, offset, span}) => {
         const k = kit[kind];
         if (!k) return [];
-        const {asset, gainDb} = typeof k === 'string' ? {asset: k, gainDb: undefined} : k;
+        const {asset, gainDb, fit} = typeof k === 'string' ? {asset: k, gainDb: undefined, fit: undefined} : k;
+        // Fit the sound to the motion: audible part = first 40% of the move, peak at 10% (see ProjectConfig.sfxKit).
+        if (fit && span) {
+          const tempo = Math.min(2, Math.max(0.5, fit.span / (0.4 * span)));
+          offset = (offset ?? 0) + 0.1 * span - fit.peak / tempo;
+          return [{asset, at, offset, ...(tempo !== 1 ? {tempo} : {}), ...(gainDb !== undefined ? {gainDb} : {})}];
+        }
         return [{asset, at, ...(offset ? {offset} : {}), ...(gainDb !== undefined ? {gainDb} : {})}];
       });
       return implied.length ? {...s, sfx: [...(s.sfx ?? []), ...implied]} : s;

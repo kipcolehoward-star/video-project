@@ -20,8 +20,13 @@ export interface ProjectConfig {
    * validate errors when moments are more than 2 s apart, and qc errors on anything frozen for more than 1.5 s.
    */
   style?: 'documentary' | 'kinetic';
-  /** Sound for each animation kind the scenes ask for ("pop", "slam", "whoosh"...): an asset id, or {asset, gainDb}. */
-  sfxKit?: Record<string, string | {asset: string; gainDb?: number}>;
+  /**
+   * Sound for each animation kind the scenes ask for ("pop", "slam", "whoosh"...): an asset id, or {asset, gainDb, fit}.
+   * `fit` = {peak, span}: the loudest point and audible length of the sound in seconds. Sounds for a motion with a known
+   * length (camera moves) are then sped up or slowed so the audible part covers the first 40% of a snap move (where it
+   * travels ~87% of the way), with the peak at 10% of the move, when the camera is fastest.
+   */
+  sfxKit?: Record<string, string | {asset: string; gainDb?: number; fit?: {peak: number; span: number}}>;
 }
 
 export type CaptionStyle = 'documentary' | 'kinetic' | 'educational' | 'none';
@@ -152,7 +157,7 @@ export interface SceneSpec<T = Record<string, unknown>> {
   /** Seconds held after the voiceover ends. */
   narrationTail?: number;
   /** Sound effects. `at`: seconds from scene start, or a narration cue word ("lesotho", "wild#2"). */
-  sfx?: {asset: string; at: number | string; gainDb?: number; offset?: number}[];
+  sfx?: {asset: string; at: number | string; gainDb?: number; offset?: number; tempo?: number}[];
   data: T;
 }
 

@@ -38,7 +38,15 @@ const LAYERS: Layer[] = [
     out: 'admin1',
     url: `${NE}/cultural/ne_10m_admin_1_states_provinces.zip`,
     shp: 'ne_10m_admin_1_states_provinces.shp',
-    cmds: ['-filter-fields', 'name,admin,adm0_a3,iso_a2,type_en', '-simplify', '6%', 'keep-shapes'],
+    // Plus England, Scotland, Wales and Northern Ireland, dissolved from the UK's subdivisions (Natural Earth's geonunit).
+    cmds: [
+      '-filter-fields', 'name,admin,adm0_a3,iso_a2,type_en,geonunit', '-simplify', '6%', 'keep-shapes',
+      '-filter', 'adm0_a3 == "GBR"', '+', 'name=nations',
+      '-dissolve', 'geonunit', 'target=nations', 'copy-fields=admin,adm0_a3,iso_a2',
+      '-each', 'name = geonunit, type_en = "Country of the UK"', 'target=nations',
+      '-merge-layers', 'target=*', 'force',
+      '-filter-fields', 'name,admin,adm0_a3,iso_a2,type_en',
+    ],
   },
   {
     out: 'rivers',

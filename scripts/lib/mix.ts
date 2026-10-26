@@ -118,7 +118,8 @@ export function buildMix(p: LoadedProject, fps: number): MixReport {
       const cutScene = p.audio.musicCutAt ? scenes.find((sc) => sc.scene.id === p.audio.musicCutAt) : undefined;
       const cutAt = cutScene ? cutScene.from / fps : null;
       const gate = cutAt !== null && at < cutAt ? `,afade=t=out:st=${r3(Math.max(0, cutAt - at - 0.06))}:d=0.06,atrim=0:${r3(Math.max(0.01, cutAt - at))}` : '';
-      chains.push(`[${idx}:a]aresample=48000,aformat=channel_layouts=stereo,volume=${fx.gainDb ?? -6}dB${gate},adelay=${Math.round(at * 1000)}:all=1[fx${sfxCount}]`);
+      const tempo = fx.tempo ? `,atempo=${r3(fx.tempo)}` : '';
+      chains.push(`[${idx}:a]aresample=48000,aformat=channel_layouts=stereo${tempo},volume=${fx.gainDb ?? -6}dB${gate},adelay=${Math.round(at * 1000)}:all=1[fx${sfxCount}]`);
       mixLabels.push(`[fx${sfxCount++}]`);
     }
   });

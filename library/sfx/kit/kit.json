@@ -1,12 +1,12 @@
 {
-  "note": "Standard kinetic-Short SFX kit (same sounds as the Nile, each 3 dB quieter). For a new project: copy the WAVs into <project>/audio/sfx/, add \"assets\" to its assets.json and \"sfxKit\" to its project.json.",
+  "note": "Standard kinetic-Short SFX kit (Nile sounds 3 dB quieter; from 2026-10-26 slam = es-impact-short, stamp = px-mouse-click, whoosh = px-whoosh-flutter fitted to the camera move). For a new project: copy the WAVs into <project>/audio/sfx/, add \"assets\" to its assets.json and \"sfxKit\" to its project.json. The subscribe button (ov-subscribe) is a video, not a sound: copy library/overlays/subscribe-button.webm to <project>/assets/overlays/.",
   "sfxKit": {
     "pop": {
       "asset": "es-pop",
       "gainDb": -3
     },
     "slam": {
-      "asset": "es-impact",
+      "asset": "es-impact-short",
       "gainDb": -9
     },
     "swish": {
@@ -18,8 +18,12 @@
       "gainDb": -3
     },
     "whoosh": {
-      "asset": "es-whoosh-low",
-      "gainDb": -6
+      "asset": "px-whoosh-flutter",
+      "gainDb": -2,
+      "fit": {
+        "peak": 0.25,
+        "span": 0.5
+      }
     },
     "pulse": {
       "asset": "es-pulse",
@@ -42,8 +46,8 @@
       "gainDb": -3
     },
     "stamp": {
-      "asset": "es-press",
-      "gainDb": -5
+      "asset": "px-mouse-click",
+      "gainDb": -4
     }
   },
   "assets": {
@@ -167,6 +171,57 @@
       "credit": "Machines, Antique, Printing Press, One Clack — Epidemic Sound",
       "retrieved": "2026-10-09",
       "notes": "Machines, Antique, Printing Press, One Clack"
+    },
+    "es-impact-short": {
+      "type": "sfx",
+      "path": "audio/sfx/es-impact-short.wav",
+      "source": "epidemic-sound:0e356c2f-1089-4faa-8143-326dbeee3085",
+      "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
+      "provider": "epidemic-sound",
+      "attributionRequired": false,
+      "credit": "Designed, Impact, Cinematic, Impact, Hit, Electric Tonne — Epidemic Sound",
+      "retrieved": "2026-10-09",
+      "notes": "es-impact cut to the first 0.75 s (fade-out 0.45-0.75 s); the full 3 s tail was too long (user, 2026-10-26)"
+    },
+    "px-mouse-click": {
+      "type": "sfx",
+      "path": "audio/sfx/px-mouse-click.wav",
+      "source": "https://pixabay.com/sound-effects/mouse-click-290204/",
+      "license": "Pixabay Content License (free for commercial use, attribution not required)",
+      "provider": "pixabay",
+      "author": "MatthewVakaliuk73627",
+      "attributionRequired": false,
+      "credit": "Mouse Click by MatthewVakaliuk73627 — Pixabay. Thanks, MatthewVakaliuk73627!",
+      "retrieved": "2026-10-26",
+      "notes": "Replaces es-press as the stamp sound (the 3 s press clack overlapped on back-to-back stamps). Cut to 0.2 s. Original MP3 in library/sfx/kit/sources/."
+    },
+    "px-whoosh-flutter": {
+      "type": "sfx",
+      "path": "audio/sfx/px-whoosh-flutter.wav",
+      "source": "https://pixabay.com/sound-effects/whoosh-blow-flutter-shortwav-14678/",
+      "license": "Pixabay Content License (free for commercial use, attribution not required)",
+      "provider": "pixabay",
+      "author": "freesound_community",
+      "attributionRequired": false,
+      "credit": "Whoosh Blow Flutter (short) by freesound_community — Pixabay",
+      "retrieved": "2026-10-26",
+      "notes": "Replaces es-whoosh-low (4.3 s, heard as a long background rumble) as the camera snap sound. Trimmed to 0.05-0.75 s of the original, fade-out at the end; peak at 0.25 s. Speed fitted to each camera move via sfxKit fit. Original MP3 in library/sfx/kit/sources/."
+    },
+    "ov-subscribe": {
+      "type": "graphic",
+      "path": "assets/overlays/subscribe-button.webm",
+      "source": "Made by the user on profounder.com (channel name and logo); original file library/overlays/sources/profounder_com_ecb6dfbbbb31c806c2924fd69b07c2e0-1cbc326840c2625e87b4-webm_transparent.webm",
+      "license": "unknown",
+      "provider": "profounder.com",
+      "attributionRequired": false,
+      "retrieved": "2026-10-26",
+      "original": {
+        "width": 868,
+        "height": 322
+      },
+      "end": 2,
+      "notes": "Animated subscribe button, transparent VP9 WebM. Cropped to the button (868x322 of 1920x1080), played at 2x (4 s -> 2 s), audio removed; the cursor clicks at 1.15 s. Library copy: library/overlays/subscribe-button.webm. Used by the glmap beat {do: \"subscribe\"}. profounder.com's terms not found (2026-10-26): check before publishing.",
+      "credit": "Subscribe button animation made with profounder.com"
     }
   }
 }
