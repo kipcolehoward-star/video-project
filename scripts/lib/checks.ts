@@ -307,12 +307,14 @@ export function checkNarration(p: LoadedProject, format: VideoFormat, captionSty
     const style = props.captionStyle as CaptionStyle;
     if (style !== 'none') {
       const ctx = layoutContextFor(p, format, captionStyle);
-      const pages = buildPages(globalWords(p.storyboard, p.transcript, format.fps), pagingFor(ctx, style));
+      const words = globalWords(p.storyboard, p.transcript, format.fps);
+      const pages = buildPages(words, pagingFor(ctx, style));
       const minRead = style === 'kinetic' ? 0.2 : 0.7;
       const short = pages.filter((pg) => pg.end - pg.start < minRead);
       if (short.length) bad('warn', 'caption-timing', `[${format.id}] ${short.length} ${style} caption page(s) shorter than ${minRead}s (first at ${short[0].start.toFixed(2)}s)`);
       if (pages.some((pg, k) => k > 0 && pg.start < pages[k - 1].end - 1e-6)) bad('error', 'caption-timing', `[${format.id}] caption pages overlap`);
-      if (pages.length && pages[pages.length - 1].end > total + 0.01) bad('error', 'caption-timing', `[${format.id}] captions run past the end of the video`);
+      // Only spoken words past the end are an error: the last page's hold may be cut by a short loop-ending tail.
+      if (words.length && words[words.length - 1].end > total + 0.01) bad('error', 'caption-timing', `[${format.id}] captions run past the end of the video`);
       if (!problems) out.push(f('ok', 'captions', `[${format.id}] ${pages.length} ${style} caption page(s), timed from the voiceover`));
     }
   }

@@ -1007,7 +1007,9 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
             }
             if (b.do === 'stamp') {
               const r = slotRect(ctx, b.place ?? 'top');
-              return <StampMark key={`stamp-${i}`} text={b.text} x={r.x + r.w / 2} y={r.y + r.h / 2} frame={frame} start={on} end={off} fps={fps} fontSize={Math.round(ctx.type.h1 * 1.15)} fontFamily={theme.fonts.body} color={P[b.color ?? 'red']} />;
+              // Up to ~14 characters fit the portrait frame at full size (tilt included); longer stamps shrink to fit.
+              const fit = Math.min(1, 14 / b.text.length);
+              return <StampMark key={`stamp-${i}`} text={b.text} x={r.x + r.w / 2} y={r.y + r.h / 2} frame={frame} start={on} end={off} fps={fps} fontSize={Math.round(ctx.type.h1 * 1.15 * fit)} fontFamily={theme.fonts.body} color={P[b.color ?? 'red']} />;
             }
             if (b.do === 'subscribe') {
               const meta = assets[(b.asset ?? SUBSCRIBE_ASSET).slice(6)];

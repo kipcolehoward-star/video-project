@@ -383,8 +383,12 @@ image". project.json `style: "kinetic"`; documentary projects are unaffected.
   as a background rumble. Kit changes go into `library/sfx/kit` only; projects copy the kit when created.
 - glmap `subscribe` beat: the channel's animated subscribe button (`library/overlays/subscribe-button.webm`, VP9 with
   alpha, 868x322, 2 s, click at 1.15 s; copy to `<project>/assets/overlays/`, asset `ov-subscribe`) starts `hit` s
-  before its word so the cursor clicks on it; sound "stamp". Encode such overlays with frequent keyframes (`-g 5`): with
-  one keyframe Remotion's compositor failed with "No frame found at position".
+  before its word so the cursor clicks on it; sound "stamp". Encode such overlays with every frame a keyframe and no
+  hidden frames (`-c:v libvpx-vp9 -pix_fmt yuva420p -g 1 -auto-alt-ref 0`): with one keyframe, and again with `-g 5` (2026-10-27,
+  last GOP at 1.867 s), Remotion's compositor failed with "No frame found at position". The library copy is now all-keyframe.
+- Stamps longer than 14 characters shrink to fit the portrait frame (19 characters were cut off at the left edge).
+- Loop endings: the last scene's `narrationTail` may be shorter than the caption hold (0.15 s, switzerland-capital-myth);
+  `validate` only errors when spoken words run past the end.
 - **Loop endings** (user rule 2026-10-26): no spoken CTA; the last line runs into the first on replay, the camera ends on
   the opening framing, the subscribe button plays during the payoff, the comment question goes in a pinned comment.
 - `admin1.json` also holds England, Scotland, Wales and Northern Ireland (`type_en` "Country of the UK"), dissolved from
