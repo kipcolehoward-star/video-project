@@ -676,4 +676,11 @@ export const AtlasScene: SceneDefinition<AtlasData> = {
       ...(d.flagBadges ?? []).map((b) => b.at),
       ...(d.routes ?? []).map((r) => r.at),
     ].filter((v): v is string => typeof v === 'string'),
+  // Kinetic Shorts: everything that appears or moves on a cue (the first camera key is the starting framing).
+  moments: (d) =>
+    [
+      ...(d.camera ?? []).slice(1).map((k) => k.at),
+      ...[d.gold, d.alt, d.warm, d.outline, d.pulse, d.labels, d.texts, d.flagMasks, d.flagBadges, d.routes].flatMap((xs) => (xs ?? []).map((x) => x.at)),
+      ...(d.shake ?? []),
+    ].filter((v): v is At => v !== undefined),
 };

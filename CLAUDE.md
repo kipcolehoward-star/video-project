@@ -394,6 +394,11 @@ image". project.json `style: "kinetic"`; documentary projects are unaffected.
 - `admin1.json` also holds England, Scotland, Wales and Northern Ireland (`type_en` "Country of the UK"), dissolved from
   Natural Earth's UK subdivisions by `geonunit` in geo-setup. Highlight flags accept flag-icons subdivisions (`gb-eng`,
   `gb-sct`, `gb-wls`); Northern Ireland has no official flag, so use a plain colour (blue is too faint over imagery).
+- `admin1.json` also holds the "Australian Antarctic Territory" (Antarctica clipped to 45–136°E and 142–160°E in geo-setup;
+  5.94M km², official ~5.9M), for highlights and atlas `flagMasks` (atlas needs `layers: ["admin1"]`). Antarctica needs
+  the atlas globe (south-polar view), not glmap: Mercator blows it up into a white band. The atlas scene now has a
+  `moments` hook (camera keys after the first + every layer's `at`), so kinetic Shorts can cut to a globe scene
+  (australia-continent-myth s5); give it `cameraDrift` or the last key holds frozen (qc caught 1.5 s).
 - Laptop glmap renders (preview and final) need `--concurrency 1` with ~1 GB free RAM: at 2 tabs a scene cut timed out
   on "glmap: map load". The 29 s uk-myth final took ~20 min on the laptop (the server ran these at 0.5 fps: no GPU).
 - **Continuous voice-over** (user rule 2026-10-20): project.json `audio.maxPause` (0.2) shortens pauses inside Edge clips
