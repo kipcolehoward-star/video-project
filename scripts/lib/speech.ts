@@ -26,7 +26,7 @@ export function narrationTextHash(p: LoadedProject, narration: string) {
   const a = p.audio;
   const voiceKey =
     a.provider === 'elevenlabs'
-      ? ['elevenlabs', a.voice, a.model, a.voiceSettings ?? null]
+      ? ['elevenlabs', a.voice, a.model, a.voiceSettings ?? null, ...(a.maxPause !== undefined ? [a.maxPause] : [])]
       : a.provider === 'edge'
         ? ['edge', a.voice, a.rate, ...(a.maxPause !== undefined ? [a.maxPause] : [])]
         : a.provider === 'kokoro'
@@ -232,6 +232,8 @@ export async function generateVoiceover(p: LoadedProject, opts: {force?: boolean
       if (r.words.length) {
         timing = `audio/narration/${s.id}.timing.json`;
         fs.writeFileSync(path.join(p.dir, timing), JSON.stringify({engine: `elevenlabs ${p.audio.model}`, words: r.words}, null, 2));
+        // ElevenLabs pauses 0.35-0.8 s at every full stop (measured 2026-10-30).
+        if (p.audio.maxPause !== undefined) tightenClip(abs, path.join(p.dir, timing), p.audio.maxPause, s.id);
       }
     } else if (provider === 'edge') {
       const mp3 = path.join(outDir, `${s.id}.mp3`);

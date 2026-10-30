@@ -570,6 +570,9 @@ permissive and some synthetic audio per its model card), run locally on the rend
 - **Pronunciation:** check every new script with whisper on the server (it heard "Los Angeles" as "Lowe's Angels").
   Fix per word with overrides: `*{Los|Loss}* *{Angeles|Anjeless}*` (captions keep the real spelling). Kokoro also takes
   inline IPA (`[Los Angeles](/lɔs ˈænʤələs/)`), but our overrides split on spaces, so use respellings.
+  A one-word IPA override works and keeps the word for timings: `*{Caprivi|[Caprivi](/kəpɹˈivi/)}*` (2026-10-30; the
+  espeak fallback stressed it "KAP-ri-vi", and respellings like "Kapreevee" kept that stress). Check unknown names'
+  stress with misaki's `en.G2P(fallback=espeak.EspeakFallback(british=False))` in ~/.venvs/kokoro on the server.
 - First real output: `projects/reno-myth` preview (approved 2026-10-24 as the Liam test; not rendered as a final).
 - 54 voices in 8 languages (28 English); blends of two voices are possible. Avoid for commercial use: XTTS (CPML),
   F5-TTS / Voxtral weights (CC BY-NC).
