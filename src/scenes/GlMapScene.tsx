@@ -1,14 +1,14 @@
 import {geoCentroid, geoContains} from 'd3-geo';
 import type {Feature, Geometry, Position} from 'geojson';
 import React, {useMemo} from 'react';
-import {AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Img, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {exit, glowPulse, legsDrift, legsPath, pop, slam, breathe, type CameraLeg} from '../animations/kinetic';
 import {EASE_IN_OUT, lonDelta, progress, smoothPath} from '../animations/motion';
 import {SafeZoneGuides} from '../components/SafeZoneGuides';
 import {flagUrl, usePreloadImages, useGeoLayer, type FC} from '../graphics/geo/data';
 import {routePoint, routeUpTo, sampleRoute, type LonLat} from '../graphics/geo/routes';
 import {imageryPlan} from '../graphics/glmap/imagery';
-import {CountingYear, DROP_SECONDS, DroppedIcon, ICONS, PaperCard, SLOTS, slotRect, StampMark, TONES, toneFilter, Walker, type Slot, type Tone} from '../graphics/kinetic/pictures';
+import {CountingYear, DROP_SECONDS, DroppedIcon, FallsCascade, ICONS, NeonRing, PaperCard, RiverBoat, SLOTS, slotRect, SplashBurst, StampMark, StrikeMark, TONES, toneFilter, Walker, type Slot, type Tone} from '../graphics/kinetic/pictures';
 import {GL_ACCENTS, GL_PALETTES, glStyle, highlightLayers, type GlAccent, type GlPaletteName} from '../graphics/glmap/style';
 import {terrainPlan} from '../graphics/glmap/terrain';
 import {useGlMap, type GlPaint} from '../graphics/glmap/useGlMap';
@@ -37,7 +37,7 @@ type At = string | number;
  *   it (keeps a corner emblem, like the Soviet hammer and sickle, from being cropped away). `holes` (lake names)
  *   keep lakes inside the country free of its flag (Lake Victoria under Uganda, Kenya and Tanzania).
  *   `name` may also be a lake (Natural Earth name, e.g. "Lake Victoria").
- * - label: text slammed onto the map at lon/lat (`size` hero | big | small).
+ * - label: text slammed onto the map at lon/lat (`size` hero | big | small; `ink: "dark"` over bright areas).
  * - pulse: an earlier highlight (same `name`) flashes its glow again.
  * - link: a dashed line draws itself from `from` to `to`; `cross` puts a red ✕ on it when it lands.
  *   A label with `was` shows that text from the start of the scene and flips to `text` on its word.
@@ -62,16 +62,25 @@ type At = string | number;
  *   centre lands there) over `duration` seconds, turning `turn` degrees clockwise on the way. It is moved on the
  *   sphere, so on the flat map it shrinks or grows to its true size at the new latitude (Greenland onto Africa).
  *   `keep` [w, s, e, n] keeps only the parts whose centre lies in that box (the contiguous USA without Alaska).
+ * - falls: a cartoon waterfall hanging from its lip at lon/lat (`width`, `height` in design px); grows down on its word.
+ * - boat: a toy steamer sailing along `via` (lon/lat) from `on` to `until`, covering the `share` [from, to] of the route, so
+ *   one trip can run across a cut (next scene: `on: 0`, the rest of the share). `drop` = the word it tips over the end of
+ *   the route: it teeters from `until` to `drop`, falls `depth` design px in `fall` seconds, then a splash (sound "splash").
+ * - ring: a neon circle that snaps down onto lon/lat (`radius` in design px); sound "ping" when it locks.
+ * - strike: a red X that draws itself over a slot (`place`, `shift` sideways as a share of the safe width, `size`).
+ * - parchment: a full-frame picture (`asset`, e.g. an old map) panning from `from` to `to`, each [centre x, centre y, width]
+ *   as fractions of the picture, over `duration` seconds (default until `off` or the scene end).
+ * An icon's `shift` moves it sideways by that share of the safe width, for two icons side by side.
  * Any beat with `on: 0` is already showing when the scene starts (continuity across a cut): no entrance, no sound.
  * `offSfx` plays a sound when the beat's `off` word comes.
  */
 export type GlBeat = {on: At; off?: At; sfx?: string | false; offSfx?: string} & (
   | {do: 'highlight'; name: string; color?: GlAccent; flag?: string; flagFit?: 'cover' | 'stretch'; exit?: 'fade' | 'fall'; holes?: string[]}
   | {do: 'pulse'; name: string}
-  | {do: 'label'; text: string; lon: number; lat: number; size?: 'hero' | 'big' | 'small'; color?: GlAccent; was?: string}
+  | {do: 'label'; text: string; lon: number; lat: number; size?: 'hero' | 'big' | 'small'; color?: GlAccent; was?: string; ink?: 'dark'}
   | {do: 'link'; from: LonLat; to: LonLat; cross?: boolean; color?: GlAccent; duration?: number}
   | {do: 'card'; asset: string; caption?: string; crop?: [number, number, number, number]; tilt?: number; place?: Slot}
-  | {do: 'icon'; icon: string; place?: Slot; lon?: number; lat?: number; size?: number}
+  | {do: 'icon'; icon: string; place?: Slot; lon?: number; lat?: number; size?: number; shift?: number}
   | {do: 'year'; value: number; from?: number; place?: Slot; color?: GlAccent; format?: 'year' | 'number'; suffix?: string}
   | {do: 'river'; name: string; rivers: string[]; from: LonLat; color?: GlAccent; width?: number; duration?: number}
   | {do: 'tint'; tone: Tone}
@@ -81,8 +90,17 @@ export type GlBeat = {on: At; off?: At; sfx?: string | false; offSfx?: string} &
   | {do: 'march'; from: LonLat; to: LonLat; count?: number; duration?: number}
   | {do: 'measure'; from: LonLat; to: LonLat; text: string; duration?: number}
   | {do: 'move'; name: string; to: LonLat; flag?: string; color?: GlAccent; duration?: number; turn?: number; keep?: [number, number, number, number]}
+  | {do: 'ring'; lon: number; lat: number; radius?: number}
+  | {do: 'strike'; place?: Slot; shift?: number; size?: number}
+  | {do: 'parchment'; asset: string; from: [number, number, number]; to: [number, number, number]; duration?: number}
+  | {do: 'falls'; lon: number; lat: number; width?: number; height?: number}
+  | {do: 'boat'; via: LonLat[]; until: At; share?: [number, number]; drop?: At; fall?: number; depth?: number; width?: number}
 );
-const BEAT_SFX: Record<GlBeat['do'], string | null> = {highlight: 'pop', pulse: 'pulse', label: 'slam', link: 'swish', card: 'paper', icon: 'thud', year: 'tick', tint: null, arrow: 'whoosh', stamp: 'stamp', subscribe: 'stamp', march: 'footsteps', measure: 'swish', river: 'swish', move: 'whoosh'};
+const BEAT_SFX: Record<GlBeat['do'], string | null> = {highlight: 'pop', pulse: 'pulse', label: 'slam', link: 'swish', card: 'paper', icon: 'thud', year: 'tick', tint: null, arrow: 'whoosh', stamp: 'stamp', subscribe: 'stamp', march: 'footsteps', measure: 'swish', river: 'swish', move: 'whoosh', falls: 'swish', boat: 'pop', ring: 'ping', strike: 'stamp', parchment: 'paper'};
+const RING_LOCK = 0.3;
+const BOAT_FALL = 0.36;
+const BOAT_DEPTH = 190;
+const FALLS_WIDTH = 240;
 const beatSfx = (b: GlBeat) => (b.do === 'label' && b.was ? 'flip' : BEAT_SFX[b.do]);
 const FLIP_FRAMES = 10;
 /** The kit's subscribe button (library/overlays/subscribe-button.webm) and when its cursor clicks, in seconds. */
@@ -114,13 +132,13 @@ export interface GlMapData {
   imagery?: boolean | {saturation?: number; contrast?: number; brightness?: number};
   palette?: GlPaletteName;
   /** Lines that draw themselves along great circles through `via` (lon/lat), over `duration` seconds. */
-  routes?: {via: LonLat[]; at?: At; duration?: number; color?: 'gold' | 'white' | 'red'; style?: 'solid' | 'dashed'}[];
+  routes?: {via: LonLat[]; at?: At; duration?: number; color?: 'gold' | 'white' | 'red'; style?: 'solid' | 'dashed'; width?: number}[];
   /**
    * Vessel markers moving along a route (index into `routes`). `count` vessels,
    * evenly spaced, each taking `seconds` for the whole route; `reverse` sails
    * the other way; `offset` (px at 1080p) shifts the lane sideways.
    */
-  vessels?: {route?: number; count?: number; seconds?: number; reverse?: boolean; offset?: number; at?: At}[];
+  vessels?: {route?: number; count?: number; seconds?: number; reverse?: boolean; offset?: number; at?: At; size?: number}[];
   /** Map labels. land: spaced capitals; water: italic serif; place: dot + name. `toward` rotates the label along a line to that point. */
   labels?: {text: string; lon: number; lat: number; kind?: 'land' | 'water' | 'place'; at?: At; until?: At; toward?: LonLat}[];
   /** Darkened frame edges, 0–1 (default 0: none). */
@@ -220,7 +238,23 @@ function problemsFor(d: GlMapData): string[] {
       if (b.duration !== undefined && (!num(b.duration) || b.duration <= 0 || b.duration > 10)) out.push(`${n}: duration must be seconds, more than 0 and at most 10`);
       if (b.turn !== undefined && !num(b.turn)) out.push(`${n}: turn must be degrees`);
       if (b.keep !== undefined && !(Array.isArray(b.keep) && b.keep.length === 4 && b.keep.every(num))) out.push(`${n}: keep must be [west, south, east, north]`);
-    } else out.push(`${n}: unknown beat "${(b as {do?: unknown}).do}" (use highlight, pulse, label, link, card, icon, year, tint, arrow, stamp, subscribe, march, measure or move)`);
+    } else if (b.do === 'ring') {
+      if (!num(b.lon) || !num(b.lat)) out.push(`${n}: ring needs lon and lat`);
+    } else if (b.do === 'strike') {
+      if (b.shift !== undefined && !num(b.shift)) out.push(`${n}: shift must be a number`);
+    } else if (b.do === 'parchment') {
+      const box = (v: unknown) => Array.isArray(v) && v.length === 3 && v.every((x) => num(x) && x >= 0 && x <= 1);
+      if (typeof b.asset !== 'string' || !b.asset.startsWith('asset:')) out.push(`${n}: parchment needs "asset": "asset:<id>"`);
+      if (!box(b.from) || !box(b.to)) out.push(`${n}: parchment needs from and to as [x, y, width] fractions`);
+    } else if (b.do === 'falls') {
+      if (!num(b.lon) || !num(b.lat)) out.push(`${n}: falls needs lon and lat`);
+      for (const k of ['width', 'height'] as const) if (b[k] !== undefined && (!num(b[k]) || (b[k] as number) <= 0)) out.push(`${n}: ${k} must be a positive number`);
+    } else if (b.do === 'boat') {
+      if (!Array.isArray(b.via) || b.via.length < 2 || !b.via.every(lonLat)) out.push(`${n}: boat needs "via": at least two [lon, lat] points`);
+      if (b.until === undefined) out.push(`${n}: boat needs "until" (the word or second its part of the trip ends)`);
+      if (b.share !== undefined && !(Array.isArray(b.share) && b.share.length === 2 && b.share.every((v) => num(v) && v >= 0 && v <= 1))) out.push(`${n}: share must be [from, to], fractions of the route`);
+      for (const k of ['fall', 'depth', 'width'] as const) if (b[k] !== undefined && (!num(b[k]) || (b[k] as number) <= 0)) out.push(`${n}: ${k} must be a positive number`);
+    } else out.push(`${n}: unknown beat "${(b as {do?: unknown}).do}" (use highlight, pulse, label, link, card, icon, year, tint, arrow, stamp, subscribe, march, measure, move, ring, strike, parchment, falls or boat)`);
     if (b.offSfx !== undefined && typeof b.offSfx !== 'string') out.push(`${n}: offSfx must be a sound kind`);
     if (b.offSfx !== undefined && b.off === undefined) out.push(`${n}: offSfx needs an "off" word`);
     const place = (b as {place?: unknown}).place;
@@ -632,11 +666,15 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
               const pad = 2;
               const parts = flagRings[i].filter((p) => p.box[0] < view.getEast() + pad && p.box[2] > view.getWest() - pad && p.box[1] < view.getNorth() + pad && p.box[3] > view.getSouth() - pad);
               if (!parts.length) return null;
+              // Vertices far outside the view are pulled to a box around it before projecting: a close, tilted camera
+              // projects points behind it to wild positions, which filled the whole frame with the flag (2026-11-01).
+              const [mx, my] = [(view.getEast() - view.getWest()) * 0.5, (view.getNorth() - view.getSouth()) * 0.5];
+              const nearView = (q: Position): LonLat => [Math.min(view.getEast() + mx, Math.max(view.getWest() - mx, q[0])), Math.min(view.getNorth() + my, Math.max(view.getSouth() - my, q[1]))];
               let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
               const dd = parts
                 .flatMap((p) =>
                   p.rings.map((ring) => {
-                    const pts = ring.map((q) => project(q as LonLat));
+                    const pts = ring.map((q) => project(nearView(q)));
                     for (const [x, y] of pts) [x0, y0, x1, y1] = [Math.min(x0, x), Math.min(y0, y), Math.max(x1, x), Math.max(y1, y)];
                     return `M${pts.map((q) => `${q[0].toFixed(1)},${q[1].toFixed(1)}`).join('L')}Z`;
                   }),
@@ -770,8 +808,8 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
             const tip = pts[pts.length - 1];
             return (
               <g key={i}>
-                <path d={line} fill="none" stroke={P.halo} strokeWidth={7 * unit} strokeLinecap="round" strokeLinejoin="round" />
-                <path d={line} fill="none" stroke={color} strokeWidth={3 * unit} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={r.style === 'dashed' ? `${10 * unit} ${9 * unit}` : undefined} />
+                <path d={line} fill="none" stroke={P.halo} strokeWidth={7 * (r.width ?? 1) * unit} strokeLinecap="round" strokeLinejoin="round" />
+                <path d={line} fill="none" stroke={color} strokeWidth={3 * (r.width ?? 1) * unit} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={r.style === 'dashed' ? `${10 * unit} ${9 * unit}` : undefined} />
                 {drawn[i] < 1 ? <circle cx={tip[0]} cy={tip[1]} r={5 * unit} fill={color} stroke={P.halo} strokeWidth={2 * unit} /> : null}
               </g>
             );
@@ -803,7 +841,7 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
               // The wake follows the route behind the ship (about 18 km), so it bends with the lane instead of cutting across coasts.
               const back = Math.min(0.05, 18 / (route.total * 6371));
               const wake = [0, 1, 2, 3, 4, 5, 6].map((j) => lane(Math.min(1, Math.max(0, s + (v.reverse ? 1 : -1) * back * (j / 6)))));
-              const sc = 1.2 * unit;
+              const sc = (v.size ?? 1.2) * unit;
               return (
                 <g key={`${vi}-${k}`} opacity={opacity}>
                   <path d={`M${wake.map((w) => `${w[0].toFixed(1)},${w[1].toFixed(1)}`).join('L')}`} fill="none" stroke={P.ship} strokeOpacity={0.35} strokeWidth={2.2 * sc} strokeLinecap="round" strokeLinejoin="round" />
@@ -940,6 +978,48 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
               </g>
             );
           })}
+          {beats.map((b, i) => {
+            if (b.do !== 'ring') return null;
+            const on = onAt(b.on);
+            if (frame < on) return null;
+            const out = b.off !== undefined ? exit(frame, at(b.off, durationInFrames), 8) : 1;
+            if (out <= 0) return null;
+            const [x, y] = project([b.lon, b.lat]);
+            return <NeonRing key={`ring-${i}`} x={x} y={y} radius={(b.radius ?? 130) * unit} grow={progress(frame, on, Math.round(RING_LOCK * fps), EASE_IN_OUT)} frame={frame} fps={fps} opacity={out} />;
+          })}
+          {/* Story objects: the waterfall first, so a boat tipping over its lip falls in front of it. */}
+          {beats.map((b, i) => {
+            if (b.do !== 'falls') return null;
+            const on = onAt(b.on);
+            if (frame < on) return null;
+            const [x, y] = project([b.lon, b.lat]);
+            const width = (b.width ?? FALLS_WIDTH) * unit;
+            return <FallsCascade key={`falls-${i}`} id={`falls-${scene.id}-${i}`} x={x} y={y} width={width} height={(b.height ?? BOAT_DEPTH) * unit} frame={frame} fps={fps} grow={progress(frame, on, Math.round(0.4 * fps), EASE_IN_OUT)} />;
+          })}
+          {beats.map((b, i) => {
+            if (b.do !== 'boat') return null;
+            const start = b.on === 0 ? 0 : at(b.on, 0);
+            if (frame < start) return null;
+            const route = sampleRoute(b.via);
+            const arrive = at(b.until, durationInFrames);
+            const [s0, s1] = b.share ?? [0, 1];
+            const share = s0 + (s1 - s0) * Math.min(1, Math.max(0, (frame - start) / Math.max(1, arrive - start)));
+            const [x, y] = project(routePoint(route, share));
+            const [ax] = project(routePoint(route, Math.min(1, share + 0.01)));
+            const flip = ax < x - 0.01;
+            const width = (b.width ?? 130) * unit * (b.on === 0 ? 1 : pop(frame, start, fps));
+            const dropF = b.drop !== undefined ? at(b.drop, durationInFrames) : Infinity;
+            if (frame < dropF) {
+              // Reached the end of the route: it teeters there, nose going down, until the drop word.
+              const teeter = b.drop !== undefined && frame > arrive ? progress(frame, arrive, Math.max(1, dropF - arrive), EASE_IN_OUT) : 0;
+              return <RiverBoat key={`boat-${i}`} x={x} y={y} width={width} frame={frame} fps={fps} flip={flip} tilt={teeter * (16 + 5 * Math.sin((frame / fps) * 22))} moving={teeter === 0} />;
+            }
+            const fallFrames = Math.max(1, Math.round((b.fall ?? BOAT_FALL) * fps));
+            const depth = (b.depth ?? BOAT_DEPTH) * unit;
+            const f = (frame - dropF) / fallFrames;
+            if (f >= 1) return <SplashBurst key={`boat-${i}`} x={x} y={y + depth} size={width * 1.5} t={(frame - dropF - fallFrames) / fps} />;
+            return <RiverBoat key={`boat-${i}`} x={x + width * 0.28 * f} y={y + depth * f * f} width={width * (1 - 0.22 * f)} frame={frame} fps={fps} flip={flip} tilt={16 + 62 * f} moving={false} opacity={Math.min(1, (1 - f) / 0.15)} />;
+          })}
         </svg>
       ) : null}
       {map
@@ -969,9 +1049,10 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
                   fontWeight: 800,
                   fontSize,
                   letterSpacing: '-0.01em',
-                  color: '#ffffff',
-                  textShadow: `0 0 ${14 * unit}px ${glow}, 0 ${3 * unit}px ${10 * unit}px rgba(0,0,0,0.65)`,
-                  WebkitTextStroke: `${1.5 * unit}px rgba(0,0,0,0.25)`,
+                  color: b.ink === 'dark' ? '#14181d' : '#ffffff',
+                  // Dark ink for a label over something bright (the white stripe of a flag).
+                  textShadow: b.ink === 'dark' ? `0 0 ${10 * unit}px rgba(255,255,255,0.9)` : `0 0 ${14 * unit}px ${glow}, 0 ${3 * unit}px ${10 * unit}px rgba(0,0,0,0.65)`,
+                  WebkitTextStroke: b.ink === 'dark' ? undefined : `${1.5 * unit}px rgba(0,0,0,0.25)`,
                 }}
               >
                 {b.was && flip < 90 ? b.was : b.text}
@@ -1001,9 +1082,30 @@ const GlMapView: React.FC<SceneProps<GlMapData>> = ({scene, durationInFrames}) =
                 [x, y] = [px, py - height / 2 - 12 * unit];
               } else {
                 const r = slotRect(ctx, b.place ?? 'bottom');
-                [x, y] = [r.x + r.w / 2, r.y + r.h / 2];
+                [x, y] = [r.x + r.w / 2 + (b.shift ?? 0) * ctx.safe.w, r.y + r.h / 2];
               }
               return <DroppedIcon key={`icon-${i}`} id={`icon-${i}`} name={b.icon} x={x} y={y} width={width} frame={frame} start={on} end={off} fps={fps} />;
+            }
+            if (b.do === 'parchment') {
+              const meta = assets[b.asset.slice(6)];
+              if (!meta) throw new Error(`glmap parchment: unknown asset "${b.asset}"`);
+              if (frame < on || (off !== undefined && frame >= off + 8)) return null;
+              const o = meta.original ?? {width: 4, height: 3};
+              const start = b.on === 0 ? 0 : on;
+              const k = progress(frame, start, Math.max(1, Math.round((b.duration ?? (Math.max(1, (off ?? durationInFrames) - start)) / fps) * fps)), EASE_IN_OUT);
+              const [cx, cy, w] = b.from.map((v, n) => v + (b.to[n] - v) * k);
+              const width = W / w;
+              const height = (width * o.height) / o.width;
+              const fade = b.on === 0 ? 1 : Math.min(1, (frame - on + 1) / 4);
+              return (
+                <div key={`parchment-${i}`} style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#d9c9a3', opacity: fade * (off !== undefined ? exit(frame, off, 8) : 1)}}>
+                  <Img src={staticFile(meta.path)} style={{position: 'absolute', width, height, left: W / 2 - cx * width, top: H / 2 - cy * height, maxWidth: 'none'}} />
+                </div>
+              );
+            }
+            if (b.do === 'strike') {
+              const r = slotRect(ctx, b.place ?? 'top');
+              return <StrikeMark key={`strike-${i}`} x={r.x + r.w / 2 + (b.shift ?? 0) * ctx.safe.w} y={r.y + r.h / 2} size={(b.size ?? 0.7) * ctx.safe.w} frame={frame} start={on} end={off} fps={fps} W={W} H={H} />;
             }
             if (b.do === 'stamp') {
               const r = slotRect(ctx, b.place ?? 'top');
@@ -1051,22 +1153,25 @@ export const GlMapScene: SceneDefinition<GlMapData> = {
       ...(d.routes ?? []).map((r) => r.at),
       ...(d.vessels ?? []).map((v) => v.at),
       ...(d.labels ?? []).flatMap((l) => [l.at, l.until]),
-      ...(d.beats ?? []).flatMap((b) => [b.on, b.off]),
+      ...(d.beats ?? []).flatMap((b) => [b.on, b.off, ...(b.do === 'boat' ? [b.until, b.drop] : [])]),
     ].filter((v): v is string => typeof v === 'string'),
-  assetRefs: (d) => (d.beats ?? []).flatMap((b) => (b.do === 'card' ? [b.asset] : b.do === 'subscribe' ? [b.asset ?? SUBSCRIBE_ASSET] : b.do === 'highlight' && b.flag?.startsWith('asset:') ? [b.flag] : [])),
+  assetRefs: (d) => (d.beats ?? []).flatMap((b) => (b.do === 'card' || b.do === 'parchment' ? [b.asset] : b.do === 'subscribe' ? [b.asset ?? SUBSCRIBE_ASSET] : b.do === 'highlight' && b.flag?.startsWith('asset:') ? [b.flag] : [])),
   moments: (d) => [
     ...(d.beats ?? []).map((b) => b.on),
+    ...(d.beats ?? []).flatMap((b) => (b.do === 'boat' ? [b.until, b.drop] : [])),
     ...(usesLegs(d) ? d.camera.slice(1).map((k) => k.at) : []),
     ...(d.routes ?? []).map((r) => r.at),
     ...(d.labels ?? []).map((l) => l.at),
   ].filter((v): v is At => v !== undefined),
   sounds: (d) => [
+    // A boat's drop has its own two sounds, wherever the trip started: the tip over, then the splash when it lands.
+    ...(d.beats ?? []).flatMap((b) => (b.do === 'boat' && b.drop !== undefined ? [{kind: 'swish', at: b.drop}, {kind: 'splash', at: b.drop, offset: b.fall ?? BOAT_FALL}] : [])),
     ...(d.beats ?? []).flatMap((b) => {
       if (b.on === 0) return b.offSfx && b.off !== undefined ? [{kind: b.offSfx, at: b.off}] : [];
       const kind = b.sfx === false ? null : (b.sfx ?? beatSfx(b));
       // A dropped icon sounds when it lands; a counting year ticks while it counts.
       const main = [
-        ...(kind ? [{kind, at: b.on, ...(b.do === 'icon' ? {offset: DROP_SECONDS} : {})}] : []),
+        ...(kind ? [{kind, at: b.on, ...(b.do === 'icon' ? {offset: DROP_SECONDS} : b.do === 'ring' ? {offset: RING_LOCK} : {})}] : []),
         ...(b.offSfx && b.off !== undefined ? [{kind: b.offSfx, at: b.off}] : []),
       ];
       // The ✕ has its own sound when it lands (the line finished drawing), even if the line is silent.

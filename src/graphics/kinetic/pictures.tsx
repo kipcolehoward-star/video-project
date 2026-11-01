@@ -128,11 +128,47 @@ function HeightCompare({id}: {id: string}) {
   );
 }
 
+/** A small village house: stone walls, a pitched roof, one door. */
+function VillageHouse() {
+  return (
+    <svg viewBox="0 0 100 100" width="100%" height="100%">
+      <path d="M18,48 V92 H82 V48 Z" fill="#e7dcc3" stroke="#14181d" strokeWidth={4} strokeLinejoin="round" />
+      <path d="M8,50 L50,14 L92,50 Z" fill="#b5482f" stroke="#14181d" strokeWidth={4} strokeLinejoin="round" />
+      <rect x={42} y={64} width={16} height={28} rx={2} fill="#6b4a2b" stroke="#14181d" strokeWidth={3} />
+      <rect x={25} y={58} width={11} height={11} fill="#7fb6d6" stroke="#14181d" strokeWidth={2.5} />
+      <rect x={64} y={58} width={11} height={11} fill="#7fb6d6" stroke="#14181d" strokeWidth={2.5} />
+    </svg>
+  );
+}
+
+/** A town hall: columns, a pediment, a clock tower and a flag, so it reads bigger and more official than the house. */
+function TownHall() {
+  return (
+    <svg viewBox="0 0 120 120" width="100%" height="100%">
+      <path d="M60,4 V20" stroke="#14181d" strokeWidth={3} />
+      <path d="M60,4 L82,10 L60,16 Z" fill="#c60b1e" stroke="#14181d" strokeWidth={2} strokeLinejoin="round" />
+      <rect x={48} y={20} width={24} height={26} fill="#efe6d1" stroke="#14181d" strokeWidth={3.5} />
+      <circle cx={60} cy={33} r={8} fill="#ffffff" stroke="#14181d" strokeWidth={2.5} />
+      <path d="M60,33 V27.5 M60,33 L64,35" stroke="#14181d" strokeWidth={2} strokeLinecap="round" />
+      <path d="M12,62 L60,42 L108,62 Z" fill="#d8c79f" stroke="#14181d" strokeWidth={3.5} strokeLinejoin="round" />
+      <rect x={16} y={62} width={88} height={7} fill="#efe6d1" stroke="#14181d" strokeWidth={3} />
+      <rect x={18} y={69} width={84} height={37} fill="#e7dcc3" stroke="#14181d" strokeWidth={3} />
+      {[24, 40, 72, 88].map((cx) => (
+        <rect key={cx} x={cx} y={69} width={8} height={37} fill="#f7f1e2" stroke="#14181d" strokeWidth={2.5} />
+      ))}
+      <rect x={53} y={82} width={14} height={24} fill="#6b4a2b" stroke="#14181d" strokeWidth={2.5} />
+      <rect x={10} y={106} width={100} height={8} rx={1} fill="#c9b98f" stroke="#14181d" strokeWidth={3} />
+    </svg>
+  );
+}
+
 /** Drawn icons by name, with their width : height ratio. */
 export const ICONS: Record<string, {ratio: number; draw: React.FC<{id: string}>}> = {
   'teutonic-shield': {ratio: 100 / 120, draw: TeutonicShield},
   'rain-cloud': {ratio: 1, draw: RainCloud},
   'height-compare': {ratio: 1.1, draw: HeightCompare},
+  'village-house': {ratio: 1, draw: VillageHouse},
+  'town-hall': {ratio: 1, draw: TownHall},
 };
 
 /**
@@ -168,6 +204,164 @@ export function DroppedIcon({name, x, y, width, frame, start, end, fps, id}: {na
     >
       <icon.draw id={id} />
     </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Story objects on the map: pure SVG, drawn inside the map's overlay (never a CSS filter, see CLAUDE.md).
+// ---------------------------------------------------------------------------
+
+/**
+ * A toy side-on river steamer, centred on its waterline: bobs, its paddle wheel turns, its funnel smokes and foam
+ * trails behind it. `tilt` in degrees (positive = bow down); `moving` switches the foam off once it leaves the water.
+ */
+export function RiverBoat({x, y, width, frame, fps, tilt = 0, flip = false, opacity = 1, moving = true}: {x: number; y: number; width: number; frame: number; fps: number; tilt?: number; flip?: boolean; opacity?: number; moving?: boolean}) {
+  const s = frame / fps;
+  const scale = width / 100;
+  const bob = Math.sin(s * 5) * 1.3;
+  const rock = Math.sin(s * 3.6) * 2 + tilt;
+  const spokes = (s * 260) % 360;
+  return (
+    <g opacity={opacity} transform={`translate(${x.toFixed(1)},${y.toFixed(1)}) scale(${(flip ? -scale : scale).toFixed(3)},${scale.toFixed(3)}) translate(0,${bob.toFixed(2)}) rotate(${rock.toFixed(2)})`}>
+      {moving
+        ? [0, 1, 2].map((k) => {
+            const age = (s * 1.6 + k / 3) % 1;
+            const len = 12 + age * 20;
+            return <path key={k} d={`M${-48 - age * 26},${9 + k * 3} h${-len}`} stroke="#ffffff" strokeOpacity={0.85 * (1 - age)} strokeWidth={2.4} strokeLinecap="round" fill="none" />;
+          })
+        : null}
+      {[0, 1, 2, 3].map((k) => {
+        const age = (s * 0.9 + k / 4) % 1;
+        return <circle key={k} cx={-1 - age * 30} cy={-54 - age * 34} r={4 + age * 9} fill="#eceff1" fillOpacity={0.8 * (1 - age)} />;
+      })}
+      {/* flag: the same colours the channel uses for Germany */}
+      <path d="M-40,-8 V-42" stroke="#ffffff" strokeWidth={1.6} />
+      <rect x={-60} y={-42} width={20} height={4.4} fill="#111111" />
+      <rect x={-60} y={-37.6} width={20} height={4.4} fill="#dd0000" />
+      <rect x={-60} y={-33.2} width={20} height={4.4} fill="#ffce00" />
+      {/* funnel */}
+      <rect x={-6} y={-52} width={10} height={26} fill="#16191d" stroke="#ffffff" strokeWidth={1.2} />
+      <rect x={-6} y={-46} width={10} height={4} fill="#ffcc00" />
+      {/* cabin */}
+      <rect x={-28} y={-28} width={46} height={21} rx={1.5} fill="#f3ead6" stroke="#ffffff" strokeWidth={1.2} />
+      <rect x={-32} y={-31} width={54} height={4.5} rx={1} fill="#16191d" />
+      {[-23, -12, 7].map((wx) => (
+        <rect key={wx} x={wx} y={-23} width={6.5} height={7} rx={1} fill="#27445c" />
+      ))}
+      {/* hull */}
+      <path d="M-46,-8 L54,-8 L42,11 L-40,11 Z" fill="#16191d" stroke="#ffffff" strokeWidth={1.8} strokeLinejoin="round" />
+      <path d="M-43,5 L46,5 L42,11 L-40,11 Z" fill="#b3261e" />
+      {/* paddle wheel */}
+      <g transform={`translate(-3,1) rotate(${spokes.toFixed(1)})`}>
+        <circle r={13} fill="#c8372d" stroke="#ffffff" strokeWidth={1.6} />
+        {[0, 60, 120].map((a) => (
+          <path key={a} d="M-12,0 H12" transform={`rotate(${a})`} stroke="#ffffff" strokeWidth={2} />
+        ))}
+      </g>
+    </g>
+  );
+}
+
+/**
+ * A cartoon waterfall hanging from its lip at (x, y): dark rock at the edges, blue-white water running down in many thin
+ * streaks of different speeds, mist piling up at the foot. `grow` (0-1) runs it down from the lip.
+ * Not to scale: it is drawn far wider than the real falls would be at this zoom.
+ */
+export function FallsCascade({x, y, width, height, frame, fps, id, grow}: {x: number; y: number; width: number; height: number; frame: number; fps: number; id: string; grow: number}) {
+  const s = frame / fps;
+  const left = x - width / 2;
+  const h = height * grow;
+  const n = 30;
+  const inset = width * 0.05;
+  const body = `M${left},${y} H${left + width} L${left + width - inset},${y + h} H${left + inset} Z`;
+  return (
+    <g>
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#e6f6fd" />
+          <stop offset="0.55" stopColor="#a5d6ee" />
+          <stop offset="1" stopColor="#63a9d2" />
+        </linearGradient>
+      </defs>
+      <path d={body} fill="#2b2622" stroke="#2b2622" strokeWidth={width * 0.05} strokeLinejoin="round" />
+      <path d={body} fill={`url(#${id})`} />
+      {Array.from({length: n}, (_, k) => {
+        const u = (k + 0.5) / n;
+        const vary = ((k * 13) % 7) / 6;
+        const dash = height * (0.14 + vary * 0.3);
+        return (
+          <path
+            key={k}
+            d={`M${(left + width * u).toFixed(1)},${y.toFixed(1)} L${(left + inset + (width - 2 * inset) * u).toFixed(1)},${(y + h).toFixed(1)}`}
+            stroke="#ffffff"
+            strokeOpacity={0.5 + vary * 0.45}
+            strokeWidth={width * (0.006 + vary * 0.016)}
+            strokeLinecap="round"
+            strokeDasharray={`${dash.toFixed(1)} ${(height * (0.05 + (1 - vary) * 0.09)).toFixed(1)}`}
+            strokeDashoffset={(-(s * height * (1.6 + vary * 1.3) + k * height * 0.13)).toFixed(1)}
+            fill="none"
+          />
+        );
+      })}
+      <path d={`M${left.toFixed(1)},${y.toFixed(1)} H${(left + width).toFixed(1)}`} stroke="#ffffff" strokeWidth={width * 0.022} strokeLinecap="round" />
+      {grow > 0.6
+        ? Array.from({length: 16}, (_, k) => {
+            const puff = Math.sin(s * 2.6 + k * 1.7);
+            const back = k % 2 === 0;
+            const r = width * ((back ? 0.11 : 0.075) + 0.018 * puff + (k % 3) * 0.012);
+            return <circle key={k} cx={left + (width * k) / 15} cy={y + h + width * ((back ? -0.03 : 0.035) + 0.018 * puff)} r={r} fill="#ffffff" fillOpacity={(back ? 0.42 : 0.72) * Math.min(1, (grow - 0.6) / 0.4)} />;
+          })
+        : null}
+    </g>
+  );
+}
+
+/** White water thrown up at (x, y) when something lands, `t` seconds after the landing; nothing after `life` seconds. */
+export function SplashBurst({x, y, size, t, life = 0.8}: {x: number; y: number; size: number; t: number; life?: number}) {
+  if (t < 0 || t > life) return null;
+  const k = t / life;
+  return (
+    <g>
+      <ellipse cx={x} cy={y} rx={size * (0.25 + 0.75 * k)} ry={size * (0.08 + 0.2 * k)} fill="none" stroke="#ffffff" strokeOpacity={1 - k} strokeWidth={size * 0.05} />
+      {Array.from({length: 14}, (_, i) => {
+        const a = -Math.PI / 2 + ((i - 6.5) / 6.5) * 1.15;
+        const v = size * (2 + ((i * 5) % 4) * 0.55);
+        const dx = Math.cos(a) * v * t;
+        const dy = Math.sin(a) * v * t + 2.6 * size * t * t;
+        return <circle key={i} cx={x + dx} cy={y + dy} r={size * (0.075 + ((i * 3) % 4) * 0.022) * (1 - k * 0.6)} fill="#ffffff" fillOpacity={1 - k * k} />;
+      })}
+    </g>
+  );
+}
+
+/** A neon circle snapping down onto its target (`grow` 0-1), then breathing. Soft strokes instead of a blur (see CLAUDE.md). */
+export function NeonRing({x, y, radius, grow, frame, fps, opacity = 1}: {x: number; y: number; radius: number; grow: number; frame: number; fps: number; opacity?: number}) {
+  const r = radius * (1 + 3 * (1 - grow)) * (1 + 0.025 * Math.sin((frame / fps) * 7));
+  const w = radius * 0.05;
+  return (
+    <g opacity={opacity * Math.min(1, grow * 3)} fill="none">
+      <circle cx={x} cy={y} r={r} stroke="#2ff3ff" strokeOpacity={0.14} strokeWidth={w * 6} />
+      <circle cx={x} cy={y} r={r} stroke="#2ff3ff" strokeOpacity={0.3} strokeWidth={w * 3} />
+      <circle cx={x} cy={y} r={r} stroke="#e8feff" strokeWidth={w} />
+    </g>
+  );
+}
+
+/** A red X that draws itself, one stroke after the other, over whatever is at (x, y). */
+export function StrikeMark({x, y, size, frame, start, end, fps, W, H}: {x: number; y: number; size: number; frame: number; start: number; end?: number; fps: number; W: number; H: number}) {
+  if (frame < start) return null;
+  const out = end !== undefined ? exit(frame, end, 8) : 1;
+  if (out <= 0) return null;
+  const n = Math.max(1, Math.round(0.12 * fps));
+  const a = Math.min(1, (frame - start + 1) / n);
+  const b = Math.min(1, Math.max(0, (frame - start - n + 1) / n));
+  const h = size / 2;
+  const line = (x0: number, y0: number, x1: number, y1: number, k: number) => (k > 0 ? <path d={`M${x0},${y0} L${x0 + (x1 - x0) * k},${y0 + (y1 - y0) * k}`} stroke="#e0241b" strokeWidth={size * 0.09} strokeLinecap="round" fill="none" /> : null);
+  return (
+    <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0, opacity: out}}>
+      {line(x - h, y - h, x + h, y + h, a)}
+      {line(x + h, y - h, x - h, y + h, b)}
+    </svg>
   );
 }
 
