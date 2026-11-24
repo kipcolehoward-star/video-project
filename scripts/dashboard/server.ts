@@ -404,8 +404,12 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       if (action === 'final') {
         const approved = state.previewApprovals[projectId];
         const preview = await latestMp4(projectId, 'previews');
-        if (!approved || !preview || preview.name !== approved.file || await hashFile(preview.full) !== approved.sha256 || await currentCommit() !== approved.gitCommit) {
-          return json(res, 409, {error: 'The latest preview is not approved for the current Git commit. Render and approve a fresh preview first.'});
+        const fingerprint = await projectFingerprint(projectId);
+        const commit = await currentCommit();
+        if (!approved || !preview || preview.name !== approved.file || preview.size !== approved.size || preview.mtimeMs !== approved.mtimeMs ||
+            await hashFile(preview.full) !== approved.sha256 || fingerprint !== approved.projectFingerprint || commit !== approved.gitCommit ||
+            !(await frameworkIsClean())) {
+          return json(res, 409, {error: 'The approved preview or source has changed. Render, checkpoint and approve a fresh preview first.'});
         }
       }
       if (action === 'qc' && !(await latestMp4(projectId, 'output'))) return json(res, 409, {error: 'There is no final MP4 to run QC against.'});
@@ -413,7 +417,10 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       if (action === 'checkpoint-final') {
         const approved = state.finalApprovals[projectId];
         const final = await latestMp4(projectId, 'output');
-        if (!approved || !final || final.name !== approved.file || await hashFile(final.full) !== approved.sha256 || await currentCommit() !== approved.gitCommit) {
+        const fingerprint = await projectFingerprint(projectId);
+        const commit = await currentCommit();
+        if (!approved || !final || final.name !== approved.file || final.size !== approved.size || final.mtimeMs !== approved.mtimeMs ||
+            await hashFile(final.full) !== approved.sha256 || fingerprint !== approved.projectFingerprint || commit !== approved.gitCommit) {
           return json(res, 409, {error: 'Final output must be QC-checked and owner-approved before checkpointing.'});
         }
       }
@@ -425,9 +432,15 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       const projectId = previewApprovalMatch[1];
       const preview = await latestMp4(projectId, 'previews');
       if (!preview) return json(res, 409, {error: 'There is no preview to approve.'});
-      const checkpoint = [...state.jobs].reverse().find((x) => x.projectId === projectId && x.action === 'checkpoint-preview' && x.status === 'succeeded' && x.completedAt && new Date(x.completedAt).getTime() >= preview.mtimeMs);
-      if (!checkpoint) return json(res, 409, {error: 'Push this preview to GitHub before approving it.'});
-      state.previewApprovals[projectId] = {file: preview.name, sha256: await hashFile(preview.full), gitCommit: await currentCommit(), approvedAt: nowIso(), approvedBy: session.username};
+      const previewJob = [...state.jobs].reverse().find((x) => x.projectId === projectId && x.action === 'preview' && x.status === 'succeeded' && x.completedAt && new Date(x.completedAt).getTime() >= preview.mtimeMs);
+      const fingerprint = await projectFingerprint(projectId);
+      if (!previewJob || !previewJob.projectFingerprint || previewJob.projectFingerprint !== fingerprint) {
+        return json(res, 409, {error: 'The current project differs from the rendered preview. Render a fresh preview first.'});
+      }
+      const checkpoint = [...state.jobs].reverse().find((x) => x.projectId === projectId && x.action === 'checkpoint-preview' && x.status === 'succeeded' && x.completedAt && previewJob.completedAt && new Date(x.completedAt).getTime() >= new Date(previewJob.completedAt).getTime());
+      const commit = await currentCommit();
+      if (!checkpoint || checkpoint.gitCommit !== commit) return json(res, 409, {error: 'Push this preview to GitHub before approving it.'});
+      state.previewApprovals[projectId] = {file: preview.name, sha256: await hashFile(preview.full), size: preview.size, mtimeMs: preview.mtimeMs, projectFingerprint: fingerprint, gitCommit: commit, approvedAt: nowIso(), approvedBy: session.username};
       delete state.finalApprovals[projectId];
       await persistState();
       return json(res, 200, {ok: true, message: 'Preview approved. Final rendering is now unlocked.'});
@@ -438,11 +451,17 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       const projectId = finalApprovalMatch[1];
       const final = await latestMp4(projectId, 'output');
       if (!final) return json(res, 409, {error: 'There is no final output to approve.'});
+      const finalJob = [...state.jobs].reverse().find((x) => x.projectId === projectId && x.action === 'final' && x.status === 'succeeded' && x.completedAt && new Date(x.completedAt).getTime() >= final.mtimeMs);
+      const fingerprint = await projectFingerprint(projectId);
+      const commit = await currentCommit();
+      if (!finalJob || finalJob.projectFingerprint !== fingerprint || finalJob.gitCommit !== commit || !(await frameworkIsClean())) {
+        return json(res, 409, {error: 'Final output does not match the current source. Render it again before approval.'});
+      }
       const qcJob = [...state.jobs].reverse().find((x) => x.projectId === projectId && x.action === 'qc');
       if (!qcJob || qcJob.status !== 'succeeded' || !qcJob.completedAt || new Date(qcJob.completedAt).getTime() < final.mtimeMs) {
         return json(res, 409, {error: 'A successful QC run after the latest final render is required before approval.'});
       }
-      state.finalApprovals[projectId] = {file: final.name, sha256: await hashFile(final.full), gitCommit: await currentCommit(), approvedAt: nowIso(), approvedBy: session.username};
+      state.finalApprovals[projectId] = {file: final.name, sha256: await hashFile(final.full), size: final.size, mtimeMs: final.mtimeMs, projectFingerprint: fingerprint, gitCommit: commit, approvedAt: nowIso(), approvedBy: session.username};
       await persistState();
       return json(res, 200, {ok: true, message: 'Final output approved. You may now checkpoint it to GitHub.'});
     }
