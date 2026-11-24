@@ -72,7 +72,7 @@ try {
   }
   Write-Host ''
   Write-Host 'VPS bootstrap and repository deployment completed.'
-  Write-Host 'The dashboard is not deployed by this script; the repository currently has no dashboard application.'
+  Write-Host 'Dashboard: https://studio.checkpointgeo.nx.kg'`n  Write-Host 'Save the one-time owner and agent credentials printed during the first dashboard installation.'
 }
 finally {
   Pop-Location
