@@ -46,8 +46,8 @@ say "Install pinned FFmpeg 9.0.1 Linux x86_64 GPL static build"
 # Resolve the newest BtbN autobuild of the 9.0.1 release line; save the exact
 # asset name and SHA-256 locally so rebuilds can record what was deployed.
 ASSET_JSON="$(curl -fsSL -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${FFMPEG_REPO}/releases?per_page=100")"
-ASSET_URL="$(printf '%s' "$ASSET_JSON" | jq -r '[.[] | .assets[] | select(.name | test("^ffmpeg-n9\\.0\\.1-[^-]+-linux64-gpl-9\\.0\\.tar\\.xz$"))] | first | .browser_download_url // empty')"
-ASSET_NAME="$(printf '%s' "$ASSET_JSON" | jq -r '[.[] | .assets[] | select(.name | test("^ffmpeg-n9\\.0\\.1-[^-]+-linux64-gpl-9\\.0\\.tar\\.xz$"))] | first | .name // empty')"
+ASSET_URL="$(printf '%s' "$ASSET_JSON" | jq -r '[.[] | .assets[] | select(.name | test("^ffmpeg-n9\\.0\\.1-.*-linux64-gpl-9\\.0\\.tar\\.xz$"))] | first | .browser_download_url // empty')"
+ASSET_NAME="$(printf '%s' "$ASSET_JSON" | jq -r '[.[] | .assets[] | select(.name | test("^ffmpeg-n9\\.0\\.1-.*-linux64-gpl-9\\.0\\.tar\\.xz$"))] | first | .name // empty')"
 [ -n "$ASSET_URL" ] && [ -n "$ASSET_NAME" ] || fail "Could not find a BtbN FFmpeg 9.0.1 Linux x86_64 static release asset."
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
