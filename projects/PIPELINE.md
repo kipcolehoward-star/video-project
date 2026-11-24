@@ -227,3 +227,23 @@ tools/              gitignored (whisper.cpp, Piper voices/model) — populated b
 5. **Approved preview** → `render` → `qc` → `credits` → `upload:md`
 6. **Show you the final MP4** — you approve, then upload (or prep for manual upload)
 7. Commit + push key project documents/manifests and the review preview MP4 (Git LFS); after approval and QC, push the final MP4 too. Never commit secrets, `node_modules/` or `tools/`.
+
+
+## Git checkpoints (VPS → GitHub)
+
+The production server should keep its Git checkout on the approved working branch. Use the selective checkpoint helper from the repository root:
+
+```powershell
+# After editing the key project documents:
+.\scripts\server\push-project-checkpoint.ps1 -Project <id> -Stage Source
+
+# After generating the preview MP4 that you want the owner to review:
+.\scripts\server\push-project-checkpoint.ps1 -Project <id> -Stage Preview
+
+# Only after the owner approves that preview, and the final render passes QC:
+.\scripts\server\push-project-checkpoint.ps1 -Project <id> -Stage Final
+```
+
+The helper stages only the named project's core documents/manifests and small caption/credits/upload metadata. Preview stage adds `previews/*.mp4`; Final stage adds those previews and `output/*.mp4`. It does not stage arbitrary assets, audio stems, caches, temporary render chunks or the whole repository. It commits and pushes to the currently checked-out branch. Inspect the staged diff and branch before confirming a checkpoint.
+
+MP4 files use Git LFS via `.gitattributes`. Git LFS must be installed and initialized on the VPS, and the GitHub account/repository must have sufficient LFS storage and bandwidth quota. If an upload is rejected for size or quota, stop and report it; do not silently omit the preview/final or move it to an untracked destination. The complete project pull remains the local archive path for all files.
