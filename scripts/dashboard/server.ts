@@ -132,6 +132,14 @@ async function projectFingerprint(projectId: string): Promise<string> {
   await walk(base, '');
   return createHash('sha256').update(records.sort().join('\\n')).digest('hex');
 }
+const fingerprintCache = new Map<string, {value: string; expiresAt: number}>();
+async function cachedProjectFingerprint(projectId: string) {
+  const cached = fingerprintCache.get(projectId);
+  if (cached && cached.expiresAt > Date.now()) return cached.value;
+  const value = await projectFingerprint(projectId);
+  fingerprintCache.set(projectId, {value, expiresAt: Date.now() + 60_000});
+  return value;
+}
 async function frameworkIsClean(): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const child = spawn('git', ['status', '--porcelain', '--', 'src', 'scripts', 'package.json', 'package-lock.json'], {cwd: ROOT});
@@ -174,8 +182,9 @@ async function listProjects() {
     const previewApproval = state.previewApprovals[projectId];
     const finalApproval = state.finalApprovals[projectId];
     const commit = previewApproval || finalApproval ? await currentCommit() : '';
-    const previewApproved = Boolean(preview && previewApproval && preview.name === previewApproval.file && preview.size === previewApproval.size && preview.mtimeMs === previewApproval.mtimeMs && commit === previewApproval.gitCommit);
-    const finalApproved = Boolean(final && finalApproval && final.name === finalApproval.file && final.size === finalApproval.size && final.mtimeMs === finalApproval.mtimeMs && commit === finalApproval.gitCommit);
+    const fingerprint = previewApproval || finalApproval ? await cachedProjectFingerprint(projectId) : '';
+    const previewApproved = Boolean(preview && previewApproval && preview.name === previewApproval.file && preview.size === previewApproval.size && preview.mtimeMs === previewApproval.mtimeMs && fingerprint === previewApproval.projectFingerprint && commit === previewApproval.gitCommit);
+    const finalApproved = Boolean(final && finalApproval && final.name === finalApproval.file && final.size === finalApproval.size && final.mtimeMs === finalApproval.mtimeMs && fingerprint === finalApproval.projectFingerprint && commit === finalApproval.gitCommit);
     result.push({
       id: projectId, title: typeof config.title === 'string' ? config.title : projectId,
       format: config.video?.format || '—',
