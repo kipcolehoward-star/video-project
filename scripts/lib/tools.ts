@@ -19,14 +19,21 @@ export interface Download {
 
 const PIPER_VOICES = 'https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US';
 
+const isWindows = process.platform === 'win32';
+const piperArchive = isWindows
+  ? 'piper_windows_amd64.zip'
+  : process.arch === 'arm64'
+    ? 'piper_linux_aarch64.tar.gz'
+    : 'piper_linux_x86_64.tar.gz';
+
 export const DOWNLOADS: Download[] = [
-  {
-    id: 'whisper.cpp b5454 (CPU x64)',
+  ...(isWindows ? [{
+    id: 'whisper.cpp b5454 (Windows x64)',
     url: 'https://github.com/ggml-org/whisper.cpp/releases/download/b5454/whisper-bin-x64.zip',
     dest: 'downloads/whisper-bin-x64.zip',
     extractTo: 'whisper',
     license: 'MIT',
-  },
+  }] : []),
   {
     id: 'whisper model base.en',
     url: 'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin',
@@ -34,9 +41,9 @@ export const DOWNLOADS: Download[] = [
     license: 'MIT (OpenAI Whisper weights)',
   },
   {
-    id: 'piper 2023.11.14-2 (Windows x64)',
-    url: 'https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_windows_amd64.zip',
-    dest: 'downloads/piper_windows_amd64.zip',
+    id: `Piper 2023.11.14-2 (${isWindows ? 'Windows x64' : process.arch === 'arm64' ? 'Linux ARM64' : 'Linux x86_64'})`,
+    url: `https://github.com/rhasspy/piper/releases/download/2023.11.14-2/${piperArchive}`,
+    dest: `downloads/${piperArchive}`,
     extractTo: '.',
     license: 'MIT',
   },
