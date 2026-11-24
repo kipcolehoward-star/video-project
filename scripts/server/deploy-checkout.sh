@@ -48,6 +48,10 @@ else
   fail "$APP_DIR is not empty and is not a Git checkout. Nothing was overwritten."
 fi
 
+say "Configure Git checkpoint identity"
+as_app git -C "$APP_DIR" config user.name "Checkpoint Geo Studio"
+as_app git -C "$APP_DIR" config user.email "checkpoint-geo-studio@users.noreply.github.com"
+
 say "Fetch Git LFS objects"
 as_app git -C "$APP_DIR" lfs pull
 
