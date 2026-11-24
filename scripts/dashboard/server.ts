@@ -148,7 +148,7 @@ async function changedPathsBetween(from: string, to: string): Promise<string[]> 
   return new Promise((resolve, reject) => {
     const child = spawn('git', ['diff', '--name-only', from, to], {cwd: ROOT});
     let output = '';
-    child.stdout.on('data', (d) => output += d.toString());
+    child.stdout?.on('data', (d) => output += d.toString());
     child.on('error', reject);
     child.on('close', (code) => code === 0 ? resolve(output.split('\n').map((x) => x.trim()).filter(Boolean)) : reject(new Error('Cannot inspect checkpoint commit diff.')));
   });
@@ -157,7 +157,7 @@ async function frameworkIsClean(): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const child = spawn('git', ['status', '--porcelain', '--', 'src', 'scripts', 'package.json', 'package-lock.json'], {cwd: ROOT});
     let output = '';
-    child.stdout.on('data', (d) => output += d.toString());
+    child.stdout?.on('data', (d) => output += d.toString());
     child.on('error', reject);
     child.on('close', (code) => code === 0 ? resolve(output.trim().length === 0) : reject(new Error('Cannot inspect Git working tree.')));
   });
