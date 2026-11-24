@@ -1,4 +1,8 @@
 <#
+.NOTES
+  Legacy uploader for the older Ubuntu 24.04+ server workflow. Do NOT use for the new
+  Ubuntu 22.04 Checkpoint VPS. Use deploy-to-vps.ps1, which installs the pinned toolchain
+  and checks out the private repository through the dedicated deploy key.
 .SYNOPSIS
   Upload the framework (and chosen projects) to the render server, then finish its setup there.
 
