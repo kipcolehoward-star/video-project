@@ -15,7 +15,7 @@ interface Job {
   projectFingerprint?: string; gitCommit?: string;
 }
 interface Approval {file: string; sha256: string; size: number; mtimeMs: number; projectFingerprint: string; gitCommit: string; approvedAt: string; approvedBy: string}
-interface DashboardState {jobs: Job[]; previewApprovals: Record<string, Approval>; finalApprovals: Record<string, Approval>; archivedProjects: string[]}
+interface DashboardState {jobs: Job[]; previewApprovals: Record<string, Approval>; finalApprovals: Record<string, Approval>; archivedProjects: string[]; archiveInitialized?: boolean}
 interface Session {username: string; role: Role; expiresAt: number}
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -28,7 +28,7 @@ const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
 const sessions = new Map<string, Session>();
 const loginFailures = new Map<string, {count: number; firstAt: number; blockedUntil: number}>();
 const runningChildren = new Map<string, ChildProcess>();
-let state: DashboardState = {jobs: [], previewApprovals: {}, finalApprovals: {}, archivedProjects: []};
+let state: DashboardState = {jobs: [], previewApprovals: {}, finalApprovals: {}, archivedProjects: [], archiveInitialized: false};
 let workerActive = false;
 let stateWrite: Promise<void> = Promise.resolve();
 
@@ -57,6 +57,15 @@ async function loadState() {
   try { state = JSON.parse(await fs.readFile(STATE_FILE, 'utf8')) as DashboardState; }
   catch { state = {jobs: [], previewApprovals: {}, finalApprovals: {}, archivedProjects: []}; }
   state.archivedProjects ||= [];
+  if (!state.archiveInitialized) {
+    const projectEntries = await fs.readdir(path.join(ROOT, 'projects'), {withFileTypes: true}).catch(() => []);
+    for (const entry of projectEntries) {
+      if (entry.isDirectory() && (entry.name.startsWith('demo-') || entry.name === 'example-project') && !state.archivedProjects.includes(entry.name)) {
+        state.archivedProjects.push(entry.name);
+      }
+    }
+    state.archiveInitialized = true;
+  }
   for (const job of state.jobs) {
     if (job.status === 'running') { job.status = 'interrupted'; job.completedAt = nowIso(); }
   }
