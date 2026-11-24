@@ -41,4 +41,43 @@ for (const d of DOWNLOADS) {
     console.log(`  unzip ${d.dest} -> tools/${d.extractTo}`);
   }
 }
+
+if (process.platform !== 'win32') {
+  const source = path.join(TOOLS_DIR, 'whisper-src');
+  const binary = path.join(TOOLS_DIR, 'whisper', 'Release', 'whisper-cli');
+  if (fs.existsSync(binary)) {
+    console.log('  skip  whisper.cpp Linux binary');
+  } else {
+    if (!fs.existsSync(path.join(source, '.git'))) {
+      fs.mkdirSync(TOOLS_DIR, {recursive: true});
+      console.log('  get   whisper.cpp source (pinned b5454)');
+      const clone = capture('git', ['clone', '--depth', '1', '--branch', 'b5454', 'https://github.com/ggml-org/whisper.cpp.git', source]);
+      if (clone.code !== 0) {
+        console.error(clone.stderr);
+        process.exit(1);
+      }
+    }
+    const build = path.join(source, 'build');
+    console.log('  build whisper.cpp (CPU, release)');
+    const configure = capture('cmake', ['-S', source, '-B', build, '-DCMAKE_BUILD_TYPE=Release']);
+    if (configure.code !== 0) {
+      console.error(configure.stderr);
+      process.exit(1);
+    }
+    const compile = capture('cmake', ['--build', build, '--config', 'Release', '-j', '3']);
+    if (compile.code !== 0) {
+      console.error(compile.stderr);
+      process.exit(1);
+    }
+    const built = path.join(build, 'bin', 'whisper-cli');
+    if (!fs.existsSync(built)) {
+      console.error(`whisper.cpp build completed without expected binary: ${built}`);
+      process.exit(1);
+    }
+    fs.mkdirSync(path.dirname(binary), {recursive: true});
+    fs.copyFileSync(built, binary);
+    fs.chmodSync(binary, 0o755);
+    console.log(`  built ${binary}`);
+  }
+}
 console.log('\nDone. Verify with: npm run tools:check');
