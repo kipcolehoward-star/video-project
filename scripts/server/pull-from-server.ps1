@@ -39,7 +39,7 @@ try {
     throw 'Remote archive or SHA-256 generation failed.'
   }
   Write-Host 'Downloading project archive ...'
-  & $scp "\${Server}:$remoteArchive" $localArchive
+  & $scp ($Server + ":$remoteArchive") $localArchive
   if ($LASTEXITCODE -ne 0) { throw 'SCP download failed.' }
   $localHash = (Get-FileHash -LiteralPath $localArchive -Algorithm SHA256).Hash
   if ($localHash -ne $remoteHash.ToUpperInvariant()) {
