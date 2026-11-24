@@ -72,7 +72,8 @@ try {
   }
   Write-Host ''
   Write-Host 'VPS bootstrap and repository deployment completed.'
-  Write-Host 'Dashboard: https://studio.checkpointgeo.nx.kg'`n  Write-Host 'Save the one-time owner and agent credentials printed during the first dashboard installation.'
+  Write-Host 'Dashboard: https://studio.checkpointgeo.nx.kg'
+  Write-Host 'Save the one-time owner and agent credentials printed during the first dashboard installation.'
 }
 finally {
   Pop-Location
