@@ -60,8 +60,8 @@ The migration implementation must:
 - [x] Add a selective checkpoint helper with separate Source, Preview and Final stages.
 - [ ] Add an automated project checkpoint/push command and validate Git LFS quota/availability.
 - [ ] Add a safe GitHub-based deployment script.
-- [x] Add a dedicated Ubuntu 22.04 base-preparation script (execution and validation still pending).
-- [ ] Pin and verify the FFmpeg build against the production pipeline's required filters/options.
+- [x] Add a consolidated Ubuntu 22.04 VPS bootstrap script (execution and validation still pending).
+- [x] Pin FFmpeg to the 9.0.1 release line and verify required filters in the bootstrap (runtime validation pending).
 - [ ] Configure firewall rules safely (preserve SSH access before enabling UFW).
 - [ ] Add a repeatable server migration/rebuild script.
 - [ ] Add dashboard, user roles and background render queue.
