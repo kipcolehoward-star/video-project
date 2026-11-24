@@ -297,7 +297,8 @@
             "name": "New Zealand",
             "flag": "nz",
             "on": 0,
-            "color": "gold"
+            "color": "gold",
+            "sfx": false
           },
           {
             "do": "label",
@@ -315,7 +316,7 @@
             "shift": 0.1,
             "size": 1.2,
             "on": "think",
-            "sfx": "slam"
+            "sfx": false
           }
         ],
         "palette": "dusk",
