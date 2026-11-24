@@ -386,7 +386,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       let body: any;
       try { body = await readBody(req); } catch { return json(res, 400, {error: 'Invalid request.'}); }
       const username = body.username === 'owner' ? 'owner' : body.username === 'agent' ? 'agent' : '';
-      const password = typeof body.password === 'string' ? body.password : '';
+      const password = typeof body.password === 'string' && body.password.length <= 256 ? body.password : '';
       const prefix = username === 'owner' ? 'DASHBOARD_OWNER' : 'DASHBOARD_AGENT';
       const valid = Boolean(username && password && passwordMatches(password, process.env[prefix + '_SALT'], process.env[prefix + '_HASH']));
       if (!valid) {
