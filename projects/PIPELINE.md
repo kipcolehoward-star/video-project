@@ -15,7 +15,7 @@ Quick lookup for the steps, commands and file discipline used to go from a topic
 | Fonts | @fontsource Inter, Bebas Neue, Patrick Hand, Source Serif 4 (OFL) | bundled |
 | Images | NASA PD / Wikimedia Commons PD/CC0/BY / Pexels License | `npm run image` writes source+licence into `assets.json`; keyword searches are unreliable — verify the subject on the source page before using |
 | YouTube upload | YouTube Data API v3 via user's own GCP project | `YOUTUBE_CLIENT_ID/SECRET` in `.env`; refresh token stored outside repo at `~/.video-project/youtube-token.json` |
-| Git | private repo `kipcolehoward-star/video-project` branch `main` | pre-commit hook blocks secrets |
+| Git | private repo `kipcolehoward-star/video-project`; MP4 previews/finals tracked with Git LFS | pre-commit hook blocks secrets |
 
 ## One-shot audio chain
 
@@ -104,11 +104,10 @@ npm run render:preview -- --project <id> --scenes s16,s17   # only those scenes 
 ```
 Outputs to `previews/`. `--scale 0.25` → 270×480 for a 9:16 video, about 3 fps for a glmap scene on the laptop. Faster feedback while editing animations and cues.
 
-**Machine rules:**
-- Close Chrome / heavy apps first. Free RAM < 500 MB drops renders from ~7 fps to ~1 fps.
-- Check free RAM: `Get-CimInstance Win32_OperatingSystem | Select-Object FreePhysicalMemory`.
-- Laptop glmap previews/final renders need `--concurrency 1` with ~1 GB free RAM.
-- If a preview MP4 is open in VLC, Remotion can't rename the output — rename the `.remotion-in-progress` file instead.
+**Server rendering rules:**
+- Preview and final rendering run on the VPS, not the 4 GB Windows laptop.
+- The laptop is used to access the dashboard, review MP4s and pull completed project folders.
+- If a preview MP4 is open in a player, close it before regenerating that preview.
 
 ### 7 · Final render
 
@@ -210,12 +209,12 @@ tools/              gitignored (whisper.cpp, Piper voices/model) — populated b
 | `projects/<id>/youtube.json` | hand | ✅ |
 | `projects/<id>/audio/mix.wav` | `audio` / `narrate` | ❌ gitignored |
 | `projects/<id>/audio/narration/*.wav` | `voiceover` | ❌ |
-| `projects/<id>/output/*.mp4` | `render` | ❌ back up separately |
+| `projects/<id>/output/*.mp4` | `render` | ✅ Git LFS after QC / finalization |
 | `projects/<id>/output/*.srt/.vtt` | `captions` | ✅ |
 | `projects/<id>/output/*-credits.txt` | `credits` | ✅ |
 | `projects/<id>/output/*-upload.md` | `upload:md` | ✅ |
 | `projects/<id>/output/*-youtube.json` | `upload` | ✅ |
-| `previews/` | `render:preview` | ❌ |
+| `projects/<id>/previews/*.mp4` | `render:preview` | ✅ Git LFS before requesting final-render approval |
 
 ---
 
@@ -227,4 +226,4 @@ tools/              gitignored (whisper.cpp, Piper voices/model) — populated b
 4. **Storyboard + assets** → `validate` → `render:preview` → iterate
 5. **Approved preview** → `render` → `qc` → `credits` → `upload:md`
 6. **Show you the final MP4** — you approve, then upload (or prep for manual upload)
-7. Commit + push only framework code, not `projects/*/output/` or `tools/`
+7. Commit + push key project documents/manifests and the review preview MP4 (Git LFS); after approval and QC, push the final MP4 too. Never commit secrets, `node_modules/` or `tools/`.
