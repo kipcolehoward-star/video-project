@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Selectively checkpoint a project from the VPS to the current GitHub branch.
-# Usage: sudo -u checkpoint bash scripts/server/push-project-checkpoint.sh <project-id> <Source|Preview|Final> [--owner-approved]
+# Usage: run as checkpoint, or from root use: runuser -u checkpoint -- bash scripts/server/push-project-checkpoint.sh <project-id> <Source|Preview|Final> [--owner-approved]
 set -Eeuo pipefail
 
 APP_DIR="${APP_DIR:-/srv/video-project}"
