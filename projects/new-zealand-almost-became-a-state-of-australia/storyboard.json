@@ -1,0 +1,216 @@
+{
+  "scenes": [
+    {
+      "id": "s1-hook",
+      "type": "glmap",
+      "duration": 1.5,
+      "narration": "New Zealand was supposed to be Australia's seventh state.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 170, "lat": -40, "zoom": 3.5, "pitch": 0, "bearing": 0 },
+          { "at": "seventh", "lon": 170, "lat": -40, "zoom": 5, "pitch": 35, "bearing": 10, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "New Zealand", "flag": "nz", "on": 0, "color": "gold" },
+          { "do": "label", "text": "SEVENTH STATE?", "lon": 172, "lat": -41, "size": "hero", "on": "seventh", "color": "gold" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s2-answer",
+      "type": "glmap",
+      "duration": 1.5,
+      "narration": "The Constitution even wrote them in — but they said no thanks.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 145, "lat": -25, "zoom": 3, "pitch": 30, "bearing": 350 },
+          { "at": "wrote", "lon": 145, "lat": -25, "zoom": 4, "pitch": 40, "bearing": 340, "move": 1.2, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Australia", "flag": "au", "on": 0, "color": "gold" },
+          { "do": "stamp", "text": "CONSTITUTION 1900", "place": "top", "on": "wrote", "color": "gold" },
+          { "do": "label", "text": "INCLUDING NEW ZEALAND", "lon": 150, "lat": -30, "size": "big", "on": "wrote", "color": "gold", "ink": "dark" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s3-loop",
+      "type": "glmap",
+      "duration": 1,
+      "narration": "Why did the Kiwis walk away from federation?",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 170, "lat": -40, "zoom": 4, "pitch": 40, "bearing": 15 },
+          { "at": "walk", "lon": 170, "lat": -40, "zoom": 5.5, "pitch": 45, "bearing": 20, "move": 1, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "New Zealand", "flag": "nz", "on": 0, "color": "red" },
+          { "do": "pulse", "name": "New Zealand", "on": "walk" },
+          { "do": "label", "text": "WHY?", "lon": 172, "lat": -41, "size": "hero", "on": "walk", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s4-conventions",
+      "type": "glmap",
+      "duration": 3,
+      "narration": "1891, 1897 — conventions in Sydney, Melbourne, Adelaide. New Zealand sends delegates, watches, waits. Prime Minister Richard Seddon says: we'll see how it goes.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 151, "lat": -34, "zoom": 5, "pitch": 35, "bearing": 0 },
+          { "at": "conventions", "lon": 145, "lat": -38, "zoom": 5, "pitch": 40, "bearing": 10, "move": 1.5, "ease": "glide" },
+          { "at": "Seddon", "lon": 170, "lat": -40, "zoom": 5, "pitch": 40, "bearing": 350, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Australia", "flag": "au", "on": 0, "color": "gold" },
+          { "do": "label", "text": "1891 SYDNEY", "lon": 151, "lat": -34, "size": "big", "on": "conventions", "color": "gold" },
+          { "do": "label", "text": "1897 MELBOURNE", "lon": 145, "lat": -38, "size": "big", "on": "conventions", "color": "gold" },
+          { "do": "highlight", "name": "New Zealand", "flag": "nz", "on": "Seddon", "color": "red" },
+          { "do": "label", "text": "SEDDON: WAIT AND SEE", "lon": 172, "lat": -41, "size": "big", "on": "Seddon", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s5-aside",
+      "type": "glmap",
+      "duration": 1.5,
+      "narration": "Imagine the All Blacks playing for Australia. Yeah, didn't think so.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 170, "lat": -40, "zoom": 5, "pitch": 45, "bearing": 30 },
+          { "at": "All Blacks", "lon": 170, "lat": -40, "zoom": 6, "pitch": 50, "bearing": 35, "move": 1.2, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "New Zealand", "flag": "nz", "on": 0, "color": "gold" },
+          { "do": "label", "text": "ALL BLACKS FOR AUSTRALIA?", "lon": 172, "lat": -41, "size": "hero", "on": "All Blacks", "color": "gold", "sfx": "pop" },
+          { "do": "strike", "place": "top", "shift": 0.1, "size": 1.2, "on": "think so", "sfx": "slam" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s6-distance-maori",
+      "type": "glmap",
+      "duration": 3,
+      "narration": "Two thousand kilometres of Tasman Sea. Different world. Australia had no treaties. New Zealand had the Treaty of Waitangi — and the Land Wars to prove it.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 160, "lat": -35, "zoom": 3, "pitch": 20, "bearing": 90 },
+          { "at": "Tasman", "lon": 165, "lat": -38, "zoom": 4, "pitch": 30, "bearing": 80, "move": 1.5, "ease": "glide" },
+          { "at": "Treaty", "lon": 174, "lat": -41, "zoom": 5, "pitch": 40, "bearing": 70, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "measure", "from": [151, -34], "to": [174, -41], "text": "2,000 km", "on": "Tasman", "color": "gold" },
+          { "do": "stamp", "text": "MĀORI LAND WARS", "place": "top", "on": "Treaty", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s7-trade",
+      "type": "glmap",
+      "duration": 2.5,
+      "narration": "1900 — referendum time. Seddon cancels it. NZ trades wool and meat with London, not Sydney. Australian tariffs would kill the market. They walk.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 170, "lat": -40, "zoom": 4.5, "pitch": 35, "bearing": 270 },
+          { "at": "referendum", "lon": 170, "lat": -40, "zoom": 5.5, "pitch": 45, "bearing": 260, "move": 1.2, "ease": "snap" },
+          { "at": "walk", "lon": 170, "lat": -40, "zoom": 6, "pitch": 50, "bearing": 250, "move": 1, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "New Zealand", "flag": "nz", "on": 0, "color": "red" },
+          { "do": "stamp", "text": "1900: NO REFERENDUM", "place": "top", "on": "referendum", "color": "red" },
+          { "do": "label", "text": "WOOL TRADE WITH UK", "lon": 172, "lat": -38, "size": "big", "on": "walk", "color": "gold" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s8-twist",
+      "type": "glmap",
+      "duration": 2,
+      "narration": "But here's the twist — Section 121 of the Constitution. 'The Parliament may admit new States.' Still there. Still valid.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 149, "lat": -35, "zoom": 4, "pitch": 30, "bearing": 0 },
+          { "at": "twist", "lon": 149, "lat": -35, "zoom": 5, "pitch": 40, "bearing": 10, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Australia", "flag": "au", "on": 0, "color": "gold" },
+          { "do": "ring", "lon": 149, "lat": -35, "radius": 300, "on": "twist", "color": "gold", "sfx": "pop" },
+          { "do": "label", "text": "SECTION 121", "lon": 149, "lat": -35, "size": "hero", "on": "twist", "color": "gold", "ink": "dark" },
+          { "do": "pulse", "name": "Australia", "on": "valid" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s9-punchline",
+      "type": "glmap",
+      "duration": 2,
+      "narration": "124 years later, the offer's still open. Ball's in your court, Wellington.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 174, "lat": -41, "zoom": 5, "pitch": 40, "bearing": 0 },
+          { "at": "124", "lon": 174, "lat": -41, "zoom": 6.5, "pitch": 50, "bearing": 15, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "New Zealand", "flag": "nz", "on": 0, "color": "gold" },
+          { "do": "subscribe", "asset": "asset:ov-subscribe", "place": "top", "width": 0.85, "hit": 1.15, "on": "124" },
+          { "do": "label", "text": "124 YEARS LATER", "lon": 174, "lat": -41, "size": "hero", "on": "124", "color": "gold" },
+          { "do": "label", "text": "BALL'S IN YOUR COURT, WELLINGTON", "lon": 174, "lat": -41.3, "size": "big", "on": "Wellington", "color": "gold", "ink": "dark" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s10-loop",
+      "type": "glmap",
+      "duration": 1,
+      "narration": "And to this day...",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 170, "lat": -40, "zoom": 3.5, "pitch": 0, "bearing": 0 }
+        ],
+        "drift": 0,
+        "beats": [
+          { "do": "highlight", "name": "New Zealand", "flag": "nz", "on": 0, "off": "day", "color": "gold" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    }
+  ]
+}
