@@ -43,32 +43,46 @@ explicitly approves them.
   photo/map-heavy video takes ~50 min at full quality; full 1080p renders run ~1–3 fps. Avoid GPU-only/PyTorch tools.
   Keep media proxies small; don't open many Chrome tabs while rendering.
 
-## Render server (optional, Ubuntu VPS)
+## Production render server (Ubuntu VPS)
 
-A 4 vCPU / 8 GB Ubuntu server (no GPU) can take full renders off this laptop. Scripts in `scripts/server/`:
-- `setup-ubuntu.sh`: run once on the server with `sudo bash setup-ubuntu.sh`. Installs FFmpeg, Node 24
-  (NodeSource), Chrome Headless Shell libraries, Noto fonts, a 4 GB swap file (swappiness 10), and edge-tts 7.2.8
-  in `~/.venvs/video`. Adds a block at the top of `~/.bashrc` that puts the venv first on PATH (scripts call
-  `python`) and sets `RENDER_CONCURRENCY=3`, which `RENDER_DEFAULTS` reads. Laptop default: 2.
-  `--app` (no sudo) runs only `npm ci` (skipped when the lock is unchanged), `remotion browser ensure`, and checks.
-- `push-to-server.ps1 -Server user@ip -Project <id> [-WithEnv] [-DryRun]` (Windows): tars the working tree
-  without node_modules, tools, .git, previews, project geo copies or MP4s, then scp's it and runs `setup-ubuntu.sh --app`.
-  The repo is private, so the server gets code by upload, not git clone. `.env` is copied only with
-  `-WithEnv` (chmod 600). Rendering doesn't need it. Local deletions are not mirrored.
-- `pull-from-server.ps1 -Server user@ip -Project <id>`: copies the server's `output/` into `output/from-server/` (never overwrites local renders).
-  Measured 2026-10-10: Ep. 01 (1998 frames, 9:16) rendered in 5m53s at 5.9 fps, about 3x the laptop. The server's FFmpeg 8.0.1 gave
-  true peak -0.8 dBTP where the laptop's FFmpeg 9 gave -1.0. If a brief requires <= -1 strictly, set `truePeak` to -1.5.
-- Render there over SSH: `cd ~/video-project && npm run render -- --project <id>`. Studio:
-  `ssh -L 3000:localhost:3000 user@ip`, then `npm run dev` on the server and open localhost:3000 locally.
-- Epidemic/image downloads still happen in the Windows session. Push the project after adding assets.
-- `transcribe.py` (server only): speech-to-text for checking a finished video or studying a reference video, since Claude
-  cannot hear audio. faster-whisper 1.2.1 (MIT) in its own venv `~/.venvs/whisper`, model `turbo` (1.6 GB, cached in
-  `~/.cache/huggingface`), CPU int8. Upload audio only (`ffmpeg -i in.mp4 -vn -ac 1 -ar 16000 -c:a libopus -b:a 32k out.opus`,
-  about 2.5 MB per 10 min), then `~/.venvs/whisper/bin/python scripts/server/transcribe.py <file> --lang en` writes
-  `<file>.transcript.txt` (timestamps + confidence per line) and `.srt`. Measured 2026-10-11: 10m48s of noisy body-camera
-  speech in 4m12s including the model download. Limits: no speaker labels, mishears overlapping or shouted speech, and
-  cannot judge pronunciation or tone. Captions still use the laptop's whisper.cpp path (`npm run transcribe`).
-- Disk: 643 GB since 2026-10-11 (was 40 GB and filled up; partition grown with `growpart /dev/vda 2` + `resize2fs`).
+The Windows laptop has 4 GB RAM and is for editing project documents, accessing the dashboard, reviewing MP4s and archiving completed project folders. **Do not run Remotion renders, FFmpeg processing, Piper narration or Whisper transcription on the laptop.** The production VPS is the rendering machine.
+
+Current replacement VPS inspected 2026-11-24:
+- Ubuntu 22.04.5 LTS, x86_64, 6 vCPUs, 15 GiB RAM, 79 GiB disk.
+- App user: `checkpoint` (unprivileged); checkout: `/srv/video-project`.
+- Domain: `studio.checkpointgeo.nx.kg`; DNS A record resolves to the VPS. HTTPS/dashboard are not yet deployed.
+- Render concurrency target: 3. The 4 GiB swap file is only an OOM safety net, not normal render memory.
+
+### Deployment and recovery
+
+- `scripts/server/deploy-to-vps.ps1`: one-command Windows launcher for bootstrap + private GitHub checkout. Run from a clean local checkout of the branch being deployed. First run creates a dedicated VPS deploy key; add its public key to this private repository with write access, then run the same command again.
+- `scripts/server/bootstrap-ubuntu-22.04.sh`: Ubuntu 22.04 base packages, Node 24, FFmpeg 9.0.1 static x86_64, filter checks, Git LFS, Python, CMake, fonts/Chrome libraries, swap and UFW (allow SSH/80/443 before enabling).
+- `scripts/server/deploy-checkout.sh`: clones/fast-forward updates the selected branch, installs lockfile dependencies, prepares edge-tts, Remotion Chrome, Linux speech tools and runs type/tool checks.
+- `scripts/server/push-project-checkpoint.sh <id> Source|Preview|Final`: VPS-side selective Git checkpoints. Preview MP4s are pushed through Git LFS before owner review. Final MP4s require the explicit `--owner-approved` flag after human approval and QC.
+- `scripts/server/pull-from-server.ps1`: pulls the complete `projects/<id>` folder to Windows and verifies archive SHA-256 before extraction.
+- `scripts/server/restore-project-to-server.ps1`: restores a local complete project archive to a replacement VPS, verifies SHA-256, and refuses overwrite unless `-Force` first preserves the old remote folder as a backup.
+- The old `setup-ubuntu.sh` and `push-to-server.ps1` are legacy for the previous Ubuntu 24.04+ upload-based server; do not use them for the new Ubuntu 22.04 VPS.
+
+### Server speech toolchain
+
+`npm run setup:tools` is platform-aware:
+- Windows uses the pinned Piper Windows archive and Whisper Windows binary.
+- Linux downloads the Piper Linux x86_64 archive and builds whisper.cpp from pinned source tag `b5454` with CMake. Voice models and the base.en Whisper model are downloaded into gitignored `tools/`.
+- `npm run tools:check` exercises Piper → FFmpeg → whisper.cpp. The deploy helper runs this check on the VPS.
+
+Never commit `.env`, API keys, OAuth tokens, SSH private keys, `node_modules/`, `tools/`, caches or temporary render chunks. Restore secrets separately from a secure backup. Project assets and all final media remain in the complete VPS project folder until the user pulls the archive to Windows; cloud object storage is not required.
+
+### Rendering workflow
+
+1. Edit the key project docs/manifests and source files.
+2. Push a Source checkpoint to GitHub.
+3. Render previews on the VPS and push the Preview checkpoint (Git LFS) before asking the owner to review.
+4. Iterate until the owner approves a specific preview.
+5. Render final on the VPS, run QC, then push the Final checkpoint with `--owner-approved`.
+6. Pull the entire project folder to Windows and verify the archive before considering the VPS copy disposable.
+7. Upload to YouTube only after explicit human approval; no automatic upload.
+
+The repository currently contains the render engine and infrastructure scripts, not a dashboard web app/API, authentication roles or background queue. Do not claim the dashboard is deployed until its source is added and verified.
 
 ## Layout of the repo
 
