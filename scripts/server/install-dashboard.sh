@@ -17,6 +17,8 @@ if [ ! -f "$ENV_FILE" ]; then
   node "$APP_DIR/scripts/dashboard/generate-credentials.mjs" "$ENV_FILE"
   chown root:"$APP_USER" "$ENV_FILE"
   chmod 0640 "$ENV_FILE"
+  chown root:root "$ENV_FILE.initial.txt"
+  chmod 0600 "$ENV_FILE.initial.txt"
 else
   echo "Existing dashboard credentials preserved."
 fi
