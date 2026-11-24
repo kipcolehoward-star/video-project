@@ -480,6 +480,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
 }
 
 await loadState();
+void runQueue();
 const server = http.createServer((req, res) => {
   void handle(req, res).catch((error) => {
     console.error(error);
