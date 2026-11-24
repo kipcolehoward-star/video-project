@@ -144,6 +144,15 @@ async function cachedProjectFingerprint(projectId: string) {
   fingerprintCache.set(projectId, {value, expiresAt: Date.now() + 60_000});
   return value;
 }
+async function changedPathsBetween(from: string, to: string): Promise<string[]> {
+  return new Promise((resolve, reject) => {
+    const child = spawn('git', ['diff', '--name-only', from, to], {cwd: ROOT});
+    let output = '';
+    child.stdout.on('data', (d) => output += d.toString());
+    child.on('error', reject);
+    child.on('close', (code) => code === 0 ? resolve(output.split('\\n').map((x) => x.trim()).filter(Boolean)) : reject(new Error('Cannot inspect checkpoint commit diff.')));
+  });
+}
 async function frameworkIsClean(): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const child = spawn('git', ['status', '--porcelain', '--', 'src', 'scripts', 'package.json', 'package-lock.json'], {cwd: ROOT});
@@ -297,9 +306,20 @@ async function runQueue() {
         }
       }
       if (exitCode === 0 && job.action === 'checkpoint-preview') job.gitCommit = await currentCommit();
-      if (exitCode === 0 && job.action === 'checkpoint-final') {
+      if (job.action === 'checkpoint-final') {
         const approval = state.finalApprovals[job.projectId];
-        if (approval) approval.gitCommit = await currentCommit();
+        if (approval) {
+          try {
+            const commitAfter = await currentCommit();
+            const fingerprintAfter = await projectFingerprint(job.projectId);
+            const changed = await changedPathsBetween(approval.gitCommit, commitAfter);
+            if (fingerprintAfter === approval.projectFingerprint && changed.every((file) => file.startsWith('projects/' + job.projectId + '/'))) {
+              approval.gitCommit = commitAfter;
+            }
+          } catch (error) {
+            await fs.appendFile(job.logFile, '\\nCould not refresh checkpoint approval state: ' + String(error) + '\\n');
+          }
+        }
       }
       await log.close();
       job.exitCode = exitCode;
