@@ -115,6 +115,7 @@ function renderProject(project) {
   actions.append(actionButton('Render preview', 'preview', project.id, false));
   actions.append(actionButton('Checkpoint source', 'checkpoint-source', project.id, false));
   actions.append(actionButton('Push preview to GitHub', 'checkpoint-preview', project.id, !project.preview));
+  actions.append(actionButton('Run final QC', 'qc', project.id, !project.final));
   if (currentUser.role === 'owner') {
     const approvePreview = make('button', 'action-button owner-action', project.previewApproved ? 'Preview approved' : 'Approve preview');
     approvePreview.type = 'button';
@@ -122,7 +123,6 @@ function renderProject(project) {
     approvePreview.addEventListener('click', () => approve(project.id, 'preview'));
     actions.append(approvePreview);
     actions.append(actionButton('Render final', 'final', project.id, !project.previewApproved));
-    actions.append(actionButton('Run final QC', 'qc', project.id, !project.final));
     const approveFinal = make('button', 'action-button owner-action', project.finalApproved ? 'Final approved' : 'Approve final');
     approveFinal.type = 'button';
     approveFinal.disabled = !project.final || project.finalApproved;
