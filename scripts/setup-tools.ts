@@ -8,6 +8,29 @@ import path from 'node:path';
 import {capture} from './lib/exec';
 import {DOWNLOADS, TOOLS_DIR} from './lib/tools';
 
+// The upstream Piper voice corpus was regenerated on 2026-11-09 with
+// multi-codepoint IPA entries. The pinned 2023 Piper CLI cannot parse those.
+// If a previous run downloaded an incompatible current config, remove both
+// voice/model pairs so this run fetches the pinned compatible versions.
+const joeConfig = path.join(TOOLS_DIR, 'piper', 'voices', 'en_US-joe-medium.onnx.json');
+if (fs.existsSync(joeConfig)) {
+  try {
+    const config = JSON.parse(fs.readFileSync(joeConfig, 'utf8'));
+    const hasMultiCodepointPhoneme = Object.keys(config.phoneme_id_map ?? {})
+      .some((phoneme) => Array.from(phoneme).length !== 1);
+    if (hasMultiCodepointPhoneme) {
+      console.log('  refresh Piper voices: current upstream phoneme map is incompatible with Piper 2023');
+      for (const voice of ['en_US-joe-medium', 'en_US-libritts_r-medium']) {
+        for (const suffix of ['.onnx', '.onnx.json', '.MODEL_CARD.md']) {
+          fs.rmSync(path.join(TOOLS_DIR, 'piper', 'voices', voice + suffix), {force: true});
+        }
+      }
+    }
+  } catch (error) {
+    throw new Error(`Could not validate existing Piper voice config: ${(error as Error).message}`);
+  }
+}
+
 for (const d of DOWNLOADS) {
   const dest = path.join(TOOLS_DIR, d.dest);
   if (fs.existsSync(dest) && fs.statSync(dest).size > 0) {
