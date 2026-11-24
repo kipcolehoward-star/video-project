@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, infra/vps-migration-and-project-archive]
   push:
     branches:
       - main
