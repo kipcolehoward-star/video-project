@@ -100,7 +100,7 @@ say "Prepare GitHub deploy-key authentication"
 SSH_DIR="$APP_HOME/.ssh"
 install -d -m 0700 -o "$APP_USER" -g "$APP_USER" "$SSH_DIR"
 if [ ! -f "$SSH_DIR/id_ed25519" ]; then
-  runuser -u "$APP_USER" -- ssh-keygen -t ed25519 -N "" -C "checkpoint-vps-video-project" -f "$SSH_DIR/id_ed25519"
+  runuser -u "$APP_USER" -- env HOME="$APP_HOME" ssh-keygen -t ed25519 -N "" -C "checkpoint-vps-video-project" -f "$SSH_DIR/id_ed25519"
 fi
 chown -R "$APP_USER:$APP_USER" "$SSH_DIR"
 chmod 0600 "$SSH_DIR/id_ed25519"
@@ -119,7 +119,7 @@ Host github.com
 EOF
 chown "$APP_USER:$APP_USER" "$SSH_DIR/config"
 chmod 0600 "$SSH_DIR/config"
-runuser -u "$APP_USER" -- git lfs install
+runuser -u "$APP_USER" -- env HOME="$APP_HOME" git lfs install
 
 say "Configure app-user environment"
 RC="$APP_HOME/.bashrc"
