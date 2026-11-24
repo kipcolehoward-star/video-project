@@ -43,25 +43,40 @@ if ! command -v node >/dev/null || [ "$(node -p 'process.versions.node.split("."
 fi
 
 say "Install pinned FFmpeg 9.0.1 Linux x86_64 GPL static build"
-# Resolve the newest BtbN autobuild of the 9.0.1 release line; save the exact
-# asset name and SHA-256 locally so rebuilds can record what was deployed.
-ASSET_JSON="$(curl -fsSL -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${FFMPEG_REPO}/releases?per_page=100")"
-ASSET_URL="$(printf '%s' "$ASSET_JSON" | jq -r '[.[] | .assets[] | select(.name | test("^ffmpeg-n9\\.0\\.1-.*-linux64-gpl-9\\.0\\.tar\\.xz$"))] | first | .browser_download_url // empty')"
-ASSET_NAME="$(printf '%s' "$ASSET_JSON" | jq -r '[.[] | .assets[] | select(.name | test("^ffmpeg-n9\\.0\\.1-.*-linux64-gpl-9\\.0\\.tar\\.xz$"))] | first | .name // empty')"
-[ -n "$ASSET_URL" ] && [ -n "$ASSET_NAME" ] || fail "Could not find a BtbN FFmpeg 9.0.1 Linux x86_64 static release asset."
-TMP="$(mktemp -d)"
-trap 'rm -rf "$TMP"' EXIT
-curl -fL --retry 3 "$ASSET_URL" -o "$TMP/ffmpeg.tar.xz"
-tar -xJf "$TMP/ffmpeg.tar.xz" -C "$TMP"
-FFMPEG_BIN="$(find "$TMP" -type f -path '*/bin/ffmpeg' -print -quit)"
-FFPROBE_BIN="$(find "$TMP" -type f -path '*/bin/ffprobe' -print -quit)"
-[ -n "$FFMPEG_BIN" ] && [ -n "$FFPROBE_BIN" ] || fail "FFmpeg archive did not contain ffmpeg and ffprobe binaries."
-install -m 0755 "$FFMPEG_BIN" /usr/local/bin/ffmpeg
-install -m 0755 "$FFPROBE_BIN" /usr/local/bin/ffprobe
-sha256sum /tmp/nonexistent 2>/dev/null || true
-ARCHIVE_SHA="$(sha256sum "$TMP/ffmpeg.tar.xz" | awk '{print $1}')"
-printf 'asset=%s\nurl=%s\nsha256=%s\n' "$ASSET_NAME" "$ASSET_URL" "$ARCHIVE_SHA" > "$STATE_DIR/ffmpeg-build.txt"
-chmod 0644 "$STATE_DIR/ffmpeg-build.txt"
+if command -v ffmpeg >/dev/null 2>&1 && ffmpeg -version | head -1 | grep -q '9\\.0\\.1' &&
+   ffmpeg -hide_banner -filters 2>/dev/null | grep -qw loudnorm &&
+   ffmpeg -hide_banner -filters 2>/dev/null | grep -qw ebur128 &&
+   ffmpeg -hide_banner -filters 2>/dev/null | grep -qw sidechaincompress &&
+   ffmpeg -hide_banner -filters 2>/dev/null | grep -qw blackdetect; then
+  echo "Compatible FFmpeg 9.0.1 already installed; keeping it."
+else
+  ASSET_JSON="$(curl -fsSL -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${FFMPEG_REPO}/releases?per_page=100")"
+  ASSET_URL="$(printf '%s' "$ASSET_JSON" | jq -r '[.[] | .assets[] | select(.name | test("^ffmpeg-n9\\\\.0\\\\.1-.*-linux64-gpl-9\\\\.0\\\\.tar\\\\.xz$"))] | first | .browser_download_url // empty')"
+  ASSET_NAME="$(printf '%s' "$ASSET_JSON" | jq -r '[.[] | .assets[] | select(.name | test("^ffmpeg-n9\\\\.0\\\\.1-.*-linux64-gpl-9\\\\.0\\\\.tar\\\\.xz$"))] | first | .name // empty')"
+  ASSET_DIGEST="$(printf '%s' "$ASSET_JSON" | jq -r '[.[] | .assets[] | select(.name | test("^ffmpeg-n9\\\\.0\\\\.1-.*-linux64-gpl-9\\\\.0\\\\.tar\\\\.xz$"))] | first | .digest // empty')"
+  [ -n "$ASSET_URL" ] && [ -n "$ASSET_NAME" ] || fail "Could not find a BtbN FFmpeg 9.0.1 Linux x86_64 static release asset."
+  TMP="$(mktemp -d)"
+  trap 'rm -rf "$TMP"' EXIT
+  curl -fL --retry 3 "$ASSET_URL" -o "$TMP/ffmpeg.tar.xz"
+  ARCHIVE_SHA="$(sha256sum "$TMP/ffmpeg.tar.xz" | awk '{print $1}')"
+  if [[ "$ASSET_DIGEST" == sha256:* ]]; then
+    [ "$ARCHIVE_SHA" = "${ASSET_DIGEST#sha256:}" ] || fail "FFmpeg archive SHA-256 does not match GitHub's published digest."
+    DIGEST_STATUS="verified-against-github"
+  else
+    DIGEST_STATUS="observed-no-published-digest"
+    echo "WARNING: GitHub did not provide an asset digest; recording downloaded SHA-256 only."
+  fi
+  tar -xJf "$TMP/ffmpeg.tar.xz" -C "$TMP"
+  FFMPEG_BIN="$(find "$TMP" -type f -path '*/bin/ffmpeg' -print -quit)"
+  FFPROBE_BIN="$(find "$TMP" -type f -path '*/bin/ffprobe' -print -quit)"
+  [ -n "$FFMPEG_BIN" ] && [ -n "$FFPROBE_BIN" ] || fail "FFmpeg archive did not contain ffmpeg and ffprobe binaries."
+  install -m 0755 "$FFMPEG_BIN" /usr/local/bin/ffmpeg
+  install -m 0755 "$FFPROBE_BIN" /usr/local/bin/ffprobe
+  printf 'asset=%s\\nurl=%s\\nsha256=%s\\ndigest_status=%s\\n' "$ASSET_NAME" "$ASSET_URL" "$ARCHIVE_SHA" "$DIGEST_STATUS" > "$STATE_DIR/ffmpeg-build.txt"
+  chmod 0644 "$STATE_DIR/ffmpeg-build.txt"
+  rm -rf "$TMP"
+  trap - EXIT
+fi
 for f in loudnorm ebur128 sidechaincompress blackdetect; do
   ffmpeg -hide_banner -filters 2>/dev/null | awk -v f="$f" '$2==f{found=1} END{exit !found}' || fail "Required FFmpeg filter missing: $f"
 done
