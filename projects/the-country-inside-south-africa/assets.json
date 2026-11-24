@@ -185,15 +185,10 @@
     "retrieved": "2026-10-07",
     "notes": "Designed, Stinger, Drum Impact, Trailer Hit"
   },
-  "es-music-spiral": {
+  "music-bed": {
     "type": "music",
-    "path": "audio/music/es-music-spiral.wav",
-    "source": "epidemic-sound:0bf07193-878a-44ec-ae44-6ffbb9ff40e8",
-    "license": "Epidemic Sound — licensed under the user's Pro subscription (publish while subscription is active)",
-    "provider": "epidemic-sound",
-    "attributionRequired": false,
-    "credit": "Spiral — Luba Hilman — Epidemic Sound",
-    "retrieved": "2026-10-07",
-    "notes": "Spiral — Luba Hilman"
+    "path": "audio/music/dark-bed.wav",
+    "source": "Synthesised locally with FFmpeg (A-minor drone with 100 BPM low pulse; placeholder for licensed music)",
+    "license": "Generated in this repository; no third-party rights"
   }
 }

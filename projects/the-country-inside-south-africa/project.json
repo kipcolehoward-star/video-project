@@ -18,7 +18,7 @@
     "provider": "edge",
     "voice": "en-US-BrianMultilingualNeural",
     "rate": "+10%",
-    "music": "es-music-spiral",
+    "music": "music-bed",
     "musicDb": -12,
     "duckDb": -9,
     "targetLufs": -14,
