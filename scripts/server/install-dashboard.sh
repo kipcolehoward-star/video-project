@@ -11,6 +11,10 @@ say(){ printf '\n== %s\n' "$*"; }
 id "$APP_USER" >/dev/null 2>&1 || fail "Missing application account: $APP_USER"
 [ -f "$APP_DIR/scripts/dashboard/server.ts" ] || fail "Dashboard source missing from $APP_DIR"
 
+say "Prepare writable dashboard state directory"
+install -d -m 0750 -o "$APP_USER" -g "$APP_USER" /var/lib/checkpoint-video
+install -d -m 0750 -o "$APP_USER" -g "$APP_USER" /var/lib/checkpoint-video/logs
+
 say "Create dashboard credentials (first install only)"
 install -d -m 0750 -o root -g "$APP_USER" /etc/checkpoint-video
 if [ ! -f "$ENV_FILE" ]; then
