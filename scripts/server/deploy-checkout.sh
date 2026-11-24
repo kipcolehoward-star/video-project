@@ -70,6 +70,9 @@ for f in loudnorm ebur128 sidechaincompress blackdetect; do
   ffmpeg -hide_banner -filters 2>/dev/null | awk -v f="$f" '$2==f{found=1} END{exit !found}' || fail "FFmpeg filter missing: $f"
 done
 
+say "Install and start Checkpoint Geo Studio"
+bash "$APP_DIR/scripts/server/install-dashboard.sh"
+
 say "Record deployed revision"
 install -d -m 0755 /var/lib/checkpoint-video
 {
@@ -88,4 +91,4 @@ echo "REPOSITORY DEPLOYMENT COMPLETE."
 echo "Checkout: $APP_DIR"
 echo "Branch: $BRANCH"
 echo "Commit: $(as_app git -C "$APP_DIR" rev-parse --short HEAD)"
-echo "No dashboard service has been started; the repository currently contains the render engine, not a dashboard app."
+echo "Dashboard: https://studio.checkpointgeo.nx.kg"
