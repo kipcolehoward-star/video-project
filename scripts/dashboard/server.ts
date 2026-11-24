@@ -213,22 +213,78 @@ async function runQueue() {
       job.startedAt = nowIso();
       job.logFile = path.join(STATE_DIR, 'logs', job.id + '.log');
       await persistState();
-      const command = commandFor(job);
       const log = await fs.open(job.logFile, 'a');
+      let preflightError = '';
+      let fingerprint = '';
+      let commit = '';
+      try {
+        if (job.action === 'preview' || job.action === 'final') {
+          if (!(await frameworkIsClean())) preflightError = 'Framework code has uncommitted changes. Commit and push them before rendering.';
+          fingerprint = await projectFingerprint(job.projectId);
+          commit = await currentCommit();
+          if (job.action === 'final') {
+            const approval = state.previewApprovals[job.projectId];
+            const preview = await latestMp4(job.projectId, 'previews');
+            if (!approval || !preview || preview.name !== approval.file || preview.size !== approval.size || preview.mtimeMs !== approval.mtimeMs ||
+                await hashFile(preview.full) !== approval.sha256 || approval.projectFingerprint !== fingerprint || approval.gitCommit !== commit) {
+              preflightError = 'The approved preview or source has changed. Render, checkpoint and approve a fresh preview.';
+            }
+          }
+          job.projectFingerprint = fingerprint;
+          job.gitCommit = commit;
+        }
+        if (job.action === 'checkpoint-preview') {
+          const preview = await latestMp4(job.projectId, 'previews');
+          const previewJob = [...state.jobs].reverse().find((x) => x.projectId === job.projectId && x.action === 'preview' && x.status === 'succeeded' && x.completedAt && preview && new Date(x.completedAt).getTime() >= preview.mtimeMs);
+          fingerprint = await projectFingerprint(job.projectId);
+          if (!preview || !previewJob || previewJob.projectFingerprint !== fingerprint) preflightError = 'The current project does not match a successful preview render. Render a fresh preview first.';
+        }
+        if (job.action === 'checkpoint-final') {
+          const approval = state.finalApprovals[job.projectId];
+          const final = await latestMp4(job.projectId, 'output');
+          fingerprint = await projectFingerprint(job.projectId);
+          commit = await currentCommit();
+          if (!approval || !final || final.name !== approval.file || final.size !== approval.size || final.mtimeMs !== approval.mtimeMs ||
+              await hashFile(final.full) !== approval.sha256 || approval.projectFingerprint !== fingerprint || approval.gitCommit !== commit) {
+            preflightError = 'Final output or source changed after approval. Run QC and obtain owner approval again.';
+          }
+        }
+      } catch (error) {
+        preflightError = error instanceof Error ? error.message : 'Preflight check failed.';
+      }
+      if (preflightError) {
+        await log.write('Preflight blocked this job: ' + preflightError + '\n');
+        await log.close();
+        job.exitCode = 2;
+        job.status = 'failed';
+        job.completedAt = nowIso();
+        await persistState();
+        continue;
+      }
+      const command = commandFor(job);
       const child = spawn(command.cmd, command.args, {
         cwd: ROOT,
         env: {...process.env, RENDER_CONCURRENCY: '3', PATH: (process.env.HOME || '/home/checkpoint') + '/.venvs/video/bin:/usr/local/bin:/usr/bin:/bin'},
         stdio: ['ignore', 'pipe', 'pipe'],
       });
       runningChildren.set(job.id, child);
-      child.stdout.on('data', (data) => { void log.write(data); });
+      child.stdout?.on('data', (data) => { void log.write(data); });
       child.stderr?.on('data', (data) => { void log.write(data); });
-      const exitCode = await new Promise<number>((resolve) => {
+      let exitCode = await new Promise<number>((resolve) => {
         child.on('error', async (error) => { await log.write('\nSpawn error: ' + error.message + '\n'); resolve(127); });
         child.on('close', (code) => resolve(code ?? 1));
       });
-      await log.close();
       runningChildren.delete(job.id);
+      if (exitCode === 0 && (job.action === 'preview' || job.action === 'final')) {
+        const fingerprintAfter = await projectFingerprint(job.projectId);
+        const commitAfter = await currentCommit();
+        if (fingerprintAfter !== fingerprint || commitAfter !== commit || !(await frameworkIsClean())) {
+          await log.write('\nRender rejected: project source or framework changed while the render was running. Re-render before approval.\n');
+          exitCode = 1;
+        }
+      }
+      if (exitCode === 0 && job.action === 'checkpoint-preview') job.gitCommit = await currentCommit();
+      await log.close();
       job.exitCode = exitCode;
       job.status = exitCode === 0 ? 'succeeded' : 'failed';
       job.completedAt = nowIso();
