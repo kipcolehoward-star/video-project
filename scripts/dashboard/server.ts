@@ -173,8 +173,9 @@ async function listProjects() {
     const final = await latestMp4(projectId, 'output');
     const previewApproval = state.previewApprovals[projectId];
     const finalApproval = state.finalApprovals[projectId];
-    const previewApproved = Boolean(preview && previewApproval && preview.name === previewApproval.file && await hashFile(preview.full) === previewApproval.sha256 && await currentCommit() === previewApproval.gitCommit);
-    const finalApproved = Boolean(final && finalApproval && final.name === finalApproval.file && await hashFile(final.full) === finalApproval.sha256 && await currentCommit() === finalApproval.gitCommit);
+    const commit = previewApproval || finalApproval ? await currentCommit() : '';
+    const previewApproved = Boolean(preview && previewApproval && preview.name === previewApproval.file && preview.size === previewApproval.size && preview.mtimeMs === previewApproval.mtimeMs && commit === previewApproval.gitCommit);
+    const finalApproved = Boolean(final && finalApproval && final.name === finalApproval.file && final.size === finalApproval.size && final.mtimeMs === finalApproval.mtimeMs && commit === finalApproval.gitCommit);
     result.push({
       id: projectId, title: typeof config.title === 'string' ? config.title : projectId,
       format: config.video?.format || '—',
