@@ -29,7 +29,7 @@ say "Install OS and Remotion runtime dependencies"
 apt-get update
 apt-get install -y --no-install-recommends \
   ca-certificates curl git git-lfs openssh-client unzip xz-utils tar jq python3 python3-venv python3-pip \
-  build-essential pkg-config fontconfig fonts-noto-core fonts-noto-color-emoji fonts-noto-cjk \
+  build-essential cmake pkg-config fontconfig fonts-noto-core fonts-noto-color-emoji fonts-noto-cjk \
   libnss3 libdbus-1-3 libxrandr2 libxkbcommon0 libxfixes3 libxcomposite1 libxdamage1 \
   libgbm1 libcairo2 libpango-1.0-0 libatk1.0-0 libatk-bridge2.0-0 libasound2 \
   libcups2 libx11-xcb1
