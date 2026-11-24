@@ -297,6 +297,10 @@ async function runQueue() {
         }
       }
       if (exitCode === 0 && job.action === 'checkpoint-preview') job.gitCommit = await currentCommit();
+      if (exitCode === 0 && job.action === 'checkpoint-final') {
+        const approval = state.finalApprovals[job.projectId];
+        if (approval) approval.gitCommit = await currentCommit();
+      }
       await log.close();
       job.exitCode = exitCode;
       job.status = exitCode === 0 ? 'succeeded' : 'failed';
