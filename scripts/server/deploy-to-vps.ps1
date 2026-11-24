@@ -30,8 +30,8 @@ try {
   if ($status) { throw 'Your local Git working tree is not clean. Commit or stash changes before deployment.' }
 
   Write-Host "Fetching the approved GitHub branch '$Branch'..."
-  & git fetch origin $Branch
-  if ($LASTEXITCODE -ne 0) { throw "Could not fetch origin/$Branch." }
+  & git fetch origin --prune
+  if ($LASTEXITCODE -ne 0) { throw "Could not fetch origin branches." }
   $localBranch = (& git branch --list $Branch | Out-String).Trim()
   if ($localBranch) {
     & git switch $Branch
