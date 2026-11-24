@@ -150,7 +150,7 @@ async function changedPathsBetween(from: string, to: string): Promise<string[]> 
     let output = '';
     child.stdout.on('data', (d) => output += d.toString());
     child.on('error', reject);
-    child.on('close', (code) => code === 0 ? resolve(output.split('\\n').map((x) => x.trim()).filter(Boolean)) : reject(new Error('Cannot inspect checkpoint commit diff.')));
+    child.on('close', (code) => code === 0 ? resolve(output.split('\n').map((x) => x.trim()).filter(Boolean)) : reject(new Error('Cannot inspect checkpoint commit diff.')));
   });
 }
 async function frameworkIsClean(): Promise<boolean> {
