@@ -27,7 +27,7 @@ function renderProject(p){const card=make('article','project-card'),head=make('d
  details.append(menu);actions.append(details);
  }else if(currentUser.role==='owner'){actions.append(button('Restore to active projects','primary-action',()=>archive(p.id,false)))}
  card.append(actions);return card}
-function progressFrom(text){const matches=[...text.matchAll(/(?:^|\\s)(\\d{1,3})%/g)];if(!matches.length)return null;const n=Number(matches[matches.length-1][1]);return n<=100?n:null}
+function progressFrom(text){const matches=[...text.matchAll(/(?:^|\s)(\d{1,3})%/g)];if(!matches.length)return null;const n=Number(matches[matches.length-1][1]);return n<=100?n:null}
 function renderJob(j){const c=make('article','job-card'),top=make('div','job-top');top.append(make('strong','job-action',j.action.replaceAll('-',' ')),make('span','job-status status-'+j.status,j.status));c.append(top,make('p','job-project',j.projectId+' · '+j.requestedBy),make('p','job-date',date(j.createdAt)));
  if(j.status==='running'||j.status==='queued'){const wrap=make('div','progress-track'),bar=make('div','progress-fill indeterminate'),caption=make('p','progress-caption',j.status==='running'?'Reading render progress…':'Waiting in queue');wrap.append(bar);c.append(wrap,caption);if(j.status==='running')api('/api/jobs/'+j.id+'/logs').then(r=>{const pct=progressFrom(r.log||'');if(pct!==null){bar.classList.remove('indeterminate');bar.style.width=pct+'%';caption.textContent='Rendering · '+pct+'%'}}).catch(()=>{})}
  if(j.completedAt)c.append(make('p','job-date','Finished '+date(j.completedAt)));
