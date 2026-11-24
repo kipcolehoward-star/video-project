@@ -67,10 +67,10 @@ The dashboard queues the VPS-side helper; it can also be run directly as the app
 
 ```bash
 cd /srv/video-project
-bash scripts/server/push-project-checkpoint.sh <project-id> Source
-bash scripts/server/push-project-checkpoint.sh <project-id> Preview
+runuser -u checkpoint -- bash scripts/server/push-project-checkpoint.sh <project-id> Source
+runuser -u checkpoint -- bash scripts/server/push-project-checkpoint.sh <project-id> Preview
 # Only after owner approval and successful final QC:
-bash scripts/server/push-project-checkpoint.sh <project-id> Final --owner-approved
+runuser -u checkpoint -- bash scripts/server/push-project-checkpoint.sh <project-id> Final --owner-approved
 ```
 
 - **Source:** key project documents/manifests and small captions/credits/upload metadata.
