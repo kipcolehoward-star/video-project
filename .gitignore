@@ -11,14 +11,15 @@ src/generated/
 *.log
 projects/*/previews/*
 !projects/*/previews/.gitkeep
+!projects/*/previews/*.mp4
 projects/*/audio/.mixwork/
 projects/*/audio/mix.wav
 projects/*/audio/mix.json
 
-# Final videos are large: back them up outside git (e.g. OneDrive).
-# Subtitles and credits are small and worth versioning.
+# Final MP4s are versioned with Git LFS; other generated output remains ignored.
 projects/*/output/*
 !projects/*/output/.gitkeep
+!projects/*/output/*.mp4
 !projects/*/output/*.srt
 !projects/*/output/*.vtt
 !projects/*/output/*-credits.txt
