@@ -99,8 +99,8 @@
         "drift": 0.02,
         "beats": [
           { "do": "highlight", "name": "New Zealand", "flag": "nz", "on": 0, "color": "gold" },
-          { "do": "label", "text": "ALL BLACKS FOR AUSTRALIA?", "lon": 172, "lat": -41, "size": "hero", "on": "All Blacks", "color": "gold", "sfx": "pop" },
-          { "do": "strike", "place": "top", "shift": 0.1, "size": 1.2, "on": "think so", "sfx": "slam" }
+          { "do": "label", "text": "ALL BLACKS FOR AUSTRALIA?", "lon": 172, "lat": -41, "size": "hero", "on": "Blacks", "color": "gold", "sfx": "pop" },
+          { "do": "strike", "place": "top", "shift": 0.1, "size": 1.2, "on": "think", "sfx": "slam" }
         ],
         "palette": "dusk",
         "imagery": true,
