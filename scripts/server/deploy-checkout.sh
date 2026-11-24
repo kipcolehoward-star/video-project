@@ -61,8 +61,11 @@ as_app "$APP_HOME/.venvs/video/bin/pip" install --disable-pip-version-check "edg
 say "Install Remotion Chrome Headless Shell"
 as_app bash -c "cd '$APP_DIR' && npx --no-install remotion browser ensure"
 
-say "Run repository checks"
-as_app bash -c "cd '$APP_DIR' && npm run typecheck"
+say "Install Linux speech tools (Piper + pinned whisper.cpp + voice models)"
+as_app bash -c "cd '$APP_DIR' && npm run setup:tools"
+
+say "Run repository and speech checks"
+as_app bash -c "cd '$APP_DIR' && npm run typecheck && npm run tools:check"
 for f in loudnorm ebur128 sidechaincompress blackdetect; do
   ffmpeg -hide_banner -filters 2>/dev/null | awk -v f="$f" '$2==f{found=1} END{exit !found}' || fail "FFmpeg filter missing: $f"
 done
