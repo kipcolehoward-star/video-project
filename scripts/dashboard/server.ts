@@ -259,7 +259,7 @@ async function runQueue() {
             const preview = await latestMp4(job.projectId, 'previews');
             if (!approval || !preview || preview.name !== approval.file || preview.size !== approval.size || preview.mtimeMs !== approval.mtimeMs ||
                 await hashFile(preview.full) !== approval.sha256 || approval.projectFingerprint !== fingerprint || approval.gitCommit !== commit) {
-              preflightError = 'The approved preview or source has changed. Render, checkpoint and approve a fresh preview.';
+              preflightError = 'The approved preview or source has changed. Render and approve a fresh preview.';
             }
           }
           job.projectFingerprint = fingerprint;
@@ -315,7 +315,21 @@ async function runQueue() {
           exitCode = 1;
         }
       }
-      if (exitCode === 0 && job.action === 'checkpoint-preview') job.gitCommit = await currentCommit();
+      if (exitCode === 0 && job.action === 'checkpoint-preview') {
+        job.gitCommit = await currentCommit();
+        const approval = state.previewApprovals[job.projectId];
+        if (approval) {
+          try {
+            const fingerprintAfter = await projectFingerprint(job.projectId);
+            const changed = await changedPathsBetween(approval.gitCommit, job.gitCommit);
+            if (fingerprintAfter === approval.projectFingerprint && changed.every((file) => file.startsWith('projects/' + job.projectId + '/'))) {
+              approval.gitCommit = job.gitCommit;
+            }
+          } catch (error) {
+            await fs.appendFile(job.logFile, '\nCould not refresh preview approval state after checkpoint: ' + String(error) + '\n');
+          }
+        }
+      }
       if (job.action === 'checkpoint-final') {
         const approval = state.finalApprovals[job.projectId];
         if (approval) {
@@ -476,7 +490,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
         if (!approved || !preview || preview.name !== approved.file || preview.size !== approved.size || preview.mtimeMs !== approved.mtimeMs ||
             await hashFile(preview.full) !== approved.sha256 || fingerprint !== approved.projectFingerprint || commit !== approved.gitCommit ||
             !(await frameworkIsClean())) {
-          return json(res, 409, {error: 'The approved preview or source has changed. Render, checkpoint and approve a fresh preview first.'});
+          return json(res, 409, {error: 'The approved preview or source has changed. Render and approve a fresh preview first.'});
         }
       }
       if (action === 'qc' && !(await latestMp4(projectId, 'output'))) return json(res, 409, {error: 'There is no final MP4 to run QC against.'});
@@ -520,9 +534,8 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       if (!previewJob || !previewJob.projectFingerprint || previewJob.projectFingerprint !== fingerprint) {
         return json(res, 409, {error: 'The current project differs from the rendered preview. Render a fresh preview first.'});
       }
-      const checkpoint = [...state.jobs].reverse().find((x) => x.projectId === projectId && x.action === 'checkpoint-preview' && x.status === 'succeeded' && x.completedAt && previewJob.completedAt && new Date(x.completedAt).getTime() >= new Date(previewJob.completedAt).getTime());
       const commit = await currentCommit();
-      if (!checkpoint || checkpoint.gitCommit !== commit || !(await frameworkIsClean())) return json(res, 409, {error: 'Push this preview to GitHub and commit all framework changes before approving it.'});
+      if (!(await frameworkIsClean())) return json(res, 409, {error: 'Framework code has uncommitted changes. Commit the framework changes before approving the preview.'});
       state.previewApprovals[projectId] = {file: preview.name, sha256: await hashFile(preview.full), size: preview.size, mtimeMs: preview.mtimeMs, projectFingerprint: fingerprint, gitCommit: commit, approvedAt: nowIso(), approvedBy: session.username};
       delete state.finalApprovals[projectId];
       await persistState();
