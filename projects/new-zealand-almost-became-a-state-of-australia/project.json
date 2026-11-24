@@ -25,7 +25,7 @@
   },
   "audio": {
     "provider": "elevenlabs",
-    "voice": "TxGEqHOMOunjEBg06JlJ",
+    "voice": "pNInz6obpgDQGcFmaJgB",
     "model": "eleven_multilingual_v2",
     "music": null,
     "musicDb": -16,
