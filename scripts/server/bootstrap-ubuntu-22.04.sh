@@ -28,7 +28,7 @@ install -d -m 0755 "$STATE_DIR"
 say "Install OS and Remotion runtime dependencies"
 apt-get update
 apt-get install -y --no-install-recommends \
-  ca-certificates curl git unzip xz-utils tar jq python3 python3-venv python3-pip \
+  ca-certificates curl git git-lfs openssh-client unzip xz-utils tar jq python3 python3-venv python3-pip \
   build-essential pkg-config fontconfig fonts-noto-core fonts-noto-color-emoji fonts-noto-cjk \
   libnss3 libdbus-1-3 libxrandr2 libxkbcommon0 libxfixes3 libxcomposite1 libxdamage1 \
   libgbm1 libcairo2 libpango-1.0-0 libatk1.0-0 libatk-bridge2.0-0 libasound2 \
@@ -81,6 +81,31 @@ else
   sysctl -q -p /etc/sysctl.d/99-video-render.conf
 fi
 
+say "Prepare GitHub deploy-key authentication"
+SSH_DIR="$APP_HOME/.ssh"
+install -d -m 0700 -o "$APP_USER" -g "$APP_USER" "$SSH_DIR"
+if [ ! -f "$SSH_DIR/id_ed25519" ]; then
+  runuser -u "$APP_USER" -- ssh-keygen -t ed25519 -N "" -C "checkpoint-vps-video-project" -f "$SSH_DIR/id_ed25519"
+fi
+chown -R "$APP_USER:$APP_USER" "$SSH_DIR"
+chmod 0600 "$SSH_DIR/id_ed25519"
+chmod 0644 "$SSH_DIR/id_ed25519.pub"
+touch "$SSH_DIR/known_hosts"
+ssh-keyscan -H github.com >> "$SSH_DIR/known_hosts" 2>/dev/null || true
+chown "$APP_USER:$APP_USER" "$SSH_DIR/known_hosts"
+chmod 0644 "$SSH_DIR/known_hosts"
+cat > "$SSH_DIR/config" <<'EOF'
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+  StrictHostKeyChecking accept-new
+EOF
+chown "$APP_USER:$APP_USER" "$SSH_DIR/config"
+chmod 0600 "$SSH_DIR/config"
+runuser -u "$APP_USER" -- git lfs install
+
 say "Configure app-user environment"
 RC="$APP_HOME/.bashrc"
 touch "$RC"
@@ -130,5 +155,5 @@ echo "Required filters: loudnorm ebur128 sidechaincompress blackdetect (all veri
 echo "Swap: $(free -h | awk '/^Swap:/{print $2}')"
 echo "Firewall: SSH/80/443 allowed; UFW enabled."
 echo "Manifest: $STATE_DIR/server-manifest.txt"
-echo "NEXT: add a read-only GitHub deploy key for $APP_USER, then clone the approved branch."
+echo "NEXT: add this SSH public key to the private GitHub repository as a WRITE-ENABLED deploy key:"\necho "----------------------------------------------------------------"\ncat "$SSH_DIR/id_ed25519.pub"\necho "----------------------------------------------------------------"\necho "Then run scripts/server/deploy-checkout.sh as root to clone the selected branch."
 echo "No project code, dashboard, secrets, or public web service has been installed."
