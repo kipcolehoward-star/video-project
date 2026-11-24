@@ -74,8 +74,14 @@ The default remote root is `/srv/video-project`. The script creates a complete c
 ## Rebuilding after VPS loss
 
 1. Provision a replacement Ubuntu 22.04 x86_64 VPS and point `studio.checkpointgeo.nx.kg` to its IPv4.
-2. From the Windows repository checkout, run the same `deploy-to-vps.ps1` command with the new server IP. Add the new deploy key to GitHub and rerun.
-3. Restore each active project from the local `projects/<id>` archive using the restore script (added separately in this branch).
+2. From the Windows repository checkout, run `deploy-to-vps.ps1` with the new server IP. Add the newly printed deploy key to GitHub and rerun.
+3. Restore each active project from the local `projects/<id>` archive:
+
+   ```powershell
+   .\\scripts\\server\\restore-project-to-server.ps1 -Server root@NEW_SERVER_IP -Project <project-id>
+   ```
+
+   The restore helper verifies SHA-256 before extraction and refuses to overwrite an existing remote project unless `-Force` is supplied. With `-Force`, the old remote folder is renamed as a backup.
 4. Run project validation and a small preview render on the VPS before resuming production.
 5. Restore required API credentials from the secure secret store/backup, never from Git.
 6. Reconfigure HTTPS and the dashboard only after the dashboard application source and its authentication/role design are available.
