@@ -19,7 +19,7 @@ APP_HOME="$(getent passwd "$APP_USER" | cut -d: -f6)"
 [[ "$BRANCH" =~ ^[A-Za-z0-9._/-]+$ ]] || fail "Invalid branch name."
 [[ "$BRANCH" != *".."* ]] || fail "Invalid branch name."
 
-as_app(){ runuser -u "$APP_USER" -- env HOME="$APP_HOME" PATH="$APP_HOME/.venvs/video/bin:/usr/local/bin:/usr/bin:/bin" "$@"; }
+as_app(){ runuser -u "$APP_USER" -- env HOME="$APP_HOME" PATH="$APP_HOME/.venvs/video/bin:/usr/local/bin:/usr/bin:/bin" RENDER_CONCURRENCY=3 "$@"; }
 
 say "Verify GitHub deploy-key access"
 SSH_TEST="$(as_app ssh -T -o BatchMode=yes git@github.com 2>&1 || true)"
