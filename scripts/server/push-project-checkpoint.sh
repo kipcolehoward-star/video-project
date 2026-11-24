@@ -73,10 +73,12 @@ done
 echo "Staged files for $PROJECT ($STAGE):"
 git diff --cached --stat
 git diff --cached --name-only
-git diff --cached --quiet && { echo "No changes to commit."; exit 0; }
-
-git config user.name >/dev/null || fail "Set git user.name for the checkpoint account before committing."
-git config user.email >/dev/null || fail "Set git user.email for the checkpoint account before committing."
-git commit -m "Checkpoint $PROJECT ($STAGE)"
+if git diff --cached --quiet; then
+  echo "No new files to commit; will still push any previous local checkpoint commit."
+else
+  git config user.name >/dev/null || fail "Set git user.name for the checkpoint account before committing."
+  git config user.email >/dev/null || fail "Set git user.email for the checkpoint account before committing."
+  git commit -m "Checkpoint $PROJECT ($STAGE)"
+fi
 git push -u origin "$BRANCH"
 echo "Checkpoint pushed to origin/$BRANCH."
