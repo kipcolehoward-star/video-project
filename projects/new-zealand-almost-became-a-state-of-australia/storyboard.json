@@ -329,17 +329,17 @@
       },
       "sfx": [
         {
-          "asset": "pop",
+          "asset": "px-notification",
           "at": 0,
           "gainDb": -6
         },
         {
-          "asset": "pop",
+          "asset": "px-notification",
           "at": "All",
           "gainDb": -6
         },
         {
-          "asset": "slam",
+          "asset": "px-mouse-click",
           "at": "think",
           "gainDb": -6
         }
