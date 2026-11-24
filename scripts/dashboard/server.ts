@@ -12,8 +12,9 @@ type JobStatus = 'queued' | 'running' | 'succeeded' | 'failed' | 'cancelled' | '
 interface Job {
   id: string; projectId: string; action: Action; status: JobStatus; createdAt: string;
   startedAt?: string; completedAt?: string; exitCode?: number | null; requestedBy: string; logFile: string;
+  projectFingerprint?: string; gitCommit?: string;
 }
-interface Approval {file: string; sha256: string; gitCommit: string; approvedAt: string; approvedBy: string}
+interface Approval {file: string; sha256: string; size: number; mtimeMs: number; projectFingerprint: string; gitCommit: string; approvedAt: string; approvedBy: string}
 interface DashboardState {jobs: Job[]; previewApprovals: Record<string, Approval>; finalApprovals: Record<string, Approval>}
 interface Session {username: string; role: Role; expiresAt: number}
 
@@ -112,6 +113,32 @@ async function hashFile(file: string): Promise<string> {
     stream.on('data', (chunk) => hash.update(chunk));
     stream.on('error', reject);
     stream.on('end', () => resolve(hash.digest('hex')));
+  });
+}
+async function projectFingerprint(projectId: string): Promise<string> {
+  const base = path.join(ROOT, 'projects', projectId);
+  const records: string[] = [];
+  async function walk(dir: string, relative: string) {
+    const entries = await fs.readdir(dir, {withFileTypes: true});
+    for (const entry of entries.sort((a, b) => a.name.localeCompare(b.name))) {
+      const rel = relative ? relative + '/' + entry.name : entry.name;
+      if (rel === 'previews' || rel.startsWith('previews/') || rel === 'output' || rel.startsWith('output/')) continue;
+      if (rel === 'audio/.mixwork' || rel.startsWith('audio/.mixwork/') || rel === 'audio/mix.wav' || rel === 'audio/mix.json') continue;
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) await walk(full, rel);
+      else if (entry.isFile()) records.push(rel + ':' + await hashFile(full));
+    }
+  }
+  await walk(base, '');
+  return createHash('sha256').update(records.sort().join('\\n')).digest('hex');
+}
+async function frameworkIsClean(): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    const child = spawn('git', ['status', '--porcelain', '--', 'src', 'scripts', 'package.json', 'package-lock.json'], {cwd: ROOT});
+    let output = '';
+    child.stdout.on('data', (d) => output += d.toString());
+    child.on('error', reject);
+    child.on('close', (code) => code === 0 ? resolve(output.trim().length === 0) : reject(new Error('Cannot inspect Git working tree.')));
   });
 }
 async function latestMp4(projectId: string, folder: 'previews' | 'output') {
