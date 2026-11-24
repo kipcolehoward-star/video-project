@@ -298,7 +298,7 @@
             "flag": "nz",
             "on": 0,
             "color": "gold",
-            "sfx": "pop"
+            "sfx": false
           },
           {
             "do": "label",
@@ -308,7 +308,7 @@
             "size": "hero",
             "on": "Blacks",
             "color": "gold",
-            "sfx": "pop"
+            "sfx": false
           },
           {
             "do": "strike",
@@ -316,7 +316,7 @@
             "shift": 0.1,
             "size": 1.2,
             "on": "think",
-            "sfx": "slam"
+            "sfx": false
           }
         ],
         "palette": "dusk",
@@ -327,23 +327,7 @@
           "depth": true
         }
       },
-      "sfx": [
-        {
-          "asset": "px-notification",
-          "at": 0,
-          "gainDb": -6
-        },
-        {
-          "asset": "px-notification",
-          "at": "All",
-          "gainDb": -6
-        },
-        {
-          "asset": "px-mouse-click",
-          "at": "think",
-          "gainDb": -6
-        }
-      ]
+      "sfx": []
     },
     {
       "id": "s6-distance-maori",
