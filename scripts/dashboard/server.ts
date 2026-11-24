@@ -134,7 +134,7 @@ async function projectFingerprint(projectId: string): Promise<string> {
     }
   }
   await walk(base, '');
-  return createHash('sha256').update(records.sort().join('\\n')).digest('hex');
+  return createHash('sha256').update(records.sort().join('\n')).digest('hex');
 }
 const fingerprintCache = new Map<string, {value: string; expiresAt: number}>();
 async function cachedProjectFingerprint(projectId: string) {
