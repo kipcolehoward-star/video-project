@@ -448,7 +448,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
           res.end();
         }
       }, 800);
-      req.on('close', () => clearInterval(timer));
+      res.on('close', () => clearInterval(timer));
       return;
     }
     const logMatch = url.pathname.match(/^\/api\/jobs\/([a-f0-9]+)\/logs$/);
