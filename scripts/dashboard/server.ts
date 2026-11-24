@@ -129,7 +129,7 @@ async function currentCommit() {
   return new Promise<string>((resolve, reject) => {
     const child = spawn('git', ['rev-parse', 'HEAD'], {cwd: ROOT});
     let output = '';
-    child.stdout.on('data', (d) => output += d.toString());
+    child.stdout?.on('data', (d) => output += d.toString());
     child.on('error', reject);
     child.on('close', (code) => code === 0 ? resolve(output.trim()) : reject(new Error('Cannot read current Git commit.')));
   });
@@ -194,7 +194,7 @@ async function runQueue() {
       });
       runningChildren.set(job.id, child);
       child.stdout.on('data', (data) => { void log.write(data); });
-      child.stderr.on('data', (data) => { void log.write(data); });
+      child.stderr?.on('data', (data) => { void log.write(data); });
       const exitCode = await new Promise<number>((resolve) => {
         child.on('error', async (error) => { await log.write('\nSpawn error: ' + error.message + '\n'); resolve(127); });
         child.on('close', (code) => resolve(code ?? 1));
@@ -275,10 +275,11 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
         return json(res, 401, {error: 'Incorrect username or password.'});
       }
       loginFailures.delete(ip);
+      const role = username as Role;
       const token = randomBytes(32).toString('hex');
-      sessions.set(token, {username, role: username, expiresAt: Date.now() + SESSION_TTL_MS});
+      sessions.set(token, {username: role, role, expiresAt: Date.now() + SESSION_TTL_MS});
       const cookie = 'checkpoint_session=' + token + '; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=' + (SESSION_TTL_MS / 1000);
-      return json(res, 200, {username, role: username}, {'Set-Cookie': cookie});
+      return json(res, 200, {username: role, role}, {'Set-Cookie': cookie});
     }
     if (req.method === 'POST' && url.pathname === '/api/logout') {
       const token = parseCookies(req).checkpoint_session;
