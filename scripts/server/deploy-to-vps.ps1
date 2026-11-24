@@ -25,13 +25,22 @@ foreach ($tool in @($ssh, $scp)) {
 if ($Branch -notmatch '^[A-Za-z0-9._/-]+$' -or $Branch.Contains('..')) { throw 'Invalid branch name.' }
 Push-Location $root
 try {
-  $localBranch = (& git branch --show-current).Trim()
-  if ($LASTEXITCODE -ne 0) { throw 'This folder is not a Git checkout.' }
-  if ($localBranch -ne $Branch) {
-    throw "Check out branch '$Branch' first (current branch: '$localBranch'). This prevents deploying a different revision than the one being reviewed."
-  }
+  if (-not (Test-Path -LiteralPath (Join-Path $root '.git'))) { throw 'Run this from inside the video-project Git checkout.' }
   $status = (& git status --porcelain | Out-String).Trim()
   if ($status) { throw 'Your local Git working tree is not clean. Commit or stash changes before deployment.' }
+
+  Write-Host "Fetching the approved GitHub branch '$Branch'..."
+  & git fetch origin $Branch
+  if ($LASTEXITCODE -ne 0) { throw "Could not fetch origin/$Branch." }
+  $localBranch = (& git branch --list $Branch | Out-String).Trim()
+  if ($localBranch) {
+    & git switch $Branch
+  } else {
+    & git switch --track -c $Branch ("origin/" + $Branch)
+  }
+  if ($LASTEXITCODE -ne 0) { throw "Could not switch to '$Branch'." }
+  & git pull --ff-only origin $Branch
+  if ($LASTEXITCODE -ne 0) { throw "Could not fast-forward '$Branch'. Resolve local/remote history before deploying." }
 
   $bootstrap = Join-Path $root 'scripts\server\bootstrap-ubuntu-22.04.sh'
   $checkout = Join-Path $root 'scripts\server\deploy-checkout.sh'
