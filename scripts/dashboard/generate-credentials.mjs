@@ -22,7 +22,7 @@ const env = [
 fs.mkdirSync(path.dirname(target), {recursive: true});
 fs.writeFileSync(target, env, {mode: 0o640});
 const initialFile = target + '.initial.txt';
-const initialText = 'Owner username: owner\\nOwner password: ' + ownerPassword + '\\nAgent username: agent\\nAgent password: ' + agentPassword + '\\n';
+const initialText = 'Owner username: owner\nOwner password: ' + ownerPassword + '\nAgent username: agent\nAgent password: ' + agentPassword + '\n';
 fs.writeFileSync(initialFile, initialText, {mode: 0o600});
 console.log('INITIAL DASHBOARD CREDENTIALS — save these now, then delete the root-only recovery file.');
 console.log(initialText);
