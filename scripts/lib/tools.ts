@@ -17,7 +17,7 @@ export interface Download {
   license: string;
 }
 
-const PIPER_VOICES = 'https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US';
+const PIPER_VOICES = 'https://huggingface.co/rhasspy/piper-voices/resolve/b145f2ac26522d6a2ccde0164b7b0e48b1e3199c/en/en_US';
 
 const isWindows = process.platform === 'win32';
 const piperArchive = isWindows
