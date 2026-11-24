@@ -34,7 +34,9 @@ After a successful pull, inspect the local project and confirm that the expected
 
 ## VPS rebuild procedure (planned)
 
-The replacement-server installer is not yet ready. The current `setup-ubuntu.sh` was written for Ubuntu 24.04+ and must not be run unchanged on the current Ubuntu 22.04 VPS.
+The current VPS has been inspected: Ubuntu 22.04.5 LTS, x86_64, 6 vCPUs, 15 GiB RAM, 79 GiB disk with about 73 GiB free. `studio.checkpointgeo.nx.kg` resolves to the VPS IPv4, outbound GitHub HTTPS works, SSH listens on port 22, UFW is inactive, and no application service is listening yet.
+
+The existing `setup-ubuntu.sh` was written for Ubuntu 24.04+ and must not be run unchanged. A separate `prepare-ubuntu-22.04.sh` now prepares the base OS, creates the unprivileged `checkpoint` account, installs Node.js 24 and base Chrome/font/Python dependencies, creates `/srv/video-project`, and configures a 4 GiB swap safety net. It deliberately does not clone the repo, install FFmpeg, alter the firewall, configure secrets, or expose a public service. It has been committed but has not yet been run or tested on the VPS.
 
 The migration implementation must:
 
@@ -58,7 +60,9 @@ The migration implementation must:
 - [x] Add a selective checkpoint helper with separate Source, Preview and Final stages.
 - [ ] Add an automated project checkpoint/push command and validate Git LFS quota/availability.
 - [ ] Add a safe GitHub-based deployment script.
-- [ ] Adapt the installer for the actual supported Ubuntu release and dedicated app user.
+- [x] Add a dedicated Ubuntu 22.04 base-preparation script (execution and validation still pending).
+- [ ] Pin and verify the FFmpeg build against the production pipeline's required filters/options.
+- [ ] Configure firewall rules safely (preserve SSH access before enabling UFW).
 - [ ] Add a repeatable server migration/rebuild script.
 - [ ] Add dashboard, user roles and background render queue.
 - [ ] Test the complete pull and restore process end to end.
