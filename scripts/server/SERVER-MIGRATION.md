@@ -55,6 +55,7 @@ The migration implementation must:
 - [x] Replace the output-only pull script with a full-project archive workflow.
 - [ ] Add a separate file-manifest verification report after extraction.
 - [x] Define selective Git tracking for key project source files plus preview/final MP4s via Git LFS.
+- [x] Add a selective checkpoint helper with separate Source, Preview and Final stages.
 - [ ] Add an automated project checkpoint/push command and validate Git LFS quota/availability.
 - [ ] Add a safe GitHub-based deployment script.
 - [ ] Adapt the installer for the actual supported Ubuntu release and dedicated app user.
