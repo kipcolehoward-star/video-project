@@ -484,7 +484,15 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
   if (!data) return text(res, 404, 'Not found');
   const ext = path.extname(file);
   const type = ext === '.html' ? 'text/html; charset=utf-8' : ext === '.js' ? 'text/javascript; charset=utf-8' : ext === '.css' ? 'text/css; charset=utf-8' : 'application/octet-stream';
-  res.writeHead(200, {'Content-Type': type, 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'same-origin', 'Cache-Control': ext === '.html' ? 'no-store' : 'public, max-age=300'});
+  res.writeHead(200, {
+    'Content-Type': type,
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Cache-Control': ext === '.html' ? 'no-store' : 'public, max-age=300',
+  });
   res.end(data);
 }
 
