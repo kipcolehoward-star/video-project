@@ -250,7 +250,7 @@ async function runQueue() {
           const preview = await latestMp4(job.projectId, 'previews');
           const previewJob = [...state.jobs].reverse().find((x) => x.projectId === job.projectId && x.action === 'preview' && x.status === 'succeeded' && x.completedAt && preview && new Date(x.completedAt).getTime() >= preview.mtimeMs);
           fingerprint = await projectFingerprint(job.projectId);
-          if (!preview || !previewJob || previewJob.projectFingerprint !== fingerprint) preflightError = 'The current project does not match a successful preview render. Render a fresh preview first.';
+          if (!preview || !previewJob || previewJob.projectFingerprint !== fingerprint || !(await frameworkIsClean())) preflightError = 'The current project or framework differs from the successful preview render. Render a fresh preview first.';
         }
         if (job.action === 'checkpoint-final') {
           const approval = state.finalApprovals[job.projectId];
@@ -444,7 +444,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       }
       const checkpoint = [...state.jobs].reverse().find((x) => x.projectId === projectId && x.action === 'checkpoint-preview' && x.status === 'succeeded' && x.completedAt && previewJob.completedAt && new Date(x.completedAt).getTime() >= new Date(previewJob.completedAt).getTime());
       const commit = await currentCommit();
-      if (!checkpoint || checkpoint.gitCommit !== commit) return json(res, 409, {error: 'Push this preview to GitHub before approving it.'});
+      if (!checkpoint || checkpoint.gitCommit !== commit || !(await frameworkIsClean())) return json(res, 409, {error: 'Push this preview to GitHub and commit all framework changes before approving it.'});
       state.previewApprovals[projectId] = {file: preview.name, sha256: await hashFile(preview.full), size: preview.size, mtimeMs: preview.mtimeMs, projectFingerprint: fingerprint, gitCommit: commit, approvedAt: nowIso(), approvedBy: session.username};
       delete state.finalApprovals[projectId];
       await persistState();
