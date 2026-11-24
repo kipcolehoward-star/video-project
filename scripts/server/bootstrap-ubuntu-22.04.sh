@@ -125,13 +125,11 @@ say "Configure app-user environment"
 RC="$APP_HOME/.bashrc"
 touch "$RC"
 if ! grep -q '>>> checkpoint-video >>>' "$RC"; then
-  cat >> "$RC" <<'EOF'
-
-# >>> checkpoint-video >>>
-export PATH="$HOME/.local/bin:$PATH"
-export RENDER_CONCURRENCY=3
-# <<< checkpoint-video <<<
-EOF
+  {
+    printf '%s\\n' '# >>> checkpoint-video >>>' 'export PATH="$HOME/.venvs/video/bin:$HOME/.local/bin:$PATH"' 'export RENDER_CONCURRENCY=3' '# <<< checkpoint-video <<<'
+    cat "$RC"
+  } > "$RC.tmp"
+  mv "$RC.tmp" "$RC"
   chown "$APP_USER:$APP_USER" "$RC"
 fi
 
