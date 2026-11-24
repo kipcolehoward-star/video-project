@@ -42,7 +42,7 @@ On first dashboard installation, two random credentials are generated and printe
 - `owner`: full control, preview/final approvals and final checkpoint
 - `agent`: project preparation, validation, previews, QC and Source/Preview GitHub checkpoints
 
-Save both passwords. Give the agent password to the agent through a secure channel. Only password hashes are stored in `/etc/checkpoint-video/dashboard.env`.
+Save both passwords. Give the agent password to the agent through a secure channel. Only password hashes are stored in `/etc/checkpoint-video/dashboard.env`; a root-only recovery copy is kept at `/etc/checkpoint-video/dashboard.env.initial.txt` until you delete it after saving the passwords.
 
 After this infrastructure PR is merged, deploy from `main` by passing `-Branch main`.
 
