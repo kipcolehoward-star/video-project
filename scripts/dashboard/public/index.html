@@ -16,10 +16,7 @@
       <p class="muted">Production workspace</p>
       <form id="login-form">
         <label for="username">Account</label>
-        <select id="username" name="username">
-          <option value="owner">Owner</option>
-          <option value="agent">Agent</option>
-        </select>
+        <select id="username" name="username"><option value="owner">Owner</option><option value="agent">Agent</option></select>
         <label for="password">Password</label>
         <input id="password" name="password" type="password" autocomplete="current-password" required>
         <button class="primary full" type="submit">Sign in</button>
@@ -28,60 +25,43 @@
       <p class="login-foot">Private workspace · Authorized accounts only</p>
     </section>
   </main>
-
   <div id="app-view" class="app-shell hidden">
     <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark small">CG</div>
-        <div><strong>Checkpoint Geo</strong><span>Studio</span></div>
-      </div>
-      <div class="top-actions">
-        <span id="role-pill" class="role-pill">—</span>
-        <span id="current-user" class="muted"></span>
-        <button id="refresh-button" class="quiet">Refresh</button>
-        <button id="logout-button" class="quiet">Sign out</button>
-      </div>
+      <div class="brand"><div class="brand-mark small">CG</div><div><strong>Checkpoint Geo</strong><span>Studio</span></div></div>
+      <div class="top-actions"><span id="role-pill" class="role-pill">—</span><span id="current-user" class="muted"></span><button id="refresh-button" class="quiet">Refresh</button><button id="logout-button" class="quiet">Sign out</button></div>
     </header>
-
     <section class="welcome">
-      <div>
-        <p class="eyebrow">PRODUCTION CONTROL</p>
-        <h1>Your projects, in one place.</h1>
-        <p class="muted">Prepare, render, review and approve. Publishing always stays under your control.</p>
-      </div>
+      <div><p class="eyebrow">PRODUCTION WORKSPACE</p><h1>Studio overview</h1><p class="muted">Your active productions, render activity and approvals.</p></div>
       <div class="system-state"><span class="live-dot"></span><span id="system-label">Connecting to render queue</span></div>
     </section>
-
+    <section class="summary-grid" aria-label="Production summary">
+      <article class="summary-card"><span>Active projects</span><strong id="active-count">0</strong></article>
+      <article class="summary-card"><span>Rendering now</span><strong id="running-count">0</strong></article>
+      <article class="summary-card"><span>Awaiting approval</span><strong id="approval-count">0</strong></article>
+      <article class="summary-card"><span>Archived</span><strong id="archived-count">0</strong></article>
+    </section>
     <section class="workspace-grid">
-      <div class="main-column">
-        <div class="section-heading">
-          <div><p class="eyebrow">WORKSPACE</p><h2>Projects</h2></div>
-          <span id="project-count" class="count-pill">0 projects</span>
+      <main class="main-column">
+        <div class="section-heading project-heading">
+          <div><p class="eyebrow">WORKSPACE</p><h2 id="section-title">Active projects</h2></div>
+          <div class="heading-tools"><label class="search-label" for="project-search">Search</label><input id="project-search" class="search-input" type="search" placeholder="Find a project…"><span id="project-count" class="count-pill">0 projects</span></div>
         </div>
-        <div id="project-list" class="project-list">
-          <div class="empty-state">Loading projects…</div>
-        </div>
-      </div>
-
+        <nav class="view-tabs" aria-label="Project views">
+          <button class="view-tab selected" data-view="active" type="button">Active projects</button>
+          <button class="view-tab" data-view="archive" type="button">Archive</button>
+        </nav>
+        <div id="project-list" class="project-list"><div class="empty-state">Loading projects…</div></div>
+      </main>
       <aside class="queue-column">
-        <div class="section-heading">
-          <div><p class="eyebrow">ACTIVITY</p><h2>Render queue</h2></div>
-          <span id="queue-count" class="count-pill">0 jobs</span>
-        </div>
-        <div id="job-list" class="job-list">
-          <div class="empty-state">No jobs yet.</div>
-        </div>
+        <div class="section-heading"><div><p class="eyebrow">LIVE ACTIVITY</p><h2>Render queue</h2></div><span id="queue-count" class="count-pill">0 jobs</span></div>
+        <div id="job-list" class="job-list"><div class="empty-state">No jobs yet.</div></div>
       </aside>
     </section>
-
-    <footer class="footer">
-      <span>Checkpoint Geo Studio</span>
-      <span>VPS rendering · GitHub checkpoints · Human approval required</span>
-    </footer>
+    <footer class="footer"><span>Checkpoint Geo Studio</span><span>VPS rendering · GitHub checkpoints · Owner approval required</span></footer>
   </div>
   <dialog id="log-dialog" class="log-dialog">
-    <div class="log-header"><strong id="log-title">Job output</strong><button id="close-log" class="quiet" type="button">Close</button></div>
-    <pre id="log-content" class="log-content"></pre>
+    <div class="log-header"><div><p class="eyebrow">JOB CONSOLE</p><strong id="log-title">Job output</strong><span id="log-state" class="log-state">Connecting…</span></div><button id="close-log" class="quiet" type="button">Close</button></div>
+    <pre id="log-content" class="log-content" aria-live="polite"></pre>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="/app.js" defer></script>

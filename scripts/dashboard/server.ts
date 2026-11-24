@@ -15,7 +15,7 @@ interface Job {
   projectFingerprint?: string; gitCommit?: string;
 }
 interface Approval {file: string; sha256: string; size: number; mtimeMs: number; projectFingerprint: string; gitCommit: string; approvedAt: string; approvedBy: string}
-interface DashboardState {jobs: Job[]; previewApprovals: Record<string, Approval>; finalApprovals: Record<string, Approval>}
+interface DashboardState {jobs: Job[]; previewApprovals: Record<string, Approval>; finalApprovals: Record<string, Approval>; archivedProjects: string[]; archiveInitialized?: boolean}
 interface Session {username: string; role: Role; expiresAt: number}
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -28,7 +28,7 @@ const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
 const sessions = new Map<string, Session>();
 const loginFailures = new Map<string, {count: number; firstAt: number; blockedUntil: number}>();
 const runningChildren = new Map<string, ChildProcess>();
-let state: DashboardState = {jobs: [], previewApprovals: {}, finalApprovals: {}};
+let state: DashboardState = {jobs: [], previewApprovals: {}, finalApprovals: {}, archivedProjects: [], archiveInitialized: false};
 let workerActive = false;
 let stateWrite: Promise<void> = Promise.resolve();
 
@@ -55,7 +55,17 @@ async function persistState() {
 async function loadState() {
   await fs.mkdir(path.join(STATE_DIR, 'logs'), {recursive: true});
   try { state = JSON.parse(await fs.readFile(STATE_FILE, 'utf8')) as DashboardState; }
-  catch { state = {jobs: [], previewApprovals: {}, finalApprovals: {}}; }
+  catch { state = {jobs: [], previewApprovals: {}, finalApprovals: {}, archivedProjects: []}; }
+  state.archivedProjects ||= [];
+  if (!state.archiveInitialized) {
+    const projectEntries = await fs.readdir(path.join(ROOT, 'projects'), {withFileTypes: true}).catch(() => []);
+    for (const entry of projectEntries) {
+      if (entry.isDirectory() && (entry.name.startsWith('demo-') || entry.name === 'example-project') && !state.archivedProjects.includes(entry.name)) {
+        state.archivedProjects.push(entry.name);
+      }
+    }
+    state.archiveInitialized = true;
+  }
   for (const job of state.jobs) {
     if (job.status === 'running') { job.status = 'interrupted'; job.completedAt = nowIso(); }
   }
@@ -203,7 +213,7 @@ async function listProjects() {
       format: config.video?.format || '—',
       preview: preview ? {name: preview.name, url: '/media/' + projectId + '/previews/' + encodeURIComponent(preview.name), size: preview.size, updatedAt: new Date(preview.mtimeMs).toISOString()} : null,
       final: final ? {name: final.name, url: '/media/' + projectId + '/output/' + encodeURIComponent(final.name), size: final.size, updatedAt: new Date(final.mtimeMs).toISOString()} : null,
-      previewApproved, finalApproved,
+      previewApproved, finalApproved, archived: state.archivedProjects.includes(projectId),
     });
   }
   return result.sort((a, b) => a.title.localeCompare(b.title));
@@ -413,6 +423,34 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
     if (req.method === 'GET' && url.pathname === '/api/session') return json(res, 200, {username: session.username, role: session.role});
     if (req.method === 'GET' && url.pathname === '/api/projects') return json(res, 200, await listProjects());
     if (req.method === 'GET' && url.pathname === '/api/jobs') return json(res, 200, state.jobs.slice(-40).reverse());
+    const streamMatch = url.pathname.match(/^\/api\/jobs\/([a-f0-9]+)\/stream$/);
+    if (req.method === 'GET' && streamMatch) {
+      const job = state.jobs.find((x) => x.id === streamMatch[1]);
+      if (!job) return json(res, 404, {error: 'Job not found.'});
+      res.writeHead(200, {'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-cache, no-transform', 'Connection': 'keep-alive', 'X-Accel-Buffering': 'no'});
+      res.write(': connected\n\n');
+      let offset = 0;
+      const timer = setInterval(async () => {
+        try {
+          const content = await fs.readFile(job.logFile, 'utf8').catch(() => '');
+          if (content.length > offset) {
+            res.write('event: log\ndata: ' + JSON.stringify(content.slice(offset)) + '\n\n');
+            offset = content.length;
+          }
+          const current = state.jobs.find((x) => x.id === job.id) || job;
+          res.write('event: status\ndata: ' + JSON.stringify({status: current.status, exitCode: current.exitCode, completedAt: current.completedAt}) + '\n\n');
+          if (['succeeded', 'failed', 'cancelled', 'interrupted'].includes(current.status) && offset >= content.length) {
+            clearInterval(timer);
+            res.end();
+          }
+        } catch {
+          clearInterval(timer);
+          res.end();
+        }
+      }, 800);
+      res.on('close', () => clearInterval(timer));
+      return;
+    }
     const logMatch = url.pathname.match(/^\/api\/jobs\/([a-f0-9]+)\/logs$/);
     if (req.method === 'GET' && logMatch) {
       const job = state.jobs.find((x) => x.id === logMatch[1]);
@@ -454,6 +492,22 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
         }
       }
       return json(res, 202, enqueue(projectId, action, session.username));
+    }
+    const archiveMatch = url.pathname.match(/^\/api\/projects\/([A-Za-z0-9][A-Za-z0-9._-]*)\/archive$/);
+    if (req.method === 'POST' && archiveMatch) {
+      if (!requireOwner(session, res)) return;
+      const projectId = archiveMatch[1];
+      const exists = (await listProjects()).some((p) => p.id === projectId);
+      if (!exists) return json(res, 404, {error: 'Project not found.'});
+      let body: any;
+      try { body = await readBody(req); } catch { return json(res, 400, {error: 'Invalid request.'}); }
+      const activeJob = state.jobs.some((x) => x.projectId === projectId && ['queued', 'running'].includes(x.status));
+      if (body.archived === true && activeJob) return json(res, 409, {error: 'A project with queued or running work cannot be archived.'});
+      const archived = state.archivedProjects.includes(projectId);
+      if (body.archived === true && !archived) state.archivedProjects.push(projectId);
+      if (body.archived === false && archived) state.archivedProjects = state.archivedProjects.filter((x) => x !== projectId);
+      await persistState();
+      return json(res, 200, {ok: true, archived: state.archivedProjects.includes(projectId)});
     }
     const previewApprovalMatch = url.pathname.match(/^\/api\/projects\/([A-Za-z0-9][A-Za-z0-9._-]*)\/approve-preview$/);
     if (req.method === 'POST' && previewApprovalMatch) {
