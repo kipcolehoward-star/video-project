@@ -22,7 +22,9 @@ APP_HOME="$(getent passwd "$APP_USER" | cut -d: -f6)"
 as_app(){ runuser -u "$APP_USER" -- env HOME="$APP_HOME" PATH="/usr/local/bin:/usr/bin:/bin" "$@"; }
 
 say "Verify GitHub deploy-key access"
-if ! as_app ssh -T -o BatchMode=yes git@github.com 2>&1 | grep -q "successfully authenticated"; then
+SSH_TEST="$(as_app ssh -T -o BatchMode=yes git@github.com 2>&1 || true)"
+if ! printf '%s' "$SSH_TEST" | grep -q "successfully authenticated"; then
+  echo "$SSH_TEST"
   echo "GitHub did not confirm this deploy key. Confirm it was added to the private repository"
   echo "Settings > Deploy keys, with Allow write access enabled."
   exit 1
