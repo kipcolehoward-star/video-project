@@ -332,6 +332,8 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       const projectId = previewApprovalMatch[1];
       const preview = await latestMp4(projectId, 'previews');
       if (!preview) return json(res, 409, {error: 'There is no preview to approve.'});
+      const checkpoint = [...state.jobs].reverse().find((x) => x.projectId === projectId && x.action === 'checkpoint-preview' && x.status === 'succeeded' && x.completedAt && new Date(x.completedAt).getTime() >= preview.mtimeMs);
+      if (!checkpoint) return json(res, 409, {error: 'Push this preview to GitHub before approving it.'});
       state.previewApprovals[projectId] = {file: preview.name, sha256: await hashFile(preview.full), gitCommit: await currentCommit(), approvedAt: nowIso(), approvedBy: session.username};
       delete state.finalApprovals[projectId];
       await persistState();
