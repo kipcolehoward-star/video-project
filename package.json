@@ -20,7 +20,7 @@
     "clean": "tsx scripts/clean.ts",
     "setup:tools": "tsx scripts/setup-tools.ts",
     "tools:check": "tsx scripts/tools-check.ts",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "node scripts/ensure-studio-props.mjs && tsc --noEmit",
     "voiceover": "tsx scripts/voiceover.ts",
     "narrate": "tsx scripts/narrate.ts",
     "voices": "tsx scripts/voices.ts",
