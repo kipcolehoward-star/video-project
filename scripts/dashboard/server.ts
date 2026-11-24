@@ -126,7 +126,11 @@ async function projectFingerprint(projectId: string): Promise<string> {
       if (rel === 'audio/.mixwork' || rel.startsWith('audio/.mixwork/') || rel === 'audio/mix.wav' || rel === 'audio/mix.json') continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) await walk(full, rel);
-      else if (entry.isFile()) records.push(rel + ':' + await hashFile(full));
+      else if (entry.isFile()) {
+        const stat = await fs.stat(full);
+        const digest = stat.size <= 32 * 1024 * 1024 ? await hashFile(full) : 'large-file';
+        records.push(rel + ':' + stat.size + ':' + stat.mtimeMs + ':' + digest);
+      }
     }
   }
   await walk(base, '');
@@ -297,6 +301,7 @@ async function runQueue() {
       job.exitCode = exitCode;
       job.status = exitCode === 0 ? 'succeeded' : 'failed';
       job.completedAt = nowIso();
+      fingerprintCache.delete(job.projectId);
       await persistState();
     }
   } finally {
