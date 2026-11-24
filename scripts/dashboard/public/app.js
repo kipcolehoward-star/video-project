@@ -1,200 +1,45 @@
-const loginView = document.getElementById('login-view');
-const appView = document.getElementById('app-view');
-const loginForm = document.getElementById('login-form');
-const loginError = document.getElementById('login-error');
-const projectList = document.getElementById('project-list');
-const jobList = document.getElementById('job-list');
-const toastNode = document.getElementById('toast');
-let currentUser = null;
-let toastTimer = null;
-
-async function api(url, options) {
-  const response = await fetch(url, Object.assign({credentials: 'same-origin', headers: {'Content-Type': 'application/json'}}, options || {}));
-  const data = await response.json().catch(() => ({}));
-  if (response.status === 401 && url !== '/api/login') {
-    showLogin();
-    throw new Error('Your session expired. Please sign in again.');
-  }
-  if (!response.ok) throw new Error(data.error || 'Request failed.');
-  return data;
-}
-function showToast(message, isError) {
-  toastNode.textContent = message;
-  toastNode.className = 'toast visible' + (isError ? ' toast-error' : '');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { toastNode.className = 'toast'; }, 4200);
-}
-function showLogin() {
-  currentUser = null;
-  appView.classList.add('hidden');
-  loginView.classList.remove('hidden');
-}
-function showApp(user) {
-  currentUser = user;
-  loginView.classList.add('hidden');
-  appView.classList.remove('hidden');
-  document.getElementById('current-user').textContent = user.username;
-  document.getElementById('role-pill').textContent = user.role === 'owner' ? 'OWNER' : 'AGENT';
-}
-function make(tag, className, content) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (content !== undefined) node.textContent = content;
-  return node;
-}
-function formatBytes(bytes) {
-  if (!bytes) return '—';
-  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
-  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-}
-function formatDate(value) {
-  if (!value) return '—';
-  return new Date(value).toLocaleString();
-}
-function actionButton(label, action, projectId, disabled) {
-  const button = make('button', 'action-button', label);
-  button.type = 'button';
-  button.disabled = Boolean(disabled);
-  button.addEventListener('click', () => queueAction(projectId, action));
-  return button;
-}
-async function queueAction(projectId, action) {
-  try {
-    await api('/api/jobs', {method: 'POST', body: JSON.stringify({projectId, action})});
-    showToast('Added to render queue.');
-    await refreshAll();
-  } catch (error) { showToast(error.message, true); }
-}
-async function approve(projectId, kind) {
-  try {
-    const result = await api('/api/projects/' + encodeURIComponent(projectId) + '/approve-' + kind, {method: 'POST'});
-    showToast(result.message || 'Approval saved.');
-    await refreshAll();
-  } catch (error) { showToast(error.message, true); }
-}
-function mediaPanel(label, media, approved) {
-  const panel = make('div', 'media-panel');
-  const head = make('div', 'media-head');
-  head.append(make('span', 'media-label', label));
-  if (approved) head.append(make('span', 'approved-pill', 'APPROVED'));
-  panel.append(head);
-  if (media) {
-    const video = make('video', 'video-player');
-    video.controls = true;
-    video.preload = 'metadata';
-    video.src = media.url;
-    panel.append(video);
-    const meta = make('div', 'media-meta');
-    meta.append(make('span', '', media.name));
-    meta.append(make('span', '', formatBytes(media.size)));
-    panel.append(meta);
-    panel.append(make('p', 'media-date', 'Updated ' + formatDate(media.updatedAt)));
-  } else {
-    panel.append(make('div', 'media-empty', 'No render available yet.'));
-  }
-  return panel;
-}
-function renderProject(project) {
-  const card = make('article', 'project-card');
-  const header = make('div', 'project-header');
-  const heading = make('div', 'project-title');
-  heading.append(make('h3', '', project.title));
-  heading.append(make('p', 'project-id', project.id + ' · ' + project.format));
-  header.append(heading);
-  const status = project.finalApproved ? 'Final approved' : project.previewApproved ? 'Preview approved' : project.preview ? 'Ready for review' : 'Not rendered';
-  header.append(make('span', 'status-pill', status));
-  card.append(header);
-
-  const mediaGrid = make('div', 'media-grid');
-  mediaGrid.append(mediaPanel('LATEST PREVIEW', project.preview, project.previewApproved));
-  mediaGrid.append(mediaPanel('FINAL OUTPUT', project.final, project.finalApproved));
-  card.append(mediaGrid);
-
-  const actions = make('div', 'project-actions');
-  actions.append(actionButton('Validate', 'validate', project.id, false));
-  actions.append(actionButton('Render preview', 'preview', project.id, false));
-  actions.append(actionButton('Checkpoint source', 'checkpoint-source', project.id, false));
-  actions.append(actionButton('Push preview to GitHub', 'checkpoint-preview', project.id, !project.preview));
-  actions.append(actionButton('Run final QC', 'qc', project.id, !project.final));
-  if (currentUser.role === 'owner') {
-    const approvePreview = make('button', 'action-button owner-action', project.previewApproved ? 'Preview approved' : 'Approve preview');
-    approvePreview.type = 'button';
-    approvePreview.disabled = !project.preview || project.previewApproved;
-    approvePreview.addEventListener('click', () => approve(project.id, 'preview'));
-    actions.append(approvePreview);
-    actions.append(actionButton('Render final', 'final', project.id, !project.previewApproved));
-    const approveFinal = make('button', 'action-button owner-action', project.finalApproved ? 'Final approved' : 'Approve final');
-    approveFinal.type = 'button';
-    approveFinal.disabled = !project.final || project.finalApproved;
-    approveFinal.addEventListener('click', () => approve(project.id, 'final'));
-    actions.append(approveFinal);
-    actions.append(actionButton('Push approved final', 'checkpoint-final', project.id, !project.finalApproved));
-  } else {
-    actions.append(make('p', 'permission-note', 'Owner approval is required before final rendering and final checkpoints.'));
-  }
-  card.append(actions);
-  return card;
-}
-function renderJob(job) {
-  const card = make('article', 'job-card');
-  const top = make('div', 'job-top');
-  top.append(make('strong', '', job.action.replaceAll('-', ' ')));
-  top.append(make('span', 'job-status status-' + job.status, job.status));
-  card.append(top);
-  card.append(make('p', 'job-project', job.projectId + ' · requested by ' + job.requestedBy));
-  card.append(make('p', 'job-date', formatDate(job.createdAt)));
-  if (job.completedAt) card.append(make('p', 'job-date', 'Finished ' + formatDate(job.completedAt)));
-  const logButton = make('button', 'text-button', 'View output');
-  logButton.type = 'button';
-  logButton.addEventListener('click', async () => {
-    try {
-      const result = await api('/api/jobs/' + job.id + '/logs');
-      const dialog = document.getElementById('log-dialog');
-      document.getElementById('log-title').textContent = job.projectId + ' · ' + job.action;
-      document.getElementById('log-content').textContent = result.log || 'No output recorded yet.';
-      dialog.showModal();
-    } catch (error) { showToast(error.message, true); }
-  });
-  card.append(logButton);
-  return card;
-}
-async function refreshAll() {
-  const [projects, jobs] = await Promise.all([api('/api/projects'), api('/api/jobs')]);
-  projectList.replaceChildren();
-  if (!projects.length) projectList.append(make('div', 'empty-state', 'No projects found in /projects yet.'));
-  else projects.forEach((project) => projectList.append(renderProject(project)));
-  document.getElementById('project-count').textContent = projects.length + (projects.length === 1 ? ' project' : ' projects');
-  jobList.replaceChildren();
-  if (!jobs.length) jobList.append(make('div', 'empty-state', 'No jobs in the queue yet.'));
-  else jobs.forEach((job) => jobList.append(renderJob(job)));
-  document.getElementById('queue-count').textContent = jobs.length + (jobs.length === 1 ? ' job' : ' jobs');
-  const active = jobs.find((job) => job.status === 'running');
-  document.getElementById('system-label').textContent = active ? 'Rendering ' + active.projectId : 'Render queue ready';
-}
-async function boot() {
-  try {
-    const user = await api('/api/session');
-    showApp(user);
-    await refreshAll();
-  } catch { showLogin(); }
-}
-loginForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  loginError.textContent = '';
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  try {
-    const user = await api('/api/login', {method: 'POST', body: JSON.stringify({username, password})});
-    document.getElementById('password').value = '';
-    showApp(user);
-    await refreshAll();
-  } catch (error) { loginError.textContent = error.message; }
-});
-document.getElementById('logout-button').addEventListener('click', async () => {
-  await api('/api/logout', {method: 'POST'}).catch(() => {});
-  showLogin();
-});
-document.getElementById('refresh-button').addEventListener('click', () => refreshAll().catch((error) => showToast(error.message, true)));
-document.getElementById('close-log').addEventListener('click', () => document.getElementById('log-dialog').close());
-boot();
-setInterval(() => { if (currentUser) refreshAll().catch(() => {}); }, 5000);
+const loginView=document.getElementById('login-view'),appView=document.getElementById('app-view'),loginForm=document.getElementById('login-form'),loginError=document.getElementById('login-error'),projectList=document.getElementById('project-list'),jobList=document.getElementById('job-list'),toastNode=document.getElementById('toast');
+let currentUser=null,currentView='active',allProjects=[],allJobs=[],toastTimer=null,liveSource=null;
+async function api(url,options){const response=await fetch(url,Object.assign({credentials:'same-origin',headers:{'Content-Type':'application/json'}},options||{}));const data=await response.json().catch(()=>({}));if(response.status===401&&url!=='/api/login'){showLogin();throw new Error('Your session expired. Please sign in again.')}if(!response.ok)throw new Error(data.error||'Request failed.');return data}
+function showToast(message,isError){toastNode.textContent=message;toastNode.className='toast visible'+(isError?' toast-error':'');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toastNode.className='toast',4000)}
+function showLogin(){currentUser=null;if(liveSource)liveSource.close();appView.classList.add('hidden');loginView.classList.remove('hidden')}
+function showApp(user){currentUser=user;loginView.classList.add('hidden');appView.classList.remove('hidden');document.getElementById('current-user').textContent=user.username;document.getElementById('role-pill').textContent=user.role==='owner'?'OWNER':'AGENT'}
+function make(tag,cls,content){const n=document.createElement(tag);if(cls)n.className=cls;if(content!==undefined)n.textContent=content;return n}
+function bytes(n){return !n?'—':n<1048576?Math.round(n/1024)+' KB':(n/1048576).toFixed(1)+' MB'}
+function date(v){return v?new Date(v).toLocaleString():'—'}
+function button(label,cls,handler,disabled=false){const b=make('button',cls,label);b.type='button';b.disabled=disabled;b.addEventListener('click',handler);return b}
+async function queue(projectId,action){try{await api('/api/jobs',{method:'POST',body:JSON.stringify({projectId,action})});showToast('Added to render queue.');await refreshAll()}catch(e){showToast(e.message,true)}}
+async function approve(id,kind){try{const r=await api('/api/projects/'+encodeURIComponent(id)+'/approve-'+kind,{method:'POST'});showToast(r.message||'Approval saved.');await refreshAll()}catch(e){showToast(e.message,true)}}
+async function archive(id,archived){try{await api('/api/projects/'+encodeURIComponent(id)+'/archive',{method:'POST',body:JSON.stringify({archived})});showToast(archived?'Project moved to archive.':'Project restored to active projects.');await refreshAll()}catch(e){showToast(e.message,true)}}
+function mediaPanel(label,media,approved){const p=make('section','media-panel'),h=make('div','media-head');h.append(make('span','media-label',label));if(approved)h.append(make('span','approved-pill','APPROVED'));p.append(h);if(media){const v=make('video','video-player');v.controls=true;v.preload='metadata';v.src=media.url;p.append(v);const m=make('div','media-meta');m.append(make('span','file-name',media.name),make('span','',bytes(media.size)));p.append(m)}else p.append(make('div','media-empty','No output yet'));return p}
+function statusFor(p){return p.finalApproved?'Final approved':p.previewApproved?'Preview approved':p.preview?'Preview ready':'Not rendered'}
+function renderProject(p){const card=make('article','project-card'),head=make('div','project-header'),title=make('div','project-title');title.append(make('h3','',p.title),make('p','project-id',p.id+' · '+p.format));head.append(title,make('span','status-pill',statusFor(p)));card.append(head);
+ const media=make('div','media-grid');media.append(mediaPanel('LATEST PREVIEW',p.preview,p.previewApproved),mediaPanel('FINAL OUTPUT',p.final,p.finalApproved));card.append(media);
+ const actions=make('div','project-actions');const primary=p.finalApproved?null:p.previewApproved?{label:'Render final',action:'final',disabled:false}:p.preview?{label:'Review preview',action:null,disabled:false}:{label:'Render preview',action:'preview',disabled:false};
+ if(primary){if(primary.action)actions.append(button(primary.label,'primary-action',()=>queue(p.id,primary.action),primary.disabled));else actions.append(make('span','workflow-note','Preview approved · Final render ready'))}
+ const details=make('details','more-actions'),summary=make('summary','more-trigger','More actions');details.append(summary);const menu=make('div','action-menu');
+ menu.append(button('Validate project','menu-action',()=>queue(p.id,'validate')),button('Render preview','menu-action',()=>queue(p.id,'preview')),button('Checkpoint source','menu-action',()=>queue(p.id,'checkpoint-source')));
+ if(p.preview)menu.append(button('Push preview to GitHub','menu-action',()=>queue(p.id,'checkpoint-preview')));
+ if(p.final)menu.append(button('Run final QC','menu-action',()=>queue(p.id,'qc')));
+ if(currentUser.role==='owner'){if(p.preview)menu.append(button(p.previewApproved?'Preview approved':'Approve preview','menu-action',()=>approve(p.id,'preview'),p.previewApproved));if(p.previewApproved)menu.append(button('Render final','menu-action',()=>queue(p.id,'final')));if(p.final)menu.append(button(p.finalApproved?'Final approved':'Approve final','menu-action',()=>approve(p.id,'final'),p.finalApproved));if(p.finalApproved)menu.append(button('Push approved final','menu-action',()=>queue(p.id,'checkpoint-final')));menu.append(make('div','menu-divider'));menu.append(button('Move to archive','menu-action danger-action',()=>archive(p.id,true),allJobs.some(j=>j.projectId===p.id&&['queued','running'].includes(j.status))))}
+ else menu.append(make('p','permission-note','Final rendering and approvals are owner-controlled.'));
+ details.append(menu);actions.append(details);card.append(actions);return card}
+function progressFrom(text){const matches=[...text.matchAll(/(?:^|\\s)(\\d{1,3})%/g)];if(!matches.length)return null;const n=Number(matches[matches.length-1][1]);return n<=100?n:null}
+function renderJob(j){const c=make('article','job-card'),top=make('div','job-top');top.append(make('strong','job-action',j.action.replaceAll('-',' ')),make('span','job-status status-'+j.status,j.status));c.append(top,make('p','job-project',j.projectId+' · '+j.requestedBy),make('p','job-date',date(j.createdAt)));
+ if(j.status==='running'||j.status==='queued'){const wrap=make('div','progress-track'),bar=make('div','progress-fill indeterminate');wrap.append(bar);c.append(wrap,make('p','progress-caption',j.status==='running'?'Rendering · open live console for progress':'Waiting in queue'))}
+ if(j.completedAt)c.append(make('p','job-date','Finished '+date(j.completedAt)));
+ c.append(button('Open live logs','text-button',()=>openLogs(j)));return c}
+function openLogs(j){if(liveSource)liveSource.close();const d=document.getElementById('log-dialog'),out=document.getElementById('log-content');out.textContent='Connecting to live job output…';document.getElementById('log-title').textContent=j.projectId+' · '+j.action;document.getElementById('log-state').textContent=j.status;d.showModal();liveSource=new EventSource('/api/jobs/'+j.id+'/stream');liveSource.addEventListener('log',e=>{out.textContent+=JSON.parse(e.data);out.scrollTop=out.scrollHeight;const pct=progressFrom(out.textContent);document.getElementById('log-state').textContent=pct===null?'Live · '+j.status:'Live · '+pct+'%'});liveSource.addEventListener('status',e=>{const s=JSON.parse(e.data);document.getElementById('log-state').textContent=s.status;if(['succeeded','failed','cancelled','interrupted'].includes(s.status)){liveSource.close();liveSource=null;refreshAll().catch(()=>{})}});liveSource.onerror=()=>{if(liveSource)document.getElementById('log-state').textContent='Reconnecting…'}}
+function render(){const visible=allProjects.filter(p=>Boolean(p.archived)===(currentView==='archive')).filter(p=>(p.title+' '+p.id).toLowerCase().includes(document.getElementById('project-search').value.toLowerCase()));projectList.replaceChildren();if(!visible.length)projectList.append(make('div','empty-state',currentView==='archive'?'No archived projects.':'No active projects.'));else visible.forEach(p=>projectList.append(renderProject(p)));
+ document.getElementById('section-title').textContent=currentView==='archive'?'Archived projects':'Active projects';document.querySelectorAll('.view-tab').forEach(t=>t.classList.toggle('selected',t.dataset.view===currentView));document.getElementById('project-count').textContent=visible.length+' projects';jobList.replaceChildren();if(!allJobs.length)jobList.append(make('div','empty-state','No render activity yet.'));else allJobs.slice(0,12).forEach(j=>jobList.append(renderJob(j)));
+ const active=allProjects.filter(p=>!p.archived),running=allJobs.filter(j=>j.status==='running').length,approvals=active.filter(p=>p.preview&&!p.previewApproved).length;document.getElementById('active-count').textContent=active.length;document.getElementById('running-count').textContent=running;document.getElementById('approval-count').textContent=approvals;document.getElementById('archived-count').textContent=allProjects.length-active.length;document.getElementById('queue-count').textContent=allJobs.length+' jobs';document.getElementById('system-label').textContent=running?'Rendering '+running+' job'+(running===1?'':'s'):'Render queue ready'}
+async function refreshAll(){const [p,j]=await Promise.all([api('/api/projects'),api('/api/jobs')]);allProjects=p;allJobs=j;render()}
+async function boot(){try{const u=await api('/api/session');showApp(u);await refreshAll()}catch{showLogin()}}
+loginForm.addEventListener('submit',async e=>{e.preventDefault();loginError.textContent='';try{const u=await api('/api/login',{method:'POST',body:JSON.stringify({username:document.getElementById('username').value,password:document.getElementById('password').value})});document.getElementById('password').value='';showApp(u);await refreshAll()}catch(e){loginError.textContent=e.message}});
+document.getElementById('logout-button').addEventListener('click',async()=>{await api('/api/logout',{method:'POST'}).catch(()=>{});showLogin()});
+document.getElementById('refresh-button').addEventListener('click',()=>refreshAll().catch(e=>showToast(e.message,true)));
+document.getElementById('close-log').addEventListener('click',()=>{document.getElementById('log-dialog').close();if(liveSource)liveSource.close();liveSource=null});
+document.querySelectorAll('.view-tab').forEach(t=>t.addEventListener('click',()=>{currentView=t.dataset.view;render()}));
+document.getElementById('project-search').addEventListener('input',render);
+document.getElementById('log-dialog').addEventListener('close',()=>{if(liveSource)liveSource.close();liveSource=null});
+boot();setInterval(()=>{if(currentUser)refreshAll().catch(()=>{})},4000);
