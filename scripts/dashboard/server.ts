@@ -139,7 +139,7 @@ async function projectFingerprint(projectId: string): Promise<string> {
       else if (entry.isFile()) {
         const stat = await fs.stat(full);
         const digest = stat.size <= 32 * 1024 * 1024 ? await hashFile(full) : 'large-file';
-        records.push(rel + ':' + stat.size + ':' + stat.mtimeMs + ':' + digest);
+        records.push(rel + ':' + stat.size + ':' + digest);
       }
     }
   }
@@ -310,8 +310,13 @@ async function runQueue() {
       if (exitCode === 0 && (job.action === 'preview' || job.action === 'final')) {
         const fingerprintAfter = await projectFingerprint(job.projectId);
         const commitAfter = await currentCommit();
-        if (fingerprintAfter !== fingerprint || commitAfter !== commit || !(await frameworkIsClean())) {
-          await log.write('\nRender rejected: project source or framework changed while the render was running. Re-render before approval.\n');
+        const frameworkCleanAfter = await frameworkIsClean();
+        const rejectionReasons: string[] = [];
+        if (fingerprintAfter !== fingerprint) rejectionReasons.push('project source content fingerprint changed');
+        if (commitAfter !== commit) rejectionReasons.push('Git HEAD changed');
+        if (!frameworkCleanAfter) rejectionReasons.push('framework has uncommitted changes');
+        if (rejectionReasons.length) {
+          await log.write('\nRender rejected by safety check: ' + rejectionReasons.join('; ') + '. Re-render after resolving the reported change.\n');
           exitCode = 1;
         }
       }
