@@ -43,46 +43,56 @@ explicitly approves them.
   photo/map-heavy video takes ~50 min at full quality; full 1080p renders run ~1–3 fps. Avoid GPU-only/PyTorch tools.
   Keep media proxies small; don't open many Chrome tabs while rendering.
 
-## Production render server (Ubuntu VPS)
+## Production render server and Checkpoint Geo Studio
 
-The Windows laptop has 4 GB RAM and is for editing project documents, accessing the dashboard, reviewing MP4s and archiving completed project folders. **Do not run Remotion renders, FFmpeg processing, Piper narration or Whisper transcription on the laptop.** The production VPS is the rendering machine.
+The Windows laptop has 4 GB RAM and is for editing project documents, accessing the dashboard, reviewing MP4s and archiving completed project folders. Do not run Remotion renders, FFmpeg processing, Piper narration or Whisper transcription on the laptop. The production VPS is the rendering machine.
 
 Current replacement VPS inspected 2026-11-24:
 - Ubuntu 22.04.5 LTS, x86_64, 6 vCPUs, 15 GiB RAM, 79 GiB disk.
-- App user: `checkpoint` (unprivileged); checkout: `/srv/video-project`.
-- Domain: `studio.checkpointgeo.nx.kg`; DNS A record resolves to the VPS. HTTPS/dashboard are not yet deployed.
+- App user: checkpoint (unprivileged); checkout: /srv/video-project.
+- Dashboard: https://studio.checkpointgeo.nx.kg (Caddy HTTPS, Node service on localhost:3100).
 - Render concurrency target: 3. The 4 GiB swap file is only an OOM safety net, not normal render memory.
 
 ### Deployment and recovery
 
-- `scripts/server/deploy-to-vps.ps1`: one-command Windows launcher for bootstrap + private GitHub checkout. Run from a clean local checkout of the branch being deployed. First run creates a dedicated VPS deploy key; add its public key to this private repository with write access, then run the same command again.
-- `scripts/server/bootstrap-ubuntu-22.04.sh`: Ubuntu 22.04 base packages, Node 24, FFmpeg 9.0.1 static x86_64, filter checks, Git LFS, Python, CMake, fonts/Chrome libraries, swap and UFW (allow SSH/80/443 before enabling).
-- `scripts/server/deploy-checkout.sh`: clones/fast-forward updates the selected branch, installs lockfile dependencies, prepares edge-tts, Remotion Chrome, Linux speech tools and runs type/tool checks.
-- `scripts/server/push-project-checkpoint.sh <id> Source|Preview|Final`: VPS-side selective Git checkpoints. Preview MP4s are pushed through Git LFS before owner review. Final MP4s require the explicit `--owner-approved` flag after human approval and QC.
-- `scripts/server/pull-from-server.ps1`: pulls the complete `projects/<id>` folder to Windows and verifies archive SHA-256 before extraction.
-- `scripts/server/restore-project-to-server.ps1`: restores a local complete project archive to a replacement VPS, verifies SHA-256, and refuses overwrite unless `-Force` first preserves the old remote folder as a backup.
-- The old `setup-ubuntu.sh` and `push-to-server.ps1` are legacy for the previous Ubuntu 24.04+ upload-based server; do not use them for the new Ubuntu 22.04 VPS.
+- scripts/server/deploy-to-vps.ps1: one-command Windows launcher for bootstrap + private GitHub checkout. It fetches/switches to the selected branch automatically, but requires a clean local working tree. First run creates a dedicated VPS deploy key; add its public key to this private repository with write access, then run the same command again.
+- scripts/server/bootstrap-ubuntu-22.04.sh: Ubuntu 22.04 base packages, Node 24, FFmpeg 9.0.1 static x86_64, required filter checks, Git LFS, Python, CMake, fonts/Chrome libraries, swap and UFW (allow SSH/80/443 before enabling).
+- scripts/server/deploy-checkout.sh: clones/fast-forward updates the selected branch, installs lockfile dependencies, prepares edge-tts, Remotion Chrome, Linux speech tools, runs TypeScript/tool checks and installs the dashboard service.
+- scripts/server/install-dashboard.sh: creates one-time owner/agent credentials, installs the dashboard systemd service and Caddy automatic HTTPS reverse proxy.
+- scripts/dashboard/server.ts: authenticated dashboard API and sequential background render queue. State/logs are outside Git under /var/lib/checkpoint-video.
+- scripts/server/push-project-checkpoint.sh <id> Source|Preview|Final: VPS-side selective Git checkpoints. Preview MP4s are pushed through Git LFS before owner review. Final MP4s require the explicit --owner-approved flag after human approval and QC.
+- scripts/server/pull-from-server.ps1: pulls the complete projects/<id> folder to Windows and verifies archive SHA-256 before extraction.
+- scripts/server/restore-project-to-server.ps1: restores a local complete project archive to a replacement VPS, verifies SHA-256, and refuses overwrite unless -Force first preserves the old remote folder as a backup.
+- The old setup-ubuntu.sh and push-to-server.ps1 are legacy for the previous Ubuntu 24.04+ upload-based server; do not use them for the new Ubuntu 22.04 VPS.
+
+### Dashboard roles and approvals
+
+- Both owner and agent can list projects, review MP4s, validate, render previews, run QC and push Source/Preview checkpoints.
+- Only owner can approve a preview, start a final render, approve final output or push the final checkpoint.
+- A preview must be pushed to GitHub before owner approval. The approval is tied to the preview file hash and current Git commit; any change requires a new preview/approval.
+- Final approval requires successful QC after the latest final render. Final checkpointing is gated by that approval.
+- No automatic YouTube upload exists; publication remains a separate human action.
 
 ### Server speech toolchain
 
-`npm run setup:tools` is platform-aware:
+npm run setup:tools is platform-aware:
 - Windows uses the pinned Piper Windows archive and Whisper Windows binary.
-- Linux downloads the Piper Linux x86_64 archive and builds whisper.cpp from pinned source tag `b5454` with CMake. Voice models and the base.en Whisper model are downloaded into gitignored `tools/`.
-- `npm run tools:check` exercises Piper → FFmpeg → whisper.cpp. The deploy helper runs this check on the VPS.
+- Linux downloads the Piper Linux x86_64 archive and builds whisper.cpp from pinned source tag b5454 with CMake. Voice models and the base.en Whisper model are downloaded into gitignored tools/.
+- npm run tools:check exercises Piper → FFmpeg → whisper.cpp. The deploy helper runs this check on the VPS.
 
-Never commit `.env`, API keys, OAuth tokens, SSH private keys, `node_modules/`, `tools/`, caches or temporary render chunks. Restore secrets separately from a secure backup. Project assets and all final media remain in the complete VPS project folder until the user pulls the archive to Windows; cloud object storage is not required.
+Never commit .env, API keys, OAuth tokens, SSH private keys, node_modules/, tools/, caches or temporary render chunks. Restore secrets separately from a secure backup. Project assets and all final media remain in the complete VPS project folder until the user pulls the archive to Windows; cloud object storage is not required.
 
 ### Rendering workflow
 
-1. Edit the key project docs/manifests and source files.
+1. Edit key project docs/manifests and source files.
 2. Push a Source checkpoint to GitHub.
 3. Render previews on the VPS and push the Preview checkpoint (Git LFS) before asking the owner to review.
 4. Iterate until the owner approves a specific preview.
-5. Render final on the VPS, run QC, then push the Final checkpoint with `--owner-approved`.
+5. Render final on the VPS, run QC, obtain owner approval, then push the Final checkpoint with --owner-approved.
 6. Pull the entire project folder to Windows and verify the archive before considering the VPS copy disposable.
 7. Upload to YouTube only after explicit human approval; no automatic upload.
 
-The repository currently contains the render engine and infrastructure scripts, not a dashboard web app/API, authentication roles or background queue. Do not claim the dashboard is deployed until its source is added and verified.
+The VPS scripts and dashboard are committed but have not yet been executed or runtime-tested on the actual server.
 
 ## Layout of the repo
 
