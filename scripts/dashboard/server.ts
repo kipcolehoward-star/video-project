@@ -267,7 +267,7 @@ async function runQueue() {
           fingerprint = await projectFingerprint(job.projectId);
           commit = await currentCommit();
           if (!approval || !final || final.name !== approval.file || final.size !== approval.size || final.mtimeMs !== approval.mtimeMs ||
-              await hashFile(final.full) !== approval.sha256 || approval.projectFingerprint !== fingerprint || approval.gitCommit !== commit) {
+              await hashFile(final.full) !== approval.sha256 || approval.projectFingerprint !== fingerprint || approval.gitCommit !== commit || !(await frameworkIsClean())) {
             preflightError = 'Final output or source changed after approval. Run QC and obtain owner approval again.';
           }
         }
@@ -449,7 +449,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
         const fingerprint = await projectFingerprint(projectId);
         const commit = await currentCommit();
         if (!approved || !final || final.name !== approved.file || final.size !== approved.size || final.mtimeMs !== approved.mtimeMs ||
-            await hashFile(final.full) !== approved.sha256 || fingerprint !== approved.projectFingerprint || commit !== approved.gitCommit) {
+            await hashFile(final.full) !== approved.sha256 || fingerprint !== approved.projectFingerprint || commit !== approved.gitCommit || !(await frameworkIsClean())) {
           return json(res, 409, {error: 'Final output must be QC-checked and owner-approved before checkpointing.'});
         }
       }
