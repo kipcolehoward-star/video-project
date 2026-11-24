@@ -24,9 +24,9 @@
     "stamp": { "asset": "px-mouse-click", "gainDb": -4 }
   },
   "audio": {
-    "provider": "kokoro",
-    "voice": "am_liam",
-    "speed": 0.90,
+    "provider": "elevenlabs",
+    "voice": "TxGEqHOMOunjEBg06JlJ",
+    "model": "eleven_multilingual_v2",
     "music": null,
     "musicDb": -16,
     "duckDb": -12,
