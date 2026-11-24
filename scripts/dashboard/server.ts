@@ -379,7 +379,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
   if (url.pathname.startsWith('/api/')) {
     if (req.method === 'POST' && !checkOrigin(req)) return json(res, 403, {error: 'Origin rejected.'});
     if (req.method === 'POST' && url.pathname === '/api/login') {
-      const ip = req.socket.remoteAddress || 'unknown';
+      const ip = (req.headers['x-forwarded-for']?.toString().split(',')[0].trim()) || req.socket.remoteAddress || 'unknown';
       let failure = loginFailures.get(ip);
       if (failure && Date.now() - failure.firstAt > 15 * 60 * 1000) { loginFailures.delete(ip); failure = undefined; }
       if (failure && failure.blockedUntil > Date.now()) return json(res, 429, {error: 'Too many login attempts. Try again later.'});
