@@ -43,7 +43,7 @@ if ! command -v node >/dev/null || [ "$(node -p 'process.versions.node.split("."
 fi
 
 say "Install pinned FFmpeg 9.0.1 Linux x86_64 GPL static build"
-if command -v ffmpeg >/dev/null 2>&1 && ffmpeg -version | head -1 | grep -q '9\\.0\\.1' &&
+if command -v ffmpeg >/dev/null 2>&1 && ffmpeg -version | head -1 | grep -q '9\.0\.1' &&
    ffmpeg -hide_banner -filters 2>/dev/null | grep -qw loudnorm &&
    ffmpeg -hide_banner -filters 2>/dev/null | grep -qw ebur128 &&
    ffmpeg -hide_banner -filters 2>/dev/null | grep -qw sidechaincompress &&
