@@ -417,7 +417,7 @@
             "ease": "snap"
           },
           {
-            "at": "locked",
+            "at": "locks",
             "lon": 72,
             "lat": 37,
             "zoom": 6,
@@ -449,7 +449,7 @@
             "lon": 72,
             "lat": 37,
             "size": "big",
-            "on": "locked",
+            "on": "locks",
             "color": "gold"
           }
         ],
