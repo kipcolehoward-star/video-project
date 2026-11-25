@@ -11,17 +11,58 @@
   "style": "kinetic",
   "captionStyle": "kinetic",
   "sfxKit": {
-    "pop": { "asset": "px-notification", "gainDb": -3 },
-    "slam": { "asset": "px-notification", "gainDb": -6 },
-    "swish": { "asset": "px-whoosh-flutter", "gainDb": -3 },
-    "click": { "asset": "px-mouse-click", "gainDb": -3 },
-    "whoosh": { "asset": "px-whoosh-flutter", "gainDb": -2, "fit": { "peak": 0.25, "span": 0.5 } },
-    "pulse": { "asset": "px-notification", "gainDb": -7 },
-    "paper": { "asset": "px-mouse-click", "gainDb": -7 },
-    "tick": { "asset": "px-mouse-click", "gainDb": -5 },
-    "thud": { "asset": "px-mouse-click", "gainDb": -7 },
-    "flip": { "asset": "px-mouse-click", "gainDb": -3 },
-    "stamp": { "asset": "px-mouse-click", "gainDb": -4 }
+    "pop": {
+      "asset": "px-notification",
+      "gainDb": -3
+    },
+    "slam": {
+      "asset": "px-notification",
+      "gainDb": -6
+    },
+    "swish": {
+      "asset": "px-whoosh-flutter",
+      "gainDb": -3
+    },
+    "click": {
+      "asset": "px-mouse-click",
+      "gainDb": -3
+    },
+    "whoosh": {
+      "asset": "px-whoosh-flutter",
+      "gainDb": -2,
+      "fit": {
+        "peak": 0.25,
+        "span": 0.5
+      }
+    },
+    "pulse": {
+      "asset": "px-notification",
+      "gainDb": -7
+    },
+    "paper": {
+      "asset": "px-mouse-click",
+      "gainDb": -7
+    },
+    "tick": {
+      "asset": "px-mouse-click",
+      "gainDb": -5
+    },
+    "thud": {
+      "asset": "px-mouse-click",
+      "gainDb": -7
+    },
+    "flip": {
+      "asset": "px-mouse-click",
+      "gainDb": -3
+    },
+    "stamp": {
+      "asset": "px-mouse-click",
+      "gainDb": -4
+    },
+    "ping": {
+      "asset": "px-notification",
+      "gainDb": -7
+    }
   },
   "audio": {
     "provider": "elevenlabs",
