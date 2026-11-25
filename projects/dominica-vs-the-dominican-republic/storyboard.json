@@ -584,7 +584,7 @@
             "lon": -65,
             "lat": 17,
             "zoom": 3.5,
-            "pitch": 0,
+            "pitch": 1,
             "bearing": 0
           }
         ],
