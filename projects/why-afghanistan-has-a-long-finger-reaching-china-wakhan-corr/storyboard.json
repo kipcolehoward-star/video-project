@@ -52,7 +52,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     },
     {
       "id": "s2-answer",
@@ -114,7 +115,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     },
     {
       "id": "s3-loop",
@@ -173,7 +175,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     },
     {
       "id": "s4-conventions",
@@ -253,7 +256,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     },
     {
       "id": "s5-aside",
@@ -314,7 +318,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     },
     {
       "id": "s6-distance",
@@ -383,7 +388,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     },
     {
       "id": "s7-durand",
@@ -454,7 +460,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     },
     {
       "id": "s8-twist",
@@ -522,7 +529,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     },
     {
       "id": "s9-punchline",
@@ -594,7 +602,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     },
     {
       "id": "s10-loop",
@@ -630,7 +639,8 @@
           "tint": false,
           "depth": true
         }
-      }
+      },
+      "sfx": []
     }
   ]
 }
