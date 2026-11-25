@@ -1,0 +1,37 @@
+{
+  "id": "why-afghanistan-has-a-long-finger-reaching-china-wakhan-corr",
+  "title": "Why Afghanistan has a long finger reaching China (Wakhan Corridor)",
+  "video": {
+    "format": "9:16",
+    "fps": 30,
+    "duration": null
+  },
+  "safeZoneProfile": "auto",
+  "theme": "geo",
+  "style": "kinetic",
+  "captionStyle": "kinetic",
+  "sfxKit": {
+    "pop": { "asset": "px-notification", "gainDb": -3 },
+    "slam": { "asset": "px-notification", "gainDb": -6 },
+    "swish": { "asset": "px-whoosh-flutter", "gainDb": -3 },
+    "click": { "asset": "px-mouse-click", "gainDb": -3 },
+    "whoosh": { "asset": "px-whoosh-flutter", "gainDb": -2, "fit": { "peak": 0.25, "span": 0.5 } },
+    "pulse": { "asset": "px-notification", "gainDb": -7 },
+    "paper": { "asset": "px-mouse-click", "gainDb": -7 },
+    "tick": { "asset": "px-mouse-click", "gainDb": -5 },
+    "thud": { "asset": "px-mouse-click", "gainDb": -7 },
+    "flip": { "asset": "px-mouse-click", "gainDb": -3 },
+    "stamp": { "asset": "px-mouse-click", "gainDb": -4 }
+  },
+  "audio": {
+    "provider": "elevenlabs",
+    "voice": "pNInz6obpgDQGcFmaJgB",
+    "model": "eleven_multilingual_v2",
+    "music": null,
+    "musicDb": -16,
+    "duckDb": -12,
+    "targetLufs": -14,
+    "truePeak": -1.5,
+    "maxPause": 0.2
+  }
+}

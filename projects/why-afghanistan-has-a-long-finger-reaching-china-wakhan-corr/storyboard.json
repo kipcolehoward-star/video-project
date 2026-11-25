@@ -1,0 +1,215 @@
+{
+  "scenes": [
+    {
+      "id": "s1-hook",
+      "type": "glmap",
+      "duration": 1.5,
+      "narration": "Afghanistan has a 350 km finger touching China. Why?",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 70, "lat": 35, "zoom": 3, "pitch": 0, "bearing": 0 },
+          { "at": "finger", "lon": 72, "lat": 37, "zoom": 4, "pitch": 35, "bearing": 10, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Afghanistan", "flag": "af", "on": 0, "color": "gold" },
+          { "do": "label", "text": "FINGER TO CHINA?", "lon": 72, "lat": 37, "size": "hero", "on": "finger", "color": "gold" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s2-answer",
+      "type": "glmap",
+      "duration": 1.5,
+      "narration": "It was a buffer zone between two empires that never actually fought there.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 60, "lat": 30, "zoom": 3, "pitch": 30, "bearing": 350 },
+          { "at": "buffer", "lon": 60, "lat": 30, "zoom": 4, "pitch": 40, "bearing": 340, "move": 1.2, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Afghanistan", "flag": "af", "on": 0, "color": "gold" },
+          { "do": "stamp", "text": "BUFFER ZONE", "place": "top", "on": "buffer", "color": "gold" },
+          { "do": "label", "text": "GREAT GAME 1873", "lon": 65, "lat": 32, "size": "big", "on": "buffer", "color": "gold", "ink": "dark" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s3-loop",
+      "type": "glmap",
+      "duration": 1,
+      "narration": "How did a 350 km panhandle end up in one of the world's most remote places?",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 72, "lat": 37, "zoom": 4, "pitch": 40, "bearing": 15 },
+          { "at": "how", "lon": 72, "lat": 37, "zoom": 5.5, "pitch": 45, "bearing": 20, "move": 1, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Afghanistan", "flag": "af", "on": 0, "color": "red" },
+          { "do": "pulse", "name": "Afghanistan", "on": "how" },
+          { "do": "label", "text": "HOW?", "lon": 72, "lat": 37, "size": "hero", "on": "how", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s4-conventions",
+      "type": "glmap",
+      "duration": 3,
+      "narration": "1873 — British and Russian Empires agree: keep a neutral strip between them. Afghanistan gets a finger. Neither empire ever sends troops.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 60, "lat": 30, "zoom": 4, "pitch": 35, "bearing": 0 },
+          { "at": "1873", "lon": 72, "lat": 37, "zoom": 5, "pitch": 40, "bearing": 10, "move": 1.5, "ease": "glide" },
+          { "at": "never", "lon": 72, "lat": 37, "zoom": 5, "pitch": 40, "bearing": 350, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Afghanistan", "flag": "af", "on": 0, "color": "gold" },
+          { "do": "label", "text": "1873 AGREEMENT", "lon": 65, "lat": 32, "size": "big", "on": "1873", "color": "gold" },
+          { "do": "label", "text": "NEVER SENDS TROOPS", "lon": 72, "lat": 37, "size": "big", "on": "never", "color": "red" },
+          { "do": "stamp", "text": "BUFFER ZONE", "place": "top", "on": "1873", "color": "gold" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s5-aside",
+      "type": "glmap",
+      "duration": 1.5,
+      "narration": "No roads. No internet. Just yaks and 4,000 metre passes.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 72, "lat": 37, "zoom": 5, "pitch": 45, "bearing": 30 },
+          { "at": "yaks", "lon": 72, "lat": 37, "zoom": 6, "pitch": 50, "bearing": 35, "move": 1.2, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Afghanistan", "flag": "af", "on": 0, "color": "gold" },
+          { "do": "label", "text": "NO ROADS. NO INTERNET. JUST YAKS.", "lon": 72, "lat": 37, "size": "hero", "on": "yaks", "color": "gold" },
+          { "do": "strike", "place": "top", "shift": 0.1, "size": 1.2, "on": "passes" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s6-distance",
+      "type": "glmap",
+      "duration": 3,
+      "narration": "Seventy-six kilometres to China. Twelve thousand Wakhi and Kyrgyz. No roads. No internet. Just yaks and 4,000 metre passes.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 70, "lat": 37, "zoom": 3, "pitch": 20, "bearing": 90 },
+          { "at": "China", "lon": 74, "lat": 37, "zoom": 4, "pitch": 30, "bearing": 80, "move": 1.5, "ease": "glide" },
+          { "at": "Kyrgyz", "lon": 74, "lat": 37, "zoom": 5, "pitch": 40, "bearing": 70, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "measure", "from": [72, 37], "to": [74, 37], "text": "76 km", "on": "China", "color": "gold" },
+          { "do": "stamp", "text": "12,000 PEOPLE", "place": "top", "on": "Kyrgyz", "color": "gold" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s7-durand",
+      "type": "glmap",
+      "duration": 2,
+      "narration": "1893 — Durand Line locks it in. Britain draws the line. Afghanistan keeps the finger. China gets 76 km of border.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 72, "lat": 37, "zoom": 4.5, "pitch": 35, "bearing": 270 },
+          { "at": "1893", "lon": 72, "lat": 37, "zoom": 5.5, "pitch": 45, "bearing": 260, "move": 1.2, "ease": "snap" },
+          { "at": "locked", "lon": 72, "lat": 37, "zoom": 6, "pitch": 50, "bearing": 250, "move": 1, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Afghanistan", "flag": "af", "on": 0, "color": "red" },
+          { "do": "stamp", "text": "1893 DURAND LINE", "place": "top", "on": "1893", "color": "red" },
+          { "do": "label", "text": "FINGER LOCKED", "lon": 72, "lat": 37, "size": "big", "on": "locked", "color": "gold" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s8-twist",
+      "type": "glmap",
+      "duration": 2,
+      "narration": "The twist — China and Russia agreed on borders here. But neither wanted a road through it. Still empty.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 74, "lat": 37, "zoom": 4, "pitch": 30, "bearing": 0 },
+          { "at": "twist", "lon": 74, "lat": 37, "zoom": 5, "pitch": 40, "bearing": 10, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "China", "flag": "cn", "on": 0, "color": "gold" },
+          { "do": "ring", "lon": 74, "lat": 37, "radius": 300, "on": "twist", "color": "gold" },
+          { "do": "label", "text": "NEITHER USED IT", "lon": 74, "lat": 37, "size": "hero", "on": "twist", "color": "gold", "ink": "dark" },
+          { "do": "pulse", "name": "China", "on": "empty" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s9-punchline",
+      "type": "glmap",
+      "duration": 2,
+      "narration": "The Great Game's most pointless border. Still there. Still empty.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 74, "lat": 37, "zoom": 5, "pitch": 40, "bearing": 0 },
+          { "at": "pointless", "lon": 74, "lat": 37, "zoom": 6.5, "pitch": 50, "bearing": 15, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Afghanistan", "flag": "af", "on": 0, "color": "gold" },
+          { "do": "subscribe", "asset": "asset:ov-subscribe", "place": "top", "width": 0.85, "hit": 1.15, "on": "pointless" },
+          { "do": "label", "text": "POINTLESS BORDER", "lon": 74, "lat": 37, "size": "hero", "on": "pointless", "color": "gold" },
+          { "do": "label", "text": "STILL THERE. STILL EMPTY.", "lon": 74, "lat": 37.3, "size": "big", "on": "empty", "color": "gold", "ink": "dark" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s10-loop",
+      "type": "glmap",
+      "duration": 1,
+      "narration": "And to this day...",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": 70, "lat": 35, "zoom": 3, "pitch": 0, "bearing": 0 }
+        ],
+        "drift": 0,
+        "beats": [
+          { "do": "highlight", "name": "Afghanistan", "flag": "af", "on": 0, "off": "day", "color": "gold" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    }
+  ]
+}
