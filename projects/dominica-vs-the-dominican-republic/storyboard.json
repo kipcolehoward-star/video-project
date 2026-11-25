@@ -1,0 +1,203 @@
+{
+  "scenes": [
+    {
+      "id": "s1-hook",
+      "type": "glmap",
+      "duration": 1.5,
+      "narration": "Dominica and the Dominican Republic. Same name, completely different countries.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": -61.3, "lat": 15.4, "zoom": 4, "pitch": 0, "bearing": 0 },
+          { "at": "Dominica", "lon": -61.3, "lat": 15.4, "zoom": 5, "pitch": 35, "bearing": 10, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Dominica", "flag": "dm", "on": 0, "color": "gold" },
+          { "do": "strike", "text": "NOT THE SAME", "place": "top", "on": "same", "color": "red" },
+          { "do": "highlight", "name": "Dominican Republic", "flag": "do", "on": "Dominican", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s2-answer",
+      "type": "glmap",
+      "duration": 1.5,
+      "narration": "One's a tiny English-speaking island. The other's a massive Spanish-speaking nation. They're not even on the same island.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": -61.3, "lat": 15.4, "zoom": 5, "pitch": 30, "bearing": 350 },
+          { "at": "tiny", "lon": -61.3, "lat": 15.4, "zoom": 6, "pitch": 40, "bearing": 10, "move": 1.2, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Dominica", "flag": "dm", "on": 0, "color": "gold" },
+          { "do": "label", "text": "750 km², 72K, ENGLISH", "lon": -61.3, "lat": 15.4, "size": "big", "on": "tiny", "color": "gold" },
+          { "do": "highlight", "name": "Dominican Republic", "flag": "do", "on": "massive", "color": "red" },
+          { "do": "label", "text": "48,671 km², 10.8M, SPANISH", "lon": -70, "lat": 19, "size": "big", "on": "massive", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s3-loop",
+      "type": "glmap",
+      "duration": 1,
+      "narration": "How did two countries end up with almost the same name?",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": -68, "lat": 18, "zoom": 4, "pitch": 40, "bearing": 15 },
+          { "at": "name", "lon": -68, "lat": 18, "zoom": 5.5, "pitch": 45, "bearing": 20, "move": 1, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Dominica", "flag": "dm", "on": 0, "color": "red" },
+          { "do": "highlight", "name": "Dominican Republic", "flag": "do", "on": 0, "color": "red" },
+          { "do": "pulse", "name": "Dominica", "on": "name" },
+          { "do": "label", "text": "SAME NAME?", "lon": -68, "lat": 18, "size": "hero", "on": "name", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s4-columbus",
+      "type": "glmap",
+      "duration": 3,
+      "narration": "Columbus spots an island on a Sunday, November 3, 1493. Names it Dominica. Three years later, his brother founds Santo Domingo on Hispaniola. That becomes the Dominican Republic.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": -61.3, "lat": 15.4, "zoom": 5, "pitch": 35, "bearing": 0 },
+          { "at": "Sunday", "lon": -61.3, "lat": 15.4, "zoom": 6, "pitch": 40, "bearing": 10, "move": 1.5, "ease": "glide" },
+          { "at": "Santo", "lon": -70, "lat": 18.5, "zoom": 5, "pitch": 40, "bearing": 350, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Dominica", "flag": "dm", "on": 0, "color": "gold" },
+          { "do": "stamp", "text": "DOMINICA", "place": "top", "on": "Sunday", "color": "gold" },
+          { "do": "label", "text": "COLUMBUS 1493", "lon": -61.3, "lat": 15.4, "size": "big", "on": "Sunday", "color": "gold" },
+          { "do": "highlight", "name": "Dominican Republic", "flag": "do", "on": "Santo", "color": "red" },
+          { "do": "stamp", "text": "DOMINICAN REPUBLIC", "place": "top", "on": "Santo", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s5-aside",
+      "type": "glmap",
+      "duration": 1.5,
+      "narration": "One has 150 times the population. 65 times the size. Guess which is which.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": -61.3, "lat": 15.4, "zoom": 5, "pitch": 45, "bearing": 30 },
+          { "at": "150", "lon": -61.3, "lat": 15.4, "zoom": 6, "pitch": 50, "bearing": 35, "move": 1.2, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Dominica", "flag": "dm", "on": 0, "color": "gold" },
+          { "do": "label", "text": "150x POPULATION, 65x SIZE", "lon": -61.3, "lat": 15.4, "size": "hero", "on": "150", "color": "gold" },
+          { "do": "strike", "place": "top", "shift": 0.1, "size": 1.2, "on": "which" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s6-divergence",
+      "type": "glmap",
+      "duration": 3,
+      "narration": "Dominica flips between French and British, independent 1978. Dominican Republic: Haitian occupation, then independence 1844. Two different histories, two different worlds.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": -61.3, "lat": 15.4, "zoom": 4.5, "pitch": 35, "bearing": 0 },
+          { "at": "French", "lon": -61.3, "lat": 15.4, "zoom": 5.5, "pitch": 40, "bearing": 10, "move": 1.5, "ease": "glide" },
+          { "at": "Haitian", "lon": -70, "lat": 19, "zoom": 5.5, "pitch": 40, "bearing": 350, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Dominica", "flag": "dm", "on": 0, "color": "gold" },
+          { "do": "label", "text": "FRENCH → BRITISH", "lon": -61.3, "lat": 15.4, "size": "big", "on": "French", "color": "gold" },
+          { "do": "stamp", "text": "INDEPENDENCE 1978", "place": "top", "on": "French", "color": "gold" },
+          { "do": "highlight", "name": "Dominican Republic", "flag": "do", "on": "Haitian", "color": "red" },
+          { "do": "label", "text": "HAITI OCCUPATION", "lon": -70, "lat": 19, "size": "big", "on": "Haitian", "color": "red" },
+          { "do": "stamp", "text": "INDEPENDENCE 1844", "place": "top", "on": "Haitian", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s7-twist",
+      "type": "glmap",
+      "duration": 2,
+      "narration": "The twist — Dominica's capital is Roseau. Dominican Republic's capital is Santo Domingo. Neither is actually called Dominica.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": -61.3, "lat": 15.4, "zoom": 5, "pitch": 30, "bearing": 0 },
+          { "at": "twist", "lon": -70, "lat": 18.5, "zoom": 5, "pitch": 40, "bearing": 10, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Dominica", "flag": "dm", "on": 0, "color": "gold" },
+          { "do": "ring", "lon": -61.3, "lat": 15.3, "radius": 200, "on": "twist", "color": "gold" },
+          { "do": "label", "text": "ROSEAU", "lon": -61.3, "lat": 15.3, "size": "big", "on": "twist", "color": "gold", "ink": "dark" },
+          { "do": "pulse", "name": "Dominica", "on": "Santo" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s8-punchline",
+      "type": "glmap",
+      "duration": 2,
+      "narration": "Same root word. Two different worlds. And no, they don't play each other in soccer.",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": -68, "lat": 18, "zoom": 3.5, "pitch": 20, "bearing": 0 },
+          { "at": "same", "lon": -68, "lat": 18, "zoom": 4.5, "pitch": 30, "bearing": 10, "move": 1.5, "ease": "snap" }
+        ],
+        "drift": 0.02,
+        "beats": [
+          { "do": "highlight", "name": "Dominica", "flag": "dm", "on": 0, "color": "gold" },
+          { "do": "highlight", "name": "Dominican Republic", "flag": "do", "on": 0, "color": "red" },
+          { "do": "subscribe", "asset": "asset:ov-subscribe", "place": "top", "width": 0.85, "hit": 1.15, "on": "same" },
+          { "do": "label", "text": "NOT THE SAME", "lon": -68, "lat": 18, "size": "hero", "on": "same", "color": "gold" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    },
+    {
+      "id": "s9-loop",
+      "type": "glmap",
+      "duration": 1,
+      "narration": "And to this day...",
+      "data": {
+        "camera": [
+          { "at": 0, "lon": -65, "lat": 17, "zoom": 3.5, "pitch": 0, "bearing": 0 }
+        ],
+        "drift": 0,
+        "beats": [
+          { "do": "highlight", "name": "Dominica", "flag": "dm", "on": 0, "off": "day", "color": "gold" },
+          { "do": "highlight", "name": "Dominican Republic", "flag": "do", "on": 0, "off": "day", "color": "red" }
+        ],
+        "palette": "dusk",
+        "imagery": true,
+        "terrain": { "relief": 0.3, "tint": false, "depth": true }
+      }
+    }
+  ]
+}
+EOF
